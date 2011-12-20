@@ -1,0 +1,36 @@
+#gitignore for AnsiLove/ObjC
+
+# Mac OS X Finder
+.DS_Store
+
+# Xcode per user config
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+
+# Xcode 4
+xcuserdata/
+project.xcworkspace/
+
+# Generated files
+VersionX-revision.h
+
+# build products
+build/
+*.[oa]
+
+# Other source repository archive directories
+.hg
+.svn
+CVS
+# automatic backup files
+*~.nib
+*.swp
+*~
+*(Autosaved).rtfd/
+Backup[ ]of[ ]*.pages/
+Backup[ ]of[ ]*.key/
+Backup[ ]of[ ]*.numbers/

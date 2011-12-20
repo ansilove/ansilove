@@ -1,0 +1,276 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F8AE164214A130FE00393A1C /* ansilove.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163914A130FE00393A1C /* ansilove.m */; };
+		F8AE164314A130FE00393A1C /* load_adf.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163A14A130FE00393A1C /* load_adf.m */; };
+		F8AE164414A130FE00393A1C /* load_ansi.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163B14A130FE00393A1C /* load_ansi.m */; };
+		F8AE164514A130FE00393A1C /* load_binary.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163C14A130FE00393A1C /* load_binary.m */; };
+		F8AE164614A130FE00393A1C /* load_idf.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163D14A130FE00393A1C /* load_idf.m */; };
+		F8AE164714A130FE00393A1C /* load_pcboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163E14A130FE00393A1C /* load_pcboard.m */; };
+		F8AE164814A130FE00393A1C /* load_tundra.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163F14A130FE00393A1C /* load_tundra.m */; };
+		F8AE164914A130FE00393A1C /* load_xbin.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164014A130FE00393A1C /* load_xbin.m */; };
+		F8AE164A14A130FE00393A1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.m */; };
+		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
+		F8D6327F14A08C0F00C5352F /* old_main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D6327E14A08C0F00C5352F /* old_main.m */; };
+		F8D6328314A08C0F00C5352F /* ansilove.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D6328214A08C0F00C5352F /* ansilove.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F8D6327514A08C0F00C5352F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				F8D6328314A08C0F00C5352F /* ansilove.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F8AE163914A130FE00393A1C /* ansilove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ansilove.m; path = ansilove/ansilove.m; sourceTree = "<group>"; };
+		F8AE163A14A130FE00393A1C /* load_adf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_adf.m; path = ansilove/load_adf.m; sourceTree = "<group>"; };
+		F8AE163B14A130FE00393A1C /* load_ansi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_ansi.m; path = ansilove/load_ansi.m; sourceTree = "<group>"; };
+		F8AE163C14A130FE00393A1C /* load_binary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_binary.m; path = ansilove/load_binary.m; sourceTree = "<group>"; };
+		F8AE163D14A130FE00393A1C /* load_idf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_idf.m; path = ansilove/load_idf.m; sourceTree = "<group>"; };
+		F8AE163E14A130FE00393A1C /* load_pcboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_pcboard.m; path = ansilove/load_pcboard.m; sourceTree = "<group>"; };
+		F8AE163F14A130FE00393A1C /* load_tundra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_tundra.m; path = ansilove/load_tundra.m; sourceTree = "<group>"; };
+		F8AE164014A130FE00393A1C /* load_xbin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_xbin.m; path = ansilove/load_xbin.m; sourceTree = "<group>"; };
+		F8AE164114A130FE00393A1C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ansilove/main.m; sourceTree = "<group>"; };
+		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F8D6327E14A08C0F00C5352F /* old_main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = old_main.m; sourceTree = "<group>"; };
+		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
+		F8D6328214A08C0F00C5352F /* ansilove.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ansilove.1; sourceTree = "<group>"; };
+		F8D6328D14A0920900C5352F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ansilove/config.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F8D6327414A08C0F00C5352F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F8D6326C14A08C0F00C5352F = {
+			isa = PBXGroup;
+			children = (
+				F8D6328D14A0920900C5352F /* config.h */,
+				F8AE164114A130FE00393A1C /* main.m */,
+				F8AE163914A130FE00393A1C /* ansilove.m */,
+				F8AE163A14A130FE00393A1C /* load_adf.m */,
+				F8AE163B14A130FE00393A1C /* load_ansi.m */,
+				F8AE163C14A130FE00393A1C /* load_binary.m */,
+				F8AE163D14A130FE00393A1C /* load_idf.m */,
+				F8AE163E14A130FE00393A1C /* load_pcboard.m */,
+				F8AE163F14A130FE00393A1C /* load_tundra.m */,
+				F8AE164014A130FE00393A1C /* load_xbin.m */,
+				F8D6327D14A08C0F00C5352F /* Classes */,
+				F8D6327A14A08C0F00C5352F /* Frameworks */,
+				F8D6327814A08C0F00C5352F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F8D6327814A08C0F00C5352F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8D6327714A08C0F00C5352F /* ansilove */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8D6327A14A08C0F00C5352F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8D6327B14A08C0F00C5352F /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8D6327D14A08C0F00C5352F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F8D6328214A08C0F00C5352F /* ansilove.1 */,
+				F8D6327E14A08C0F00C5352F /* old_main.m */,
+				F8D6328014A08C0F00C5352F /* Supporting Files */,
+			);
+			name = Classes;
+			path = ansilove;
+			sourceTree = "<group>";
+		};
+		F8D6328014A08C0F00C5352F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F8D6327614A08C0F00C5352F /* ansilove */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8D6328614A08C0F00C5352F /* Build configuration list for PBXNativeTarget "ansilove" */;
+			buildPhases = (
+				F8D6327314A08C0F00C5352F /* Sources */,
+				F8D6327414A08C0F00C5352F /* Frameworks */,
+				F8D6327514A08C0F00C5352F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ansilove;
+			productName = ansilove;
+			productReference = F8D6327714A08C0F00C5352F /* ansilove */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8D6326E14A08C0F00C5352F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = F8D6327114A08C0F00C5352F /* Build configuration list for PBXProject "ansilove" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F8D6326C14A08C0F00C5352F;
+			productRefGroup = F8D6327814A08C0F00C5352F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F8D6327614A08C0F00C5352F /* ansilove */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F8D6327314A08C0F00C5352F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D6327F14A08C0F00C5352F /* old_main.m in Sources */,
+				F8AE164214A130FE00393A1C /* ansilove.m in Sources */,
+				F8AE164314A130FE00393A1C /* load_adf.m in Sources */,
+				F8AE164414A130FE00393A1C /* load_ansi.m in Sources */,
+				F8AE164514A130FE00393A1C /* load_binary.m in Sources */,
+				F8AE164614A130FE00393A1C /* load_idf.m in Sources */,
+				F8AE164714A130FE00393A1C /* load_pcboard.m in Sources */,
+				F8AE164814A130FE00393A1C /* load_tundra.m in Sources */,
+				F8AE164914A130FE00393A1C /* load_xbin.m in Sources */,
+				F8AE164A14A130FE00393A1C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F8D6328414A08C0F00C5352F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F8D6328514A08C0F00C5352F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F8D6328714A08C0F00C5352F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8D6328814A08C0F00C5352F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F8D6327114A08C0F00C5352F /* Build configuration list for PBXProject "ansilove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8D6328414A08C0F00C5352F /* Debug */,
+				F8D6328514A08C0F00C5352F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8D6328614A08C0F00C5352F /* Build configuration list for PBXNativeTarget "ansilove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8D6328714A08C0F00C5352F /* Debug */,
+				F8D6328814A08C0F00C5352F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F8D6326E14A08C0F00C5352F /* Project object */;
+}
