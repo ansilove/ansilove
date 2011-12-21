@@ -1,6 +1,6 @@
 //
 //  load_adf.m
-//  AnsiLove/ObjC
+//  AnsiLove/C
 //
 //  Copyright (c) 2011, Stefan Vogt. All rights reserved.
 //  http://byteproject.net
