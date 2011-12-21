@@ -19,6 +19,8 @@
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
 		F8D6327F14A08C0F00C5352F /* old_main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D6327E14A08C0F00C5352F /* old_main.m */; };
 		F8D6328314A08C0F00C5352F /* ansilove.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D6328214A08C0F00C5352F /* ansilove.1 */; };
+		F8FBC5BB14A1DE640034BF83 /* strtolower.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5BA14A1DE640034BF83 /* strtolower.m */; };
+		F8FBC5C314A1E2900034BF83 /* substr.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5C214A1E2900034BF83 /* substr.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,21 +37,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F8AE163914A130FE00393A1C /* ansilove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ansilove.m; path = ansilove/ansilove.m; sourceTree = "<group>"; };
-		F8AE163A14A130FE00393A1C /* load_adf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_adf.m; path = ansilove/load_adf.m; sourceTree = "<group>"; };
-		F8AE163B14A130FE00393A1C /* load_ansi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_ansi.m; path = ansilove/load_ansi.m; sourceTree = "<group>"; };
-		F8AE163C14A130FE00393A1C /* load_binary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_binary.m; path = ansilove/load_binary.m; sourceTree = "<group>"; };
-		F8AE163D14A130FE00393A1C /* load_idf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_idf.m; path = ansilove/load_idf.m; sourceTree = "<group>"; };
-		F8AE163E14A130FE00393A1C /* load_pcboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_pcboard.m; path = ansilove/load_pcboard.m; sourceTree = "<group>"; };
-		F8AE163F14A130FE00393A1C /* load_tundra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_tundra.m; path = ansilove/load_tundra.m; sourceTree = "<group>"; };
-		F8AE164014A130FE00393A1C /* load_xbin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = load_xbin.m; path = ansilove/load_xbin.m; sourceTree = "<group>"; };
-		F8AE164114A130FE00393A1C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ansilove/main.m; sourceTree = "<group>"; };
+		F8AE163914A130FE00393A1C /* ansilove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ansilove.m; sourceTree = "<group>"; };
+		F8AE163A14A130FE00393A1C /* load_adf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_adf.m; sourceTree = "<group>"; };
+		F8AE163B14A130FE00393A1C /* load_ansi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_ansi.m; sourceTree = "<group>"; };
+		F8AE163C14A130FE00393A1C /* load_binary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_binary.m; sourceTree = "<group>"; };
+		F8AE163D14A130FE00393A1C /* load_idf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_idf.m; sourceTree = "<group>"; };
+		F8AE163E14A130FE00393A1C /* load_pcboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_pcboard.m; sourceTree = "<group>"; };
+		F8AE163F14A130FE00393A1C /* load_tundra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_tundra.m; sourceTree = "<group>"; };
+		F8AE164014A130FE00393A1C /* load_xbin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = load_xbin.m; sourceTree = "<group>"; };
+		F8AE164114A130FE00393A1C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8D6327E14A08C0F00C5352F /* old_main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = old_main.m; sourceTree = "<group>"; };
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
 		F8D6328214A08C0F00C5352F /* ansilove.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ansilove.1; sourceTree = "<group>"; };
-		F8D6328D14A0920900C5352F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ansilove/config.h; sourceTree = "<group>"; };
+		F8D6328D14A0920900C5352F /* alconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alconfig.h; sourceTree = "<group>"; };
+		F8FBC5B914A1DE640034BF83 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
+		F8FBC5BA14A1DE640034BF83 /* strtolower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = strtolower.m; sourceTree = "<group>"; };
+		F8FBC5C114A1E2900034BF83 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
+		F8FBC5C214A1E2900034BF83 /* substr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = substr.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,17 +73,9 @@
 		F8D6326C14A08C0F00C5352F = {
 			isa = PBXGroup;
 			children = (
-				F8D6328D14A0920900C5352F /* config.h */,
-				F8AE164114A130FE00393A1C /* main.m */,
-				F8AE163914A130FE00393A1C /* ansilove.m */,
-				F8AE163A14A130FE00393A1C /* load_adf.m */,
-				F8AE163B14A130FE00393A1C /* load_ansi.m */,
-				F8AE163C14A130FE00393A1C /* load_binary.m */,
-				F8AE163D14A130FE00393A1C /* load_idf.m */,
-				F8AE163E14A130FE00393A1C /* load_pcboard.m */,
-				F8AE163F14A130FE00393A1C /* load_tundra.m */,
-				F8AE164014A130FE00393A1C /* load_xbin.m */,
 				F8D6327D14A08C0F00C5352F /* Classes */,
+				F8FBC5BC14A1E0B20034BF83 /* PHP additions */,
+				F8D6328014A08C0F00C5352F /* Supporting Files */,
 				F8D6327A14A08C0F00C5352F /* Frameworks */,
 				F8D6327814A08C0F00C5352F /* Products */,
 			);
@@ -102,9 +100,16 @@
 		F8D6327D14A08C0F00C5352F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F8D6328214A08C0F00C5352F /* ansilove.1 */,
-				F8D6327E14A08C0F00C5352F /* old_main.m */,
-				F8D6328014A08C0F00C5352F /* Supporting Files */,
+				F8D6328D14A0920900C5352F /* alconfig.h */,
+				F8AE164114A130FE00393A1C /* main.m */,
+				F8AE163914A130FE00393A1C /* ansilove.m */,
+				F8AE163A14A130FE00393A1C /* load_adf.m */,
+				F8AE163B14A130FE00393A1C /* load_ansi.m */,
+				F8AE163C14A130FE00393A1C /* load_binary.m */,
+				F8AE163D14A130FE00393A1C /* load_idf.m */,
+				F8AE163E14A130FE00393A1C /* load_pcboard.m */,
+				F8AE163F14A130FE00393A1C /* load_tundra.m */,
+				F8AE164014A130FE00393A1C /* load_xbin.m */,
 			);
 			name = Classes;
 			path = ansilove;
@@ -113,9 +118,24 @@
 		F8D6328014A08C0F00C5352F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F8D6327E14A08C0F00C5352F /* old_main.m */,
+				F8D6328214A08C0F00C5352F /* ansilove.1 */,
 				F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = ansilove;
+			sourceTree = "<group>";
+		};
+		F8FBC5BC14A1E0B20034BF83 /* PHP additions */ = {
+			isa = PBXGroup;
+			children = (
+				F8FBC5B914A1DE640034BF83 /* strtolower.h */,
+				F8FBC5BA14A1DE640034BF83 /* strtolower.m */,
+				F8FBC5C114A1E2900034BF83 /* substr.h */,
+				F8FBC5C214A1E2900034BF83 /* substr.m */,
+			);
+			name = "PHP additions";
+			path = ansilove;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +198,8 @@
 				F8AE164814A130FE00393A1C /* load_tundra.m in Sources */,
 				F8AE164914A130FE00393A1C /* load_xbin.m in Sources */,
 				F8AE164A14A130FE00393A1C /* main.m in Sources */,
+				F8FBC5BB14A1DE640034BF83 /* strtolower.m in Sources */,
+				F8FBC5C314A1E2900034BF83 /* substr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
