@@ -17,7 +17,6 @@
 		F8AE164914A130FE00393A1C /* load_xbin.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164014A130FE00393A1C /* load_xbin.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
-		F8D6327F14A08C0F00C5352F /* old_main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D6327E14A08C0F00C5352F /* old_main.m */; };
 		F8D6328314A08C0F00C5352F /* ansilove.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D6328214A08C0F00C5352F /* ansilove.1 */; };
 		F8FBC5BB14A1DE640034BF83 /* strtolower.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5BA14A1DE640034BF83 /* strtolower.c */; };
 		F8FBC5C314A1E2900034BF83 /* substr.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5C214A1E2900034BF83 /* substr.c */; };
@@ -48,7 +47,6 @@
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F8D6327E14A08C0F00C5352F /* old_main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = old_main.m; sourceTree = "<group>"; };
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
 		F8D6328214A08C0F00C5352F /* ansilove.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ansilove.1; sourceTree = "<group>"; };
 		F8D6328D14A0920900C5352F /* alconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alconfig.h; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 		F8D6328014A08C0F00C5352F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F8D6327E14A08C0F00C5352F /* old_main.m */,
 				F8D6328214A08C0F00C5352F /* ansilove.1 */,
 				F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */,
 			);
@@ -188,7 +185,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8D6327F14A08C0F00C5352F /* old_main.m in Sources */,
 				F8AE164214A130FE00393A1C /* ansilove.c in Sources */,
 				F8AE164314A130FE00393A1C /* load_adf.c in Sources */,
 				F8AE164414A130FE00393A1C /* load_ansi.c in Sources */,
