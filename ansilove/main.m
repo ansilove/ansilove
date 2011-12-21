@@ -10,8 +10,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "strtolower.h"
+#import "substr.h"
+#import "alconfig.h"
 #import "ansilove.m"
-#import "config.h"
 
 
 if (!@require_once(dirname(__FILE__).'/ansilove.cfg.php'))
