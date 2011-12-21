@@ -13,4 +13,4 @@
 
 // Returns the portion of a string specified by start and length parameters.
 
-char *substring(const char *str, size_t begin, size_t len);
+char *substr(const char *str, size_t begin, size_t len);

@@ -11,7 +11,7 @@
 
 #import "substr.h"
 
-char *substring(const char *str, size_t begin, size_t len) 
+char *substr(const char *str, size_t begin, size_t len) 
 { 
     if (str == 0 || strlen(str) == 0 || strlen(str) < begin || strlen(str) < (begin+len)) 
         return 0; 
