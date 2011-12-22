@@ -9,7 +9,12 @@
 //  See the file LICENSE for details.
 //
 
+#if defined(__APPLE__) && defined(__MACH__)
 #import <Foundation/Foundation.h>
+#else
+#include <stdio.h> 
+#include <ctype.h> 
+#endif
 
 // In-place modification of a string to be all lower case.
 
