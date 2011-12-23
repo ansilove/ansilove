@@ -10,10 +10,14 @@
 //
 
 #if defined(__APPLE__) && defined(__MACH__)
-#import "strtolower.h"
+#import <Foundation/Foundation.h>
 #else
-#include "strtolower.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h> 
 #endif
+
+// In-place modification of a string to be all lower case.
 
 void strtolower(char str[]) 
 {
