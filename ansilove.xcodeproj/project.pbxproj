@@ -50,9 +50,7 @@
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
 		F8D6328214A08C0F00C5352F /* ansilove.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ansilove.1; sourceTree = "<group>"; };
 		F8D6328D14A0920900C5352F /* alconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alconfig.h; sourceTree = "<group>"; };
-		F8FBC5B914A1DE640034BF83 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F8FBC5BA14A1DE640034BF83 /* strtolower.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strtolower.c; sourceTree = "<group>"; };
-		F8FBC5C114A1E2900034BF83 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F8FBC5C214A1E2900034BF83 /* substr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = substr.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,9 +124,7 @@
 		F8FBC5BC14A1E0B20034BF83 /* PHP additions */ = {
 			isa = PBXGroup;
 			children = (
-				F8FBC5B914A1DE640034BF83 /* strtolower.h */,
 				F8FBC5BA14A1DE640034BF83 /* strtolower.c */,
-				F8FBC5C114A1E2900034BF83 /* substr.h */,
 				F8FBC5C214A1E2900034BF83 /* substr.c */,
 			);
 			name = "PHP additions";
