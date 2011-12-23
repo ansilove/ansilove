@@ -9,12 +9,20 @@
 //  See the file LICENSE for details.
 //
 
+#if defined(__APPLE__) && defined(__MACH__)
 #import <Foundation/Foundation.h>
-#import "strtolower.h"
-#import "substr.h"
 #import "alconfig.h"
-#import "ansilove.m"
-
+#import "strtolower.c"
+#import "substr.c"
+#import "ansilove.c"
+#else
+#include <stdio.h>
+#include <sdlib.h>
+#include "alconfig.h"
+#include "strtolower.c"
+#include "substr.c"
+#include "ansilove.c"
+#endif
 
 if (!@require_once(dirname(__FILE__).'/ansilove.cfg.php'))
 {
