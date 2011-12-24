@@ -9,6 +9,11 @@
 //  See the file LICENSE for details.
 //
 
+#ifndef alconfig_h
+#define alconfig_h
+
+#define VERSION "1.0.0"
+
 #define ANSILOVE_FILES_DIRECTORY "ansis/"
 
 #define ANSILOVE_LOG_FILE "ansilove.log"
@@ -39,3 +44,5 @@
 #define SPLIT "0"
 #define SPLIT_HEIGHT "4096"
 #define SPLIT_SEPARATOR "."
+
+#endif
