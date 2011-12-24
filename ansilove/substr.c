@@ -10,14 +10,10 @@
 //
 
 #if defined(__APPLE__) && defined(__MACH__)
-#import <Foundation/Foundation.h>
+#import "substr.h"
 #else
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h> 
+#include "substr.h"
 #endif
-
-// Returns the portion of a string specified by start and length parameters.
 
 char *substr(const char *str, size_t begin, size_t len) 
 { 
