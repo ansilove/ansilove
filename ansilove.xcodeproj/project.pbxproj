@@ -36,6 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
+		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F8AE163914A130FE00393A1C /* ansilove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ansilove.c; sourceTree = "<group>"; };
 		F8AE163A14A130FE00393A1C /* load_adf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_adf.c; sourceTree = "<group>"; };
 		F8AE163B14A130FE00393A1C /* load_ansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_ansi.c; sourceTree = "<group>"; };
@@ -97,8 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				F8D6328D14A0920900C5352F /* alconfig.h */,
-				F8AE164114A130FE00393A1C /* main.c */,
 				F8AE163914A130FE00393A1C /* ansilove.c */,
+				F8AE164114A130FE00393A1C /* main.c */,
 				F8AE163A14A130FE00393A1C /* load_adf.c */,
 				F8AE163B14A130FE00393A1C /* load_ansi.c */,
 				F8AE163C14A130FE00393A1C /* load_binary.c */,
@@ -124,7 +126,9 @@
 		F8FBC5BC14A1E0B20034BF83 /* PHP additions */ = {
 			isa = PBXGroup;
 			children = (
+				F856F2BD14A559F000E49D60 /* strtolower.h */,
 				F8FBC5BA14A1DE640034BF83 /* strtolower.c */,
+				F856F2BE14A560CC00E49D60 /* substr.h */,
 				F8FBC5C214A1E2900034BF83 /* substr.c */,
 			);
 			name = "PHP additions";
