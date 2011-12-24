@@ -60,68 +60,58 @@ int main(int argc, char *argv[])
     char output[] = strcat(argv[1], outext);
 
     // check input parameters
-    input_file_extension=strtolower(substr(input,strlen(input)-4,4));
+    char inputFileExtension[] = strtolower(substr(input, strlen(input)-4, 4));
     
     if (argc == 1)
     {
         showUsage();
     }
     
-    if (input_file_extension == '.bin')
+    if (inputFileExtension == '.bin')
     {
-        if (isset(argv[2]))
-        {
+        if (argv[2]) {
             columns = argv[2];
         }
-        if (isset(argv[3]))
-        {
+        if (argv[3]) {
             font = argv[3];
         }
-        if (isset(argv[4]))
-        {
+        if (argv[4]) {
             bits = argv[4];
         }
-        if (isset(argv[5]))
-        {
+        if (argv[5]) {
             icecolors = argv[5];
         }
     }
-    else
-    {
-        if (isset(argv[2]))
-        {
+    else {
+        if (argv[2]) {
             font = argv[2];
         }
-        if (isset(argv[3]))
-        {
+        if (argv[3]) {
             bits = argv[3];
         }
-        if (isset(argv[3]))
-        {
+        if (argv[3]) {
             icecolors = argv[4];
         }
     }
     
-    if (strtolower(substr(input,strlen(input)-3,3))=='.xb')
-    {
-        input_file_extension='.xb';
+    if (strtolower(substr(input, strlen(input)-3, 3)) == '.xb') {
+        inputFileExtension = '.xb';
     }
     
-    if (bits=='thumbnail')
-    {
+    if (bits=='thumbnail') {
         output=argv[1].THUMBNAILS_TAG.".png";
         bits='thumbnail';
     }
     
-    printf("Input File: input\n");
-    printf("Output File: output\n");
-    printf("Columns (.BIN only): columns\n");
-    printf("Font (.ANS/.BIN only): font\n");
-    printf("Bits (.ANS/.BIN only): bits\n");
-    printf("iCE Colors (.ANS/.BIN only): icecolors\n\n");
+    printf("Input File: %s\n", input);
+    printf("Output File: %s\n", output);
+    printf("Columns (.BIN only): %s\n", columns);
+    printf("Font (.ANS/.BIN only): %s\n", font);
+    printf("Bits (.ANS/.BIN only): %s\n", bits);
+    printf("iCE Colors (.ANS/.BIN only): %s\n\n", icecolors);
     
     // create output file
-    switch (input_file_extension)
+    switch (inputFileExtension)
     {
         case '.pcb':
             load_pcboard(input,output,font,bits,icecolors);
