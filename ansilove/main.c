@@ -56,14 +56,13 @@ int main(int argc, char *argv[])
     
     char columns[], font[], bits[], icecolors[];
     char input[] = argv[1];
-    char outext[] = ".png";
-    char output[] = strcat(argv[1], outext);
+    char output[];
+    sprintf(output, "%s.png", argv[1]);
 
     // check input parameters
     char inputFileExtension[] = strtolower(substr(input, strlen(input)-4, 4));
     
-    if (argc == 1)
-    {
+    if (argc == 1) {
         showUsage();
     }
     
@@ -98,9 +97,9 @@ int main(int argc, char *argv[])
         inputFileExtension = '.xb';
     }
     
-    if (bits=='thumbnail') {
-        output=argv[1].THUMBNAILS_TAG.".png";
-        bits='thumbnail';
+    if (bits == "thumbnail") {
+        sprintf(output, "%s%s.png", argv[1], THUMBNAILS_TAG)
+        bits = "thumbnail";
     }
     
     printf("Input File: %s\n", input);
