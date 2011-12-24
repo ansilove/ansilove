@@ -12,200 +12,165 @@
 #if defined(__APPLE__) && defined(__MACH__)
 #import <Foundation/Foundation.h>
 #import "alconfig.h"
-#import "strtolower.c"
-#import "substr.c"
-#import "ansilove.c"
+#import "strtolower.h"
+#import "substr.h"
 #else
 #include <stdio.h>
 #include <sdlib.h>
 #include "alconfig.h"
-#include "strtolower.c"
-#include "substr.c"
-#include "ansilove.c"
+#include "strtolower.h"
+#include "substr.h"
 #endif
 
-if (!@require_once(dirname(__FILE__).'/ansilove.cfg.php'))
+// show usage                                                             
+void show_usage(void)
 {
-   echo "ERROR: Can't load Ansilove configuration file.\n\n";
-   exit(-1);
+    printf("USAGE:    ansilove inputfile columns (.BIN only) font bits icecolors\n\n");
+    printf("          Check the README to have details about supported options for each\n");
+    printf("          file format.\n\n");
+    printf("EXAMPLES: ansilove ansi.ans\n");
+    printf("          ansilove ansi.ans 80x25 9 (80x25 font, 9-bit)\n");
+    printf("          ansilove ansi.ans 80x25 thumbnail (80x25 font, thumbnail rendering)\n");
+    printf("          ansilove ansi.ans 80x50 9 (80x50 font, 9-bit)\n");
+    printf("          ansilove ansi.ans russian 9 (Russian font, 9-bit)\n");
+    printf("          ansilove ansi.ans amiga (Amiga font)\n");
+    printf("          ansilove pcboard.pcb\n");
+    printf("          ansilove pcboard.pcb 80x25 9 (80x25 font, 9-bit)\n");
+    printf("          ansilove binary.bin 160\n");
+    printf("          ansilove binary.bin 160 80x25 9 (80x25 font, 9-bit)\n");
+    printf("          ansilove binary.bin 160 80x50 9 (80x50 font, 9-bit)\n");
+    printf("          ansilove adf.adf\n");
+    printf("          ansilove idf.idf\n");
+    printf("          ansilove tundra.tnd\n");
+    printf("          ansilove tundra.tnd 80x25 9 (80x25 font, 9-bit)\n");
+    printf("          ansilove xbin.xb\n\n");
+ 
+    return EXIT_SUCCESS;
 }
 
+// main
+printf("--------------------------------------------------\n");
+printf("AnsiLove/C %s - copyright (C) 2011 Stefan Vogt\n", VERSION);
+printf("--------------------------------------------------\n");
 
+char columns, font, bits, icecolors;
 
-/*****************************************************************************/
-/* SHOW USAGE                                                                */
-/*****************************************************************************/
+input = argv[1];
+output = argv[1].".png";
 
-function show_usage()
-{
-   echo"USAGE:    ansilove inputfile columns (.BIN only) font bits icecolors\n\n";
-   echo"          Check the README to have details about supported options for each\n";
-   echo"          file format.\n\n";
-   echo"EXAMPLES: ansilove ansi.ans\n";
-   echo"          ansilove ansi.ans 80x25 9 (80x25 font, 9-bit)\n";
-   echo"          ansilove ansi.ans 80x25 thumbnail (80x25 font, thumbnail rendering)\n";
-   echo"          ansilove ansi.ans 80x50 9 (80x50 font, 9-bit)\n";
-   echo"          ansilove ansi.ans russian 9 (Russian font, 9-bit)\n";
-   echo"          ansilove ansi.ans amiga (Amiga font)\n";
-   echo"          ansilove pcboard.pcb\n";
-   echo"          ansilove pcboard.pcb 80x25 9 (80x25 font, 9-bit)\n";
-   echo"          ansilove binary.bin 160\n";
-   echo"          ansilove binary.bin 160 80x25 9 (80x25 font, 9-bit)\n";
-   echo"          ansilove binary.bin 160 80x50 9 (80x50 font, 9-bit)\n";
-   echo"          ansilove adf.adf\n";
-   echo"          ansilove idf.idf\n";
-   echo"          ansilove tundra.tnd\n";
-   echo"          ansilove tundra.tnd 80x25 9 (80x25 font, 9-bit)\n";
-   echo"          ansilove xbin.xb\n\n";
-   exit;
-}
+// check input parameters
+input_file_extension=strtolower(substr(input,strlen(input)-4,4));
 
-
-
-/*****************************************************************************/
-/* MAIN                                                                      */
-/*****************************************************************************/
-
-echo "-------------------------------------------------------------------------------\n              AnsiLove/PHP 1.09 (c) by Frederic CAMBUS 2003-2011\n-------------------------------------------------------------------------------\n\n";
-
-if (!require_once(dirname(__FILE__).'/ansilove.php'))
-{
-   echo "ERROR: Can't load Ansilove library.\n\n";
-   exit(-1);
-}
-
-$columns=NULL;
-$font=NULL;
-$bits=NULL;
-$icecolors=NULL;
-
-$input=$argv[1];
-$output=$argv[1].".png";
-
-
-
-/*****************************************************************************/
-/* CHECK INPUT PARAMETERS                                                    */
-/*****************************************************************************/
-
-$input_file_extension=strtolower(substr($input,strlen($input)-4,4));
-
-if ($argc==1)
+if (argc == 1)
 {
    show_usage();
 }
 
-if ($input_file_extension=='.bin')
+if (input_file_extension == '.bin')
 {
-   if (isset($argv[2]))
+   if (isset(argv[2]))
    {
-      $columns=$argv[2];
+      columns = argv[2];
    }
-   if (isset($argv[3]))
+   if (isset(argv[3]))
    {
-      $font=$argv[3];
+      font = argv[3];
    }
-   if (isset($argv[4]))
+   if (isset(argv[4]))
    {
-      $bits=$argv[4];
+      bits = argv[4];
    }
-   if (isset($argv[5]))
+   if (isset(argv[5]))
    {
-      $icecolors=$argv[5];
+      icecolors = argv[5];
    }
 }
 else
 {
-   if (isset($argv[2]))
+   if (isset(argv[2]))
    {
-      $font=$argv[2];
+      font = argv[2];
    }
-   if (isset($argv[3]))
+   if (isset(argv[3]))
    {
-      $bits=$argv[3];
+      bits = argv[3];
    }
-   if (isset($argv[3]))
+   if (isset(argv[3]))
    {
-      $icecolors=$argv[4];
+      icecolors = argv[4];
    }
 }
 
-if (strtolower(substr($input,strlen($input)-3,3))=='.xb')
+if (strtolower(substr(input,strlen(input)-3,3))=='.xb')
 {
-   $input_file_extension='.xb';
+   input_file_extension='.xb';
 }
 
-if ($bits=='thumbnail')
+if (bits=='thumbnail')
 {
-   $output=$argv[1].THUMBNAILS_TAG.".png";
-   $bits='thumbnail';
+   output=argv[1].THUMBNAILS_TAG.".png";
+   bits='thumbnail';
 }
 
-echo "Input File: $input\n";
-echo "Output File: $output\n";
-echo "Columns (.BIN only): $columns\n";
-echo "Font (.ANS/.BIN only): $font\n";
-echo "Bits (.ANS/.BIN only): $bits\n";
-echo "iCE Colors (.ANS/.BIN only): $icecolors\n\n";
+printf("Input File: input\n");
+printf("Output File: output\n");
+printf("Columns (.BIN only): columns\n");
+printf("Font (.ANS/.BIN only): font\n");
+printf("Bits (.ANS/.BIN only): bits\n");
+printf("iCE Colors (.ANS/.BIN only): icecolors\n\n");
 
-
-
-/*****************************************************************************/
-/* CREATE OUTPUT FILE                                                        */
-/*****************************************************************************/
-
-switch ($input_file_extension)
+// create output file
+switch (input_file_extension)
 {
 case '.pcb':
-   load_pcboard($input,$output,$font,$bits,$icecolors);
+   load_pcboard(input,output,font,bits,icecolors);
    break;
 
 case '.bin':
-   load_binary($input,$output,$columns,$font,$bits,$icecolors);
+   load_binary(input,output,columns,font,bits,icecolors);
    break;
 
 case '.adf':
-   load_adf($input,$output,$bits);
+   load_adf(input,output,bits);
    break;
 
 case '.idf':
-   load_idf($input,$output,$bits);
+   load_idf(input,output,bits);
    break;
 
 case '.tnd':
-   load_tundra($input,$output,$font,$bits);
+   load_tundra(input,output,font,bits);
    break;
 
 case '.xb':
-   load_xbin($input,$output,$bits);
+   load_xbin(input,output,bits);
    break;
 
 default:
-   load_ansi($input,$output,$font,$bits,$icecolors);
+   load_ansi(input,output,font,bits,icecolors);
 }
 
+// display sauce informations
+input_file_sauce=load_sauce(input);
 
-
-/*****************************************************************************/
-/* DISPLAY SAUCE INFORMATIONS                                                */
-/*****************************************************************************/
-
-$input_file_sauce=load_sauce($input);
-
-if ($input_file_sauce!=NULL)
+if (input_file_sauce != NULL)
 {
-   echo "Title: $input_file_sauce[Title]\n";
-   echo "Author: $input_file_sauce[Author]\n";
-   echo "Group: $input_file_sauce[Group]\n";
-   echo "Date: $input_file_sauce[Date]\n";
-   echo "Comment: $input_file_sauce[Comment]\n\n";
+   printf("Title: input_file_sauce[Title]\n");
+   printf("Author: input_file_sauce[Author]\n");
+   printf("Group: input_file_sauce[Group]\n");
+   printf("Date: input_file_sauce[Date]\n");
+   printf("Comment: input_file_sauce[Comment]\n\n");
+}
+
+
+int main(int argc, char *argv[])
+{
+    // terminate program
+    printf("Successfully created output file\n\n");
+    
+    return EXIT_SUCCESS;
 }
 
 
 
-/*****************************************************************************/
-/* TERMINATE PROGRAM                                                         */
-/*****************************************************************************/
 
-echo "Successfully created file $output\n\n";
-?>
