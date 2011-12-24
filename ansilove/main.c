@@ -23,7 +23,7 @@
 #endif
 
 // show usage                                                             
-void show_usage(void)
+void showUsage(void)
 {
     printf("USAGE:    ansilove inputfile columns (.BIN only) font bits icecolors\n\n");
     printf("          Check the README to have details about supported options for each\n");
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 {
     printf("--------------------------------------------------\n");
     printf("AnsiLove/C %s - copyright (C) 2011 Stefan Vogt\n", VERSION);
-    printf("--------------------------------------------------\n");
+    printf("--------------------------------------------------\n\n");
     
     char columns[], font[], bits[], icecolors[];
     char input[] = argv[1];
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     
     if (argc == 1)
     {
-        show_usage();
+        showUsage();
     }
     
     if (input_file_extension == '.bin')
