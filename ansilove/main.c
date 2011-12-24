@@ -16,7 +16,7 @@
 #import "substr.h"
 #else
 #include <stdio.h>
-#include <sdlib.h>
+#include <stdlib.h>
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
