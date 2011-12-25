@@ -15,11 +15,12 @@
 #include "strtolower.h"
 #endif
 
-void strtolower(char str[])
+char *strtolower(char *str)
 {
     char *p;
     for (p = str; *p != '\0'; ++p)
     {
         *p = tolower(*p);
     }
+    return str;
 }

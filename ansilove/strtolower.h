@@ -20,7 +20,8 @@
 #ifndef strtolower_h
 #define strtolower_h
 
-// In-place modification of a string to be all lower case.
-void strtolower(char str[]);
+// This is a port of the PHP function strtolower(), providing
+// in-place modification of a string to be all lower case. 
+char *strtolower(char *str);
 
 #endif
