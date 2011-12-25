@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8AE164214A130FE00393A1C /* ansilove.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163914A130FE00393A1C /* ansilove.c */; };
-		F8AE164314A130FE00393A1C /* load_adf.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163A14A130FE00393A1C /* load_adf.c */; };
-		F8AE164414A130FE00393A1C /* load_ansi.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163B14A130FE00393A1C /* load_ansi.c */; };
-		F8AE164514A130FE00393A1C /* load_binary.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163C14A130FE00393A1C /* load_binary.c */; };
-		F8AE164614A130FE00393A1C /* load_idf.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163D14A130FE00393A1C /* load_idf.c */; };
-		F8AE164714A130FE00393A1C /* load_pcboard.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163E14A130FE00393A1C /* load_pcboard.c */; };
-		F8AE164814A130FE00393A1C /* load_tundra.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE163F14A130FE00393A1C /* load_tundra.c */; };
-		F8AE164914A130FE00393A1C /* load_xbin.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164014A130FE00393A1C /* load_xbin.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
 		F8D6328314A08C0F00C5352F /* ansilove.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D6328214A08C0F00C5352F /* ansilove.1 */; };
@@ -38,14 +30,6 @@
 /* Begin PBXFileReference section */
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
-		F8AE163914A130FE00393A1C /* ansilove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ansilove.c; sourceTree = "<group>"; };
-		F8AE163A14A130FE00393A1C /* load_adf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_adf.c; sourceTree = "<group>"; };
-		F8AE163B14A130FE00393A1C /* load_ansi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_ansi.c; sourceTree = "<group>"; };
-		F8AE163C14A130FE00393A1C /* load_binary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_binary.c; sourceTree = "<group>"; };
-		F8AE163D14A130FE00393A1C /* load_idf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_idf.c; sourceTree = "<group>"; };
-		F8AE163E14A130FE00393A1C /* load_pcboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_pcboard.c; sourceTree = "<group>"; };
-		F8AE163F14A130FE00393A1C /* load_tundra.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_tundra.c; sourceTree = "<group>"; };
-		F8AE164014A130FE00393A1C /* load_xbin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load_xbin.c; sourceTree = "<group>"; };
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -73,7 +57,6 @@
 			children = (
 				F8D6327D14A08C0F00C5352F /* Classes */,
 				F8FBC5BC14A1E0B20034BF83 /* PHP additions */,
-				F8D6328014A08C0F00C5352F /* Supporting Files */,
 				F8D6327A14A08C0F00C5352F /* Frameworks */,
 				F8D6327814A08C0F00C5352F /* Products */,
 			);
@@ -99,15 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				F8D6328D14A0920900C5352F /* alconfig.h */,
-				F8AE163914A130FE00393A1C /* ansilove.c */,
 				F8AE164114A130FE00393A1C /* main.c */,
-				F8AE163A14A130FE00393A1C /* load_adf.c */,
-				F8AE163B14A130FE00393A1C /* load_ansi.c */,
-				F8AE163C14A130FE00393A1C /* load_binary.c */,
-				F8AE163D14A130FE00393A1C /* load_idf.c */,
-				F8AE163E14A130FE00393A1C /* load_pcboard.c */,
-				F8AE163F14A130FE00393A1C /* load_tundra.c */,
-				F8AE164014A130FE00393A1C /* load_xbin.c */,
 			);
 			name = Classes;
 			path = ansilove;
@@ -120,7 +95,6 @@
 				F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			path = ansilove;
 			sourceTree = "<group>";
 		};
 		F8FBC5BC14A1E0B20034BF83 /* PHP additions */ = {
@@ -130,6 +104,7 @@
 				F8FBC5BA14A1DE640034BF83 /* strtolower.c */,
 				F856F2BE14A560CC00E49D60 /* substr.h */,
 				F8FBC5C214A1E2900034BF83 /* substr.c */,
+				F8D6328014A08C0F00C5352F /* Supporting Files */,
 			);
 			name = "PHP additions";
 			path = ansilove;
@@ -185,14 +160,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8AE164214A130FE00393A1C /* ansilove.c in Sources */,
-				F8AE164314A130FE00393A1C /* load_adf.c in Sources */,
-				F8AE164414A130FE00393A1C /* load_ansi.c in Sources */,
-				F8AE164514A130FE00393A1C /* load_binary.c in Sources */,
-				F8AE164614A130FE00393A1C /* load_idf.c in Sources */,
-				F8AE164714A130FE00393A1C /* load_pcboard.c in Sources */,
-				F8AE164814A130FE00393A1C /* load_tundra.c in Sources */,
-				F8AE164914A130FE00393A1C /* load_xbin.c in Sources */,
 				F8AE164A14A130FE00393A1C /* main.c in Sources */,
 				F8FBC5BB14A1DE640034BF83 /* strtolower.c in Sources */,
 				F8FBC5C314A1E2900034BF83 /* substr.c in Sources */,
@@ -212,6 +179,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -239,6 +207,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -252,6 +221,8 @@
 		F8D6328714A08C0F00C5352F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -261,6 +232,8 @@
 		F8D6328814A08C0F00C5352F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
