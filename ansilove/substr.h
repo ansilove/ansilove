@@ -21,6 +21,6 @@
 #define substr_h
 
 // Returns the portion of a string specified by start and length parameters.
-char *substr(const char *str, size_t begin, size_t len);
+char *substr(char *str, size_t begin, size_t len);
 
 #endif
