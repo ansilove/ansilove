@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
+		F8CE942014A9198B00AA40BF /* libgd.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */; };
+		F8CE942214A9199900AA40BF /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
+		F8CE942414A919D800AA40BF /* libgd.2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */; };
+		F8CE942514A919D800AA40BF /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
 		F8FBC5BB14A1DE640034BF83 /* strtolower.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5BA14A1DE640034BF83 /* strtolower.c */; };
 		F8FBC5C314A1E2900034BF83 /* substr.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5C214A1E2900034BF83 /* substr.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F8D6327514A08C0F00C5352F /* CopyFiles */ = {
+		F8CE942314A919D000AA40BF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
+				F8CE942414A919D800AA40BF /* libgd.2.0.0.dylib in CopyFiles */,
+				F8CE942514A919D800AA40BF /* libjpeg.8.dylib in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -29,6 +35,8 @@
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgd.2.0.0.dylib; path = lib/MacOSX/libgd/libgd.2.0.0.dylib; sourceTree = "<group>"; };
+		F8CE942114A9199900AA40BF /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = lib/MacOSX/libjpeg/libjpeg.8.dylib; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
@@ -43,6 +51,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */,
+				F8CE942014A9198B00AA40BF /* libgd.2.0.0.dylib in Frameworks */,
+				F8CE942214A9199900AA40BF /* libjpeg.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				F8D6327D14A08C0F00C5352F /* Classes */,
-				F8FBC5BC14A1E0B20034BF83 /* PHP additions */,
+				F8FBC5BC14A1E0B20034BF83 /* PHP functions */,
 				F8D6327A14A08C0F00C5352F /* Frameworks */,
 				F8D6327814A08C0F00C5352F /* Products */,
 			);
@@ -71,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				F8D6327B14A08C0F00C5352F /* Foundation.framework */,
+				F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */,
+				F8CE942114A9199900AA40BF /* libjpeg.8.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -93,7 +105,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F8FBC5BC14A1E0B20034BF83 /* PHP additions */ = {
+		F8FBC5BC14A1E0B20034BF83 /* PHP functions */ = {
 			isa = PBXGroup;
 			children = (
 				F856F2BD14A559F000E49D60 /* strtolower.h */,
@@ -102,7 +114,7 @@
 				F8FBC5C214A1E2900034BF83 /* substr.c */,
 				F8D6328014A08C0F00C5352F /* Supporting Files */,
 			);
-			name = "PHP additions";
+			name = "PHP functions";
 			path = ansilove;
 			sourceTree = "<group>";
 		};
@@ -115,7 +127,7 @@
 			buildPhases = (
 				F8D6327314A08C0F00C5352F /* Sources */,
 				F8D6327414A08C0F00C5352F /* Frameworks */,
-				F8D6327514A08C0F00C5352F /* CopyFiles */,
+				F8CE942314A919D000AA40BF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -221,6 +233,12 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
+				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
+					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -232,6 +250,12 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
+				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
+					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
