@@ -1,7 +1,15 @@
 //
-// Prefix header for all source files of the 'ansilove' target in the 'ansilove' project
+//  ansilove-Prefix.pch
+//  AnsiLove/C
+//
+//  Copyright (c) 2011, Stefan Vogt. All rights reserved.
+//  http://byteproject.net
+//
+//  Use of this source code is governed by a MIT-style license.
+//  See the file LICENSE for details.
 //
 
+// Prefix header for all source files of the 'ansilove' target in the 'AnsiLove/C' project
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 #endif
