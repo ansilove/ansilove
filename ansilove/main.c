@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 //        printf("Comment: input_file_sauce[Comment]\n\n");
 //    }
     
-    // terminate program
+    // exit program
     printf("Successfully created output file\n\n");
     
     return EXIT_SUCCESS;

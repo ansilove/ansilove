@@ -12,6 +12,7 @@
 #ifndef alconfig_h
 #define alconfig_h
 
+// configuration defines
 #define VERSION "1.0.0"
 
 #define ANSILOVE_FILES_DIRECTORY "ansis/"
