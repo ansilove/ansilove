@@ -18,7 +18,7 @@
 char *strtolower(char *str)
 {
     char *p;
-    for (p = str; *p != '\0'; ++p)
+    for (p = str; *p != '\0'; ++p) 
     {
         *p = tolower(*p);
     }
