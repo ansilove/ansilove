@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
             sprintf(bits, "%s", "8");
         }
         // iCE colors
-        if (argc >= 7) {
+        if (argc >= 6) {
             sprintf(icecolors, "%s", argv[5]);
         }
         else {
