@@ -20,7 +20,7 @@
 #ifndef substr_h
 #define substr_h
 
-// Returns the portion of a string specified by start and length parameters.
+// Returns portion of a string specified by start and length parameters.
 char *substr(char *str, size_t begin, size_t len);
 
 #endif
