@@ -176,7 +176,6 @@ int main(int argc, char *argv[])
         }
     }
     else {
-        printf("file extension is: %s\n", fext);
         // font
         if (argc >= 4) {
             sprintf(font, "%s", argv[3]);
