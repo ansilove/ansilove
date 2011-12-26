@@ -16,4 +16,4 @@ If you're looking for something to implement into your Cocoa or Foundation appli
 
 # License
 
-AnsiLove/ObjC is released under a MIT-style license. See the file `LICENSE` for details.
+AnsiLove/C is released under a MIT-style license. See the file `LICENSE` for details.
