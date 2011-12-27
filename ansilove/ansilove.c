@@ -1,5 +1,5 @@
 //
-//  ansilove.m
+//  ansilove.c
 //  AnsiLove/C
 //
 //  Copyright (c) 2011, Stefan Vogt. All rights reserved.
@@ -2671,8 +2671,6 @@ function load_xbin($input,$output,$bits)
          ImagePNG($xbin,$output);
       }
    }
-
-
 
 /*****************************************************************************/
 /* FREE MEMORY                                                               */
