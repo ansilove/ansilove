@@ -4,7 +4,7 @@ This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in
 
 # Specs 
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `gcc` and `Clang`, others may work but aren't tested. All files are linked to the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure linking to `<Foundation/Foundation.h>`. I for one develop AnsiLove/C on a Mac, you'll find a Xcode project file in this repository. 
+AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `gcc` and `Clang`, others may work but aren't tested. All files include to the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`. I for one develop AnsiLove/C on a Mac, you'll find a Xcode project file in this repository. 
 
 # Why porting to C?
 
