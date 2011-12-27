@@ -1,6 +1,6 @@
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. Right now the project is in an early stage of development and is neither considered as finished nor as stable product. 
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. Unlike it's PHP ancestor, AnsiLove/C is intended as UNIX command line tool you install to /usr/bin. Right now the project is in an early stage of development and is neither considered as finished nor as stable product. 
 
 # Specs 
 
