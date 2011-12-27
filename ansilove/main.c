@@ -14,12 +14,14 @@
 #import "alconfig.h"
 #import "strtolower.h"
 #import "substr.h"
+#import "ansilove.h"
 #else
 #include <stdio.h>
 #include <stdlib.h>
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
+#include "ansilove.h"
 #endif
 
 // prototypes
