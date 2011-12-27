@@ -9,7 +9,11 @@
 //  See the file LICENSE for details.
 //
 
-error_reporting(E_ALL ^ E_NOTICE);
+#if defined(__APPLE__) && defined(__MACH__)
+#import "ansilove.h"
+#else
+#include "ansilove.h"
+#endif
 
 /*****************************************************************************/
 /* ERROR HANDLING AND MESSAGE LOGGER                                         */
@@ -36,8 +40,6 @@ function error($message)
     write_log($message);
     exit(-1);
 }
-
-
 
 /*****************************************************************************/
 /* LOAD CONFIGURATION FILE                                                   */
@@ -72,8 +74,6 @@ function check_libraries()
       error("Ansilove requires GD library");
    }
 }
-
-
 
 /*****************************************************************************/
 /* CREATE THUMBNAIL                                                          */
