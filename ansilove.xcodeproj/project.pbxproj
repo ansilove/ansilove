@@ -37,6 +37,7 @@
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgd.2.0.0.dylib; path = lib/MacOSX/libgd/libgd.2.0.0.dylib; sourceTree = "<group>"; };
 		F8CE942114A9199900AA40BF /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = lib/MacOSX/libjpeg/libjpeg.8.dylib; sourceTree = "<group>"; };
+		F8CF83D814A9B8C600ABB607 /* ansilove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ansilove.h; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				F8D6328D14A0920900C5352F /* alconfig.h */,
+				F8CF83D814A9B8C600ABB607 /* ansilove.h */,
 				F8AE164114A130FE00393A1C /* main.c */,
 			);
 			name = Classes;
@@ -233,7 +235,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
-				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd";
+				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
@@ -250,7 +252,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ansilove/ansilove-Prefix.pch";
-				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd";
+				HEADER_SEARCH_PATHS = "~/Projekte/Programmierung/Frameworks/AnsiLove-C/lib/MacOSX/libgd/include";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
