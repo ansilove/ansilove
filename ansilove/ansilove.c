@@ -16,32 +16,6 @@
 #endif
 
 ///*****************************************************************************/
-///* ERROR HANDLING AND MESSAGE LOGGER                                         */
-///*****************************************************************************/
-//
-//function write_log($message)
-//{
-//    if (($file = @fopen (ANSILOVE_LOG_FILE, a))==FALSE)
-//    {
-//        echo "ERROR: Can't create log file.";
-//        exit(-1);
-//    }
-//
-//    $string = date("[Y-m-d] - H:i:s")." - $message\n";
-//
-//    fputs ($file,$string);
-//    fclose ($file);
-//}
-//
-//function error($message)
-//{
-//    trim($message);
-//    echo("ERROR: ".$message."\n\n");
-//    write_log($message);
-//    exit(-1);
-//}
-//
-///*****************************************************************************/
 ///* LOAD CONFIGURATION FILE                                                   */
 ///*****************************************************************************/
 //
