@@ -69,18 +69,11 @@
 //
 //
 //
-///*****************************************************************************/
-///* LOAD ANSI                                                                 */
-///*****************************************************************************/
-//
-//function load_ansi($input,$output,$font,$bits,$icecolors)
+
+// load ANSi file and generate output PNG
+//void alAnsiLoader(char input, char output, char font, char bits, char icecolors)
 //{
-//   check_libraries();
-//
-///*****************************************************************************/
-///* CHECK PARAMETERS AND FORCE DEFAULT VALUES IF INVALID INPUT IS DETECTED    */
-///*****************************************************************************/
-//
+//    // check parameters and force default values if invalid input is detected
 //   $columns=80;
 //
 //   switch($font)
@@ -2625,92 +2618,120 @@
 //      imagedestroy($font_inverted);
 //   }
 //}
-//
-//
-//
-///*****************************************************************************/
-///* LOAD SAUCE                                                                */
-///*****************************************************************************/
-//
-//function load_sauce($input)
-//{
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
-//   if (!$input_file = fopen ($input,'r'))
-//   {
-//      error("Can't open file $input");
-//   }
-//
-//   $input_file_size=filesize($input);
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS SAUCE                                                             */
-///*****************************************************************************/
-//
-//   if ($input_file_size>=128)
-//   {
-//      fseek($input_file,$input_file_size-128);
-//      $input_file_buffer=fread($input_file,128);
-//
-//      $sauce['ID']=substr($input_file_buffer,0,5);
-//      $sauce['Version']=substr($input_file_buffer,5,2);
-//      $sauce['Title']=substr($input_file_buffer,7,35);
-//      $sauce['Author']=substr($input_file_buffer,42,20);
-//      $sauce['Group']=substr($input_file_buffer,62,20);
-//      $sauce['Date']=substr($input_file_buffer,82,8);
-//      $sauce=array_merge($sauce,unpack('lFileSize/CDataType/CFileType/v4TInfo/CComments/CFlags',substr($input_file_buffer,90,16)));
-//      $sauce['Filler']=substr($input_file_buffer,106,22);
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS SAUCE COMMENTS                                                    */
-///*****************************************************************************/
-//
-//   $sauce_comment_lines=$sauce['Comments'];
-//
-//   if ($sauce_comment_lines!=0)
-//   {
-//      if ($input_file_size>=128+5+($sauce_comment_lines*64))
-//      {
-//         fseek($input_file,($input_file_size-128-5-($sauce_comment_lines*64)));
-//         $comment_id=fread($input_file,5);
-//
-//         if ($comment_id=='COMNT')
-//         {
-//            for ($loop=0;$loop<$sauce_comment_lines;$loop++)
-//            {
-//               fseek($input_file,($input_file_size-128-($sauce_comment_lines*64)+($loop*64)));
-//
-//               $comment_line="Comment_Line_";
-//               if ($loop<9)
-//               {
-//                  $comment_line.="0";
-//               }
-//               $comment_line.=($loop+1);
-//
-//               $sauce[$comment_line]=fread($input_file,64);
-//            }
-//         }
-//      }
-//   }
-//
-//   fclose($input_file);
-//
-//
-//
-///*****************************************************************************/
-///* RETURN SAUCE                                                              */
-///*****************************************************************************/
-//
-//   if ($sauce['ID']=='SAUCE')
-//   {
-//      return($sauce);
-//   }
-//}
+
+// Reads SAUCE via a filename.
+sauce *sauceReadFileName(char *fileName) 
+{
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        return NULL;
+    }
+    
+    sauce *record = sauceReadFile(file);
+    fclose(file);
+    return record;
+}
+
+// Read SAUCE via a FILE pointer.
+sauce *sauceReadFile(FILE *file) 
+{
+    sauce *record;
+    record = malloc(sizeof *record);
+    
+    if (record != NULL) {
+        readRecord(file, record);
+    }
+    return record;
+}
+
+void readRecord(FILE *file, sauce *record) 
+{
+    if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != EXIT_SUCCESS) {
+        free(record);
+        return;
+    }
+    
+    int64_t read_status = fread(record->ID, sizeof(record->ID) - 1, 1, file);
+    record->ID[sizeof(record->ID) - 1] = '\0';
+    
+    if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
+        free(record);
+        return;
+    }
+    fread(record->version, sizeof(record->version) - 1, 1, file);
+    record->version[sizeof(record->version) - 1] = '\0';
+    fread(record->title, sizeof(record->title) - 1, 1, file);    
+    record->title[sizeof(record->title) - 1] = '\0';
+    fread(record->author, sizeof(record->author) - 1, 1, file);
+    record->author[sizeof(record->author) - 1] = '\0';
+    fread(record->group, sizeof(record->group) - 1, 1, file);    
+    record->group[sizeof(record->group) - 1] = '\0';
+    fread(record->date, sizeof(record->date) - 1, 1, file);
+    record->date[sizeof(record->date) - 1] = '\0';
+    fread(&(record->fileSize), sizeof(record->fileSize), 1, file);    
+    fread(&(record->dataType), sizeof(record->dataType), 1, file);    
+    fread(&(record->fileType), sizeof(record->fileType), 1, file);
+    fread(&(record->tinfo1), sizeof(record->tinfo1), 1, file);
+    fread(&(record->tinfo2), sizeof(record->tinfo2), 1, file);
+    fread(&(record->tinfo3), sizeof(record->tinfo3), 1, file);
+    fread(&(record->tinfo4), sizeof(record->tinfo4), 1, file);
+    fread(&(record->comments), sizeof(record->comments), 1, file);
+    fread(&(record->flags), sizeof(record->flags), 1, file);
+    fread(record->filler, sizeof(record->filler) - 1, 1, file);
+    record->filler[sizeof(record->filler) - 1] = '\0';
+    
+    if (ferror(file) != EXIT_SUCCESS) {
+        free(record);
+        return;
+    }
+    
+    if (record->comments > 0) {
+        record->comment_lines = malloc(record->comments *sizeof(*record->comment_lines));
+        
+        if (record->comment_lines != NULL) {
+            readComments(file, record->comment_lines, record->comments);
+        }
+        else {
+            free(record);
+            return;
+        }
+    }
+}
+
+void readComments(FILE *file, char **comment_lines, int64_t comments) 
+{
+    int64_t i;
+    
+    if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == EXIT_SUCCESS) {
+        char ID[6];
+        fread(ID, sizeof(ID) - 1, 1, file);
+        ID[sizeof(ID) - 1] = '\0';
+        
+        if (strcmp(ID, COMMENT_ID) != 0) {
+            free(comment_lines);
+            return;
+        }
+        
+        for (i = 0; i < comments; i++) {
+            char buf[COMMENT_SIZE + 1] = "";
+            
+            fread(buf, COMMENT_SIZE, 1, file);
+            buf[COMMENT_SIZE] = '\0';
+            
+            if (ferror(file) == EXIT_SUCCESS) {
+                comment_lines[i] = strdup(buf);
+                if (comment_lines[i] == NULL) {
+                    free(comment_lines);
+                    return;
+                }
+            }
+            else {
+                free(comment_lines);
+                return;
+            }
+        }
+        return;
+    }    
+    free(comment_lines);
+    return;
+}
