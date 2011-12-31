@@ -108,6 +108,15 @@ int main(int argc, char *argv[])
         return EXIT_SUCCESS;
     }
     
+    // let's check the file for a SAUCE record
+    sauce *record = sauceReadFileName(argv[1]);
+    
+    // record == NULL means there is no file, we can stop here
+    if (record == NULL) {
+        printf("File %s not found.\n\n", argv[1]);
+        return EXIT_FAILURE;
+    }
+    
     // declarations
     char *input = argv[1];
     char output[1000] = { 0 };
@@ -118,10 +127,10 @@ int main(int argc, char *argv[])
     char *fext;
         
     // find last position of char '.' so we can determine the file extension
-    long index = strrchr(input, '.') - input;
+    int64_t index = strrchr(input, '.') - input;
     
     // calculate size of the input string
-    long inpSize = strlen(input);
+    int64_t inpSize = strlen(input);
     
     // generate size_t result we can pass to our substr() implementation
     size_t result = inpSize - index;
@@ -137,7 +146,7 @@ int main(int argc, char *argv[])
     if (strcmp(argv[2], "-s") == 0) 
     {
         // make file name lowercase and append .png suffix
-        sprintf(output, "%s.png", strtolower(argv[1]));
+        sprintf(output, "%s.png", strtolower(input));
     }
     else {
         // so the user provided an alternate path / file name
@@ -212,7 +221,7 @@ int main(int argc, char *argv[])
     printf("Columns (.BIN only): %s\n", columns);
     printf("Font (.ANS/.BIN only): %s\n", font);
     printf("Bits (.ANS/.BIN only): %s\n", bits);
-    printf("iCE Colors (.ANS/.BIN only): %s\n\n", icecolors);
+    printf("iCE Colors (.ANS/.BIN only): %s\n", icecolors);
    
     // create the output file by invoking the appropiate function
     if (strcmp(fext, ".pcb") == 0) {
@@ -237,22 +246,43 @@ int main(int argc, char *argv[])
         loadAnsi();
     }
 
-// Displaying SAUCE is disabled until we're done with porting ansilove.c!
     
-//    // display sauce informations
-//    input_file_sauce=load_sauce(input);
-//    
-//    if (input_file_sauce != NULL)
-//    {
-//        printf("Title: input_file_sauce[Title]\n");
-//        printf("Author: input_file_sauce[Author]\n");
-//        printf("Group: input_file_sauce[Group]\n");
-//        printf("Date: input_file_sauce[Date]\n");
-//        printf("Comment: input_file_sauce[Comment]\n\n");
-//    }
-    
-    // exit program
-    printf("Successfully created output file\n\n");
-    
+    if (strcmp( record->ID, SAUCE_ID ) != 0) {
+        printf("\nFile does not have a SAUCE record.\n");
+    }
+    else {
+        printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
+        printf( "%s: %s\n", "Title", record->title );
+        printf( "%s: %s\n", "Author", record->author);
+        printf( "%s: %s\n", "Group", record->group);
+        printf( "%s: %s\n", "Date", record->date);
+        printf( "%s: %d\n", "Datatype", record->dataType);
+        printf( "%s: %d\n", "Filetype", record->fileType);
+        if (record->flags != 0) {
+            printf( "%s: %d\n", "Flags", record->flags);
+        }
+        if (record->tinfo1 != 0) {
+            printf( "%s: %d\n", "Tinfo1", record->tinfo1);
+        }
+        if (record->tinfo2 != 0) {
+            printf( "%s: %d\n", "Tinfo2", record->tinfo2);
+        }
+        if (record->tinfo3 != 0) {
+            printf( "%s: %d\n", "Tinfo3", record->tinfo3);
+        }
+        if (record->tinfo4 != 0) {
+            printf( "%s: %d\n", "Tinfo4", record->tinfo4);
+        }
+        if (record->comments > 0) {
+            int64_t i;
+            printf( "Comments: ");
+            for(i = 0; i < record->comments; i++) {
+                printf( "%s\n", record->comment_lines[i] );
+            }
+        }
+    }
+
+    // so we've come this far, the file seems to be created
+    printf("\nSuccessfully created output file.\n\n");
     return EXIT_SUCCESS;
 }
