@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
         return EXIT_SUCCESS;
     }
     
-    // let's check the file for a SAUCE record
+    // let's check the file for a valid SAUCE record
     sauce *record = sauceReadFileName(argv[1]);
     
     // record == NULL means there is no file, we can stop here
@@ -145,12 +145,12 @@ int main(int argc, char *argv[])
     // in case we got arguments for input, output and the '-s' flag is set
     if (strcmp(argv[2], "-s") == 0) 
     {
-        // make file name lowercase and append .png suffix
-        sprintf(output, "%s.png", strtolower(input));
+        // append .png suffix to file name
+        sprintf(output, "%s.png", input);
     }
     else {
         // so the user provided an alternate path / file name
-        sprintf(output, "%s", strtolower(argv[2]));
+        sprintf(output, "%s", argv[2]);
     }
     
     // check flags and apply them based on the file extension
@@ -245,7 +245,6 @@ int main(int argc, char *argv[])
     else {
         loadAnsi();
     }
-
     
     if (strcmp( record->ID, SAUCE_ID ) != 0) {
         printf("\nFile does not have a SAUCE record.\n");
