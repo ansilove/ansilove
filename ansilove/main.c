@@ -38,10 +38,11 @@ void loadAnsi(void);
 void showUsage(void)
 {
     printf("USAGE:\n");    
-    printf("ansilove inputfile outputfile columns (.BIN only) font bits icecolors\n\n");
+    printf("ansilove <inputfile> <outputfile> columns (.BIN only) font bits icecolors\n\n");
     printf("Check the README to have details about supported options for each\n");
     printf("file format. Use flag '-s' for 'outputfile' to write a file to the same\n");
-    printf("path, with the same name and .png suffix appended.\n\n");
+    printf("path, with the same name and .png suffix appended. Use '-r' for 'outputfile'\n");
+    printf("to just read and display a SAUCE record, without generating output\n\n");
     printf("EXAMPLES:\n"); 
     printf("ansilove ansi.ans ansi.png\n");
     printf("ansilove ansi.ans ansi.png 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
@@ -54,11 +55,10 @@ void showUsage(void)
     printf("ansilove binary.bin -s 160\n");
     printf("ansilove binary.bin binary.png 160 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
     printf("ansilove binary.bin binary.png 160 80x50 9 (80x50 font, 9-bit)\n");
-    printf("ansilove adf.adf adf.png\n");
-    printf("ansilove idf.idf idf.png\n");
     printf("ansilove tundra.tnd tundra.png\n");
     printf("ansilove tundra.tnd -s 80x25 9 (80x25 font, 9-bit)\n");
-    printf("ansilove xbin.xb xbin.png\n\n");
+    printf("ansilove xbin.xb xbin.png\n");
+    printf("ansilove ansiwithsauce.ans -r (just display SAUCE record)\n\n");
 }
 
 void loadPCBoard(void)
@@ -100,12 +100,20 @@ int main(int argc, char *argv[])
 {
     printf("\n---------------------------------------------------------------------------\n");
     printf("AnsiLove/C %s - copyright (C) 2011 Stefan Vogt\n", VERSION);
-    printf("---------------------------------------------------------------------------\n\n");
+    printf("---------------------------------------------------------------------------\n");
     
     // we do this before anything else
-    if (argc <=2) {
+    if (argc <= 2) {
         showUsage();
         return EXIT_SUCCESS;
+    }
+    
+    // indicates whether AnsiLove/C should just display SAUCE or not
+    bool justDisplaySAUCE = false;
+    
+    // in case the SAUCE flag is set we set our bool type to 'true'
+    if (strcmp(argv[2], "-r") == 0) {
+        justDisplaySAUCE = true;
     }
     
     // let's check the file for a valid SAUCE record
@@ -117,133 +125,137 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
     
-    // declarations
-    char *input = argv[1];
-    char output[1000] = { 0 };
-    char columns[1000] = { 0 };
-    char font[1000] = { 0 };
-    char bits[1000] = { 0 };
-    char icecolors[1000] = { 0 };
-    char *fext;
+    // this should be self-explanatory
+    if (justDisplaySAUCE == false) 
+    {
+        // declaration of types we pass to ansilove.c
+        char *input = argv[1];
+        char output[1000] = { 0 };
+        char columns[1000] = { 0 };
+        char font[1000] = { 0 };
+        char bits[1000] = { 0 };
+        char icecolors[1000] = { 0 };
+        char *fext;
         
-    // find last position of char '.' so we can determine the file extension
-    int64_t index = strrchr(input, '.') - input;
-    
-    // calculate size of the input string
-    int64_t inpSize = strlen(input);
-    
-    // generate size_t result we can pass to our substr() implementation
-    size_t result = inpSize - index;
-    
-    // finally create the file extension string
-    fext = substr(input, inpSize - result, result);
-    fext = strtolower(fext);
-    if (fext == NULL) {
-        fext = "none";
-    }
-    
-    // in case we got arguments for input, output and the '-s' flag is set
-    if (strcmp(argv[2], "-s") == 0) 
-    {
-        // append .png suffix to file name
-        sprintf(output, "%s.png", input);
-    }
-    else {
-        // so the user provided an alternate path / file name
-        sprintf(output, "%s", argv[2]);
-    }
-    
-    // check flags and apply them based on the file extension
-    if (strcmp(fext, ".bin") == 0)
-    {
-        // columns
-        if (argc >= 4) {
-            sprintf(columns, "%s", argv[3]);
+        // find last position of char '.' so we can determine the file extension
+        int64_t index = strrchr(input, '.') - input;
+        
+        // calculate size of the input string
+        int64_t inpSize = strlen(input);
+        
+        // generate size_t result we can pass to our substr() implementation
+        size_t result = inpSize - index;
+        
+        // finally create the file extension string
+        fext = substr(input, inpSize - result, result);
+        fext = strtolower(fext);
+        if (fext == NULL) {
+            fext = "none";
+        }
+        
+        // in case we got arguments for input, output and the '-s' flag is set
+        if (strcmp(argv[2], "-s") == 0) 
+        {
+            // append .png suffix to file name
+            sprintf(output, "%s.png", input);
         }
         else {
-            sprintf(columns, "%s", "160");
-        }        
-        // font
-        if (argc >= 5) {
-            sprintf(font, "%s", argv[4]);
+            // so the user provided an alternate path / file name
+            sprintf(output, "%s", argv[2]);
+        }
+        
+        // check flags and apply them based on the file extension
+        if (strcmp(fext, ".bin") == 0)
+        {
+            // columns
+            if (argc >= 4) {
+                sprintf(columns, "%s", argv[3]);
+            }
+            else {
+                sprintf(columns, "%s", "160");
+            }        
+            // font
+            if (argc >= 5) {
+                sprintf(font, "%s", argv[4]);
+            }
+            else {
+                sprintf(font, "%s", "80x25");
+            }
+            // bits
+            if (argc >= 6) {
+                sprintf(bits, "%s", argv[5]);
+            }
+            else {
+                sprintf(bits, "%s", "8");
+                
+            }
+            // iCE colors
+            if (argc >= 7) {
+                sprintf(icecolors, "%s", argv[6]);
+            }
+            else {
+                sprintf(icecolors, "%s", "0");
+            }
         }
         else {
-            sprintf(font, "%s", "80x25");
+            // font
+            if (argc >= 4) {
+                sprintf(font, "%s", argv[3]);
+            }
+            else {
+                sprintf(font, "%s", "80x25");
+            }
+            // bits
+            if (argc >= 5) {
+                sprintf(bits, "%s", argv[4]);
+            }
+            else {
+                sprintf(bits, "%s", "8");
+            }
+            // iCE colors
+            if (argc >= 6) {
+                sprintf(icecolors, "%s", argv[5]);
+            }
+            else {
+                sprintf(icecolors, "%s", "0");
+            }
         }
-        // bits
-        if (argc >= 6) {
-            sprintf(bits, "%s", argv[5]);
+        
+        // in case the thumbnail flag is set, append THUMBNAILS_TAG
+        if (strcmp(bits, "thumbnail") == 0) {
+            sprintf(output, "%s%s.png", strtolower(argv[1]), THUMBNAILS_TAG);
+        }
+        
+        // report all flags to the command line
+        printf("\nInput File: %s\n", input);
+        printf("Output File: %s\n", output);
+        printf("Columns (.BIN only): %s\n", columns);
+        printf("Font (.ANS/.BIN only): %s\n", font);
+        printf("Bits (.ANS/.BIN only): %s\n", bits);
+        printf("iCE Colors (.ANS/.BIN only): %s\n", icecolors);
+        
+        // create the output file by invoking the appropiate function
+        if (strcmp(fext, ".pcb") == 0) {
+            loadPCBoard();
+        }
+        else if (strcmp(fext, ".bin") == 0) {
+            loadBinary();
+        }
+        else if (strcmp(fext, ".adf") == 0) {
+            loadArtworx();
+        }
+        else if (strcmp(fext, ".idf") == 0) {
+            loadIceDraw();
+        }
+        else if (strcmp(fext, ".tnd") == 0) {
+            loadTundra();
+        }
+        else if (strcmp(fext, ".xb") == 0) {
+            loadXbin();
         }
         else {
-            sprintf(bits, "%s", "8");
-            
+            loadAnsi();
         }
-        // iCE colors
-        if (argc >= 7) {
-            sprintf(icecolors, "%s", argv[6]);
-        }
-        else {
-            sprintf(icecolors, "%s", "0");
-        }
-    }
-    else {
-        // font
-        if (argc >= 4) {
-            sprintf(font, "%s", argv[3]);
-        }
-        else {
-            sprintf(font, "%s", "80x25");
-        }
-        // bits
-        if (argc >= 5) {
-            sprintf(bits, "%s", argv[4]);
-        }
-        else {
-            sprintf(bits, "%s", "8");
-        }
-        // iCE colors
-        if (argc >= 6) {
-            sprintf(icecolors, "%s", argv[5]);
-        }
-        else {
-            sprintf(icecolors, "%s", "0");
-        }
-    }
-    
-    // in case the thumbnail flag is set, append THUMBNAILS_TAG
-    if (strcmp(bits, "thumbnail") == 0) {
-        sprintf(output, "%s%s.png", strtolower(argv[1]), THUMBNAILS_TAG);
-    }
-    
-    // report all flags to the command line
-    printf("Input File: %s\n", input);
-    printf("Output File: %s\n", output);
-    printf("Columns (.BIN only): %s\n", columns);
-    printf("Font (.ANS/.BIN only): %s\n", font);
-    printf("Bits (.ANS/.BIN only): %s\n", bits);
-    printf("iCE Colors (.ANS/.BIN only): %s\n", icecolors);
-   
-    // create the output file by invoking the appropiate function
-    if (strcmp(fext, ".pcb") == 0) {
-        loadPCBoard();
-    }
-    else if (strcmp(fext, ".bin") == 0) {
-        loadBinary();
-    }
-    else if (strcmp(fext, ".adf") == 0) {
-        loadArtworx();
-    }
-    else if (strcmp(fext, ".idf") == 0) {
-        loadIceDraw();
-    }
-    else if (strcmp(fext, ".tnd") == 0) {
-        loadTundra();
-    }
-    else if (strcmp(fext, ".xb") == 0) {
-        loadXbin();
-    }
-    else {
-        loadAnsi();
     }
     
     if (strcmp( record->ID, SAUCE_ID ) != 0) {
@@ -280,8 +292,13 @@ int main(int argc, char *argv[])
             }
         }
     }
-
-    // so we've come this far, the file seems to be created
-    printf("\nSuccessfully created output file.\n\n");
+    
+    if (justDisplaySAUCE == false) {
+        printf("\nSuccessfully created output file.\n\n");
+    }
+    else {
+        printf("\n");
+    }
+    
     return EXIT_SUCCESS;
 }
