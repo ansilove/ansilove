@@ -109,11 +109,11 @@ int main(int argc, char *argv[])
     }
     
     // indicates whether AnsiLove/C should just display SAUCE or not
-    bool justDisplaySAUCE = false;
+    int justDisplaySAUCE = 0;
     
     // in case the SAUCE flag is set we set our bool type to 'true'
     if (strcmp(argv[2], "-r") == 0) {
-        justDisplaySAUCE = true;
+        justDisplaySAUCE = 1;
     }
     
     // let's check the file for a valid SAUCE record
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     }
     
     // this should be self-explanatory
-    if (justDisplaySAUCE == false) 
+    if (justDisplaySAUCE == 0) 
     {
         // declaration of types we pass to ansilove.c
         char *input = argv[1];
@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    if (justDisplaySAUCE == false) {
+    if (justDisplaySAUCE == 0) {
         printf("\nSuccessfully created output file.\n\n");
     }
     else {
