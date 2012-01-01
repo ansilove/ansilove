@@ -18,6 +18,7 @@
 #else
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
@@ -109,11 +110,11 @@ int main(int argc, char *argv[])
     }
     
     // indicates whether AnsiLove/C should just display SAUCE or not
-    int justDisplaySAUCE = 0;
+    bool justDisplaySAUCE = false;
     
     // in case the SAUCE flag is set we set our bool type to 'true'
     if (strcmp(argv[2], "-r") == 0) {
-        justDisplaySAUCE = 1;
+        justDisplaySAUCE = true;
     }
     
     // let's check the file for a valid SAUCE record
@@ -126,7 +127,7 @@ int main(int argc, char *argv[])
     }
     
     // this should be self-explanatory
-    if (justDisplaySAUCE == 0) 
+    if (justDisplaySAUCE == false) 
     {
         // declaration of types we pass to ansilove.c
         char *input = argv[1];
@@ -293,7 +294,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    if (justDisplaySAUCE == 0) {
+    if (justDisplaySAUCE == false) {
         printf("\nSuccessfully created output file.\n\n");
     }
     else {
