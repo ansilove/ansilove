@@ -33,7 +33,6 @@ void loadArtworx(void);
 void loadIceDraw(void);
 void loadTundra(void);
 void loadXbin(void);
-void loadAnsi(void);
 
 // show how to properly set the command line flags
 void showUsage(void)
@@ -90,11 +89,6 @@ void loadTundra(void)
 void loadXbin(void)
 {
     // params: input, output, bits
-}
-
-void loadAnsi(void)
-{
-    // params: input, output, font, bits, icecolors
 }
 
 int main(int argc, char *argv[])
@@ -255,10 +249,12 @@ int main(int argc, char *argv[])
             loadXbin();
         }
         else {
-            loadAnsi();
+            // params: input, output, font, bits, icecolors, fext
+            alAnsiLoader(input, output, font, bits, icecolors, fext);
         }
     }
     
+    // either display SAUCE or tell us if there is no record
     if (strcmp( record->ID, SAUCE_ID ) != 0) {
         printf("\nFile does not have a SAUCE record.\n");
     }
@@ -294,6 +290,7 @@ int main(int argc, char *argv[])
         }
     }
     
+    // post a message when the output file is created (in case we created output)
     if (justDisplaySAUCE == false) {
         printf("\nSuccessfully created output file.\n\n");
     }
