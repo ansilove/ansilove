@@ -19,7 +19,7 @@
 ///* CREATE THUMBNAIL                                                          */
 ///*****************************************************************************/
 //
-//function thumbnail($source,$output,$columns,$font_size_y,$position_y_max)
+//function thumbnail($source,$output,$columns,font_size_y,$position_y_max)
 //{
 //   $columns=min($columns,80);
 //
@@ -34,12 +34,12 @@
 //
 //   if (THUMBNAILS_HEIGHT==0)
 //   {
-//      $height=$position_y_max*($font_size_y/8);
-//      $height_source=$position_y_max*$font_size_y;
+//      $height=$position_y_max*(font_size_y/8);
+//      $height_source=$position_y_max*font_size_y;
 //   }
 //   else
 //   {
-//      $height=min($position_y_max*($font_size_y/8),THUMBNAILS_HEIGHT);
+//      $height=min($position_y_max*(font_size_y/8),THUMBNAILS_HEIGHT);
 //      $height_source=$height*8;
 //   }
 //
@@ -71,257 +71,242 @@
 //
 
 // load ANSi file and generate output PNG
-//void alAnsiLoader(char input, char output, char font, char bits, char icecolors)
-//{
-//    // check parameters and force default values if invalid input is detected
-//   $columns=80;
-//
-//   switch($font)
-//   {
-//   case '80x25':
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case '80x50':
-//      $font_file='ansilove_font_pc_80x50.png';
-//      $font_size_x=9;
-//      $font_size_y=8;
-//      break;
-//
-//   case 'armenian':
-//      $font_file='ansilove_font_pc_armenian.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'baltic':
-//      $font_file='ansilove_font_pc_baltic.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'cyrillic':
-//      $font_file='ansilove_font_pc_cyrillic.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'french-canadian':
-//      $font_file='ansilove_font_pc_french_canadian.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'greek':
-//      $font_file='ansilove_font_pc_greek.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'greek-869':
-//      $font_file='ansilove_font_pc_greek_869.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'hebrew':
-//      $font_file='ansilove_font_pc_hebrew.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'icelandic':
-//      $font_file='ansilove_font_pc_icelandic.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'latin1':
-//      $font_file='ansilove_font_pc_latin1.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'latin2':
-//      $font_file='ansilove_font_pc_latin2.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'nordic':
-//      $font_file='ansilove_font_pc_nordic.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'persian':
-//      $font_file='ansilove_font_pc_persian.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'portuguese':
-//      $font_file='ansilove_font_pc_portuguese.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'russian':
-//      $font_file='ansilove_font_pc_russian.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'terminus':
-//      $font_file='ansilove_font_pc_terminus.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'turkish':
-//      $font_file='ansilove_font_pc_turkish.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'amiga':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_1200.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'b-strict':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_b-strict.png';
-//      $font_size_x=8;
-//      $font_size_y=8;
-//      break;
-//
-//   case 'b-struct':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_b-struct.png';
-//      $font_size_x=8;
-//      $font_size_y=8;
-//      break;
-//
-//   case 'microknight':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_microknight.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'microknight+':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_microknight+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'microknightplus':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_microknight+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'mosoul':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_mosoul.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'pot-noodle':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_pot-noodle.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topaz':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_1200.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topaz+':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_1200+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topazplus':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_1200+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topaz500':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_500.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topaz500+':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_500+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   case 'topaz500plus':
-//      $font_amiga=TRUE;
-//      $font_file='ansilove_font_amiga_topaz_500+.png';
-//      $font_size_x=8;
-//      $font_size_y=16;
-//      break;
-//
-//   default:
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
-//   }
-//
-//   if ($bits=='ced')
-//   {
-//      $ced=TRUE;
-//   }
-//   if ($bits=='thumbnail')
-//   {
-//      $thumbnail=TRUE;
-//   }
-//   if ($bits=='transparent')
-//   {
-//      $transparent=TRUE;
-//   }
-//   if ($bits=='workbench')
-//   {
-//      $workbench=TRUE;
-//   }
-//   if ($bits=='workbench-transparent')
-//   {
-//      $workbench=TRUE;
-//      $transparent=TRUE;
-//   }
-//   if ($bits!=8 && $bits!=9 | $font_amiga)
-//   {
-//      $bits=8;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
+void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
+{
+    // ladies and gentlemen, it's type declaration time
+    int64_t columns = 80;
+    int64_t font_size_x;
+    int64_t font_size_y;
+    char *font_file;
+    bool isAmigaFont = false;
+    bool ced = false;
+    bool thumbnail = false;
+    bool transparent = false;
+    bool workbench = false;
+    
+    // determine the font we use to render the output
+    if (strcmp(font, "80x25") == 0) {
+        font_file = "ansilove_font_pc_80x25.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "80x50") == 0) {
+        font_file = "ansilove_font_pc_80x50.png";
+        font_size_x = 9;
+        font_size_y = 8;
+    }
+    else if (strcmp(font, "terminus") == 0) {
+        font_file = "ansilove_font_pc_terminus.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "armenian") == 0) {
+        font_file = "ansilove_font_pc_armenian.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "baltic") == 0) {
+        font_file = "ansilove_font_pc_baltic.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "cyrillic") == 0) {
+        font_file = "ansilove_font_pc_cyrillic.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "french-canadian") == 0) {
+        font_file = "ansilove_font_pc_french_canadian.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "greek") == 0) {
+        font_file = "ansilove_font_pc_greek.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "greek-869") == 0) {
+        font_file = "ansilove_font_pc_greek_869.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "hebrew") == 0) {
+        font_file = "ansilove_font_pc_hebrew.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "icelandic") == 0) {
+        font_file = "ansilove_font_pc_icelandic.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "latin1") == 0) {
+        font_file = "ansilove_font_pc_latin1.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "latin2") == 0) {
+        font_file = "ansilove_font_pc_latin2.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "nordic") == 0) {
+        font_file = "ansilove_font_pc_nordic.png";
+        font_size_x = 9;
+        font_size_y = 16; 
+    }
+    else if (strcmp(font, "persian") == 0) {
+        font_file = "ansilove_font_pc_persian.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "portuguese") == 0) {
+        font_file = "ansilove_font_pc_portuguese.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "russian") == 0) {
+        font_file = "ansilove_font_pc_russian.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "turkish") == 0) {
+        font_file = "ansilove_font_pc_turkish.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "amiga") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_1200.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "b-strict") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_b-strict.png";
+        font_size_x = 8;
+        font_size_y = 8;
+    }
+    else if (strcmp(font, "b-struct") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_b-struct.png";
+        font_size_x = 8;
+        font_size_y = 8;
+    }
+    else if (strcmp(font, "microknight") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_microknight.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "microknight+") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_microknight+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "microknightplus") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_microknight+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "mosoul") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_mosoul.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "pot-noodle") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_pot-noodle.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_1200.png";
+        font_size_x = 8;
+        font_size_y = 16;   
+    }
+    else if (strcmp(font, "topaz+") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_1200+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topazplus") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_1200+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_500.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500+") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_500+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500plus") == 0) {
+        isAmigaFont = true;
+        font_file = "ansilove_font_amiga_topaz_500+.png";
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else {
+        // in all other cases use the standard DOS font
+        font_file = "ansilove_font_pc_80x25.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    
+    // to deal with the bits flag, we declared handy bool types   
+    if (strcmp(bits, "ced") == 0) {
+        ced = true;
+    }
+    else if (strcmp(bits, "thumbnail") == 0) {
+        thumbnail = true;
+    }
+    else if (strcmp(bits, "transparent") == 0) {
+        transparent = true;
+    }
+    else if (strcmp(bits, "workbench") == 0) {
+        workbench = true;
+    }
+    else if (strcmp(bits, "workbench-transparent") == 0) {
+        workbench = true;
+        transparent = true;
+    }
+    // force defaults if necessary
+    else if ((strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) || isAmigaFont == true) {
+        sprintf(bits, "%s", "8");
+    }
+    
+    // purpose: surpressing Clang warnings of unused font / columns variables :)
+    // gonna remove that pretty soon! 
+    printf("font file: %s / ANSi columns: %lld\n", font_file, columns);
+    
+    // this is for testing my explode() function I ported (and enhanced) from PHP.
+    // will be wiped from the codebase again...!
+    char **dizArray;
+    int64_t dizCount, i;
+    
+    dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
+    
+    for (i = 0; i < dizCount; ++i) {
+        printf("DIZ-extension %lld: %s\n", i+1, dizArray[i]);
+    }
+    
+} // < -- REMINDER: Remove this when enabling the code below again!
+
+    // load the input file
+    
 //   if (!$input_file = fopen($input,'r'))
 //   {
 //      error("Can't open file $input");
@@ -368,9 +353,9 @@
 //      error("Can't open file ansilove_background.png");
 //   }
 //
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.$font_file))
+//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
 //   {
-//      error("Can't open file $font_file");
+//      error("Can't open file font_file");
 //   }
 //
 //   imagecolortransparent($font,20);
@@ -751,7 +736,7 @@
 //      }
 //   }
 //
-//   if (!$ansi = imagecreate($columns*$bits,($position_y_max)*$font_size_y))
+//   if (!$ansi = imagecreate($columns*$bits,($position_y_max)*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
@@ -831,41 +816,41 @@
 //
 //      if (!$font_amiga)
 //      {
-//         imagecopy($ansi,$background,$position_x*$bits,$position_y*$font_size_y,$color_background*9,0,$bits,$font_size_y);
-//         imagecopy($ansi,$font,$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,$font_size_y);
+//         imagecopy($ansi,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
+//         imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
 //      }
 //      else
 //      {
 //         if ($color_background!=0 || !$italics)
 //         {
-//            imagecopy($ansi,$background,$position_x*$bits,$position_y*$font_size_y,$color_background*9,0,$bits,$font_size_y);
+//            imagecopy($ansi,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
 //         }
 //
 //         if (!$italics)
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,$font_size_y);
+//            imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
 //         }
 //         else
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits+3,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,2);
-//            imagecopy($ansi,$font,$position_x*$bits+2,$position_y*$font_size_y+2,$character*$font_size_x,$color_foreground*$font_size_y+2,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*$font_size_y+6,$character*$font_size_x,$color_foreground*$font_size_y+6,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits,$position_y*$font_size_y+10,$character*$font_size_x,$color_foreground*$font_size_y+10,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits-1,$position_y*$font_size_y+14,$character*$font_size_x,$color_foreground*$font_size_y+14,$bits,2);
+//            imagecopy($ansi,$font,$position_x*$bits+3,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,2);
+//            imagecopy($ansi,$font,$position_x*$bits+2,$position_y*font_size_y+2,$character*font_size_x,$color_foreground*font_size_y+2,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*font_size_y+6,$character*font_size_x,$color_foreground*font_size_y+6,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y+10,$character*font_size_x,$color_foreground*font_size_y+10,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits-1,$position_y*font_size_y+14,$character*font_size_x,$color_foreground*font_size_y+14,$bits,2);
 //         }
 //            
 //         if ($italics && $bold)
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits+3+1,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,2);
-//            imagecopy($ansi,$font,$position_x*$bits+2+1,$position_y*$font_size_y+2,$character*$font_size_x,$color_foreground*$font_size_y+2,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1+1,$position_y*$font_size_y+6,$character*$font_size_x,$color_foreground*$font_size_y+6,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*$font_size_y+10,$character*$font_size_x,$color_foreground*$font_size_y+10,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits-1+1,$position_y*$font_size_y+14,$character*$font_size_x,$color_foreground*$font_size_y+14,$bits,2);
+//            imagecopy($ansi,$font,$position_x*$bits+3+1,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,2);
+//            imagecopy($ansi,$font,$position_x*$bits+2+1,$position_y*font_size_y+2,$character*font_size_x,$color_foreground*font_size_y+2,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits+1+1,$position_y*font_size_y+6,$character*font_size_x,$color_foreground*font_size_y+6,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*font_size_y+10,$character*font_size_x,$color_foreground*font_size_y+10,$bits,4);
+//            imagecopy($ansi,$font,$position_x*$bits-1+1,$position_y*font_size_y+14,$character*font_size_x,$color_foreground*font_size_y+14,$bits,2);
 //         }
 //
 //         if ($bold && !$italics)
 //         {
-//            imagecopy($ansi,$font,1+$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,$font_size_y);
+//            imagecopy($ansi,$font,1+$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
 //         }
 //
 //         if ($underline)
@@ -886,12 +871,12 @@
 //
 //            while ($loop_column<$character_size_x)
 //            {
-//               if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*$font_size_y+15)==$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*$font_size_y+15)==$color_background)
+//               if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15)==$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*font_size_y+15)==$color_background)
 //               {
-//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*$font_size_y+14,$colors[$color_foreground]);
-//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*$font_size_y+15,$colors[$color_foreground]);
+//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+14,$colors[$color_foreground]);
+//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15,$colors[$color_foreground]);
 //               }
-//               else if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*$font_size_y+15)!=$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*$font_size_y+15)==$color_background)
+//               else if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15)!=$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*font_size_y+15)==$color_background)
 //               {
 //                  $loop_column++;
 //               }
@@ -901,18 +886,18 @@
 //
 //            if ($pixel_carry)
 //            {
-//               imagesetpixel($ansi,$position_x*$bits,$position_y*$font_size_y+14,$colors[$color_foreground]);
-//               imagesetpixel($ansi,$position_x*$bits,$position_y*$font_size_y+15,$colors[$color_foreground]);
+//               imagesetpixel($ansi,$position_x*$bits,$position_y*font_size_y+14,$colors[$color_foreground]);
+//               imagesetpixel($ansi,$position_x*$bits,$position_y*font_size_y+15,$colors[$color_foreground]);
 //               $pixel_carry=FALSE;
 //            }
 //
-//            if (imagecolorat($font,$character*$font_size_x,$color_foreground*$font_size_y+15)!=20)
+//            if (imagecolorat($font,$character*font_size_x,$color_foreground*font_size_y+15)!=20)
 //            {
-//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*$font_size_y+14,$colors[$color_foreground]);
-//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*$font_size_y+15,$colors[$color_foreground]);
+//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*font_size_y+14,$colors[$color_foreground]);
+//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*font_size_y+15,$colors[$color_foreground]);
 //            }
 //
-//            if (imagecolorat($font,$character*$font_size_x+$character_size_x-1,$color_foreground*$font_size_y+15)!=20)
+//            if (imagecolorat($font,$character*font_size_x+$character_size_x-1,$color_foreground*font_size_y+15)!=20)
 //            {
 //               $pixel_carry=TRUE;
 //            }
@@ -933,7 +918,7 @@
 //
 //   if ($thumbnail)
 //   {
-//      thumbnail($ansi,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($ansi,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -950,7 +935,7 @@
 //         }
 //         else
 //         {
-//            $image_size_y=$position_y_max*$font_size_y;
+//            $image_size_y=$position_y_max*font_size_y;
 //            $split_size_y=SPLIT_HEIGHT;
 //
 //            $loop_max=($image_size_y/$split_size_y);
@@ -1038,21 +1023,21 @@
 //   switch($font)
 //   {
 //   case '80x25':
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //      break;
 //
 //   case '80x50':
-//      $font_file='ansilove_font_pc_80x50.png';
-//      $font_size_x=9;
-//      $font_size_y=8;
+//      font_file = "ansilove_font_pc_80x50.png';
+//      font_size_x = 9;
+//      font_size_y = 8;
 //      break;
 //
 //   default:
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //   }
 //
 //
@@ -1095,9 +1080,9 @@
 //      error("Can't open file ansilove_background.png");
 //   }
 //
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.$font_file))
+//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
 //   {
-//      error("Can't open file $font_file");
+//      error("Can't open file font_file");
 //   }
 //
 //   imagecolortransparent($font,20);
@@ -1287,7 +1272,7 @@
 //   $position_x_max++;
 //   $position_y_max++;
 //
-//   if (!$pcboard = imagecreate($columns*$bits,($position_y_max)*$font_size_y))
+//   if (!$pcboard = imagecreate($columns*$bits,($position_y_max)*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
@@ -1308,8 +1293,8 @@
 //      $color_foreground=$pcboard_buffer[$loop+3];
 //      $character=$pcboard_buffer[$loop+4];
 //
-//      imagecopy($pcboard,$background,$position_x*$bits,$position_y*$font_size_y,$color_background*9,0,$bits,$font_size_y);
-//      imagecopy($pcboard,$font,$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,$font_size_y);
+//      imagecopy($pcboard,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
+//      imagecopy($pcboard,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
 //   }
 //
 //
@@ -1320,7 +1305,7 @@
 //
 //   if ($thumbnail)
 //   {
-//      thumbnail($pcboard,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($pcboard,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -1377,21 +1362,21 @@
 //   switch($font)
 //   {
 //   case '80x25':
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //      break;
 //
 //   case '80x50':
-//      $font_file='ansilove_font_pc_80x50.png';
-//      $font_size_x=9;
-//      $font_size_y=8;
+//      font_file = "ansilove_font_pc_80x50.png';
+//      font_size_x = 9;
+//      font_size_y = 8;
 //      break;
 //
 //   default:
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //   }
 //
 //
@@ -1434,14 +1419,14 @@
 //      error("Can't open file ansilove_background.png");
 //   }
 //
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.$font_file))
+//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
 //   {
-//      error("Can't open file $font_file");
+//      error("Can't open file font_file");
 //   }
 //
 //   imagecolortransparent($font,20);
 //
-//   if (!$binary = imagecreate($columns*$bits,(($input_file_size/2)/$columns)*$font_size_y))
+//   if (!$binary = imagecreate($columns*$bits,(($input_file_size/2)/$columns)*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
@@ -1481,8 +1466,8 @@
 //         $color_background-=8;
 //      }
 //
-//      imagecopy($binary,$background,$position_x*$bits,$position_y*$font_size_y,$color_background*9,0,$bits,$font_size_y);
-//      imagecopy($binary,$font,$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,$bits,$font_size_y);
+//      imagecopy($binary,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
+//      imagecopy($binary,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
 //
 //      $position_x++;
 //      $loop+=2;
@@ -1497,7 +1482,7 @@
 //   if ($thumbnail)
 //   {
 //      $position_y_max=($input_file_size/2)/$columns;
-//      thumbnail($binary,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -1623,7 +1608,7 @@
 //
 //   for ($loop=0;$loop<256;$loop++)
 //   {
-//      for ($adf_font_size_y=0;$adf_font_size_y<16;$adf_font_size_y++)
+//      for ($adf_font_size_y = 0;$adf_font_size_y<16;$adf_font_size_y++)
 //      {
 //         $adf_character_line=ord($input_file_buffer[193+$adf_font_size_y+($loop*16)]);
 //
@@ -1703,9 +1688,9 @@
 //   {
 //      $position_y_max=(($input_file_size-192-4096-1)/2)/80;
 //      $columns=80;
-//      $font_size_y=16;
+//      font_size_y = 16;
 //
-//      thumbnail($adf,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($adf,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -1839,7 +1824,7 @@
 //
 //   for ($loop=0;$loop<256;$loop++)
 //   {
-//      for ($idf_font_size_y=0;$idf_font_size_y<16;$idf_font_size_y++)
+//      for ($idf_font_size_y = 0;$idf_font_size_y<16;$idf_font_size_y++)
 //      {
 //         $idf_character_line=ord($input_file_buffer[$input_file_size-48-4096+$idf_font_size_y+($loop*16)]);
 //
@@ -1953,9 +1938,9 @@
 //   {
 //      $position_y_max=$position_y;
 //      $columns=80;
-//      $font_size_y=16;
+//      font_size_y = 16;
 //
-//      thumbnail($idf,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($idf,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -2010,21 +1995,21 @@
 //   switch($font)
 //   {
 //   case '80x25':
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //      break;
 //
 //   case '80x50':
-//      $font_file='ansilove_font_pc_80x50.png';
-//      $font_size_x=9;
-//      $font_size_y=8;
+//      font_file = "ansilove_font_pc_80x50.png';
+//      font_size_x = 9;
+//      font_size_y = 8;
 //      break;
 //
 //   default:
-//      $font_file='ansilove_font_pc_80x25.png';
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_file = "ansilove_font_pc_80x25.png';
+//      font_size_x = 9;
+//      font_size_y = 16;
 //   }
 //
 //
@@ -2081,9 +2066,9 @@
 //      error("Can't open file ansilove_background.png");
 //   }
 //
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.$font_file))
+//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
 //   {
-//      error("Can't open file $font_file");
+//      error("Can't open file font_file");
 //   }
 //
 //   imagecolorset($font,20,0,0,0);
@@ -2146,7 +2131,7 @@
 ///* ALLOCATE IMAGE BUFFER MEMORY                                              */
 ///*****************************************************************************/
 //
-//   if (!$tundra = imagecreate($columns*$bits,($position_y)*$font_size_y))
+//   if (!$tundra = imagecreate($columns*$bits,($position_y)*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
@@ -2234,7 +2219,7 @@
 //
 //      if ($character!=1 && $character!=2 && $character!=4 && $character!=6)
 //      {
-//         imagecopy($tundra,$font,$position_x*$bits,$position_y*$font_size_y,$character*$font_size_x,0,$bits,$font_size_y);
+//         imagecopy($tundra,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,0,$bits,font_size_y);
 //
 //         $position_x++;
 //      }
@@ -2252,7 +2237,7 @@
 //   {
 //      $position_y_max=$position_y;
 //
-//      thumbnail($tundra,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($tundra,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
@@ -2426,7 +2411,7 @@
 //
 //      for ($loop=0;$loop<256;$loop++)
 //      {
-//         for ($xbin_font_size_y=0;$xbin_font_size_y<$xbin_header['Fontsize'];$xbin_font_size_y++)
+//         for ($xbin_font_size_y = 0;$xbin_font_size_y<$xbin_header['Fontsize'];$xbin_font_size_y++)
 //         {
 //            $xbin_character_line=ord($input_file_buffer[11+$xbin_flags['palette']*48+$xbin_font_size_y+($loop*$xbin_header['Fontsize'])]);
 //
@@ -2454,18 +2439,18 @@
 //      }
 //      imagecolortransparent($font,$colors[0]);
 //
-//      $font_size_x=8;
-//      $font_size_y=$xbin_header['Fontsize'];
+//      font_size_x = 8;
+//      font_size_y = $xbin_header['Fontsize'];
 //   }
 //   else
 //   {
 //      if (!$font = imagecreatefrompng (dirname(__FILE__).'/fonts/ansilove_font_pc_80x25.png'))
 //      {
-//         error("Can't open file $font_file");
+//         error("Can't open file font_file");
 //      }
 //
-//      $font_size_x=9;
-//      $font_size_y=16;
+//      font_size_x = 9;
+//      font_size_y = 16;
 //
 //      imagecolortransparent($font,20);
 //   }
@@ -2546,7 +2531,7 @@
 ///* ALLOCATE IMAGE BUFFER MEMORY                                              */
 ///*****************************************************************************/
 //
-//   if (!$xbin = imagecreatetruecolor($xbin_header['Width']*8,$xbin_header['Height']*$font_size_y))
+//   if (!$xbin = imagecreatetruecolor($xbin_header['Width']*8,$xbin_header['Height']*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
@@ -2573,8 +2558,8 @@
 //      $color_background=($attribute & 240)>>4;
 //      $color_foreground=$attribute & 15;
 //
-//      imagecopy($xbin, $background,$position_x*8,$position_y*$font_size_y,$color_background*$background_size_x,0,8,$font_size_y);
-//      imagecopy($xbin,$font,$position_x*8,$position_y*$font_size_y,$character*$font_size_x,$color_foreground*$font_size_y,8,$font_size_y);
+//      imagecopy($xbin, $background,$position_x*8,$position_y*font_size_y,$color_background*$background_size_x,0,8,font_size_y);
+//      imagecopy($xbin,$font,$position_x*8,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,8,font_size_y);
 //
 //      $position_x++;
 //   }
@@ -2590,7 +2575,7 @@
 //      $position_y_max=$xbin_header['Height'];
 //      $columns=$xbin_header['Width'];
 //
-//      thumbnail($xbin,$output,$columns,$font_size_y,$position_y_max);
+//      thumbnail($xbin,$output,$columns,font_size_y,$position_y_max);
 //   }
 //   else
 //   {
