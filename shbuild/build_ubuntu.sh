@@ -12,7 +12,7 @@ echo "========================================="
 echo "AnsiLove/C build script --> Ubuntu Linux "
 echo "========================================="
 echo "... building"
-gcc -Wall -I../lib/MacOSX/libgd/include/ ../ansilove/main.c ../ansilove/alconfig.h ../ansilove/ansilove.h ../ansilove/ansilove.c ../ansilove/substr.h ../ansilove/substr.c ../ansilove/strtolower.h ../ansilove/strtolower.c /usr/lib/libgd.so.2 -o ansilove
+gcc -Wall -I../lib/MacOSX/libgd/include/ ../ansilove/main.c ../ansilove/alconfig.h ../ansilove/ansilove.h ../ansilove/ansilove.c ../ansilove/substr.h ../ansilove/substr.c ../ansilove/strtolower.h ../ansilove/strtolower.c ../ansilove/explode.h ../ansilove/explode.c /usr/lib/libgd.so.2 -o ansilove
 echo "... done."
 
 exit
