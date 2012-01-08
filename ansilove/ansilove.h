@@ -15,6 +15,7 @@
 #import "alconfig.h"
 #import "strtolower.h"
 #import "substr.h"
+#import "explode.h"
 #else
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,13 +23,14 @@
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
+#include "explode.h"
 #endif
 
 #ifndef ansilove_h
 #define ansilove_h
 
 // prototypes
-void alAnsiLoader(char input, char output, char font, char bits, char icecolors);
+void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
 
 // sauce records
 #define RECORD_SIZE  128
