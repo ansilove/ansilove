@@ -12,6 +12,7 @@
 #if defined(__APPLE__) && defined(__MACH__)
 #import "ansilove.h"
 #else
+#include <stdbool.h>
 #include "ansilove.h"
 #endif
 
