@@ -1374,55 +1374,9 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
         sprintf(bits, "%s", "8");
     }
 
-/*****************************************************************************/
-/* CHECK PARAMETERS AND FORCE DEFAULT VALUES IF INVALID INPUT IS DETECTED    */
-/*****************************************************************************/
-
-   if ($columns==0)
-   {
-      $columns=160;
-   }
-
-   if ($bits=='thumbnail')
-   {
-      $thumbnail=TRUE;
-   }
-   if ($bits!=8 && $bits!=9)
-   {
-      $bits=8;
-   }
-
-   switch($font)
-   {
-   case '80x25':
-      font_file = "ansilove_font_pc_80x25.png';
-      font_size_x = 9;
-      font_size_y = 16;
-      break;
-
-   case '80x50':
-      font_file = "ansilove_font_pc_80x50.png';
-      font_size_x = 9;
-      font_size_y = 8;
-      break;
-
-   default:
-      font_file = "ansilove_font_pc_80x25.png';
-      font_size_x = 9;
-      font_size_y = 16;
-   }
-
-
-
-/*****************************************************************************/
-/* LOAD INPUT FILE                                                           */
-/*****************************************************************************/
-
-   if (!$input_file = fopen($input,'r'))
-   {
-      error("Can't open file $input");
-   }
-
+    // load input file
+    FILE *input_file = fopen(input, "r");
+    
    $input_file_sauce=load_sauce($input);
 
    if ($input_file_sauce!=NULL)
