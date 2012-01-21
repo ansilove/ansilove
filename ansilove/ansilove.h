@@ -31,6 +31,7 @@
 
 // prototypes
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
+void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[]);
 
 // sauce records
 #define RECORD_SIZE  128

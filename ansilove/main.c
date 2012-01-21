@@ -28,7 +28,6 @@
 // prototypes
 void showUsage(void);
 void loadPCBoard(void);
-void loadBinary(void);
 void loadArtworx(void);
 void loadIceDraw(void);
 void loadTundra(void);
@@ -64,11 +63,6 @@ void showUsage(void)
 void loadPCBoard(void)
 {
     // params: input, output, font, bits, icecolors
-}
-
-void loadBinary(void)
-{
-    // params: input, output, columns, font, bits, icecolors
 }
 
 void loadArtworx(void)
@@ -234,7 +228,8 @@ int main(int argc, char *argv[])
             loadPCBoard();
         }
         else if (strcmp(fext, ".bin") == 0) {
-            loadBinary();
+            // params: input, output, columns, font, bits, icecolors
+            alBinaryLoader(input, output, columns, font, bits, icecolors);
         }
         else if (strcmp(fext, ".adf") == 0) {
             loadArtworx();
