@@ -1377,125 +1377,123 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     // load input file
     FILE *input_file = fopen(input, "r");
     
-   $input_file_sauce=load_sauce($input);
+    int64_t input_file_size = filesize(input);
+    
+    printf("\nSize of this file is: %lld bytes.\n", input_file_size);
+    
+//    int64_t input_file_buffer = fread(input_file, input_file_size);
+//    
+//
+//   if (!$input_file_buffer = fread($input_file,$input_file_size))
+//   {
+//      error("Can't read file $input");
+//   }
 
-   if ($input_file_sauce!=NULL)
-   {
-      $input_file_size=$input_file_sauce['FileSize'];
-   }
-   else
-   {
-      $input_file_size=filesize($input);
-   }
-
-   if (!$input_file_buffer = fread($input_file,$input_file_size))
-   {
-      error("Can't read file $input");
-   }
-
-   fclose($input_file);
-
+    // close input file
+    fclose(input_file);
+    
+} // <--- wipe this when enabling the BINARY code below again
 
 
-/*****************************************************************************/
-/* LOAD BACKGROUND/FONT AND ALLOCATE IMAGE BUFFER MEMORY                     */
-/*****************************************************************************/
-
-   if (!$background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
-   {
-      error("Can't open file ansilove_background.png");
-   }
-
-   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
-   {
-      error("Can't open file font_file");
-   }
-
-   imagecolortransparent($font,20);
-
-   if (!$binary = imagecreate($columns*$bits,(($input_file_size/2)/$columns)*font_size_y))
-   {
-      error("Can't allocate buffer image memory");
-   }
-
-   imagecolorallocate($binary,0,0,0);
-
-
-
-/*****************************************************************************/
-/* ALLOCATE BACKGROUND/FOREGROUND COLOR ARRAYS                               */
-/*****************************************************************************/
-
-   $binary_colors[0]=0; $binary_colors[1]=4; $binary_colors[2]=2; $binary_colors[3]=6; $binary_colors[4]=1; $binary_colors[5]=5; $binary_colors[6]=3; $binary_colors[7]=7; $binary_colors[8]=8; $binary_colors[9]=12; $binary_colors[10]=10; $binary_colors[11]=14; $binary_colors[12]=9; $binary_colors[13]=13; $binary_colors[14]=11; $binary_colors[15]=15;
-
-
-
-/*****************************************************************************/
-/* PROCESS BINARY                                                            */
-/*****************************************************************************/
-
-   while ($loop<$input_file_size)
-   {
-      if ($position_x==$columns)
-      {
-         $position_x=0;
-         $position_y++;
-      }
-
-      $character=ord($input_file_buffer[$loop]);
-      $attribute=ord($input_file_buffer[$loop+1]);
-
-      $color_background=$binary_colors[($attribute & 240)>>4];
-      $color_foreground=$binary_colors[$attribute & 15];
-
-      if ($color_background>8 && $icecolors==0)
-      {
-         $color_background-=8;
-      }
-
-      imagecopy($binary,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
-      imagecopy($binary,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
-
-      $position_x++;
-      $loop+=2;
-   }
-
-
-
-/*****************************************************************************/
-/* CREATE OUTPUT FILE                                                        */
-/*****************************************************************************/
-
-   if ($thumbnail)
-   {
-      $position_y_max=($input_file_size/2)/$columns;
-      thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
-   }
-   else
-   {
-      if ($output=='online')
-      {
-         Header("Content-type: image/png");
-         ImagePNG($binary);
-      }
-      else
-      {
-         ImagePNG($binary,$output);
-      }
-   }
-
-
-
-/*****************************************************************************/
-/* FREE MEMORY                                                               */
-/*****************************************************************************/
-
-   imagedestroy($binary);
-   imagedestroy($background);
-   imagedestroy($font);
-}
-
-
+///*****************************************************************************/
+///* LOAD BACKGROUND/FONT AND ALLOCATE IMAGE BUFFER MEMORY                     */
+///*****************************************************************************/
+//
+//   if (!$background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
+//   {
+//      error("Can't open file ansilove_background.png");
+//   }
+//
+//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
+//   {
+//      error("Can't open file font_file");
+//   }
+//
+//   imagecolortransparent($font,20);
+//
+//   if (!$binary = imagecreate($columns*$bits,(($input_file_size/2)/$columns)*font_size_y))
+//   {
+//      error("Can't allocate buffer image memory");
+//   }
+//
+//   imagecolorallocate($binary,0,0,0);
+//
+//
+//
+///*****************************************************************************/
+///* ALLOCATE BACKGROUND/FOREGROUND COLOR ARRAYS                               */
+///*****************************************************************************/
+//
+//   $binary_colors[0]=0; $binary_colors[1]=4; $binary_colors[2]=2; $binary_colors[3]=6; $binary_colors[4]=1; $binary_colors[5]=5; $binary_colors[6]=3; $binary_colors[7]=7; $binary_colors[8]=8; $binary_colors[9]=12; $binary_colors[10]=10; $binary_colors[11]=14; $binary_colors[12]=9; $binary_colors[13]=13; $binary_colors[14]=11; $binary_colors[15]=15;
+//
+//
+//
+///*****************************************************************************/
+///* PROCESS BINARY                                                            */
+///*****************************************************************************/
+//
+//   while ($loop<$input_file_size)
+//   {
+//      if ($position_x==$columns)
+//      {
+//         $position_x=0;
+//         $position_y++;
+//      }
+//
+//      $character=ord($input_file_buffer[$loop]);
+//      $attribute=ord($input_file_buffer[$loop+1]);
+//
+//      $color_background=$binary_colors[($attribute & 240)>>4];
+//      $color_foreground=$binary_colors[$attribute & 15];
+//
+//      if ($color_background>8 && $icecolors==0)
+//      {
+//         $color_background-=8;
+//      }
+//
+//      imagecopy($binary,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
+//      imagecopy($binary,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
+//
+//      $position_x++;
+//      $loop+=2;
+//   }
+//
+//
+//
+///*****************************************************************************/
+///* CREATE OUTPUT FILE                                                        */
+///*****************************************************************************/
+//
+//   if ($thumbnail)
+//   {
+//      $position_y_max=($input_file_size/2)/$columns;
+//      thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
+//   }
+//   else
+//   {
+//      if ($output=='online')
+//      {
+//         Header("Content-type: image/png");
+//         ImagePNG($binary);
+//      }
+//      else
+//      {
+//         ImagePNG($binary,$output);
+//      }
+//   }
+//
+//
+//
+///*****************************************************************************/
+///* FREE MEMORY                                                               */
+///*****************************************************************************/
+//
+//   imagedestroy($binary);
+//   imagedestroy($background);
+//   imagedestroy($font);
+//}
+//
+//
 
 ///*****************************************************************************/
 ///* LOAD ADF                                                                  */
