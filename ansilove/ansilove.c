@@ -1376,20 +1376,33 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
 
     // load input file
     FILE *input_file = fopen(input, "r");
+    if (input_file == NULL) { 
+        fputs("\nFile error.\n",stderr); exit (1);
+    }
     
+    // get the file size (bytes)
     int64_t input_file_size = filesize(input);
     
+    // just for testing the filesize() function we ported from PHP
     printf("\nSize of this file is: %lld bytes.\n", input_file_size);
     
-//    int64_t input_file_buffer = fread(input_file, input_file_size);
-//    
-//
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
-//   {
-//      error("Can't read file $input");
-//   }
-
-    // close input file
+    // next up is loading our file into a dynamically allocated memory buffer
+    char *input_file_buffer;
+    size_t result;
+    
+    // allocate memory to contain the whole file
+    input_file_buffer = (char *) malloc(sizeof(char)*input_file_size);
+    if (input_file_buffer == NULL) {
+        fputs ("\nMemory error.\n",stderr); exit (2);
+    }
+    
+    // copy the file into the buffer
+    result = fread(input_file_buffer,1,input_file_size,input_file);
+    if (result != input_file_size) {
+        fputs ("\nReading error.\n",stderr); exit (3);
+    } // whole file is now loaded into input_file_buffer
+    
+    // close input file, we don't need it anymore
     fclose(input_file);
     
 } // <--- wipe this when enabling the BINARY code below again
