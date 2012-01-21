@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
 		F8CE942014A9198B00AA40BF /* libgd.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
+		F864739214CAE3E900D7E08D /* filesize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesize.c; sourceTree = "<group>"; };
+		F864739314CAE3E900D7E08D /* filesize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesize.h; sourceTree = "<group>"; };
 		F89ED0B714B8ED1500AEDAEA /* explode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = explode.c; sourceTree = "<group>"; };
 		F89ED0B814B8ED1500AEDAEA /* explode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explode.h; sourceTree = "<group>"; };
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				F8FBC5C214A1E2900034BF83 /* substr.c */,
 				F89ED0B814B8ED1500AEDAEA /* explode.h */,
 				F89ED0B714B8ED1500AEDAEA /* explode.c */,
+				F864739314CAE3E900D7E08D /* filesize.h */,
+				F864739214CAE3E900D7E08D /* filesize.c */,
 				F8D6328014A08C0F00C5352F /* Supporting Files */,
 			);
 			name = "PHP functions";
@@ -183,6 +188,7 @@
 				F8FBC5C314A1E2900034BF83 /* substr.c in Sources */,
 				F8CF83DF14A9BB9700ABB607 /* ansilove.c in Sources */,
 				F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */,
+				F864739414CAE3E900D7E08D /* filesize.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
