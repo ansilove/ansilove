@@ -16,6 +16,7 @@
 #import "strtolower.h"
 #import "substr.h"
 #import "explode.h"
+#import "filesize.h"
 #else
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,6 +25,7 @@
 #include "strtolower.h"
 #include "substr.h"
 #include "explode.h"
+#include "filesize.h"
 #endif
 
 #ifndef ansilove_h
