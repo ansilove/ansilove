@@ -1405,6 +1405,10 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     // close input file, we don't need it anymore
     fclose(input_file);
     
+    // libgd image pointer
+    gdImagePtr im;
+    
+    
 } // <--- wipe this when enabling the BINARY code below again
 
 
