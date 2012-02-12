@@ -1397,7 +1397,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     }
     
     // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size,input_file);
+    result = fread(input_file_buffer, 1, input_file_size, input_file);
     if (result != input_file_size) {
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
@@ -1529,8 +1529,6 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     gdImageDestroy(im_Binary);
     gdImageDestroy(im_Backgrnd);
     gdImageDestroy(im_Font);
-    
-    printf("\nSize of this file is: %d bytes.\n", (int32_t)input_file_size);
 }
 
 ///*****************************************************************************/
