@@ -1375,9 +1375,9 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     }
 
     // load input file
-    FILE *input_file = fopen(input, "r");
+    FILE *input_file = fopen(input, "rb");
     if (input_file == NULL) { 
-        fputs("\nFile error.\n",stderr); exit (1);
+        fputs("\nFile error.\n\n", stderr); exit (1);
     }
     
     // get the file size (bytes)
@@ -1393,124 +1393,145 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     // allocate memory to contain the whole file
     input_file_buffer = (char *) malloc(sizeof(char)*input_file_size);
     if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n",stderr); exit (2);
+        fputs ("\nMemory error.\n\n", stderr); exit (2);
     }
     
     // copy the file into the buffer
-    result = fread(input_file_buffer,1,input_file_size,input_file);
+    result = fread(input_file_buffer, 1, input_file_size,input_file);
     if (result != input_file_size) {
-        fputs ("\nReading error.\n",stderr); exit (3);
+        fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
+    rewind(input_file);
     fclose(input_file);
     
     // libgd image pointer
-    gdImagePtr im;
+    gdImagePtr im_Binary, im_Backgrnd, im_Font;
+            
+    // additional libgd related declarations
+    FILE *file_Backgrnd, *file_Font;
+    char path_Backgrnd[1000] = { 0 };
+    char path_Font[1000] = { 0 };
     
+    // resolve paths for font and background image
+    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
+    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
     
-} // <--- wipe this when enabling the BINARY code below again
+    // open font and background image, allocate libgd image pointers
+    file_Backgrnd = fopen(path_Backgrnd, "rb");
+    file_Font = fopen(path_Font, "rb");
+    
+    if (!file_Backgrnd) {
+        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
+    }
+    else {
+        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
+    }
+    
+    if (!file_Font) {
+        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
+    }
+    else {
+        im_Font = gdImageCreateFromPng(file_Font);
+    }
+    
+    // set transparent color index for the font
+    gdImageColorTransparent(im_Font, 20);
 
+    // convert numeric command line flags to integer values
+    int64_t int_columns = atol(columns);
+    int64_t int_bits = atol(bits);
+    int64_t int_icecolors = atol(icecolors);
+    
+    // allocate buffer image memory
+    im_Binary = gdImageCreate((int32_t)int_columns * (int32_t)int_bits, 
+                              (((int32_t)input_file_size / 2) / (int32_t)int_columns * (int32_t)font_size_y));
+    
+    if (!im_Binary) {
+        fputs ("\nError, can't allocate buffer image memory.\n", stderr); exit (6);
+    }
+    
+    // allocate black color
+    gdImageColorAllocate(im_Binary, 0, 0, 0);
+    
+    // background / forground color array
+    int64_t binary_colors[16];
+    
+    // define binary colors
+    binary_colors[0]  = 0; 
+    binary_colors[1]  = 4; 
+    binary_colors[2]  = 2; 
+    binary_colors[3]  = 6; 
+    binary_colors[4]  = 1; 
+    binary_colors[5]  = 5; 
+    binary_colors[6]  = 3; 
+    binary_colors[7]  = 7; 
+    binary_colors[8]  = 8; 
+    binary_colors[9]  = 12; 
+    binary_colors[10] = 10; 
+    binary_colors[11] = 14; 
+    binary_colors[12] = 9; 
+    binary_colors[13] = 13; 
+    binary_colors[14] = 11; 
+    binary_colors[15] = 15;
+    
+    // process binary
+    int64_t position_x, position_y, character, attribute, color_background, color_foreground;
+    int64_t loop = 0;
+    
+    while (loop < input_file_size)
+    {
+        if (position_x == int_columns) 
+        {
+            position_x = 0;
+            position_y++;
+        }
+        
+        character = input_file_buffer[loop];
+        attribute = input_file_buffer[loop+1];
+        
+        color_background = binary_colors[(attribute & 240) >> 4];
+        color_foreground = binary_colors[attribute & 15];
+        
+        if (color_background > 8 && int_icecolors == 0)
+        {
+            color_background -= 8;
+        }
+        
+        gdImageCopy(im_Binary, im_Backgrnd, (int32_t)position_x * (int32_t)int_bits, 
+                    (int32_t)position_y * (int32_t)font_size_y, 
+                    (int32_t)color_background * 9, 0, 
+                    (int32_t)int_bits, (int32_t)font_size_y);
+        
+        gdImageCopy(im_Binary, im_Font, (int32_t)position_x * (int32_t)int_bits,
+                    (int32_t)position_y * (int32_t)font_size_y, 
+                    (int32_t)character * (int32_t)font_size_x, 
+                    (int32_t)color_foreground * (int32_t)font_size_y,
+                    (int32_t)int_bits, (int32_t)font_size_y);
+        
+        position_x++;
+        loop+=2;
+    }
+    
+    if (thumbnail == true)
+    {
+        int64_t position_y_max = (input_file_size / 2) / int_columns; 
+        //thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
+    }
+    else {
+        FILE *file_Out = fopen(output, "wb");
+        gdImagePng(im_Binary, file_Out);
+        fclose(file_Out);
+   }
 
-///*****************************************************************************/
-///* LOAD BACKGROUND/FONT AND ALLOCATE IMAGE BUFFER MEMORY                     */
-///*****************************************************************************/
-//
-//   if (!$background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
-//   {
-//      error("Can't open file ansilove_background.png");
-//   }
-//
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
-//   {
-//      error("Can't open file font_file");
-//   }
-//
-//   imagecolortransparent($font,20);
-//
-//   if (!$binary = imagecreate($columns*$bits,(($input_file_size/2)/$columns)*font_size_y))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   imagecolorallocate($binary,0,0,0);
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE BACKGROUND/FOREGROUND COLOR ARRAYS                               */
-///*****************************************************************************/
-//
-//   $binary_colors[0]=0; $binary_colors[1]=4; $binary_colors[2]=2; $binary_colors[3]=6; $binary_colors[4]=1; $binary_colors[5]=5; $binary_colors[6]=3; $binary_colors[7]=7; $binary_colors[8]=8; $binary_colors[9]=12; $binary_colors[10]=10; $binary_colors[11]=14; $binary_colors[12]=9; $binary_colors[13]=13; $binary_colors[14]=11; $binary_colors[15]=15;
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS BINARY                                                            */
-///*****************************************************************************/
-//
-//   while ($loop<$input_file_size)
-//   {
-//      if ($position_x==$columns)
-//      {
-//         $position_x=0;
-//         $position_y++;
-//      }
-//
-//      $character=ord($input_file_buffer[$loop]);
-//      $attribute=ord($input_file_buffer[$loop+1]);
-//
-//      $color_background=$binary_colors[($attribute & 240)>>4];
-//      $color_foreground=$binary_colors[$attribute & 15];
-//
-//      if ($color_background>8 && $icecolors==0)
-//      {
-//         $color_background-=8;
-//      }
-//
-//      imagecopy($binary,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
-//      imagecopy($binary,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
-//
-//      $position_x++;
-//      $loop+=2;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* CREATE OUTPUT FILE                                                        */
-///*****************************************************************************/
-//
-//   if ($thumbnail)
-//   {
-//      $position_y_max=($input_file_size/2)/$columns;
-//      thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
-//   }
-//   else
-//   {
-//      if ($output=='online')
-//      {
-//         Header("Content-type: image/png");
-//         ImagePNG($binary);
-//      }
-//      else
-//      {
-//         ImagePNG($binary,$output);
-//      }
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* FREE MEMORY                                                               */
-///*****************************************************************************/
-//
-//   imagedestroy($binary);
-//   imagedestroy($background);
-//   imagedestroy($font);
-//}
-//
-//
+    // free memory
+    gdImageDestroy(im_Binary);
+    gdImageDestroy(im_Backgrnd);
+    gdImageDestroy(im_Font);
+    
+    printf("\nSize of this file is: %d bytes.\n", (int32_t)input_file_size);
+}
 
 ///*****************************************************************************/
 ///* LOAD ADF                                                                  */
