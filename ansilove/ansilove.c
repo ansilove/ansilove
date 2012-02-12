@@ -1387,11 +1387,11 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     printf("\nSize of this file is: %lld bytes.\n", input_file_size);
     
     // next up is loading our file into a dynamically allocated memory buffer
-    char *input_file_buffer;
+    unsigned char *input_file_buffer;
     size_t result;
     
     // allocate memory to contain the whole file
-    input_file_buffer = (char *) malloc(sizeof(char)*input_file_size);
+    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
     if (input_file_buffer == NULL) {
         fputs ("\nMemory error.\n\n", stderr); exit (2);
     }
@@ -1480,6 +1480,9 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     int64_t position_x, position_y, character, attribute, color_background, color_foreground;
     int64_t loop = 0;
     
+    position_x = 0;
+    position_y = 0;
+
     while (loop < input_file_size)
     {
         if (position_x == int_columns) 
