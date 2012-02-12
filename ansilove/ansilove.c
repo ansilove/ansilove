@@ -1375,7 +1375,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     }
 
     // load input file
-    FILE *input_file = fopen(input, "rb");
+    FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
         fputs("\nFile error.\n\n", stderr); exit (1);
     }
