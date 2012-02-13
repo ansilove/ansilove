@@ -291,7 +291,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     // purpose: surpressing Clang warnings of unused font / columns variables :)
     // gonna remove that pretty soon! 
-    printf("font file: %s / ANSi columns: %lld\n", font_file, columns);
+    printf("font file: %s / ANSi columns: %jd\n", font_file, columns);
     
     // this is for testing my explode() function I ported (and enhanced) from PHP.
     // will be wiped from the codebase again...!
@@ -301,7 +301,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
     
     for (i = 0; i < dizCount; ++i) {
-        printf("DIZ-extension %lld: %s\n", i+1, dizArray[i]);
+        printf("DIZ-extension %jd: %s\n", i+1, dizArray[i]);
     }
     
 } // < -- REMINDER: Remove this when enabling the ANSi code below again!
@@ -1384,7 +1384,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     int64_t input_file_size = filesize(input);
     
     // just for testing the filesize() function we ported from PHP
-    printf("\nSize of this file is: %lld bytes.\n", input_file_size);
+    printf("\nSize of this file is: %jd bytes.\n", input_file_size);
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
