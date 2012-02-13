@@ -16,61 +16,6 @@
 #include "ansilove.h"
 #endif
 
-///*****************************************************************************/
-///* CREATE THUMBNAIL                                                          */
-///*****************************************************************************/
-//
-//function thumbnail($source,$output,$columns,font_size_y,$position_y_max)
-//{
-//   $columns=min($columns,80);
-//
-//   if (THUMBNAILS_SIZE<=0)
-//   {
-//      $size=1;
-//   }
-//   else
-//   {
-//      $size=THUMBNAILS_SIZE;
-//   }
-//
-//   if (THUMBNAILS_HEIGHT==0)
-//   {
-//      $height=$position_y_max*(font_size_y/8);
-//      $height_source=$position_y_max*font_size_y;
-//   }
-//   else
-//   {
-//      $height=min($position_y_max*(font_size_y/8),THUMBNAILS_HEIGHT);
-//      $height_source=$height*8;
-//   }
-//
-//   $width_source=$columns*8;
-//   $height*=$size;
-//   $columns*=$size;
-//
-//   if (!$thumbnail = imagecreatetruecolor($columns,$height))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   imagecopyresampled($thumbnail,$source,0,0,0,0,$columns,$height,$width_source,$height_source);
-//
-//   if ($output=='online')
-//   {
-//      Header("Content-type: image/png");
-//      ImagePNG($thumbnail);
-//   }
-//   else
-//   {
-//      ImagePNG($thumbnail,$output);
-//   }
-//
-//   imagedestroy($thumbnail);
-//}
-//
-//
-//
-
 // load ANSi file and generate output PNG
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
@@ -81,7 +26,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     char *font_file;
     bool isAmigaFont = false;
     bool ced = false;
-    bool thumbnail = false;
     bool transparent = false;
     bool workbench = false;
     
@@ -270,9 +214,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     // to deal with the bits flag, we declared handy bool types   
     if (strcmp(bits, "ced") == 0) {
         ced = true;
-    }
-    else if (strcmp(bits, "thumbnail") == 0) {
-        thumbnail = true;
     }
     else if (strcmp(bits, "transparent") == 0) {
         transparent = true;
@@ -1339,7 +1280,6 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     int64_t font_size_x;
     int64_t font_size_y;
     char *font_file;
-    bool thumbnail = false;
     
     // let's see what font we should use to render output
     if (strcmp(font, "80x25") == 0) {
@@ -1364,11 +1304,6 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
         font_size_y = 16;
     }
     
-    // in case bits is equal "thumbnail" set our bool flag 
-    if (strcmp(bits, "thumbnail") == 0) {
-        thumbnail = true;
-    }
-    
     // now set bits to 8 if not already value 8 or 9
     if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
         sprintf(bits, "%s", "8");
@@ -1382,9 +1317,6 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     
     // get the file size (bytes)
     int64_t input_file_size = filesize(input);
-    
-    // just for testing the filesize() function we ported from PHP
-    printf("\nSize of this file is: %jd bytes.\n", input_file_size);
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
@@ -1449,7 +1381,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
                               (((int32_t)input_file_size / 2) / (int32_t)int_columns * (int32_t)font_size_y));
     
     if (!im_Binary) {
-        fputs ("\nError, can't allocate buffer image memory.\n", stderr); exit (6);
+        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
     }
     
     // allocate black color
@@ -1477,11 +1409,8 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     binary_colors[15] = 15;
     
     // process binary
-    int64_t position_x, position_y, character, attribute, color_background, color_foreground;
-    int64_t loop = 0;
-    
-    position_x = 0;
-    position_y = 0;
+    int64_t character, attribute, color_background, color_foreground;
+    int64_t loop = 0, position_x = 0, position_y = 0;
 
     while (loop < input_file_size)
     {
@@ -1516,17 +1445,11 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
         position_x++;
         loop+=2;
     }
-    
-    if (thumbnail == true)
-    {
-        int64_t position_y_max = (input_file_size / 2) / int_columns; 
-        //thumbnail($binary,$output,$columns,font_size_y,$position_y_max);
-    }
-    else {
-        FILE *file_Out = fopen(output, "wb");
-        gdImagePng(im_Binary, file_Out);
-        fclose(file_Out);
-   }
+  
+    // create output image
+    FILE *file_Out = fopen(output, "wb");
+    gdImagePng(im_Binary, file_Out);
+    fclose(file_Out);
 
     // free memory
     gdImageDestroy(im_Binary);
