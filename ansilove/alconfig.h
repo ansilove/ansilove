@@ -17,8 +17,6 @@
 
 #define ANSILOVE_FONTS_DIRECTORY "fonts/"
 
-#define ANSILOVE_LOG_FILE "ansilove.log"
-
 #define PCBOARD_STRIP_CODES "@POFF@,@WAIT@"
 
 #define DIZ_EXTENSIONS ".diz,.ion"
@@ -37,13 +35,5 @@
 #define WORKBENCH_COLOR_5 "255,0,255"
 #define WORKBENCH_COLOR_6 "102,136,187"
 #define WORKBENCH_COLOR_7 "255,255,255"
-
-#define THUMBNAILS_SIZE "1"
-#define THUMBNAILS_HEIGHT "0"
-#define THUMBNAILS_TAG "-thumbnail"
-
-#define SPLIT "0"
-#define SPLIT_HEIGHT "4096"
-#define SPLIT_SEPARATOR "."
 
 #endif
