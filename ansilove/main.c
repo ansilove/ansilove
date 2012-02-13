@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     
     // record == NULL means there is no file, we can stop here
     if (record == NULL) {
-        printf("File %s not found.\n\n", argv[1]);
+        printf("\nFile %s not found.\n\n", argv[1]);
         return EXIT_FAILURE;
     }
     
@@ -208,11 +208,6 @@ int main(int argc, char *argv[])
             else {
                 sprintf(icecolors, "%s", "0");
             }
-        }
-        
-        // in case the thumbnail flag is set, append THUMBNAILS_TAG
-        if (strcmp(bits, "thumbnail") == 0) {
-            sprintf(output, "%s%s.png", strtolower(argv[1]), THUMBNAILS_TAG);
         }
         
         // report all flags to the command line
