@@ -45,7 +45,7 @@ void showUsage(void)
     printf("EXAMPLES:\n"); 
     printf("ansilove ansi.ans ansi.png\n");
     printf("ansilove ansi.ans ansi.png 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
-    printf("ansilove ansi.ans -s 80x25 thumbnail (80x25 font, thumbnail rendering)\n");
+    printf("ansilove ansi.ans -s 80x25 (80x25 font)\n");
     printf("ansilove ansi.ans ansi.png 80x50 9 (80x50 font, 9-bit)\n");
     printf("ansilove ansi.ans -s russian 9 (Russian font, 9-bit)\n");
     printf("ansilove ansi.ans ansi.png amiga (Amiga font)\n");
@@ -63,11 +63,6 @@ void showUsage(void)
 void loadPCBoard(void)
 {
     // params: input, output, font, bits, icecolors
-}
-
-void loadArtworx(void)
-{
-    // params: input, output, bits
 }
 
 void loadIceDraw(void)
@@ -227,7 +222,8 @@ int main(int argc, char *argv[])
             alBinaryLoader(input, output, columns, font, bits, icecolors);
         }
         else if (strcmp(fext, ".adf") == 0) {
-            loadArtworx();
+            // params: input, output, bits
+            alArtworxLoader(input, output, bits);
         }
         else if (strcmp(fext, ".idf") == 0) {
             loadIceDraw();
