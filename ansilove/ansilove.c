@@ -16,7 +16,7 @@
 #include "ansilove.h"
 #endif
 
-// load ANSi file and generate output PNG
+// ANSi
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
     // ladies and gentlemen, it's type declaration time
@@ -1273,7 +1273,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 //   imagedestroy($font);
 //}
 
-// load BINARY file and generate output PNG
+// BINARY
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[])
 {
     // some type declarations
@@ -1457,12 +1457,9 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     gdImageDestroy(im_Font);
 }
 
-///*****************************************************************************/
-///* LOAD ADF                                                                  */
-///*****************************************************************************/
-//
-//function load_adf($input,$output,$bits)
-//{
+// ADF
+void alArtworxLoader(char *input, char output[], char bits[])
+{}
 //   check_libraries();
 //
 //   if ($bits=='thumbnail')
