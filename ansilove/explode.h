@@ -26,6 +26,6 @@
 // via array pointer and you don't have to determine how many string
 // instances were stored overall as this is what you're getting.
 
-int64_t explode(char ***arr_ptr, char delimiter, char *str);
+int32_t explode(char ***arr_ptr, char delimiter, char *str);
 
 #endif

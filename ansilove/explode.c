@@ -15,11 +15,11 @@
 #include "explode.h"
 #endif
 
-int64_t explode(char ***arr_ptr, char delimiter, char *str)
+int32_t explode(char ***arr_ptr, char delimiter, char *str)
 {
     char *src = str, *end, *dst;
     char **arr;
-    int64_t size = 1, i;
+    int32_t size = 1, i;
     
     while ((end = strchr(src, delimiter)) != NULL)
     {
