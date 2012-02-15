@@ -20,9 +20,9 @@
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
     // ladies and gentlemen, it's type declaration time
-    int64_t columns = 80;
-    int64_t font_size_x;
-    int64_t font_size_y;
+    int32_t columns = 80;
+    int32_t font_size_x;
+    int32_t font_size_y;
     char *font_file;
     bool isAmigaFont = false;
     bool ced = false;
@@ -237,7 +237,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     // this is for testing my explode() function I ported (and enhanced) from PHP.
     // will be wiped from the codebase again...!
     char **dizArray;
-    int64_t dizCount, i;
+    int32_t dizCount, i;
     
     dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
     
@@ -1277,8 +1277,8 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[])
 {
     // some type declarations
-    int64_t font_size_x;
-    int64_t font_size_y;
+    int32_t font_size_x;
+    int32_t font_size_y;
     char *font_file;
     
     // let's see what font we should use to render output
@@ -1316,7 +1316,8 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     }
     
     // get the file size (bytes)
-    int64_t input_file_size = filesize(input);
+    size_t get_file_size = filesize(input);
+    int32_t input_file_size = (int32_t)get_file_size;
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
@@ -1338,7 +1339,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     rewind(input_file);
     fclose(input_file);
     
-    // libgd image pointer
+    // libgd image pointers
     gdImagePtr im_Binary, im_Backgrnd, im_Font;
             
     // additional libgd related declarations
@@ -1372,13 +1373,13 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     gdImageColorTransparent(im_Font, 20);
 
     // convert numeric command line flags to integer values
-    int64_t int_columns = atol(columns);
-    int64_t int_bits = atol(bits);
-    int64_t int_icecolors = atol(icecolors);
+    int32_t int_columns = atoi(columns);
+    int32_t int_bits = atoi(bits);
+    int32_t int_icecolors = atoi(icecolors);
     
     // allocate buffer image memory
-    im_Binary = gdImageCreate((int32_t)int_columns * (int32_t)int_bits, 
-                              (((int32_t)input_file_size / 2) / (int32_t)int_columns * (int32_t)font_size_y));
+    im_Binary = gdImageCreate(int_columns * int_bits, 
+                              ((input_file_size / 2) / int_columns * font_size_y));
     
     if (!im_Binary) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -1388,7 +1389,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     gdImageColorAllocate(im_Binary, 0, 0, 0);
     
     // background / forground color array
-    int64_t binary_colors[16];
+    int32_t binary_colors[16];
     
     // define binary colors
     binary_colors[0]  = 0; 
@@ -1409,8 +1410,8 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     binary_colors[15] = 15;
     
     // process binary
-    int64_t character, attribute, color_background, color_foreground;
-    int64_t loop = 0, position_x = 0, position_y = 0;
+    int32_t character, attribute, color_background, color_foreground;
+    int32_t loop = 0, position_x = 0, position_y = 0;
 
     while (loop < input_file_size)
     {
@@ -1431,16 +1432,16 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
             color_background -= 8;
         }
         
-        gdImageCopy(im_Binary, im_Backgrnd, (int32_t)position_x * (int32_t)int_bits, 
-                    (int32_t)position_y * (int32_t)font_size_y, 
-                    (int32_t)color_background * 9, 0, 
-                    (int32_t)int_bits, (int32_t)font_size_y);
+        gdImageCopy(im_Binary, im_Backgrnd, position_x * int_bits, 
+                    position_y * font_size_y, 
+                    color_background * 9, 0, 
+                    int_bits, font_size_y);
         
-        gdImageCopy(im_Binary, im_Font, (int32_t)position_x * (int32_t)int_bits,
-                    (int32_t)position_y * (int32_t)font_size_y, 
-                    (int32_t)character * (int32_t)font_size_x, 
-                    (int32_t)color_foreground * (int32_t)font_size_y,
-                    (int32_t)int_bits, (int32_t)font_size_y);
+        gdImageCopy(im_Binary, im_Font, position_x * int_bits,
+                    position_y * font_size_y, 
+                    character * font_size_x, 
+                    color_foreground * font_size_y,
+                    int_bits, font_size_y);
         
         position_x++;
         loop+=2;
@@ -1459,89 +1460,88 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
 
 // ADF
 void alArtworxLoader(char *input, char output[], char bits[])
-{}
-//   check_libraries();
-//
-//   if ($bits=='thumbnail')
-//   {
-//      $thumbnail=TRUE;
-//   }
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
-//   if (!$input_file = fopen($input,'r'))
-//   {
-//      error("Can't open file $input");
-//   }
-//
-//   $input_file_sauce=load_sauce($input);
-//
-//   if ($input_file_sauce!=NULL)
-//   {
-//      $input_file_size=$input_file_sauce['FileSize'];
-//   }
-//   else
-//   {
-//      $input_file_size=filesize($input);
-//   }
-//
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
-//   {
-//      error("Can't read file $input");
-//   }
-//
-//   fclose($input_file);
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE BACKGROUND/FONT IMAGE BUFFER MEMORY                              */
-///*****************************************************************************/
-//
-//   if (!$background = imagecreate(128,16))
-//   {
-//      error("Can't allocate background buffer image memory");
-//   }
-//
-//   if (!$font = imagecreate(2048,256))
-//   {
-//      error("Can't allocate font buffer image memory");
-//   }
-//
-//   if (!$font_inverted = imagecreate(2048,16))
-//   {
-//      error("Can't allocate temporary font buffer image memory");
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS ADF PALETTE                                                       */
-///*****************************************************************************/
-//
-//   $adf_colors=array(0,1,2,3,4,5,20,7,56,57,58,59,60,61,62,63);
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      $index=($adf_colors[$loop]*3)+1;
-//      $colors[$loop]=imagecolorallocate($background,(ord($input_file_buffer[$index])<<2 | ord($input_file_buffer[$index])>>4),(ord($input_file_buffer[$index+1])<<2 | ord($input_file_buffer[$index+1])>>4),(ord($input_file_buffer[$index+2])<<2 | ord($input_file_buffer[$index+2])>>4));
-//   }
-//
-//   imagepalettecopy($font,$background);
-//   imagepalettecopy($font_inverted,$background);
-//
-//   $color_index=imagecolorsforindex($background, 0);
-//   $colors[16]=imagecolorallocate($font,$color_index['red'],$color_index['green'],$color_index['blue']);
-//   $colors[20]=imagecolorallocate($font_inverted,200,220,169);
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      imagefilledrectangle($background,$loop<<3,0,($loop<<3)+8,16,$colors[$loop]);
-//   }
-//
-//
+{
+    // load input file
+    FILE *input_file = fopen(input, "r");
+    if (input_file == NULL) { 
+        fputs("\nFile error.\n\n", stderr); exit (1);
+    }
+    
+    // get the file size (bytes)
+    size_t input_file_size = filesize(input);
+    
+    // next up is loading our file into a dynamically allocated memory buffer
+    unsigned char *input_file_buffer;
+    size_t result;
+    
+    // allocate memory to contain the whole file
+    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    if (input_file_buffer == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (2);
+    }
+    
+    // copy the file into the buffer
+    result = fread(input_file_buffer, 1, input_file_size, input_file);
+    if (result != input_file_size) {
+        fputs ("\nReading error.\n\n", stderr); exit (3);
+    } // whole file is now loaded into input_file_buffer
+    
+    // close input file, we don't need it anymore
+    rewind(input_file);
+    fclose(input_file);
+    
+    // libgd image pointers
+    gdImagePtr im_ADF, im_Backgrnd, im_Font, im_InvertFont;
+
+    // create gd image instances
+    im_Backgrnd = gdImageCreate(128, 16);
+    im_Font = gdImageCreate(2048, 256);
+    im_InvertFont = gdImageCreate(2048, 16);
+    
+    // error output
+    if (!im_Backgrnd) {
+        fputs ("\nCan't allocate background buffer image memory.\n\n", stderr); exit (4);
+    }
+    if (!im_Font) {
+        fputs ("\nCan't allocate font buffer image memory.\n\n", stderr); exit (5);
+    }
+    if (!im_InvertFont) {
+        fputs ("\nCan't allocate temporary font buffer image memory.\n\n", stderr); exit (6);
+    }
+    
+    // ADF color palette array
+    int32_t adf_colors[16] = { 0, 1, 2, 3, 4, 5, 20, 7, 56, 57, 58, 59, 60, 61, 62, 63 };
+    
+    // process ADF palette
+    int32_t loop;
+    int32_t index;
+    int32_t colors[21];
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        index = (adf_colors[loop] * 3) + 1;
+        colors[loop] = gdImageColorAllocate(im_Backgrnd, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
+                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
+    }
+    gdImagePaletteCopy(im_Font, im_Backgrnd);
+    gdImagePaletteCopy(im_InvertFont, im_Backgrnd);
+    
+    // get and apply RGB values
+    int32_t Red = gdImageRed(im_Backgrnd, 0);
+    int32_t Green = gdImageGreen(im_Backgrnd, 0);
+    int32_t Blue = gdImageBlue(im_Backgrnd, 0);
+    
+    colors[16] = gdImageColorAllocate(im_Font, Red, Green, Blue);
+    colors[20] = gdImageColorAllocate(im_InvertFont, 200, 220, 169);
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, 
+                               (loop << 3) + 8, 16, colors[loop]);
+    }
+
+}
 //
 ///*****************************************************************************/
 ///* PROCESS ADF FONT                                                          */
@@ -1660,9 +1660,9 @@ void alArtworxLoader(char *input, char output[], char bits[])
 //   imagedestroy($font);
 //   imagedestroy($font_inverted);
 //}
-//
-//
-//
+
+
+
 ///*****************************************************************************/
 ///* LOAD IDF                                                                  */
 ///*****************************************************************************/
@@ -2576,7 +2576,7 @@ void readRecord(FILE *file, sauce *record)
         return;
     }
     
-    int64_t read_status = fread(record->ID, sizeof(record->ID) - 1, 1, file);
+    size_t read_status = fread(record->ID, sizeof(record->ID) - 1, 1, file);
     record->ID[sizeof(record->ID) - 1] = '\0';
     
     if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
@@ -2623,9 +2623,9 @@ void readRecord(FILE *file, sauce *record)
     }
 }
 
-void readComments(FILE *file, char **comment_lines, int64_t comments) 
+void readComments(FILE *file, char **comment_lines, int32_t comments) 
 {
-    int64_t i;
+    int32_t i;
     
     if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == EXIT_SUCCESS) {
         char ID[6];
