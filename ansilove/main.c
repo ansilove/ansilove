@@ -75,11 +75,6 @@ void loadTundra(void)
     // params: input, output, font, bits
 }
 
-void loadXbin(void)
-{
-    // params: input, output, bits
-}
-
 int main(int argc, char *argv[])
 {
     printf("\n---------------------------------------------------------------------------\n");
@@ -232,7 +227,8 @@ int main(int argc, char *argv[])
             loadTundra();
         }
         else if (strcmp(fext, ".xb") == 0) {
-            loadXbin();
+            // params: input, output, bits
+            alXbinLoader(input, output, bits);
         }
         else {
             // params: input, output, font, bits, icecolors, fext

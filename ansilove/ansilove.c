@@ -2206,15 +2206,11 @@ void alArtworxLoader(char *input, char output[], char bits[])
 //   imagedestroy($background);
 //   imagedestroy($font);
 //}
-//
-//
-//
-///*****************************************************************************/
-///* LOAD XBIN                                                                 */
-///*****************************************************************************/
-//
-//function load_xbin($input,$output,$bits)
-//{
+
+// XBin
+void alXbinLoader(char *input, char output[], char bits[])
+{ }
+
 //   check_libraries();
 //
 //   if ($bits=='thumbnail')
