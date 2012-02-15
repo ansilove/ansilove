@@ -117,10 +117,10 @@ int main(int argc, char *argv[])
         char *fext;
         
         // find last position of char '.' so we can determine the file extension
-        int64_t index = strrchr(input, '.') - input;
+        size_t index = strrchr(input, '.') - input;
         
         // calculate size of the input string
-        int64_t inpSize = strlen(input);
+        size_t inpSize = strlen(input);
         
         // generate size_t result we can pass to our substr() implementation
         size_t result = inpSize - index;
@@ -264,7 +264,7 @@ int main(int argc, char *argv[])
             printf( "%s: %d\n", "Tinfo4", record->tinfo4);
         }
         if (record->comments > 0) {
-            int64_t i;
+            int32_t i;
             printf( "Comments: ");
             for(i = 0; i < record->comments; i++) {
                 printf( "%s\n", record->comment_lines[i] );
