@@ -21,6 +21,6 @@
 
 // Returns size of a file at a given path as integer.
 
-int64_t filesize(char *filepath);
+size_t filesize(char *filepath);
 
 #endif

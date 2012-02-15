@@ -15,10 +15,10 @@
 #include "filesize.h"
 #endif
 
-int64_t filesize(char *filepath) 
+size_t filesize(char *filepath) 
 {
     // pointer to file at path
-    int64_t size;
+    size_t size;
     FILE *file;
     
     // To properly determine the size, we open it in binary mode.
