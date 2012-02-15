@@ -28,10 +28,8 @@
 // prototypes
 void showUsage(void);
 void loadPCBoard(void);
-void loadArtworx(void);
 void loadIceDraw(void);
 void loadTundra(void);
-void loadXbin(void);
 
 // show how to properly set the command line flags
 void showUsage(void)
