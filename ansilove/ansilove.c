@@ -232,7 +232,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     // purpose: surpressing Clang warnings of unused font / columns variables :)
     // gonna remove that pretty soon! 
-    printf("font file: %s / ANSi columns: %jd\n", font_file, columns);
+    printf("font file: %s / ANSi columns: %d\n", font_file, columns);
     
     // this is for testing my explode() function I ported (and enhanced) from PHP.
     // will be wiped from the codebase again...!
@@ -242,7 +242,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
     
     for (i = 0; i < dizCount; ++i) {
-        printf("DIZ-extension %jd: %s\n", i+1, dizArray[i]);
+        printf("DIZ-extension %d: %s\n", i+1, dizArray[i]);
     }
     
 } // < -- REMINDER: Remove this when enabling the ANSi code below again!
