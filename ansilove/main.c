@@ -63,11 +63,6 @@ void loadPCBoard(void)
     // params: input, output, font, bits, icecolors
 }
 
-void loadIceDraw(void)
-{
-    // params: input, output, bits
-}
-
 void loadTundra(void)
 {
     // params: input, output, font, bits
@@ -219,7 +214,8 @@ int main(int argc, char *argv[])
             alArtworxLoader(input, output, bits);
         }
         else if (strcmp(fext, ".idf") == 0) {
-            loadIceDraw();
+            // params: input, output, bits
+            alIcedrawLoader(input, output, bits);
         }
         else if (strcmp(fext, ".tnd") == 0) {
             loadTundra();
