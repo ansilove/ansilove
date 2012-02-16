@@ -1468,7 +1468,8 @@ void alArtworxLoader(char *input, char output[], char bits[])
     }
     
     // get the file size (bytes)
-    size_t input_file_size = filesize(input);
+    size_t get_file_size = filesize(input);
+    int32_t input_file_size = (int32_t)get_file_size;
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
@@ -1540,126 +1541,90 @@ void alArtworxLoader(char *input, char output[], char bits[])
         gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, 
                                (loop << 3) + 8, 16, colors[loop]);
     }
-
+    
+    // process ADF font
+    gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
+    gdImageColorTransparent(im_InvertFont, colors[20]);
+    
+    int32_t adf_font_size_y, adf_character_line = 0, adf_character_column = 0, loop_column;
+    
+    for (loop = 0; loop < 256; loop++)
+    {
+        for (adf_font_size_y = 0; adf_font_size_y < 16; adf_font_size_y++)
+        {
+            adf_character_line = input_file_buffer[193 + adf_font_size_y + (loop*16)];
+            
+            for (loop_column = 0; loop_column < 8; loop_column++)
+            {
+                adf_character_column = 128 / pow(2, loop_column);
+                
+                if ((adf_character_line & adf_character_column) != adf_character_column)
+                {
+                    gdImageSetPixel(im_InvertFont, (loop * 8) + loop_column, adf_font_size_y, colors[0]);
+                }
+            }
+        }
+    }
+    
+    for (loop = 1; loop < 16; loop++)
+    {
+        gdImageFilledRectangle(im_Font, 0, loop * 16, 2048,(loop * 16) + 16, colors[loop]);
+    }
+    gdImageFilledRectangle(im_Font, 0, 0, 2048, 15, colors[16]);
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        gdImageCopy(im_Font, im_InvertFont, 0, loop * 16, 0, 0, 2048, 16);
+    }
+    gdImageColorTransparent(im_Font, colors[0]);
+    
+    // create ADF instance
+    im_ADF = gdImageCreate(640,(((input_file_size - 192 - 4096 -1) / 2) / 80) * 16);
+    
+    // error output
+    if (!im_ADF) {
+        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
+    }
+    
+    gdImageColorAllocate(im_ADF, 0, 0, 0);
+       
+    // process ADF
+    int32_t position_x = 0, position_y = 0; 
+    int32_t character, attribute, color_foreground, color_background;
+    loop = 192 + 4096 + 1;
+    
+    while(loop < input_file_size)
+    {
+        if (position_x == 80)
+        {
+            position_x = 0;
+            position_y++;
+        }
+        
+        character = input_file_buffer[loop];
+        attribute = input_file_buffer[loop+1];
+        
+        color_background = (attribute & 240) >> 4;
+        color_foreground = attribute & 15;
+        
+        gdImageCopy(im_ADF, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
+        gdImageCopy(im_ADF, im_Font, position_x * 8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+        
+        position_x++;
+        loop+=2;
+    }
+    
+    // create output file
+    FILE *file_Out = fopen(output, "wb");
+    gdImagePng(im_ADF, file_Out);
+    fclose(file_Out);
+    
+    // nuke garbage
+    gdImageDestroy(im_ADF);
+    gdImageDestroy(im_Backgrnd);
+    gdImageDestroy(im_Font);
+    gdImageDestroy(im_InvertFont); 
 }
-//
-///*****************************************************************************/
-///* PROCESS ADF FONT                                                          */
-///*****************************************************************************/
-//
-//   imagefilledrectangle($font_inverted,0,0,2048,16,$colors[20]);
-//   imagecolortransparent($font_inverted,$colors[20]);
-//
-//   for ($loop=0;$loop<256;$loop++)
-//   {
-//      for ($adf_font_size_y = 0;$adf_font_size_y<16;$adf_font_size_y++)
-//      {
-//         $adf_character_line=ord($input_file_buffer[193+$adf_font_size_y+($loop*16)]);
-//
-//         for ($loop_column=0;$loop_column<8;$loop_column++)
-//         {
-//            $adf_character_column=128/pow(2,$loop_column);
-//
-//            if (($adf_character_line & $adf_character_column)!=$adf_character_column)
-//            {
-//               imagesetpixel($font_inverted,($loop*8)+$loop_column,$adf_font_size_y,$colors[0]);
-//            }
-//         }
-//      }
-//   }
-//
-//   for ($loop=1;$loop<16;$loop++)
-//   {
-//      imagefilledrectangle($font,0,$loop*16,2048,($loop*16)+16,$colors[$loop]);
-//   }
-//   imagefilledrectangle($font,0,0,2048,15,$colors[16]);
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      imagecopy($font,$font_inverted,0,$loop*16,0,0,2048,16);
-//   }
-//   imagecolortransparent($font,$colors[0]);
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE IMAGE BUFFER MEMORY                                              */
-///*****************************************************************************/
-//
-//   if (!$adf = imagecreate(640,((($input_file_size-192-4096-1)/2)/80)*16))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   imagecolorallocate($adf,0,0,0);
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS ADF                                                               */
-///*****************************************************************************/
-//
-//   $loop=192+4096+1;
-//
-//   while ($loop<$input_file_size)
-//   {
-//      if ($position_x==80)
-//      {
-//         $position_x=0;
-//         $position_y++;
-//      }
-//
-//      $character=ord($input_file_buffer[$loop]);
-//      $attribute=ord($input_file_buffer[$loop+1]);
-//
-//      $color_background=($attribute & 240)>>4;
-//      $color_foreground=$attribute & 15;
-//
-//      imagecopy($adf,$background,$position_x*8,$position_y*16,$color_background*8,0,8,16);
-//      imagecopy($adf,$font,$position_x*8,$position_y*16,$character*8,$color_foreground*16,8,16);
-//
-//      $position_x++;
-//      $loop+=2;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* CREATE OUTPUT FILE                                                        */
-///*****************************************************************************/
-//
-//   if ($thumbnail)
-//   {
-//      $position_y_max=(($input_file_size-192-4096-1)/2)/80;
-//      $columns=80;
-//      font_size_y = 16;
-//
-//      thumbnail($adf,$output,$columns,font_size_y,$position_y_max);
-//   }
-//   else
-//   {
-//      if ($output=='online')
-//      {
-//         Header("Content-type: image/png");
-//         ImagePNG($adf);
-//      }
-//      else
-//      {
-//         ImagePNG($adf,$output);
-//      }
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* FREE MEMORY                                                               */
-///*****************************************************************************/
-//
-//   imagedestroy($adf);
-//   imagedestroy($background);
-//   imagedestroy($font);
-//   imagedestroy($font_inverted);
-//}
 
 
 
