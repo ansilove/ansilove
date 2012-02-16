@@ -1556,7 +1556,7 @@ void alArtworxLoader(char *input, char output[], char bits[])
             
             for (loop_column = 0; loop_column < 8; loop_column++)
             {
-                adf_character_column = 128 / pow(2, loop_column);
+                adf_character_column = 0x80 >> loop_column;
                 
                 if ((adf_character_line & adf_character_column) != adf_character_column)
                 {
