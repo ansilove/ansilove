@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gd.h>
+#include <math.h>
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
