@@ -2205,7 +2205,7 @@ void alXbinLoader(char *input, char output[], char bits[])
     rewind(input_file);
     fclose(input_file);
 
-    if (strcmp(strndup((char *)input_file_buffer, 4), "XBIN") != 0) {
+    if (strcmp(strndup((char *)input_file_buffer, 5), "XBIN\x1a") != 0) {
         fputs("\nNot an XBin.\n\n", stderr); exit (4);
     }
     
