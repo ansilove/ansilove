@@ -1626,243 +1626,231 @@ void alArtworxLoader(char *input, char output[], char bits[])
     gdImageDestroy(im_InvertFont); 
 }
 
-
-
-///*****************************************************************************/
-///* LOAD IDF                                                                  */
-///*****************************************************************************/
-//
-//function load_idf($input,$output,$bits)
-//{
-//   check_libraries();
-//
-//   if ($bits=='thumbnail')
-//   {
-//      $thumbnail=TRUE;
-//   }
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
-//   if (!$input_file = fopen($input,'r'))
-//   {
-//      error("Can't open file $input");
-//   }
-//
-//   $input_file_sauce=load_sauce($input);
-//
-//   if ($input_file_sauce!=NULL)
-//   {
-//      $input_file_size=$input_file_sauce['FileSize'];
-//   }
-//   else
-//   {
-//      $input_file_size=filesize($input);
-//   }
-//
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
-//   {
-//      error("Can't read file $input");
-//   }
-//
-//   fclose($input_file);
-//
-//
-//
-///*****************************************************************************/
-///* EXTRACT IDF HEADER                                                        */
-///*****************************************************************************/
-//
-//   $idf_header['ID']=substr($input_file_buffer,0,4);
-//   $idf_header=array_merge($idf_header,unpack('vx1/vy1/vx2/vy2',substr($input_file_buffer,4,8)));
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE BACKGROUND/FONT IMAGE BUFFER MEMORY                              */
-///*****************************************************************************/
-//
-//   if (!$background = imagecreate(128,16))
-//   {
-//      error("Can't allocate background buffer image memory");
-//   }
-//
-//   if (!$font = imagecreate(2048,256))
-//   {
-//      error("Can't allocate font buffer image memory");
-//   }
-//
-//   if (!$font_inverted = imagecreate(2048,16))
-//   {
-//      error("Can't allocate temporary font buffer image memory");
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS IDF PALETTE                                                       */
-///*****************************************************************************/
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      $index=($loop*3)+$input_file_size-48;
-//      $colors[$loop]=imagecolorallocate($background,(ord($input_file_buffer[$index])<<2 | ord($input_file_buffer[$index])>>4),(ord($input_file_buffer[$index+1])<<2 | ord($input_file_buffer[$index+1])>>4),(ord($input_file_buffer[$index+2])<<2 | ord($input_file_buffer[$index+2])>>4));
-//   }
-//
-//   imagepalettecopy($font,$background);
-//   imagepalettecopy($font_inverted,$background);
-//
-//   $color_index=imagecolorsforindex($background,0);
-//   $colors[16]=imagecolorallocate($font,$color_index['red'],$color_index['green'],$color_index['blue']);
-//   $colors[20]= imagecolorallocate($font_inverted,200,220,169);
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      imagefilledrectangle($background,$loop<<3,0,($loop<<3)+8,16,$colors[$loop]);
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS IDF FONT                                                          */
-///*****************************************************************************/
-//
-//   imagefilledrectangle($font_inverted,0,0,2048,16,$colors[20]);
-//   imagecolortransparent($font_inverted,$colors[20]);
-//
-//   for ($loop=0;$loop<256;$loop++)
-//   {
-//      for ($idf_font_size_y = 0;$idf_font_size_y<16;$idf_font_size_y++)
-//      {
-//         $idf_character_line=ord($input_file_buffer[$input_file_size-48-4096+$idf_font_size_y+($loop*16)]);
-//
-//         for ($loop_column=0;$loop_column<8;$loop_column++)
-//         {
-//            $idf_character_column=128/pow(2,$loop_column);
-//
-//            if (($idf_character_line & $idf_character_column)!=$idf_character_column)
+// IDF
+void alIcedrawLoader(char *input, char output[], char bits[])
+{
+    // load input file
+    FILE *input_file = fopen(input, "r");
+    if (input_file == NULL) { 
+        fputs("\nFile error.\n\n", stderr); exit (1);
+    }
+    
+    // get the file size (bytes)
+    size_t get_file_size = filesize(input);
+    int32_t input_file_size = (int32_t)get_file_size;
+    
+    // next up is loading our file into a dynamically allocated memory buffer
+    unsigned char *input_file_buffer;
+    size_t result;
+    
+    // allocate memory to contain the whole file
+    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    if (input_file_buffer == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (2);
+    }
+    
+    // copy the file into the buffer
+    result = fread(input_file_buffer, 1, input_file_size, input_file);
+    if (result != input_file_size) {
+        fputs ("\nReading error.\n\n", stderr); exit (3);
+    } // whole file is now loaded into input_file_buffer
+    
+    // close input file, we don't need it anymore
+    rewind(input_file);
+    fclose(input_file);
+    
+    // extract IDF header
+}
+//    
+//    $idf_header['ID']=substr($input_file_buffer,0,4);
+//    $idf_header=array_merge($idf_header,unpack('vx1/vy1/vx2/vy2',substr($input_file_buffer,4,8)));
+////    
+//    
+//    
+//    /*****************************************************************************/
+//    /* ALLOCATE BACKGROUND/FONT IMAGE BUFFER MEMORY                              */
+//    /*****************************************************************************/
+//    
+//    if (!$background = imagecreate(128,16))
+//    {
+//        error("Can't allocate background buffer image memory");
+//    }
+//    
+//    if (!$font = imagecreate(2048,256))
+//    {
+//        error("Can't allocate font buffer image memory");
+//    }
+//    
+//    if (!$font_inverted = imagecreate(2048,16))
+//    {
+//        error("Can't allocate temporary font buffer image memory");
+//    }
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* PROCESS IDF PALETTE                                                       */
+//    /*****************************************************************************/
+//    
+//    for ($loop=0;$loop<16;$loop++)
+//    {
+//        $index=($loop*3)+$input_file_size-48;
+//        $colors[$loop]=imagecolorallocate($background,(ord($input_file_buffer[$index])<<2 | ord($input_file_buffer[$index])>>4),(ord($input_file_buffer[$index+1])<<2 | ord($input_file_buffer[$index+1])>>4),(ord($input_file_buffer[$index+2])<<2 | ord($input_file_buffer[$index+2])>>4));
+//    }
+//    
+//    imagepalettecopy($font,$background);
+//    imagepalettecopy($font_inverted,$background);
+//    
+//    $color_index=imagecolorsforindex($background,0);
+//    $colors[16]=imagecolorallocate($font,$color_index['red'],$color_index['green'],$color_index['blue']);
+//    $colors[20]= imagecolorallocate($font_inverted,200,220,169);
+//    
+//    for ($loop=0;$loop<16;$loop++)
+//    {
+//        imagefilledrectangle($background,$loop<<3,0,($loop<<3)+8,16,$colors[$loop]);
+//    }
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* PROCESS IDF FONT                                                          */
+//    /*****************************************************************************/
+//    
+//    imagefilledrectangle($font_inverted,0,0,2048,16,$colors[20]);
+//    imagecolortransparent($font_inverted,$colors[20]);
+//    
+//    for ($loop=0;$loop<256;$loop++)
+//    {
+//        for ($idf_font_size_y = 0;$idf_font_size_y<16;$idf_font_size_y++)
+//        {
+//            $idf_character_line=ord($input_file_buffer[$input_file_size-48-4096+$idf_font_size_y+($loop*16)]);
+//            
+//            for ($loop_column=0;$loop_column<8;$loop_column++)
 //            {
-//               imagesetpixel($font_inverted,($loop*8)+$loop_column,$idf_font_size_y,$colors[0]);
+//                $idf_character_column=128/pow(2,$loop_column);
+//                
+//                if (($idf_character_line & $idf_character_column)!=$idf_character_column)
+//                {
+//                    imagesetpixel($font_inverted,($loop*8)+$loop_column,$idf_font_size_y,$colors[0]);
+//                }
 //            }
-//         }
-//      }
-//   }
-//
-//   for ($loop=1;$loop<16;$loop++)
-//   {
-//      imagefilledrectangle($font,0,$loop*16,2048,($loop*16)+16,$colors[$loop]);
-//   }
-//   imagefilledrectangle($font,0,0,2048,15,$colors[16]);
-//
-//   for ($loop=0;$loop<16;$loop++)
-//   {
-//      imagecopy($font,$font_inverted,0,$loop*16,0,0,2048,16);
-//   }
-//   imagecolortransparent($font,$colors[0]);
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS IDF                                                               */
-///*****************************************************************************/
-//
-//   $loop=12;
-//
-//   while ($loop<$input_file_size-4096-48)
-//   {
-//      $idf_data=unpack('vdata',substr($input_file_buffer,$loop,2));
-//      if ($idf_data['data']==1)
-//      {
-//         $idf_data=unpack('vlength',substr($input_file_buffer,$loop+2,2));
-//
-//         $idf_sequence_length=$idf_data['length'] & 255;
-//         $idf_data=unpack('Ccharacter/Cattribute',substr($input_file_buffer,$loop+4,2));
-//
-//         for ($idf_sequence_loop=0;$idf_sequence_loop<$idf_sequence_length;$idf_sequence_loop++)
-//         {
+//        }
+//    }
+//    
+//    for ($loop=1;$loop<16;$loop++)
+//    {
+//        imagefilledrectangle($font,0,$loop*16,2048,($loop*16)+16,$colors[$loop]);
+//    }
+//    imagefilledrectangle($font,0,0,2048,15,$colors[16]);
+//    
+//    for ($loop=0;$loop<16;$loop++)
+//    {
+//        imagecopy($font,$font_inverted,0,$loop*16,0,0,2048,16);
+//    }
+//    imagecolortransparent($font,$colors[0]);
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* PROCESS IDF                                                               */
+//    /*****************************************************************************/
+//    
+//    $loop=12;
+//    
+//    while ($loop<$input_file_size-4096-48)
+//    {
+//        $idf_data=unpack('vdata',substr($input_file_buffer,$loop,2));
+//        if ($idf_data['data']==1)
+//        {
+//            $idf_data=unpack('vlength',substr($input_file_buffer,$loop+2,2));
+//            
+//            $idf_sequence_length=$idf_data['length'] & 255;
+//            $idf_data=unpack('Ccharacter/Cattribute',substr($input_file_buffer,$loop+4,2));
+//            
+//            for ($idf_sequence_loop=0;$idf_sequence_loop<$idf_sequence_length;$idf_sequence_loop++)
+//            {
+//                $idf_buffer[]=$idf_data['character'];
+//                $idf_buffer[]=$idf_data['attribute'];
+//            }
+//            
+//            $loop+=4;
+//        }
+//        else
+//        {
+//            $idf_data=unpack('Ccharacter/Cattribute',substr($input_file_buffer,$loop,2));
+//            
 //            $idf_buffer[]=$idf_data['character'];
 //            $idf_buffer[]=$idf_data['attribute'];
-//         }
-//
-//         $loop+=4;
-//      }
-//      else
-//      {
-//         $idf_data=unpack('Ccharacter/Cattribute',substr($input_file_buffer,$loop,2));
-//
-//         $idf_buffer[]=$idf_data['character'];
-//         $idf_buffer[]=$idf_data['attribute'];
-//      }
-//
-//      $loop+=2;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE IMAGE BUFFER MEMORY                                              */
-///*****************************************************************************/
-//
-//   if (!$idf = imagecreate(($idf_header['x2']+1)*8,(sizeof($idf_buffer)/2/80)*16))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   imagecolorallocate($idf,0,0,0);
-//
-//
-//
-///*****************************************************************************/
-///* RENDER IDF                                                                */
-///*****************************************************************************/
-//
-//   for ($loop=0;$loop<sizeof($idf_buffer);$loop+=2)
-//   {
-//      if ($position_x==$idf_header['x2']+1)
-//      {
-//         $position_x=0;
-//         $position_y++;
-//      }
-//
-//      $character=$idf_buffer[$loop];
-//      $attribute=$idf_buffer[$loop+1];
-//
-//      $color_background=($attribute & 240)>>4;
-//      $color_foreground=$attribute & 15;
-//
-//      imagecopy($idf,$background,$position_x*8,$position_y*16,$color_background*8,0,8,16);
-//      imagecopy($idf,$font,$position_x*8,$position_y*16,$character*8,$color_foreground*16,8,16);
-//
-//      $position_x++;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* CREATE OUTPUT FILE                                                        */
-///*****************************************************************************/
-//
-//   if ($thumbnail)
-//   {
-//      $position_y_max=$position_y;
-//      $columns=80;
-//      font_size_y = 16;
-//
-//      thumbnail($idf,$output,$columns,font_size_y,$position_y_max);
-//   }
-//   else
-//   {
-//      if ($output=='online')
-//      {
-//         Header("Content-type: image/png");
-//         ImagePNG($idf);
-//      }
-//      else
-//      {
-//         ImagePNG($idf,$output);
-//      }
-//   }
+//        }
+//        
+//        $loop+=2;
+//    }
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* ALLOCATE IMAGE BUFFER MEMORY                                              */
+//    /*****************************************************************************/
+//    
+//    if (!$idf = imagecreate(($idf_header['x2']+1)*8,(sizeof($idf_buffer)/2/80)*16))
+//    {
+//        error("Can't allocate buffer image memory");
+//    }
+//    
+//    imagecolorallocate($idf,0,0,0);
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* RENDER IDF                                                                */
+//    /*****************************************************************************/
+//    
+//    for ($loop=0;$loop<sizeof($idf_buffer);$loop+=2)
+//    {
+//        if ($position_x==$idf_header['x2']+1)
+//        {
+//            $position_x=0;
+//            $position_y++;
+//        }
+//        
+//        $character=$idf_buffer[$loop];
+//        $attribute=$idf_buffer[$loop+1];
+//        
+//        $color_background=($attribute & 240)>>4;
+//        $color_foreground=$attribute & 15;
+//        
+//        imagecopy($idf,$background,$position_x*8,$position_y*16,$color_background*8,0,8,16);
+//        imagecopy($idf,$font,$position_x*8,$position_y*16,$character*8,$color_foreground*16,8,16);
+//        
+//        $position_x++;
+//    }
+//    
+//    
+//    
+//    /*****************************************************************************/
+//    /* CREATE OUTPUT FILE                                                        */
+//    /*****************************************************************************/
+//    
+//    if ($thumbnail)
+//    {
+//        $position_y_max=$position_y;
+//        $columns=80;
+//        font_size_y = 16;
+//        
+//        thumbnail($idf,$output,$columns,font_size_y,$position_y_max);
+//    }
+//    else
+//    {
+//        if ($output=='online')
+//        {
+//            Header("Content-type: image/png");
+//            ImagePNG($idf);
+//        }
+//        else
+//        {
+//            ImagePNG($idf,$output);
+//        }
+//    }
 //
 //
 //
