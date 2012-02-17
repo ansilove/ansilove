@@ -2193,7 +2193,12 @@ void alXbinLoader(char *input, char output[], char bits[])
     if (strcmp(strndup((char *)input_file_buffer, 5), "XBIN\x1a") != 0) {
         fputs("\nNot an XBin.\n\n", stderr); exit (4);
     }
-    
+
+    int32_t xbin_width = (input_file_buffer[ 6 ] << 8) + input_file_buffer[ 5 ];
+    int32_t xbin_height = (input_file_buffer[ 8 ] << 8) + input_file_buffer[ 7 ];
+    int32_t xbin_fontsize = input_file_buffer[ 9 ];
+    int32_t xbin_flags = input_file_buffer[ 10 ];
+
     fputs("\nXBin OK!\n\n", stderr); exit (0);
 }
 
