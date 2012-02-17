@@ -1,6 +1,6 @@
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into PNG images. Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to /usr/bin. Right now the project is in an early stage of development. It's neither considered as finished nor as stable product, but we are busy working on it.
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into PNG images. Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. Right now the project is in an early stage of development. It's neither considered as finished nor as stable product, but we are busy working on it.
 
 # Specs 
 
@@ -16,7 +16,7 @@ If you're looking for something to implement into your Cocoa or Foundation appli
 
 # Who pulls the strings
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject](https://github.com/ByteProject)), Brian Cassidy ([@bricas](https://github.com/bricas)) and Frederic Cambus ([@fcambus](https://github.com/fcambus)) also known as `the international ANSi conspiracy".
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject](https://github.com/ByteProject)), Brian Cassidy ([@bricas](https://github.com/bricas)) and Frederic Cambus ([@fcambus](https://github.com/fcambus)) also known as `the international ANSi conspiracy`.
 
 # License
 
