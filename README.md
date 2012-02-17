@@ -16,7 +16,7 @@ If you're looking for something to implement into your Cocoa or Foundation appli
 
 # Who pulls the strings
 
-AnsiLove/C is developed by Stefan Vogt (@ByteProject), Brian Cassidy (@bricas) and Frederic Cambus (@fcambus).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject](https://github.com/ByteProject)), Brian Cassidy ([@bricas](https://github.com/bricas)) and Frederic Cambus ([@fcambus](https://github.com/fcambus)).
 
 # License
 
