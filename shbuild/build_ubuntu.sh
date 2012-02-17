@@ -1,7 +1,7 @@
 #!/bin/sh
 #########################################################
 # This UNIX script builds AnsiLove/C under Ubuntu Linux #
-# and links it against libgd.		        #
+# and links it against libgd.							#
 #########################################################
 # modify alconfig.h to configure the resulting binary   #
 #########################################################
