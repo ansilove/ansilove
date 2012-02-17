@@ -1655,39 +1655,36 @@ void alIcedrawLoader(char *input, char output[], char bits[])
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
     
+    rewind(input_file);
+
+    sauce *saucerec = sauceReadFile( input_file );
+
     // close input file, we don't need it anymore
     rewind(input_file);
     fclose(input_file);
     
+    // ajust filesize if sauce red
+    if( saucerec != NULL ) {
+        input_file_size = saucerec->fileSize;
+    }
+
     // extract IDF header
+    // skip the ID part, generally "\x041.4"
+    // four 16-bit little endian unsigned shorts    
+    int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];
+    int32_t y1 = (input_file_buffer[7] << 8) + input_file_buffer[6];
+    int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
+    int32_t y2 = (input_file_buffer[11] << 8) + input_file_buffer[10];
+
+    // libgd image pointers
+    gdImagePtr im_IDF, im_Backgrnd, im_Font, im_InvertFont;
+
+    im_Backgrnd = gdImageCreate(128, 16);
+    im_Font = gdImageCreate(2048, 256);
+    im_InvertFont = gdImageCreate(2048, 16);
+
 }
-//    
-//    $idf_header['ID']=substr($input_file_buffer,0,4);
-//    $idf_header=array_merge($idf_header,unpack('vx1/vy1/vx2/vy2',substr($input_file_buffer,4,8)));
-////    
-//    
-//    
-//    /*****************************************************************************/
-//    /* ALLOCATE BACKGROUND/FONT IMAGE BUFFER MEMORY                              */
-//    /*****************************************************************************/
-//    
-//    if (!$background = imagecreate(128,16))
-//    {
-//        error("Can't allocate background buffer image memory");
-//    }
-//    
-//    if (!$font = imagecreate(2048,256))
-//    {
-//        error("Can't allocate font buffer image memory");
-//    }
-//    
-//    if (!$font_inverted = imagecreate(2048,16))
-//    {
-//        error("Can't allocate temporary font buffer image memory");
-//    }
-//    
-//    
-//    
+
 //    /*****************************************************************************/
 //    /* PROCESS IDF PALETTE                                                       */
 //    /*****************************************************************************/
