@@ -4,15 +4,19 @@ This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in
 
 # Specs 
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `gcc` and `Clang`, others may work but aren't tested. All files include the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`. I for one develop AnsiLove/C on a Mac, you'll find a Xcode project file in this repository. 
+AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `gcc` and `Clang`, others may work but aren't tested. All files include the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`. We use Mac OS X and Linux for AnsiLove/C development. You'll find a Xcode project file in this repository. Additional there's a shell script that builds AnsiLove/C on Ubuntu, it should compile on other distros as well.
 
 # Why porting to C?
 
-There are many reasons for doing this, most notably PHP interpreter independence and performance. A solid C foundation is also perfect for creating libraries or frameworks and it can easily embedded into applications. Webservers, able to execute C code and binaries would benefit form this port as well. 
+There are many reasons for doing this, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily embedded into applications. We already mentioned portability: while there isn't a PHP CLI available for every system, there are very few computer architectures for which a C compiler does not exist. Another aspect is evolution. There are certain situations where PHP is limited. So AnsiLove/C is not an one to one porting of it' ancestor, it's overall improved and even introduces new features.
 
-# Cocoa / Foundation developers
+# Cocoa / Foundation bridge
 
-If you're looking for something to implement into your Cocoa or Foundation applications, I recommend taking a look at my [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), which is smooth, stable and actively maintained. It uses a modfied version of [AnsiLove/PHP](http://ansilove.sourceforge.net) as rendering library and provides a Cocoa layer on top of it.  Once AnsiLove/C is finished, it will replace [AnsiLove/PHP](http://ansilove.sourceforge.net) in my [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), to go all the way native.
+If you're looking for something to implement into your Cocoa or Foundation applications, we highly recommend taking a look at @ByteProject's [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), which is smooth, stable and actively maintained. It uses a modfied version of [AnsiLove/PHP](http://ansilove.sourceforge.net) as rendering library and provides a Cocoa layer on top of it.  Once AnsiLove/C is finished, it will replace [AnsiLove/PHP](http://ansilove.sourceforge.net) in the [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), to go all the way native.
+
+# Who pulls the strings
+
+AnsiLove/C is developed by Stefan Vogt (@ByteProject), Brian Cassidy (@bricas) and Frederic Cambus (@fcambus).
 
 # License
 
