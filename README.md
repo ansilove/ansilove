@@ -12,7 +12,7 @@ There are many reasons for doing this, most notably PHP interpreter independence
 
 # Cocoa / Foundation bridge
 
-If you're looking for something to implement into your Cocoa or Foundation applications, we highly recommend taking a look at [@ByteProject's](https://github.com/ByteProject) great [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), which is actively maintained and running smooth and stable. It uses a modfied version of [AnsiLove/PHP](http://ansilove.sourceforge.net) as rendering library and provides a Cocoa layer on top of it. Once AnsiLove/C is finished, it will replace [AnsiLove/PHP](http://ansilove.sourceforge.net) in the [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), to go all the way native.
+If you're looking for something to implement into your Cocoa or Foundation applications, we highly recommend taking a look at [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), which is actively maintained by [@ByteProject](https://github.com/ByteProject) and running smooth and stable. It uses a modfied version of [AnsiLove/PHP](http://ansilove.sourceforge.net) as rendering library and provides a Cocoa layer on top of it. Once AnsiLove/C is finished, it will replace [AnsiLove/PHP](http://ansilove.sourceforge.net) in the [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework), to go all the way native.
 
 # Who pulls the strings
 
