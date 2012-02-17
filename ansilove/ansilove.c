@@ -2506,85 +2506,29 @@ void alXbinLoader(char *input, char output[], char bits[])
     int32_t xbin_fontsize = input_file_buffer[ 9 ];
     int32_t xbin_flags = input_file_buffer[ 10 ];
 
-    fputs("\nXBin OK!\n\n", stderr); exit (0);
+    gdImagePtr im_XBIN, im_Backgrnd, im_Font, im_InvertFont;
+
+    im_Backgrnd = gdImageCreate(128, 16);
+    im_Font = gdImageCreate(2048, 256);
+    im_InvertFont = gdImageCreate(2048, 16);
+
+    // palette
+    if( (xbin_flags & 1) == 1 ) {
+    }
+
+    // font
+    if( (xbin_flags & 2) == 2 ) {
+    }
+
+    // read compressed xbin
+    if( (xbin_flags & 4) == 4) {
+    }
+    // read uncompressed xbin
+    else {
+    }
+
 }
 
-//   check_libraries();
-//
-//   if ($bits=='thumbnail')
-//   {
-//      $thumbnail=TRUE;
-//   }
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
-//   if (!$input_file = fopen($input,'r'))
-//   {
-//      error("Can't open file $input");
-//   }
-//
-//   $input_file_sauce=load_sauce($input);
-//
-//   if ($input_file_sauce!=NULL)
-//   {
-//      $input_file_size=$input_file_sauce['FileSize'];
-//   }
-//   else
-//   {
-//      $input_file_size=filesize($input);
-//   }
-//
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
-//   {
-//      error("Can't read file $input");
-//   }
-//
-//   fclose($input_file);
-//
-//
-//
-///*****************************************************************************/
-///* EXTRACT XBIN HEADER                                                       */
-///*****************************************************************************/
-//
-//   $xbin_header['ID']=substr($input_file_buffer,0,4);
-//
-//   if ($xbin_header['ID']!='XBIN')
-//   {
-//      error("$input is not a XBiN file");
-//   }
-//
-//   $xbin_header=array_merge($xbin_header,unpack('CEofChar/vWidth/vHeight/CFontsize/CFlags',substr($input_file_buffer,4,7)));
-//
-//   if (($xbin_header['Flags'] & 1)==1)
-//   {
-//      $xbin_flags['palette']=1;
-//   }
-//
-//   if (($xbin_header['Flags'] & 2)==2)
-//   {
-//      $xbin_flags['font']=1;
-//   }
-//
-//   if (($xbin_header['Flags'] & 4)==4)
-//   {
-//      $xbin_flags['compress']=1;
-//   }
-//
-//   if (($xbin_header['Flags'] & 8)==8)
-//   {
-//      $xbin_flags['nonblink']=1;
-//   }
-//
-//   if (($xbin_header['Flags'] & 16)==16)
-//   {
-//      $xbin_flags['512chars']=1;
-//   }
-//
-//
-//
 ///*****************************************************************************/
 ///* PROCESS XBIN PALETTE                                                      */
 ///*****************************************************************************/
