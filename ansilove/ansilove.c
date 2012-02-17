@@ -1657,20 +1657,18 @@ void alIcedrawLoader(char *input, char output[], char bits[])
     
     rewind(input_file);
 
-    sauce *saucerec = sauceReadFile( input_file );
+    sauce *saucerec = sauceReadFile(input_file);
 
     // close input file, we don't need it anymore
     rewind(input_file);
     fclose(input_file);
     
-    // ajust filesize if sauce red
+    // in case the file contains a Sauce record, we need to adjust the file size
     if( saucerec != NULL ) {
-        input_file_size = saucerec->fileSize;
+        input_file_size -= 128 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
     }
 
-    // extract IDF header
-    // skip the ID part, generally "\x041.4"
-    // four 16-bit little endian unsigned shorts    
+    // extract IDF header, four 16-bit little endian unsigned shorts    
     int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];
     int32_t y1 = (input_file_buffer[7] << 8) + input_file_buffer[6];
     int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
