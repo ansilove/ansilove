@@ -1552,7 +1552,7 @@ void alArtworxLoader(char *input, char output[], char bits[])
     {
         for (adf_font_size_y = 0; adf_font_size_y < 16; adf_font_size_y++)
         {
-            adf_character_line = input_file_buffer[193 + adf_font_size_y + (loop*16)];
+            adf_character_line = input_file_buffer[193 + adf_font_size_y + (loop * 16)];
             
             for (loop_column = 0; loop_column < 8; loop_column++)
             {
@@ -1677,79 +1677,175 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     // libgd image pointers
     gdImagePtr im_IDF, im_Backgrnd, im_Font, im_InvertFont;
 
+    // create gd image instances
     im_Backgrnd = gdImageCreate(128, 16);
     im_Font = gdImageCreate(2048, 256);
     im_InvertFont = gdImageCreate(2048, 16);
 
+    // error output
+    if (!im_Backgrnd) {
+        fputs ("\nCan't allocate background buffer image memory.\n\n", stderr); exit (4);
+    }
+    if (!im_Font) {
+        fputs ("\nCan't allocate font buffer image memory.\n\n", stderr); exit (5);
+    }
+    if (!im_InvertFont) {
+        fputs ("\nCan't allocate temporary font buffer image memory.\n\n", stderr); exit (6);
+    }
+
+    // process IDF palette
+    int32_t loop;
+    int32_t index;
+    int32_t colors[21];
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        index = (loop * 3) + input_file_size - 48;
+        colors[loop] = gdImageColorAllocate(im_Backgrnd, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
+                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
+    }
+    gdImagePaletteCopy(im_Font, im_Backgrnd);
+    gdImagePaletteCopy(im_InvertFont, im_Backgrnd);
+    
+    // get and apply RGB values
+    int32_t Red = gdImageRed(im_Backgrnd, 0);
+    int32_t Green = gdImageGreen(im_Backgrnd, 0);
+    int32_t Blue = gdImageBlue(im_Backgrnd, 0);
+    
+    colors[16] = gdImageColorAllocate(im_Font, Red, Green, Blue);
+    colors[20] = gdImageColorAllocate(im_InvertFont, 200, 220, 169);
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, 
+                               (loop << 3) + 8, 16, colors[loop]);
+    }
+    
+    // process IDF font
+    gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
+    gdImageColorTransparent(im_InvertFont, colors[20]);
+    
+    int32_t idf_font_size_y, idf_character_line = 0, idf_character_column = 0, loop_column;
+    
+    for (loop = 0; loop < 256; loop++)
+    {
+        for (idf_font_size_y = 0; idf_font_size_y < 16; idf_font_size_y++)
+        {
+            idf_character_line = input_file_buffer[input_file_size - 48 - 4096 + idf_font_size_y + (loop * 16)];
+            
+            for (loop_column = 0; loop_column < 8; loop_column++)
+            {
+                idf_character_column = 0x80 >> loop_column;
+                
+                if ((idf_character_line & idf_character_column) != idf_character_column)
+                {
+                    gdImageSetPixel(im_InvertFont, (loop * 8) + loop_column, idf_font_size_y, colors[0]);
+                }
+            }
+        }
+    }
+    
+    for (loop = 1; loop < 16; loop++)
+    {
+        gdImageFilledRectangle(im_Font, 0, loop * 16, 2048,(loop * 16) + 16, colors[loop]);
+    }
+    gdImageFilledRectangle(im_Font, 0, 0, 2048, 15, colors[16]);
+    
+    for (loop = 0; loop < 16; loop++)
+    {
+        gdImageCopy(im_Font, im_InvertFont, 0, loop * 16, 0, 0, 2048, 16);
+    }
+    gdImageColorTransparent(im_Font, colors[0]); 
+    
+    // process IDF
+    loop = 12;
+    int32_t idf_sequence_length, idf_sequence_loop, i = 0;
+    unsigned char idf_data[4];
+    
+    // dynamic IDF buffer
+    unsigned char *idf_buffer;
+    idf_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    
+    // typedef IDF data array for better readability
+    typedef enum {
+        data,
+        length,
+        char_attr,
+    } al_idf_data;
+    
+    while (loop < input_file_size - 4096 - 48) 
+    {
+        idf_data[data] = (input_file_buffer[loop + 1] << 8) + input_file_buffer[loop];
+        
+        if (idf_data[data]) 
+        {
+            idf_data[length] = (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop + 2];
+            idf_sequence_length = idf_data[length] & 255;
+            idf_data[char_attr] = (input_file_buffer[loop + 5] << 8) + input_file_buffer[loop + 4];
+            
+            for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++) 
+            {
+                idf_buffer[i] = idf_data[char_attr];
+                i++;
+            }
+            
+            loop += 4;
+        }
+        else {
+            idf_data[data] = (input_file_buffer[loop + 1] << 8) + input_file_buffer[loop];
+            
+            idf_buffer[i] = idf_data[char_attr];
+            i++;
+        }
+        loop += 2;
+    }
+    
+    // create IDF instance
+    im_IDF = gdImageCreate((x2 + 1) * 8, (sizeof(((int32_t)idf_buffer) / 2 / 80) * 16));
+    
+    // error output
+    if (!im_IDF) {
+        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
+    }
+    
+    gdImageColorAllocate(im_IDF, 0, 0, 0);
+    
+    int32_t position_x = 0, position_y = 0; 
+    int32_t character, attribute, color_foreground, color_background;
+    
+    for (loop = 0; loop < sizeof(idf_buffer); loop +=2) 
+    {
+        if (position_x == x2 + 1)
+        {
+            position_x = 0;
+            position_y++;
+        }
+        
+        character = idf_buffer[loop];
+        attribute = idf_buffer[loop];
+        
+        color_background = (attribute & 240) >> 4;
+        color_foreground = attribute & 15;
+        
+        gdImageCopy(im_IDF, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
+        gdImageCopy(im_IDF, im_Font, position_x *8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+        
+        position_x++;
+    }
+    
+    // create output file
+    FILE *file_Out = fopen(output, "wb");
+    gdImagePng(im_IDF, file_Out);
+    fclose(file_Out);
+    
+    // nuke garbage
+    gdImageDestroy(im_IDF);
+    gdImageDestroy(im_Backgrnd);
+    gdImageDestroy(im_Font);
+    gdImageDestroy(im_InvertFont); 
 }
 
-//    /*****************************************************************************/
-//    /* PROCESS IDF PALETTE                                                       */
-//    /*****************************************************************************/
-//    
-//    for ($loop=0;$loop<16;$loop++)
-//    {
-//        $index=($loop*3)+$input_file_size-48;
-//        $colors[$loop]=imagecolorallocate($background,(ord($input_file_buffer[$index])<<2 | ord($input_file_buffer[$index])>>4),(ord($input_file_buffer[$index+1])<<2 | ord($input_file_buffer[$index+1])>>4),(ord($input_file_buffer[$index+2])<<2 | ord($input_file_buffer[$index+2])>>4));
-//    }
-//    
-//    imagepalettecopy($font,$background);
-//    imagepalettecopy($font_inverted,$background);
-//    
-//    $color_index=imagecolorsforindex($background,0);
-//    $colors[16]=imagecolorallocate($font,$color_index['red'],$color_index['green'],$color_index['blue']);
-//    $colors[20]= imagecolorallocate($font_inverted,200,220,169);
-//    
-//    for ($loop=0;$loop<16;$loop++)
-//    {
-//        imagefilledrectangle($background,$loop<<3,0,($loop<<3)+8,16,$colors[$loop]);
-//    }
-//    
-//    
-//    
-//    /*****************************************************************************/
-//    /* PROCESS IDF FONT                                                          */
-//    /*****************************************************************************/
-//    
-//    imagefilledrectangle($font_inverted,0,0,2048,16,$colors[20]);
-//    imagecolortransparent($font_inverted,$colors[20]);
-//    
-//    for ($loop=0;$loop<256;$loop++)
-//    {
-//        for ($idf_font_size_y = 0;$idf_font_size_y<16;$idf_font_size_y++)
-//        {
-//            $idf_character_line=ord($input_file_buffer[$input_file_size-48-4096+$idf_font_size_y+($loop*16)]);
-//            
-//            for ($loop_column=0;$loop_column<8;$loop_column++)
-//            {
-//                $idf_character_column=128/pow(2,$loop_column);
-//                
-//                if (($idf_character_line & $idf_character_column)!=$idf_character_column)
-//                {
-//                    imagesetpixel($font_inverted,($loop*8)+$loop_column,$idf_font_size_y,$colors[0]);
-//                }
-//            }
-//        }
-//    }
-//    
-//    for ($loop=1;$loop<16;$loop++)
-//    {
-//        imagefilledrectangle($font,0,$loop*16,2048,($loop*16)+16,$colors[$loop]);
-//    }
-//    imagefilledrectangle($font,0,0,2048,15,$colors[16]);
-//    
-//    for ($loop=0;$loop<16;$loop++)
-//    {
-//        imagecopy($font,$font_inverted,0,$loop*16,0,0,2048,16);
-//    }
-//    imagecolortransparent($font,$colors[0]);
-//    
-//    
-//    
-//    /*****************************************************************************/
-//    /* PROCESS IDF                                                               */
-//    /*****************************************************************************/
-//    
 //    $loop=12;
 //    
 //    while ($loop<$input_file_size-4096-48)
