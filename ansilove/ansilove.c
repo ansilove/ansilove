@@ -1808,9 +1808,9 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     if (!im_IDF) {
         fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
     }
-    
     gdImageColorAllocate(im_IDF, 0, 0, 0);
     
+    // render IDF    
     int32_t position_x = 0, position_y = 0; 
     int32_t character, attribute, color_foreground, color_background;
     
@@ -1823,7 +1823,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
         }
         
         character = idf_buffer[loop];
-        attribute = idf_buffer[loop];
+        attribute = idf_buffer[loop+1];
         
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;
