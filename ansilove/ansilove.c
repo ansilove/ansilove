@@ -1761,48 +1761,44 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     // process IDF
     loop = 12;
     int32_t idf_sequence_length, idf_sequence_loop, i = 0;
-    unsigned char idf_data[4];
     
     // dynamic IDF buffer
     unsigned char *idf_buffer;
-    idf_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+
+//    idf_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    idf_buffer = (unsigned char *) malloc(16640);
     
-    // typedef IDF data array for better readability
-    typedef enum {
-        data,
-        length,
-        char_attr,
-    } al_idf_data;
-    
+    uint16_t idf_data, idf_data_length;
+
     while (loop < input_file_size - 4096 - 48) 
     {
-        idf_data[data] = (input_file_buffer[loop + 1] << 8) + input_file_buffer[loop];
+        memcpy(&idf_data,input_file_buffer+loop,2);
         
-        if (idf_data[data]) 
+        if (idf_data==1) // RLE compressed data
         {
-            idf_data[length] = (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop + 2];
-            idf_sequence_length = idf_data[length] & 255;
-            idf_data[char_attr] = (input_file_buffer[loop + 5] << 8) + input_file_buffer[loop + 4];
+            memcpy(&idf_data_length,input_file_buffer+loop+2,2);
+            
+            idf_sequence_length = idf_data_length & 255;
             
             for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++) 
             {
-                idf_buffer[i] = idf_data[char_attr];
-                i++;
+                idf_buffer[i] = input_file_buffer[loop + 4];
+                idf_buffer[i+1] = input_file_buffer[loop + 5];
+                i+=2;
             }
             
             loop += 4;
         }
-        else {
-            idf_data[data] = (input_file_buffer[loop + 1] << 8) + input_file_buffer[loop];
-            
-            idf_buffer[i] = idf_data[char_attr];
-            i++;
+        else { // Normal character
+            idf_buffer[i] = input_file_buffer[loop];
+            idf_buffer[i+1] = input_file_buffer[loop + 1];
+            i+=2;
         }
         loop += 2;
     }
     
     // create IDF instance
-    im_IDF = gdImageCreate((x2 + 1) * 8, (sizeof(((int32_t)idf_buffer) / 2 / 80) * 16));
+    im_IDF = gdImageCreate((x2 + 1) * 8, i / 2 / 80 * 16);
     
     // error output
     if (!im_IDF) {
@@ -1814,7 +1810,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     int32_t position_x = 0, position_y = 0; 
     int32_t character, attribute, color_foreground, color_background;
     
-    for (loop = 0; loop < sizeof(idf_buffer); loop +=2) 
+    for (loop = 0; loop < i ; loop +=2) 
     {
         if (position_x == x2 + 1)
         {
