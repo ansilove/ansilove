@@ -1627,7 +1627,7 @@ void alArtworxLoader(char *input, char output[], char bits[])
 }
 
 // IDF
-void alIcedrawLoader(char *input, char output[], char bits[])
+void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
 {
     // load input file
     FILE *input_file = fopen(input, "r");
@@ -1655,18 +1655,18 @@ void alIcedrawLoader(char *input, char output[], char bits[])
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
     
+    // just like a tape, you know?
     rewind(input_file);
 
-    sauce *saucerec = sauceReadFile(input_file);
-
-    // close input file, we don't need it anymore
-    rewind(input_file);
-    fclose(input_file);
-    
-    // in case the file contains a Sauce record, we need to adjust the file size
-    if( saucerec != NULL ) {
+    // IDF related: file contains a SAUCE record? adjust the file size
+    if(fileHasSAUCE == true) {
+        sauce *saucerec = sauceReadFile(input_file);
         input_file_size -= 128 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+        rewind(input_file);
     }
+    
+    // close input file, we don't need it anymore
+    fclose(input_file);
 
     // extract IDF header, four 16-bit little endian unsigned shorts    
     int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];

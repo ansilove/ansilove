@@ -36,7 +36,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[]);
 void alArtworxLoader(char *input, char output[], char bits[]);
 void alXbinLoader(char *input, char output[], char bits[]);
-void alIcedrawLoader(char *input, char output[], char bits[]);
+void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE);
 
 // sauce records
 #define RECORD_SIZE  128

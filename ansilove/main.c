@@ -80,8 +80,9 @@ int main(int argc, char *argv[])
         return EXIT_SUCCESS;
     }
     
-    // indicates whether AnsiLove/C should just display SAUCE or not
+    // SAUCE record related bool types
     bool justDisplaySAUCE = false;
+    bool fileHasSAUCE = false;
     
     // in case the SAUCE flag is set we set our bool type to 'true'
     if (strcmp(argv[2], "-r") == 0) {
@@ -91,10 +92,16 @@ int main(int argc, char *argv[])
     // let's check the file for a valid SAUCE record
     sauce *record = sauceReadFileName(argv[1]);
     
-    // record == NULL means there is no file, we can stop here
+    // record == NULL also means there is no file, we can stop here
     if (record == NULL) {
         printf("\nFile %s not found.\n\n", argv[1]);
         return EXIT_FAILURE;
+    }
+    else {
+        // if we find a SAUCE record, update bool flag
+        if (strcmp(record->ID, SAUCE_ID) == 0) {
+            fileHasSAUCE = true;
+        }
     }
     
     // this should be self-explanatory
@@ -125,7 +132,7 @@ int main(int argc, char *argv[])
             fext = "none";
         }
         
-        // in case we got arguments for input, output and the '-s' flag is set
+        // in case we got arguments for input, output, and the '-s' flag is set
         if (strcmp(argv[2], "-s") == 0) 
         {
             // append .png suffix to file name
@@ -215,7 +222,7 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(fext, ".idf") == 0) {
             // params: input, output, bits
-            alIcedrawLoader(input, output, bits);
+            alIcedrawLoader(input, output, bits, fileHasSAUCE);
         }
         else if (strcmp(fext, ".tnd") == 0) {
             loadTundra();
@@ -231,8 +238,8 @@ int main(int argc, char *argv[])
     }
     
     // either display SAUCE or tell us if there is no record
-    if (strcmp( record->ID, SAUCE_ID ) != 0) {
-        printf("\nFile does not have a SAUCE record.\n");
+    if (fileHasSAUCE == false) {
+        printf("\nFile %s does not have a SAUCE record.\n", argv[1]);
     }
     else {
         printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
