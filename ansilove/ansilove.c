@@ -1964,12 +1964,12 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
-        //font_data = &font_pc_80x25;
+        font_data = &font_pc_80x50;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
-        //font_data = &font_pc_80x50;
+        font_data = &font_pc_80x50;
         font_size_x = 8;
         font_size_y = 8;
     }
