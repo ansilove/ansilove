@@ -1770,7 +1770,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
 //    idf_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
     idf_buffer = (unsigned char *) malloc(16640);
     
-    uint16_t idf_data, idf_data_length;
+    int16_t idf_data, idf_data_length;
 
     while (loop < input_file_size - 4096 - 48) 
     {
