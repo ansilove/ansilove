@@ -29,7 +29,6 @@
 void showUsage(void);
 void loadPCBoard(void);
 void loadIceDraw(void);
-void loadTundra(void);
 
 // show how to properly set the command line flags
 void showUsage(void)
@@ -63,10 +62,6 @@ void loadPCBoard(void)
     // params: input, output, font, bits, icecolors
 }
 
-void loadTundra(void)
-{
-    // params: input, output, font, bits
-}
 
 int main(int argc, char *argv[])
 {
@@ -225,7 +220,7 @@ int main(int argc, char *argv[])
             alIcedrawLoader(input, output, bits, fileHasSAUCE);
         }
         else if (strcmp(fext, ".tnd") == 0) {
-            loadTundra();
+            alTundraLoader(input, output, font, bits);
         }
         else if (strcmp(fext, ".xb") == 0) {
             // params: input, output, bits

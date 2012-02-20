@@ -11,9 +11,10 @@
 
 #if defined(__APPLE__) && defined(__MACH__)
 #import "ansilove.h"
+#import "fonts.h"
 #else
 #include <stdbool.h>
-#include "ansilove.h"
+#include "fonts.h"
 #endif
 
 // ANSi
@@ -1952,7 +1953,12 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
 //}
 //
 //
-//
+
+// TUNDRA
+void alTundraLoader(char *input, char output[], char font[], char bits[])
+{
+}
+
 ///*****************************************************************************/
 ///* LOAD TUNDRA                                                               */
 ///*****************************************************************************/
