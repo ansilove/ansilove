@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */ = {isa = PBXBuildFile; fileRef = F83C075A14F2CB2900FD3EDB /* albinfonts.c */; };
 		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
@@ -35,7 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F83C075214F2B5BA00FD3EDB /* alfonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alfonts.h; sourceTree = "<group>"; };
+		F83C075714F2C86200FD3EDB /* albinfonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albinfonts.h; sourceTree = "<group>"; };
+		F83C075A14F2CB2900FD3EDB /* albinfonts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = albinfonts.c; sourceTree = "<group>"; };
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F864739214CAE3E900D7E08D /* filesize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesize.c; sourceTree = "<group>"; };
@@ -101,7 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				F8D6328D14A0920900C5352F /* alconfig.h */,
-				F83C075214F2B5BA00FD3EDB /* alfonts.h */,
+				F83C075714F2C86200FD3EDB /* albinfonts.h */,
+				F83C075A14F2CB2900FD3EDB /* albinfonts.c */,
 				F8CF83D814A9B8C600ABB607 /* ansilove.h */,
 				F8CF83DE14A9BB9700ABB607 /* ansilove.c */,
 				F8AE164114A130FE00393A1C /* main.c */,
@@ -191,6 +194,7 @@
 				F8CF83DF14A9BB9700ABB607 /* ansilove.c in Sources */,
 				F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */,
 				F864739414CAE3E900D7E08D /* filesize.c in Sources */,
+				F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

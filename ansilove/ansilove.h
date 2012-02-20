@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <gd.h>
 #import "alconfig.h"
-#import "alfonts.h"
+#import "albinfonts.h"
 #import "strtolower.h"
 #import "substr.h"
 #import "explode.h"
@@ -24,7 +24,7 @@
 #include <stdbool.h>
 #include <gd.h>
 #include "alconfig.h"
-#include "alfonts.h"
+#include "albinfonts.h"
 #include "strtolower.h"
 #include "substr.h"
 #include "explode.h"
