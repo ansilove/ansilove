@@ -11,11 +11,14 @@
 
 #if defined(__APPLE__) && defined(__MACH__)
 #import "ansilove.h"
-#import "fonts.h"
 #else
+<<<<<<< HEAD
 #include <stdbool.h>
 #include "ansilove.h"
 #include "fonts.h"
+=======
+#include "ansilove.h"
+>>>>>>> moved fonts.h to alfonts.h
 #endif
 
 // ANSi
@@ -1961,18 +1964,18 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     int32_t columns = 80;
     int32_t font_size_x;
     int32_t font_size_y;
-    unsigned char *font_data;
+    const unsigned char *font_data;
     char tundra_version;
     char tundra_header[8];
     
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
-        font_data = &font_pc_80x25;
+        font_data = font_pc_80x25;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
-        font_data = &font_pc_80x50;
+        font_data = font_pc_80x50;
         font_size_x = 8;
         font_size_y = 8;
     }

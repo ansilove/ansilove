@@ -35,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F83C075214F2B5BA00FD3EDB /* alfonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alfonts.h; sourceTree = "<group>"; };
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F864739214CAE3E900D7E08D /* filesize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesize.c; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				F8D6328D14A0920900C5352F /* alconfig.h */,
+				F83C075214F2B5BA00FD3EDB /* alfonts.h */,
 				F8CF83D814A9B8C600ABB607 /* ansilove.h */,
 				F8CF83DE14A9BB9700ABB607 /* ansilove.c */,
 				F8AE164114A130FE00393A1C /* main.c */,
