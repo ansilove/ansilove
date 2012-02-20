@@ -2056,7 +2056,7 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     gdImageDestroy(im_Tundra);    
 }
 
-// XBin
+// XBIN
 void alXbinLoader(char *input, char output[], char bits[])
 {
     // load input file
