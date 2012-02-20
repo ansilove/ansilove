@@ -1668,10 +1668,10 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     fclose(input_file);
 
     // extract IDF header, four 16-bit little endian unsigned shorts    
-    int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];
-    int32_t y1 = (input_file_buffer[7] << 8) + input_file_buffer[6];
     int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
-    int32_t y2 = (input_file_buffer[11] << 8) + input_file_buffer[10];
+    // int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];
+    // int32_t y1 = (input_file_buffer[7] << 8) + input_file_buffer[6];
+    // int32_t y2 = (input_file_buffer[11] << 8) + input_file_buffer[10];
 
     // libgd image pointers
     gdImagePtr im_IDF, im_Backgrnd, im_Font, im_InvertFont;
