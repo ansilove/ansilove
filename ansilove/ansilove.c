@@ -1961,6 +1961,8 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     int32_t font_size_x;
     int32_t font_size_y;
     unsigned char *font_data;
+    char tundra_version;
+    char tundra_header[8];
     
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
@@ -2015,7 +2017,17 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     // convert numeric command line flags to integer values
     int32_t int_bits = atoi(bits);
 
-    // process tundra
+    // extract tundra header
+    tundra_version = input_file_buffer[0];
+    memcpy(&tundra_header,input_file_buffer+1,8);
+
+    // need to add check for "TUNDRA24" string in the header
+    if (tundra_version!=24)
+    {
+        fputs ("\nInput file is not a TUNDRA file.\n\n", stderr); exit (4);
+    }    
+        
+    // read tundra file a first time to find the image size
     int32_t character, color_background, color_foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
     
@@ -2072,7 +2084,7 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
     }
     
-    // Process TUNDRA
+    // process tundra
     position_x=0;
     position_y=0;
     
