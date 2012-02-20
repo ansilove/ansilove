@@ -38,7 +38,7 @@ void showUsage(void)
     printf("Check the README to have details about supported options for each\n");
     printf("file format. Use flag '-s' for 'outputfile' to write a file to the same\n");
     printf("path, with the same name and .png suffix appended. Use '-r' for 'outputfile'\n");
-    printf("to just read and display a SAUCE record, without generating output\n\n");
+    printf("to just read and display a SAUCE record, without generating output.\n\n");
     printf("EXAMPLES:\n"); 
     printf("ansilove ansi.ans ansi.png\n");
     printf("ansilove ansi.ans ansi.png 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
