@@ -20,6 +20,7 @@
 #else
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <gd.h>
 #include "alconfig.h"
 #include "strtolower.h"
@@ -37,6 +38,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
 void alArtworxLoader(char *input, char output[], char bits[]);
 void alXbinLoader(char *input, char output[], char bits[]);
 void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE);
+void alTundraLoader(char *input, char output[], char font[], char bits[]);
 
 // sauce records
 #define RECORD_SIZE  128

@@ -14,6 +14,7 @@
 #import "fonts.h"
 #else
 #include <stdbool.h>
+#include "ansilove.h"
 #include "fonts.h"
 #endif
 
