@@ -2171,7 +2171,7 @@ void alXbinLoader(char *input, char output[], char bits[])
 
     // font
     if( (xbin_flags & 2) == 2 ) {
-        int32_t numchars = ( xbin_flags & 0x16 ? 512 : 256 );
+        int32_t numchars = ( xbin_flags & 0x10 ? 512 : 256 );
 
         gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
         gdImageColorTransparent(im_InvertFont, colors[20]);
@@ -2180,9 +2180,9 @@ void alXbinLoader(char *input, char output[], char bits[])
         
         for (loop = 0; loop < numchars; loop++)
         {
-            for (font_size_y = 0; font_size_y < 16; font_size_y++)
+            for (font_size_y = 0; font_size_y < xbin_fontsize; font_size_y++)
             {
-                character_line = input_file_buffer[offset + font_size_y + (loop * 16)];
+                character_line = input_file_buffer[offset + font_size_y + (loop * xbin_fontsize)];
                 
                 for (loop_column = 0; loop_column < 8; loop_column++)
                 {
@@ -2221,7 +2221,7 @@ void alXbinLoader(char *input, char output[], char bits[])
         gdImageColorTransparent(im_Font, 20);
     }
 
-    im_XBIN = gdImageCreate(8 * xbin_width, 16 * xbin_height);
+    im_XBIN = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
     
     if (!im_XBIN) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -2238,7 +2238,7 @@ void alXbinLoader(char *input, char output[], char bits[])
         int32_t position_x = 0, position_y = 0; 
         int32_t character, attribute, color_foreground, color_background;
 
-        while(offset < input_file_size)
+        while(offset < input_file_size && input_file_buffer[ offset ] != 0x26 )
         {
             if (position_x == xbin_width)
             {
