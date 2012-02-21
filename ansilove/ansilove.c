@@ -2230,14 +2230,75 @@ void alXbinLoader(char *input, char output[], char bits[])
     // allocate black color
     gdImageColorAllocate(im_XBIN, 0, 0, 0);
 
+    int32_t position_x = 0, position_y = 0; 
+    int32_t character, attribute, color_foreground, color_background;
+
     // read compressed xbin
     if( (xbin_flags & 4) == 4) {
+        while(offset < input_file_size && input_file_buffer[ offset ] != 0x26 )
+        {
+            int32_t ctype = input_file_buffer[ offset ] & 0xC0;
+            int32_t counter = ( input_file_buffer[ offset ] & 0x3F ) + 1;
+
+            character = -1;
+            attribute = -1;
+
+            offset++;
+            while( counter-- ) {
+                // none
+                if( ctype == 0 ) {
+                    character = input_file_buffer[ offset ];
+                    attribute = input_file_buffer[ offset + 1 ];
+                    offset += 2;
+                }
+                // char
+                else if ( ctype == 0x40 ) {
+                    if( character == -1 ) {
+                        character = input_file_buffer[ offset ];
+                        offset++;
+                    }
+                    attribute = input_file_buffer[ offset ];
+                    offset++;
+                                    }
+                // attr
+                else if ( ctype == 0x80 ) {
+                    if( attribute == -1 ) {
+                        attribute = input_file_buffer[ offset ];
+                        offset++;
+                    }
+                    character = input_file_buffer[ offset ];
+                    offset++;
+                }
+                // both
+                else {
+                    if( character == -1 ) {
+                        character = input_file_buffer[ offset ];
+                        offset++;
+                    }
+                    if( attribute == -1 ) {
+                        attribute = input_file_buffer[ offset ];
+                        offset++;
+                    }
+                }
+
+                color_background = (attribute & 240) >> 4;
+                color_foreground = attribute & 15;
+                
+                gdImageCopy(im_XBIN, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
+                gdImageCopy(im_XBIN, im_Font, position_x * 8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+                
+                position_x++;
+
+                if (position_x == xbin_width)
+                {
+                    position_x = 0;
+                    position_y++;
+                }
+            }
+        }
     }
     // read uncompressed xbin
     else {
-        int32_t position_x = 0, position_y = 0; 
-        int32_t character, attribute, color_foreground, color_background;
-
         while(offset < input_file_size && input_file_buffer[ offset ] != 0x26 )
         {
             if (position_x == xbin_width)
