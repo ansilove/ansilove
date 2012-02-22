@@ -1667,11 +1667,8 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     // close input file, we don't need it anymore
     fclose(input_file);
 
-    // extract IDF header, four 16-bit little endian unsigned shorts    
+    // extract relevant part of the IDF header, 16-bit endian unsigned short    
     int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
-    // int32_t x1 = (input_file_buffer[5] << 8) + input_file_buffer[4];
-    // int32_t y1 = (input_file_buffer[7] << 8) + input_file_buffer[6];
-    // int32_t y2 = (input_file_buffer[11] << 8) + input_file_buffer[10];
 
     // libgd image pointers
     gdImagePtr im_IDF, im_Backgrnd, im_Font, im_InvertFont;
@@ -1761,9 +1758,10 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     loop = 12;
     int32_t idf_sequence_length, idf_sequence_loop, i = 0;
     
-    // static IDF buffer (for now)
-    unsigned char *idf_buffer = (unsigned char *) malloc(16640);
-    
+    // dynamically allocated memory buffer for IDF data
+    unsigned char *idf_buffer, *temp;
+    idf_buffer = malloc(sizeof(unsigned char));
+        
     int16_t idf_data, idf_data_length;
 
     while (loop < input_file_size - 4096 - 48) 
@@ -1779,14 +1777,31 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
             
             for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++) 
             {
+                // reallocate IDF buffer memory
+                temp = realloc(idf_buffer, (i+2)*sizeof(unsigned char));
+                if (idf_buffer != NULL) {
+                    idf_buffer = temp;
+                }
+                else {
+                    fputs ("\nError allocating IDF buffer memory.\n\n", stderr); exit (7);
+                }
+                
                 idf_buffer[i] = input_file_buffer[loop + 4];
                 idf_buffer[i+1] = input_file_buffer[loop + 5];
                 i+=2;
             }
-            
             loop += 4;
         }
         else { 
+            // reallocate IDF buffer memory
+            temp = realloc(idf_buffer, (i+2)*sizeof(unsigned char));
+            if (idf_buffer != NULL) {
+                idf_buffer = temp;
+            }
+            else {
+                fputs ("\nError allocating IDF buffer memory.\n\n", stderr); exit (8);
+            }
+            
             // normal character
             idf_buffer[i] = input_file_buffer[loop];
             idf_buffer[i+1] = input_file_buffer[loop + 1];
@@ -1800,7 +1815,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     
     // error output
     if (!im_IDF) {
-        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
+        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (9);
     }
     gdImageColorAllocate(im_IDF, 0, 0, 0);
     
@@ -1827,6 +1842,9 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
         
         position_x++;
     }
+    
+    // free dynamically allocated memory
+    free(idf_buffer);
     
     // create output file
     FILE *file_Out = fopen(output, "wb");
