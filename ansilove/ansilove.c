@@ -1926,7 +1926,7 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     memcpy(&tundra_header,input_file_buffer+1,8);
 
     // need to add check for "TUNDRA24" string in the header
-    if (tundra_version!=24)
+    if (tundra_version != 24)
     {
         fputs ("\nInput file is not a TUNDRA file.\n\n", stderr); exit (4);
     }    
@@ -1947,31 +1947,35 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         
         character = input_file_buffer[loop];
         
-        if (character==1)
+        if (character == 1)
         {
-            position_y=(input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16 ) + (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+            position_y = 
+            (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) + 
+            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
             
-            position_x=(input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+            position_x =
+            (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + 
+            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
             
             loop+=8;
         }
         
-        if (character==2)
+        if (character == 2)
         {
             loop+=5;
         }
         
-        if (character==4)
+        if (character == 4)
         {
             loop+=5;
         }
         
-        if (character==6)
+        if (character == 6)
         {
             loop+=9;
         }
         
-        if (character!=1 && character!=2 && character!=4 && character!=6)
+        if (character !=1 && character !=2 && character !=4 && character != 6)
         {
             position_x++;
         }
@@ -1989,10 +1993,10 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     }
     
     // process tundra
-    position_x=0;
-    position_y=0;
+    position_x = 0;
+    position_y = 0;
     
-    loop=9;    
+    loop = 9;    
     
     while (loop < input_file_size)
     {
@@ -2004,52 +2008,64 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         
         character = input_file_buffer[loop];
         
-        if (character==1)
+        if (character == 1)
         {
-            position_y=(input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16 ) + (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+            position_y =
+            (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) + 
+            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
             
-            position_x=(input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+            position_x =
+            (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + 
+            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
             
             
             loop+=8;
         }
         
-        if (character==2)
+        if (character == 2)
         {
-            color_foreground=(input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+            color_foreground = 
+            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
+            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
             
-            character=input_file_buffer[loop+1];
+            character = input_file_buffer[loop+1];
             
             loop+=5;
         }
         
-        if (character==4)
+        if (character == 4)
         {
-            color_background=(input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+            color_background = 
+            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
+            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
             
-            character=input_file_buffer[loop+1];
+            character = input_file_buffer[loop+1];
             
             loop+=5;
         }
         
         if (character==6)
         {
-            color_foreground=(input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+            color_foreground = 
+            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
+            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
             
-            color_background=(input_file_buffer[loop + 6] << 24) + (input_file_buffer[loop + 7] << 16) + (input_file_buffer[loop + 8] << 8) + input_file_buffer[loop+9];
+            color_background = 
+            (input_file_buffer[loop + 6] << 24) + (input_file_buffer[loop + 7] << 16) + 
+            (input_file_buffer[loop + 8] << 8) + input_file_buffer[loop+9];
             
-            character=input_file_buffer[loop+1];
+            character = input_file_buffer[loop+1];
             
             loop+=9;
         }
         
-        if (character!=1 && character!=2 && character!=4 && character!=6)
+        if (character !=1 && character !=2 && character !=4 && character !=6)
         {
             int line, column;
             
             for (line = 0; line < font_size_y; line++) {
                 for (column = 0; column < font_size_x; column++) {
-                    if ( (font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
+                    if ((font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
                         gdImageSetPixel(im_Tundra, position_x * font_size_x + column, position_y*font_size_y + line, color_foreground);                        
                     }
                     else
