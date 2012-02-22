@@ -36,11 +36,12 @@
 
 // prototypes
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
+void alPcBoardLoader(char *input, char output[], char font[], char bits[], char icecolors[]);
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[]);
 void alArtworxLoader(char *input, char output[], char bits[]);
-void alXbinLoader(char *input, char output[], char bits[]);
 void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE);
 void alTundraLoader(char *input, char output[], char font[], char bits[]);
+void alXbinLoader(char *input, char output[], char bits[]);
 
 // sauce records
 #define RECORD_SIZE  128

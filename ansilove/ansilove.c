@@ -935,9 +935,12 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 //   
 //   return $output_files;
 //}
-//
-//
-//
+
+
+// PCBOARD
+void alPcBoardLoader(char *input, char output[], char font[], char bits[], char icecolors[])
+{
+}
 ///*****************************************************************************/
 ///* LOAD PCBOARD                                                              */
 ///*****************************************************************************/

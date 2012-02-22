@@ -28,7 +28,6 @@
 // prototypes
 void showUsage(void);
 void loadPCBoard(void);
-void loadIceDraw(void);
 
 // show how to properly set the command line flags
 void showUsage(void)
@@ -56,12 +55,6 @@ void showUsage(void)
     printf("ansilove xbin.xb xbin.png\n");
     printf("ansilove ansiwithsauce.ans -r (just display SAUCE record)\n\n");
 }
-
-void loadPCBoard(void)
-{
-    // params: input, output, font, bits, icecolors
-}
-
 
 int main(int argc, char *argv[])
 {
@@ -205,7 +198,8 @@ int main(int argc, char *argv[])
         
         // create the output file by invoking the appropiate function
         if (strcmp(fext, ".pcb") == 0) {
-            loadPCBoard();
+            // params: input, output, font, bits, icecolors
+            alPcBoardLoader(input, output, font, bits, icecolors);
         }
         else if (strcmp(fext, ".bin") == 0) {
             // params: input, output, columns, font, bits, icecolors
