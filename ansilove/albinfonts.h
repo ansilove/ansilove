@@ -36,6 +36,7 @@ const unsigned char font_pc_latin2[4096];
 const unsigned char font_pc_nordic[4096];
 const unsigned char font_pc_portuguese[4096];
 const unsigned char font_pc_russian[4096];
+const unsigned char font_pc_terminus[4096];
 const unsigned char font_pc_turkish[4096];
 
 const unsigned char font_amiga_microknight[4096];
