@@ -46,8 +46,8 @@ void alXbinLoader(char *input, char output[], char bits[]);
 // helper functions
 char *str_replace(const char *string, const char *substr, const char *replacement);
 
-// character parsing
-struct ansiChar {
+// character structures
+struct pcbChar {
     int32_t position_x;
     int32_t position_y;
     int32_t color_background;
