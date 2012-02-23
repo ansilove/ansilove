@@ -1064,7 +1064,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     // defines for stripping PCBoard codes
     char *stripped_file_buffer;
     char **pcbStripCodes;
-    int32_t stripCount, loop;
+    int32_t stripCount, loop, i;
     
     // create array of PCBoard strip codes defined in alconfig.h
     stripCount = explode(&pcbStripCodes, ',', PCBOARD_STRIP_CODES);
@@ -1085,7 +1085,8 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     
     // reset loop
     loop = 0;
-    
+    i = 0;
+        
     while (loop < input_file_size)
     {
         current_character = input_file_buffer[loop];
@@ -1178,13 +1179,14 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
             }
             
             // write current character in ansiChar structure
-            pcboard_buffer[loop].position_x = position_x;
-            pcboard_buffer[loop].position_y = position_y;
-            pcboard_buffer[loop].color_background = color_background;
-            pcboard_buffer[loop].color_foreground = color_foreground;
-            pcboard_buffer[loop].current_character = current_character;
+            pcboard_buffer[i].position_x = position_x;
+            pcboard_buffer[i].position_y = position_y;
+            pcboard_buffer[i].color_background = color_background;
+            pcboard_buffer[i].color_foreground = color_foreground;
+            pcboard_buffer[i].current_character = current_character;
             
             position_x++;
+            i++;
         }
         loop++;
     }
@@ -1203,7 +1205,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     gdImageColorAllocate(im_PCB, 0, 0, 0);
 
     // the last value of loop tells us how many items are stored in there
-    int32_t pcbBufferItems = loop;
+    int32_t pcbBufferItems = i;
     
     // render PCB
     for (loop = 0; loop < pcbBufferItems; loop++)
