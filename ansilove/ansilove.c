@@ -1064,7 +1064,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     // defines for stripping PCBoard codes
     char *stripped_file_buffer;
     char **pcbStripCodes;
-    int32_t stripCount, loop, i;
+    int32_t stripCount, loop, structIndex;
     
     // create array of PCBoard strip codes defined in alconfig.h
     stripCount = explode(&pcbStripCodes, ',', PCBOARD_STRIP_CODES);
@@ -1080,12 +1080,15 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     int32_t color_background = 0, color_foreground = 7; 
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
     
-    // PCB buffer structure definition
-    struct ansiChar pcboard_buffer[input_file_size];
+    // PCB buffer structure array definition
+    struct pcbChar *pcboard_buffer, *temp;
+    
+    // PCB buffer dynamic memory allocation
+    pcboard_buffer = malloc(sizeof(struct pcbChar));
     
     // reset loop
     loop = 0;
-    i = 0;
+    structIndex = 0;
         
     while (loop < input_file_size)
     {
@@ -1141,7 +1144,6 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
                  input_file_buffer[loop+2] == 'L' & input_file_buffer[loop+3] == 'S')
         {
             // erase display
-            // unset(pcboard_buffer); <--- reminder! not implemented. necessary!?
             position_x = 0;
             position_y = 0;
             
@@ -1178,15 +1180,19 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
                 position_y_max = position_y;
             }
             
-            // write current character in ansiChar structure
-            pcboard_buffer[i].position_x = position_x;
-            pcboard_buffer[i].position_y = position_y;
-            pcboard_buffer[i].color_background = color_background;
-            pcboard_buffer[i].color_foreground = color_foreground;
-            pcboard_buffer[i].current_character = current_character;
+            // reallocate structure array memory
+            temp = realloc(pcboard_buffer, (structIndex + 1) * sizeof(struct pcbChar));
+            pcboard_buffer = temp;
+            
+            // write current character in pcbChar structure
+            pcboard_buffer[structIndex].position_x = position_x;
+            pcboard_buffer[structIndex].position_y = position_y;
+            pcboard_buffer[structIndex].color_background = color_background;
+            pcboard_buffer[structIndex].color_foreground = color_foreground;
+            pcboard_buffer[structIndex].current_character = current_character;
             
             position_x++;
-            i++;
+            structIndex++;
         }
         loop++;
     }
@@ -1205,7 +1211,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     gdImageColorAllocate(im_PCB, 0, 0, 0);
 
     // the last value of loop tells us how many items are stored in there
-    int32_t pcbBufferItems = i;
+    int32_t pcbBufferItems = structIndex;
     
     // render PCB
     for (loop = 0; loop < pcbBufferItems; loop++)
@@ -1741,7 +1747,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
             for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++) 
             {
                 // reallocate IDF buffer memory
-                temp = realloc(idf_buffer, (i+2)*sizeof(unsigned char));
+                temp = realloc(idf_buffer, (i + 2) * sizeof(unsigned char));
                 if (idf_buffer != NULL) {
                     idf_buffer = temp;
                 }
@@ -1757,7 +1763,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
         }
         else { 
             // reallocate IDF buffer memory
-            temp = realloc(idf_buffer, (i+2)*sizeof(unsigned char));
+            temp = realloc(idf_buffer, (i + 2) * sizeof(unsigned char));
             if (idf_buffer != NULL) {
                 idf_buffer = temp;
             }
