@@ -24,5 +24,18 @@
 
 const unsigned char font_pc_80x25[4096];
 const unsigned char font_pc_80x50[2048];
+const unsigned char font_pc_baltic[4096];
+const unsigned char font_pc_cyrillic[4096];
+const unsigned char font_pc_french_canadian[4096];
+const unsigned char font_pc_greek[4096];
+const unsigned char font_pc_greek_869[4096];
+const unsigned char font_pc_hebrew[4096];
+const unsigned char font_pc_icelandic[4096];
+const unsigned char font_pc_latin1[4096];
+const unsigned char font_pc_latin2[4096];
+const unsigned char font_pc_nordic[4096];
+const unsigned char font_pc_portuguese[4096];
+const unsigned char font_pc_russian[4096];
+const unsigned char font_pc_turkish[4096];
 
 #endif
