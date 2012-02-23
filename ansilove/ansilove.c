@@ -248,40 +248,40 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 
     // load the input file
     
-//   if (!$input_file = fopen($input,'r'))
+//   if (!input_file = fopen(input,'r'))
 //   {
-//      error("Can't open file $input");
+//      error("Can't open file input");
 //   }
 //
-//   $input_file_sauce=load_sauce($input);
+//   input_file_sauce=load_sauce(input);
 //
-//   if ($input_file_sauce!=NULL)
+//   if (input_file_sauce!=NULL)
 //   {
-//      $input_file_size=$input_file_sauce['FileSize'];
+//      input_file_size=input_file_sauce['FileSize'];
 //   }
 //   else
 //   {
-//      $input_file_size=filesize($input);
+//      input_file_size=filesize(input);
 //   }
 //
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
+//   if (!input_file_buffer = fread(input_file,input_file_size))
 //   {
-//      error("Can't read file $input");
+//      error("Can't read file input");
 //   }
 //
-//   fclose($input_file);
+//   fclose(input_file);
 //
-//   $diz_extensions_exploded=explode(",",DIZ_EXTENSIONS);
+//   diz_extensions_exploded=explode(",",DIZ_EXTENSIONS);
 //
-//   for ($loop=0;$loop<sizeof($diz_extensions_exploded);$loop++)
+//   for (loop=0;loop<sizeof(diz_extensions_exploded);loop++)
 //   {
-//      $diz_extension_length=strlen($diz_extensions_exploded[$loop]);
+//      diz_extension_length=strlen(diz_extensions_exploded[loop]);
 //
-//      if (strtolower(substr($input,(strlen($input)-$diz_extension_length),$diz_extension_length))==$diz_extensions_exploded[$loop] || strtolower(substr($input,strlen($input)-($diz_extension_length+9),($diz_extension_length+9)))==$diz_extensions_exploded[$loop].'.ansilove')
+//      if (strtolower(substr(input,(strlen(input)-diz_extension_length),diz_extension_length))==diz_extensions_exploded[loop] || strtolower(substr(input,strlen(input)-(diz_extension_length+9),(diz_extension_length+9)))==diz_extensions_exploded[loop].'.ansilove')
 //      {
-//         $input_file_buffer=preg_replace("/^(\s+[\r\n])+/","",$input_file_buffer);
-//         $input_file_buffer=rtrim($input_file_buffer);
-//         $input_file_size=strlen($input_file_buffer);
+//         input_file_buffer=preg_replace("/^(\s+[\r\n])+/","",input_file_buffer);
+//         input_file_buffer=rtrim(input_file_buffer);
+//         input_file_size=strlen(input_file_buffer);
 //      }
 //   }
 //
@@ -289,17 +289,17 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* LOAD BACKGROUND/FONT                                                      */
 ///*****************************************************************************/
 //
-//   if (!$background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
+//   if (!background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
 //   {
 //      error("Can't open file ansilove_background.png");
 //   }
 //
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
+//   if (!font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
 //   {
 //      error("Can't open file font_file");
 //   }
 //
-//   imagecolortransparent($font,20);
+//   imagecolortransparent(font,20);
 //
 //
 //
@@ -307,39 +307,39 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* PROCESS ANSI                                                              */
 ///*****************************************************************************/
 //
-//   $color_background=0;
-//   $color_foreground=7;
+//   color_background=0;
+//   color_foreground=7;
 //
-//   $loop=0;
+//   loop=0;
 //
-//   $position_x=0;
-//   $position_y=0;
+//   position_x=0;
+//   position_y=0;
 //
-//   $position_x_max=0;
-//   $position_y_max=0;
+//   position_x_max=0;
+//   position_y_max=0;
 //
-//   while ($loop<$input_file_size)
+//   while (loop<input_file_size)
 //   {
-//      $current_character=ord($input_file_buffer[$loop]);
-//      $next_character=ord($input_file_buffer[$loop+1]);
+//      current_character=ord(input_file_buffer[loop]);
+//      next_character=ord(input_file_buffer[loop+1]);
 //
-//      if ($position_x==80 && WRAP_COLUMN_80)
+//      if (position_x==80 && WRAP_COLUMN_80)
 //      {
-//         $position_y++;
-//         $position_x=0;
+//         position_y++;
+//         position_x=0;
 //      }
 //
 ///*****************************************************************************/
 ///* CR+LF                                                                     */
 ///*****************************************************************************/
 //
-//      if ($current_character==13)
+//      if (current_character==13)
 //      {
-//         if ($next_character==10)
+//         if (next_character==10)
 //         {
-//            $position_y++;
-//            $position_x=0;
-//            $loop++;
+//            position_y++;
+//            position_x=0;
+//            loop++;
 //         }
 //      }
 //
@@ -347,26 +347,26 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* LF                                                                        */
 ///*****************************************************************************/
 //
-//      if ($current_character==10)
+//      if (current_character==10)
 //      {
-//         $position_y++;
-//         $position_x=0;
+//         position_y++;
+//         position_x=0;
 //      }
 //
 ///*****************************************************************************/
 ///* TAB                                                                       */
 ///*****************************************************************************/
 //
-//      if ($current_character==9)
+//      if (current_character==9)
 //      {
-//         $position_x+=8;
+//         position_x+=8;
 //      }
 //
 ///*****************************************************************************/
 ///* SUB                                                                       */
 ///*****************************************************************************/
 //
-//      if ($current_character==26 && SUBSTITUTE_BREAK)
+//      if (current_character==26 && SUBSTITUTE_BREAK)
 //      {
 //         break;
 //      }
@@ -377,25 +377,25 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* ANSI SEQUENCE                                                             */
 ///*****************************************************************************/
 //
-//      if ($current_character==27 && $next_character==91)
+//      if (current_character==27 && next_character==91)
 //      {
-//         unset($ansi_sequence);
+//         unset(ansi_sequence);
 //
-//         for ($ansi_sequence_loop=0;$ansi_sequence_loop<12;$ansi_sequence_loop++)
+//         for (ansi_sequence_loop=0;ansi_sequence_loop<12;ansi_sequence_loop++)
 //         {
-//            $ansi_sequence_character=$input_file_buffer[$loop+2+$ansi_sequence_loop];
+//            ansi_sequence_character=input_file_buffer[loop+2+ansi_sequence_loop];
 //
 ///*****************************************************************************/
 ///* CURSOR POSITION                                                           */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='H' || $ansi_sequence_character=='f')
+//            if (ansi_sequence_character=='H' || ansi_sequence_character=='f')
 //            {
-//               $ansi_sequence_exploded=explode(";",$ansi_sequence);
-//               $position_y=$ansi_sequence_exploded[0]-1;
-//               $position_x=$ansi_sequence_exploded[1]-1;
+//               ansi_sequence_exploded=explode(";",ansi_sequence);
+//               position_y=ansi_sequence_exploded[0]-1;
+//               position_x=ansi_sequence_exploded[1]-1;
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -403,16 +403,16 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CURSOR UP                                                                 */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='A')
+//            if (ansi_sequence_character=='A')
 //            {
-//               if ($ansi_sequence=='')
+//               if (ansi_sequence=='')
 //               {
-//                  $ansi_sequence=1;
+//                  ansi_sequence=1;
 //               }
 //
-//               $position_y=$position_y-$ansi_sequence;
+//               position_y=position_y-ansi_sequence;
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -420,16 +420,16 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CURSOR DOWN                                                               */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='B')
+//            if (ansi_sequence_character=='B')
 //            {
-//               if ($ansi_sequence=='')
+//               if (ansi_sequence=='')
 //               {
-//                  $ansi_sequence=1;
+//                  ansi_sequence=1;
 //               }
 //
-//               $position_y=$position_y+$ansi_sequence;
+//               position_y=position_y+ansi_sequence;
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -437,20 +437,20 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CURSOR FORWARD                                                            */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='C')
+//            if (ansi_sequence_character=='C')
 //            {
-//               if ($ansi_sequence=='')
+//               if (ansi_sequence=='')
 //               {
-//                  $ansi_sequence=1;
+//                  ansi_sequence=1;
 //               }
 //
-//               $position_x=$position_x+$ansi_sequence;
-//               if ($position_x>80)
+//               position_x=position_x+ansi_sequence;
+//               if (position_x>80)
 //               {
-//                  $position_x=80;
+//                  position_x=80;
 //               }
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -458,20 +458,20 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CURSOR BACKWARD                                                           */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='D')
+//            if (ansi_sequence_character=='D')
 //            {
-//               if ($ansi_sequence=='')
+//               if (ansi_sequence=='')
 //               {
-//                  $ansi_sequence=1;
+//                  ansi_sequence=1;
 //               }
 //
-//               $position_x=$position_x-$ansi_sequence;
-//               if ($position_x<0)
+//               position_x=position_x-ansi_sequence;
+//               if (position_x<0)
 //               {
-//                  $position_x=0;
+//                  position_x=0;
 //               }
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -479,12 +479,12 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* SAVE CURSOR POSITION                                                      */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='s')
+//            if (ansi_sequence_character=='s')
 //            {
-//               $saved_position_y=$position_y;
-//               $saved_position_x=$position_x;
+//               saved_position_y=position_y;
+//               saved_position_x=position_x;
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -492,12 +492,12 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* RESTORE CURSOR POSITION                                                   */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='u')
+//            if (ansi_sequence_character=='u')
 //            {
-//               $position_y=$saved_position_y;
-//               $position_x=$saved_position_x;
+//               position_y=saved_position_y;
+//               position_x=saved_position_x;
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -505,20 +505,20 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* ERASE DISPLAY                                                             */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='J')
+//            if (ansi_sequence_character=='J')
 //            {
-//               if ($ansi_sequence==2)
+//               if (ansi_sequence==2)
 //               {
-//                  unset($ansi_buffer);
+//                  unset(ansi_buffer);
 //
-//                  $position_x=0;
-//                  $position_y=0;
+//                  position_x=0;
+//                  position_y=0;
 //
-//                  $position_x_max=0;
-//                  $position_y_max=0;
+//                  position_x_max=0;
+//                  position_y_max=0;
 //               }
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -526,76 +526,76 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* SET GRAPHIC RENDITION                                                     */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='m')
+//            if (ansi_sequence_character=='m')
 //            {
-//               $ansi_sequence_exploded=explode(";",$ansi_sequence);
+//               ansi_sequence_exploded=explode(";",ansi_sequence);
 //
-//               sort($ansi_sequence_exploded);
+//               sort(ansi_sequence_exploded);
 //
-//               for ($loop_ansi_sequence=0;$loop_ansi_sequence<sizeof($ansi_sequence_exploded);$loop_ansi_sequence++)
+//               for (loop_ansi_sequence=0;loop_ansi_sequence<sizeof(ansi_sequence_exploded);loop_ansi_sequence++)
 //               {
-//                  $ansi_sequence_value=$ansi_sequence_exploded[$loop_ansi_sequence];
+//                  ansi_sequence_value=ansi_sequence_exploded[loop_ansi_sequence];
 //
-//                  if ($ansi_sequence_value==0)
+//                  if (ansi_sequence_value==0)
 //                  {
-//                     $color_background=0;
-//                     $color_foreground=7;
-//                     $bold=FALSE;
-//                     $underline=FALSE;
-//                     $italics=FALSE;
-//                     $blink=FALSE;
+//                     color_background=0;
+//                     color_foreground=7;
+//                     bold=FALSE;
+//                     underline=FALSE;
+//                     italics=FALSE;
+//                     blink=FALSE;
 //                  }
 //
-//                  if ($ansi_sequence_value==1)
+//                  if (ansi_sequence_value==1)
 //                  {
-//                     if (!$workbench)
+//                     if (!workbench)
 //                     {
-//                        $color_foreground+=8;
+//                        color_foreground+=8;
 //					 }
-//                     $bold=TRUE;
+//                     bold=TRUE;
 //                  }
 //
-//                  if ($ansi_sequence_value==3)
+//                  if (ansi_sequence_value==3)
 //                  {
-//                     $italics=TRUE;
+//                     italics=TRUE;
 //                  }
 //
-//                  if ($ansi_sequence_value==4)
+//                  if (ansi_sequence_value==4)
 //                  {
-//                     $underline=TRUE;
+//                     underline=TRUE;
 //                  }
 //
-//                  if ($ansi_sequence_value==5)
+//                  if (ansi_sequence_value==5)
 //                  {
-//                     if (!$workbench)
+//                     if (!workbench)
 //                     {
-//                        $color_background+=8;
+//                        color_background+=8;
 //					 }
-//                     $blink=TRUE;
+//                     blink=TRUE;
 //                  }
 //
-//                  if ($ansi_sequence_value>29 && $ansi_sequence_value<38)
+//                  if (ansi_sequence_value>29 && ansi_sequence_value<38)
 //                  {
-//                     $color_foreground=$ansi_sequence_value-30;
+//                     color_foreground=ansi_sequence_value-30;
 //
-//                     if ($bold)
+//                     if (bold)
 //                     {
-//                        $color_foreground+=8;
+//                        color_foreground+=8;
 //                     }
 //                  }
 //
-//                  if ($ansi_sequence_value>39 && $ansi_sequence_value<48)
+//                  if (ansi_sequence_value>39 && ansi_sequence_value<48)
 //                  {
-//                     $color_background=$ansi_sequence_value-40;
+//                     color_background=ansi_sequence_value-40;
 //
-//                     if ($blink && $icecolors)
+//                     if (blink && icecolors)
 //                     {
-//                        $color_background+=8;
+//                        color_background+=8;
 //                     }
 //                  }
 //               }
 //
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
@@ -603,30 +603,30 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CURSOR DE/ACTIVATION (AMIGA ANSI)                                         */
 ///*****************************************************************************/
 //
-//            if ($ansi_sequence_character=='p')
+//            if (ansi_sequence_character=='p')
 //            {
-//               $loop+=$ansi_sequence_loop+2;
+//               loop+=ansi_sequence_loop+2;
 //               break;
 //            }
 //
-//            $ansi_sequence.=$ansi_sequence_character;
+//            ansi_sequence.=ansi_sequence_character;
 //         }
 //      }
-//      elseif ($current_character!=10 && $current_character!=13 && $current_character!=9)
+//      elseif (current_character!=10 && current_character!=13 && current_character!=9)
 //      {
 //
 ///*****************************************************************************/
 ///* RECORD NUMBER OF COLUMNS AND LINES USED                                   */
 ///*****************************************************************************/
 //
-//         if ($position_x>$position_x_max)
+//         if (position_x>position_x_max)
 //         {
-//            $position_x_max=$position_x;
+//            position_x_max=position_x;
 //         }
 //
-//         if ($position_y>$position_y_max)
+//         if (position_y>position_y_max)
 //         {
-//            $position_y_max=$position_y;
+//            position_y_max=position_y;
 //         }
 //
 //
@@ -635,22 +635,22 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* WRITE CURRENT CHARACTER INFO IN A TEMPORARY ARRAY                         */
 ///*****************************************************************************/
 //
-//         if (!$font_amiga || ($current_character!=12 && $current_character!=13))
+//         if (!font_amiga || (current_character!=12 && current_character!=13))
 //         {
-//            $ansi_buffer.=chr($color_background);
-//            $ansi_buffer.=chr($color_foreground);
-//            $ansi_buffer.=chr($current_character);
-//            $ansi_buffer.=chr($bold);
-//            $ansi_buffer.=chr($italics);
-//            $ansi_buffer.=chr($underline);
-//            $ansi_buffer.=chr($position_x);
-//            $ansi_buffer.=chr($position_y & 0xFF);
-//            $ansi_buffer.=chr($position_y>>8);
+//            ansi_buffer.=chr(color_background);
+//            ansi_buffer.=chr(color_foreground);
+//            ansi_buffer.=chr(current_character);
+//            ansi_buffer.=chr(bold);
+//            ansi_buffer.=chr(italics);
+//            ansi_buffer.=chr(underline);
+//            ansi_buffer.=chr(position_x);
+//            ansi_buffer.=chr(position_y & 0xFF);
+//            ansi_buffer.=chr(position_y>>8);
 //
-//            $position_x++;
+//            position_x++;
 //         }
 //      }
-//      $loop++;
+//      loop++;
 //   }
 //
 //
@@ -659,83 +659,83 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* ALLOCATE IMAGE BUFFER MEMORY                                              */
 ///*****************************************************************************/
 //
-//   $position_x_max++;
-//   $position_y_max++;
+//   position_x_max++;
+//   position_y_max++;
 //
-//   if ($ced)
+//   if (ced)
 //   {
-//      $columns=78;
+//      columns=78;
 //   }
 //
-//   for ($loop=0;$loop<sizeof($diz_extensions_exploded);$loop++)
+//   for (loop=0;loop<sizeof(diz_extensions_exploded);loop++)
 //   {
-//      $diz_extension_length=strlen($diz_extensions_exploded[$loop]);
+//      diz_extension_length=strlen(diz_extensions_exploded[loop]);
 //
-//      if (strtolower(substr($input,(strlen($input)-$diz_extension_length),$diz_extension_length))==$diz_extensions_exploded[$loop] || strtolower(substr($input,strlen($input)-($diz_extension_length+9),($diz_extension_length+9)))==$diz_extensions_exploded[$loop].'.ansilove')
+//      if (strtolower(substr(input,(strlen(input)-diz_extension_length),diz_extension_length))==diz_extensions_exploded[loop] || strtolower(substr(input,strlen(input)-(diz_extension_length+9),(diz_extension_length+9)))==diz_extensions_exploded[loop].'.ansilove')
 //      {
-//         $columns=min($position_x_max,80);
+//         columns=min(position_x_max,80);
 //      }
 //   }
 //
-//   if (!$ansi = imagecreate($columns*$bits,($position_y_max)*font_size_y))
+//   if (!ansi = imagecreate(columns*bits,(position_y_max)*font_size_y))
 //   {
 //      error("Can't allocate buffer image memory");
 //   }
 //
-//   if ($ced)
+//   if (ced)
 //   {
-//      $ced_background_color=explode(",",CED_BACKGROUND_COLOR);
-//      $ced_foreground_color=explode(",",CED_FOREGROUND_COLOR);
+//      ced_background_color=explode(",",CED_BACKGROUND_COLOR);
+//      ced_foreground_color=explode(",",CED_FOREGROUND_COLOR);
 //
-//      imagecolorallocate($ansi,$ced_background_color[0],$ced_background_color[1],$ced_background_color[2]);
+//      imagecolorallocate(ansi,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
 //
-//      $ced_color=imagecolorallocate($ansi,$ced_background_color[0],$ced_background_color[1],$ced_background_color[2]);
-//      $ced_color=imagecolorallocate($background,$ced_background_color[0],$ced_background_color[1],$ced_background_color[2]);
+//      ced_color=imagecolorallocate(ansi,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
+//      ced_color=imagecolorallocate(background,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
 //
-//      imagefill($ansi,0,0,$ced_color);
-//      imagefilledrectangle($background,0,0,144,16,$ced_color);
+//      imagefill(ansi,0,0,ced_color);
+//      imagefilledrectangle(background,0,0,144,16,ced_color);
 //
-//      for ($loop=0;$loop<16;$loop++)
+//      for (loop=0;loop<16;loop++)
 //      {
-//         imagecolorset($font,$loop,$ced_foreground_color[0],$ced_foreground_color[1],$ced_foreground_color[2]);
+//         imagecolorset(font,loop,ced_foreground_color[0],ced_foreground_color[1],ced_foreground_color[2]);
 //      }
 //   }
-//   else if ($workbench)
+//   else if (workbench)
 //   {
-//      $workbench_color[0]=explode(",",WORKBENCH_COLOR_0);
-//      $workbench_color[1]=explode(",",WORKBENCH_COLOR_4);
-//      $workbench_color[2]=explode(",",WORKBENCH_COLOR_2);
-//      $workbench_color[3]=explode(",",WORKBENCH_COLOR_6);
-//      $workbench_color[4]=explode(",",WORKBENCH_COLOR_1);
-//      $workbench_color[5]=explode(",",WORKBENCH_COLOR_5);
-//      $workbench_color[6]=explode(",",WORKBENCH_COLOR_3);
-//      $workbench_color[7]=explode(",",WORKBENCH_COLOR_7);
+//      workbench_color[0]=explode(",",WORKBENCH_COLOR_0);
+//      workbench_color[1]=explode(",",WORKBENCH_COLOR_4);
+//      workbench_color[2]=explode(",",WORKBENCH_COLOR_2);
+//      workbench_color[3]=explode(",",WORKBENCH_COLOR_6);
+//      workbench_color[4]=explode(",",WORKBENCH_COLOR_1);
+//      workbench_color[5]=explode(",",WORKBENCH_COLOR_5);
+//      workbench_color[6]=explode(",",WORKBENCH_COLOR_3);
+//      workbench_color[7]=explode(",",WORKBENCH_COLOR_7);
 //
-//      imagecolorallocate($ansi,$workbench_color[0][0],$workbench_color[0][1],$workbench_color[0][2]);
+//      imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
 //
-//      $workbench_background=imagecolorallocate($ansi,$workbench_color[0][0],$workbench_color[0][1],$workbench_color[0][2]);
-//      $workbench_background=imagecolorallocate($background,$workbench_color[0][0],$workbench_color[0][1],$workbench_color[0][2]);
+//      workbench_background=imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
+//      workbench_background=imagecolorallocate(background,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
 //
-//      imagefill($ansi,0,0,$workbench_background);
+//      imagefill(ansi,0,0,workbench_background);
 //
-//      for ($loop=0; $loop<8; $loop++)
+//      for (loop=0; loop<8; loop++)
 //      {
-//         imagecolorset($background,$loop,$workbench_color[$loop][0],$workbench_color[$loop][1],$workbench_color[$loop][2]);
-//         imagecolorset($background,$loop+8,$workbench_color[$loop][0],$workbench_color[$loop][1],$workbench_color[$loop][2]);
-//         imagecolorset($font,$loop,$workbench_color[$loop][0],$workbench_color[$loop][1],$workbench_color[$loop][2]);
-//         imagecolorset($font,$loop+8,$workbench_color[$loop][0],$workbench_color[$loop][1],$workbench_color[$loop][2]);
+//         imagecolorset(background,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//         imagecolorset(background,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//         imagecolorset(font,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//         imagecolorset(font,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
 //      }
 //   }
 //   else
 //   {
-//      $background_canvas=imagecolorallocate($ansi,0,0,0);
+//      background_canvas=imagecolorallocate(ansi,0,0,0);
 //   }
 //
-//   for ($loop=0; $loop<16; $loop++)
+//   for (loop=0; loop<16; loop++)
 //   {
 //	  /* Generating ANSI colors array in order to be able to draw underlines */
-//      $color_index=imagecolorsforindex($background,$loop);
-//      $colors[$loop]=imagecolorallocate($ansi,$color_index['red'],$color_index['green'],$color_index['blue']);
+//      color_index=imagecolorsforindex(background,loop);
+//      colors[loop]=imagecolorallocate(ansi,color_index['red'],color_index['green'],color_index['blue']);
 //   }
 //
 //
@@ -744,103 +744,103 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* RENDER ANSI                                                               */
 ///*****************************************************************************/
 //
-//   for ($loop=0;$loop<strlen($ansi_buffer);$loop+=9)
+//   for (loop=0;loop<strlen(ansi_buffer);loop+=9)
 //   {
-//      $color_background=ord($ansi_buffer[$loop]);
-//      $color_foreground=ord($ansi_buffer[$loop+1]);
-//      $character=ord($ansi_buffer[$loop+2]);
-//      $bold=ord($ansi_buffer[$loop+3]);
-//      $italics=ord($ansi_buffer[$loop+4]);
-//      $underline=ord($ansi_buffer[$loop+5]);
-//      $position_x=ord($ansi_buffer[$loop+6]);
-//      $position_y=ord($ansi_buffer[$loop+7])+(ord($ansi_buffer[$loop+8])<<8);
+//      color_background=ord(ansi_buffer[loop]);
+//      color_foreground=ord(ansi_buffer[loop+1]);
+//      character=ord(ansi_buffer[loop+2]);
+//      bold=ord(ansi_buffer[loop+3]);
+//      italics=ord(ansi_buffer[loop+4]);
+//      underline=ord(ansi_buffer[loop+5]);
+//      position_x=ord(ansi_buffer[loop+6]);
+//      position_y=ord(ansi_buffer[loop+7])+(ord(ansi_buffer[loop+8])<<8);
 //
-//      if (!$font_amiga)
+//      if (!font_amiga)
 //      {
-//         imagecopy($ansi,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
-//         imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
+//         imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
+//         imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
 //      }
 //      else
 //      {
-//         if ($color_background!=0 || !$italics)
+//         if (color_background!=0 || !italics)
 //         {
-//            imagecopy($ansi,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
+//            imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
 //         }
 //
-//         if (!$italics)
+//         if (!italics)
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
+//            imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
 //         }
 //         else
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits+3,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,2);
-//            imagecopy($ansi,$font,$position_x*$bits+2,$position_y*font_size_y+2,$character*font_size_x,$color_foreground*font_size_y+2,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*font_size_y+6,$character*font_size_x,$color_foreground*font_size_y+6,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits,$position_y*font_size_y+10,$character*font_size_x,$color_foreground*font_size_y+10,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits-1,$position_y*font_size_y+14,$character*font_size_x,$color_foreground*font_size_y+14,$bits,2);
+//            imagecopy(ansi,font,position_x*bits+3,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
+//            imagecopy(ansi,font,position_x*bits+2,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
+//            imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
+//            imagecopy(ansi,font,position_x*bits,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
+//            imagecopy(ansi,font,position_x*bits-1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
 //         }
 //            
-//         if ($italics && $bold)
+//         if (italics && bold)
 //         {
-//            imagecopy($ansi,$font,$position_x*$bits+3+1,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,2);
-//            imagecopy($ansi,$font,$position_x*$bits+2+1,$position_y*font_size_y+2,$character*font_size_x,$color_foreground*font_size_y+2,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1+1,$position_y*font_size_y+6,$character*font_size_x,$color_foreground*font_size_y+6,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits+1,$position_y*font_size_y+10,$character*font_size_x,$color_foreground*font_size_y+10,$bits,4);
-//            imagecopy($ansi,$font,$position_x*$bits-1+1,$position_y*font_size_y+14,$character*font_size_x,$color_foreground*font_size_y+14,$bits,2);
+//            imagecopy(ansi,font,position_x*bits+3+1,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
+//            imagecopy(ansi,font,position_x*bits+2+1,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
+//            imagecopy(ansi,font,position_x*bits+1+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
+//            imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
+//            imagecopy(ansi,font,position_x*bits-1+1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
 //         }
 //
-//         if ($bold && !$italics)
+//         if (bold && !italics)
 //         {
-//            imagecopy($ansi,$font,1+$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
+//            imagecopy(ansi,font,1+position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
 //         }
 //
-//         if ($underline)
+//         if (underline)
 //         {
-//            $loop_column=0;
-//            $character_size_x=8;
+//            loop_column=0;
+//            character_size_x=8;
 //
-//            if ($bold)
+//            if (bold)
 //            {
-//               $character_size_x++;
+//               character_size_x++;
 //            }
 //
-//            if ($italics)
+//            if (italics)
 //            {
-//               $loop_column=-1;
-//               $character_size_x=11;
+//               loop_column=-1;
+//               character_size_x=11;
 //            }
 //
-//            while ($loop_column<$character_size_x)
+//            while (loop_column<character_size_x)
 //            {
-//               if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15)==$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*font_size_y+15)==$color_background)
+//               if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)==color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
 //               {
-//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+14,$colors[$color_foreground]);
-//                  imagesetpixel($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15,$colors[$color_foreground]);
+//                  imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+14,colors[color_foreground]);
+//                  imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+15,colors[color_foreground]);
 //               }
-//               else if (imagecolorat($ansi,$position_x*$bits+$loop_column,$position_y*font_size_y+15)!=$color_background && imagecolorat($ansi,$position_x*$bits+$loop_column+1,$position_y*font_size_y+15)==$color_background)
+//               else if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)!=color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
 //               {
-//                  $loop_column++;
+//                  loop_column++;
 //               }
 //               
-//               $loop_column++;
+//               loop_column++;
 //            }
 //
-//            if ($pixel_carry)
+//            if (pixel_carry)
 //            {
-//               imagesetpixel($ansi,$position_x*$bits,$position_y*font_size_y+14,$colors[$color_foreground]);
-//               imagesetpixel($ansi,$position_x*$bits,$position_y*font_size_y+15,$colors[$color_foreground]);
-//               $pixel_carry=FALSE;
+//               imagesetpixel(ansi,position_x*bits,position_y*font_size_y+14,colors[color_foreground]);
+//               imagesetpixel(ansi,position_x*bits,position_y*font_size_y+15,colors[color_foreground]);
+//               pixel_carry=FALSE;
 //            }
 //
-//            if (imagecolorat($font,$character*font_size_x,$color_foreground*font_size_y+15)!=20)
+//            if (imagecolorat(font,character*font_size_x,color_foreground*font_size_y+15)!=20)
 //            {
-//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*font_size_y+14,$colors[$color_foreground]);
-//               imagesetpixel($ansi,$position_x*$bits-1,$position_y*font_size_y+15,$colors[$color_foreground]);
+//               imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+14,colors[color_foreground]);
+//               imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+15,colors[color_foreground]);
 //            }
 //
-//            if (imagecolorat($font,$character*font_size_x+$character_size_x-1,$color_foreground*font_size_y+15)!=20)
+//            if (imagecolorat(font,character*font_size_x+character_size_x-1,color_foreground*font_size_y+15)!=20)
 //            {
-//               $pixel_carry=TRUE;
+//               pixel_carry=TRUE;
 //            }
 //         }
 //      }
@@ -852,72 +852,72 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* CREATE OUTPUT FILE                                                        */
 ///*****************************************************************************/
 //
-//   if ($transparent)
+//   if (transparent)
 //   {
-//      imagecolortransparent($ansi,$background_canvas);
+//      imagecolortransparent(ansi,background_canvas);
 //   }
 //
-//   if ($thumbnail)
+//   if (thumbnail)
 //   {
-//      thumbnail($ansi,$output,$columns,font_size_y,$position_y_max);
+//      thumbnail(ansi,output,columns,font_size_y,position_y_max);
 //   }
 //   else
 //   {
-//      if ($output=='online')
+//      if (output=='online')
 //      {
 //         Header("Content-type: image/png");
-//         ImagePNG($ansi);
+//         ImagePNG(ansi);
 //      }
 //      else
 //      {
 //         if (!SPLIT)
 //         {
-//            ImagePNG($ansi,$output);
+//            ImagePNG(ansi,output);
 //         }
 //         else
 //         {
-//            $image_size_y=$position_y_max*font_size_y;
-//            $split_size_y=SPLIT_HEIGHT;
+//            image_size_y=position_y_max*font_size_y;
+//            split_size_y=SPLIT_HEIGHT;
 //
-//            $loop_max=($image_size_y/$split_size_y);
+//            loop_max=(image_size_y/split_size_y);
 //
-//            for ($loop=0; $loop<$loop_max; $loop++)
+//            for (loop=0; loop<loop_max; loop++)
 //            {
-//               if (($image_size_y-($split_size_y*$loop))<$split_size_y)
+//               if ((image_size_y-(split_size_y*loop))<split_size_y)
 //               {
-//                  $height=($image_size_y-($split_size_y*$loop));
+//                  height=(image_size_y-(split_size_y*loop));
 //               }
 //               else
 //               {
-//                  $height=$split_size_y;
+//                  height=split_size_y;
 //               }
 //
-//               if (!$split = imagecreate($columns*$bits,$height))
+//               if (!split = imagecreate(columns*bits,height))
 //               {
 //                  error("Can't allocate buffer image memory");
 //               }
 //
-//               imagecolorallocate($split,0,0,0);
-//               imagecopy($split,$ansi,0,0,0,($loop*$split_size_y),$columns*$bits,$height);
+//               imagecolorallocate(split,0,0,0);
+//               imagecopy(split,ansi,0,0,0,(loop*split_size_y),columns*bits,height);
 //
-//               if ($loop_max>=1)
+//               if (loop_max>=1)
 //               {
-//                  $output_file=$output.SPLIT_SEPARATOR.str_pad($loop,4,"0",STR_PAD_LEFT).".png";
+//                  output_file=output.SPLIT_SEPARATOR.str_pad(loop,4,"0",STR_PAD_LEFT).".png";
 //               }
 //               else
 //               {
-//                  $output_file=$output.".png";
+//                  output_file=output.".png";
 //               }
 //
-//               $output_files[]=$output_file;
+//               output_files[]=output_file;
 //
-//               if ($transparent)
+//               if (transparent)
 //               {
-//                  imagecolortransparent($split,$background_canvas);
+//                  imagecolortransparent(split,background_canvas);
 //               }
 //
-//               ImagePNG($split,$output_file);
-//               imagedestroy($split);
+//               ImagePNG(split,output_file);
+//               imagedestroy(split);
 //            }
 //         }
 //      }
@@ -929,20 +929,21 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 ///* FREE MEMORY                                                               */
 ///*****************************************************************************/
 //
-//   imagedestroy($ansi);
-//   imagedestroy($background);
-//   imagedestroy($font);
+//   imagedestroy(ansi);
+//   imagedestroy(background);
+//   imagedestroy(font);
 //   
-//   return $output_files;
+//   return output_files;
 //}
 
 
-// PCBOARD
-void alPcBoardLoader(char *input, char output[], char font[], char bits[], char icecolors[])
+// PCB
+void alPcBoardLoader(char *input, char output[], char font[], char bits[])
 {
     // some type declarations
     int32_t font_size_x;
     int32_t font_size_y;
+    int32_t columns = 80;
     char *font_file;
     
     // let's see what font we should use to render output
@@ -1004,7 +1005,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[], char 
     fclose(input_file);
     
     // libgd image pointers
-    gdImagePtr im_PcBoard, im_Backgrnd, im_Font;
+    gdImagePtr im_PCB, im_Backgrnd, im_Font;
     
     // additional libgd related declarations
     FILE *file_Backgrnd, *file_Font;
@@ -1038,12 +1039,11 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[], char 
     
     // convert numeric command line flags to integer values
     int32_t int_bits = atoi(bits);
-    int32_t int_icecolors = atoi(icecolors);
-    
+
     // foreground / background color array
     int32_t pcb_colors[71];
     
-    // PCBoard colors
+    // PCB colors
     pcb_colors[48] = 0; 
     pcb_colors[49] = 4; 
     pcb_colors[50] = 2; 
@@ -1066,235 +1066,172 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[], char 
     char **pcbStripCodes;
     int32_t stripCount, loop;
     
-    // create array of PCBoard strip codes defined in config.h
+    // create array of PCBoard strip codes defined in alconfig.h
     stripCount = explode(&pcbStripCodes, ',', PCBOARD_STRIP_CODES);
     
     // remove all specified PCB strip code occurances in input_file_buffer
     for (loop = 0; loop < stripCount; loop++) {
         stripped_file_buffer = str_replace((const char *)input_file_buffer, pcbStripCodes[loop], "");
-        input_file_buffer = (unsigned char*)stripped_file_buffer;
+        input_file_buffer = (unsigned char *)stripped_file_buffer;
     }
+    
+    // process PCBoard
+    int32_t character, current_character, next_character; 
+    int32_t color_background = 0, color_foreground = 7; 
+    int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
+    
+    // PCB buffer structure definition
+    struct ansiChar pcboard_buffer[input_file_size];
+    
+    // reset loop
+    loop = 0;
+    
+    while (loop < input_file_size)
+    {
+        current_character = input_file_buffer[loop];
+        next_character = input_file_buffer[loop+1];
+        
+        if (position_x == 80)
+        {
+            position_y++;
+            position_x = 0;
+        }
+        
+        // CR + LF
+        if (current_character == 13)
+        {
+            if (next_character == 10)
+            {
+                position_y++;
+                position_x = 0;
+                loop++;
+            }
+        }
+        
+        // LF
+        if (current_character == 10)
+        {
+            position_y++;
+            position_x = 0;
+        }
+
+        // Tab
+        if (current_character==9)
+        {
+            position_x+=8;
+        }
+        
+        // Sub
+        if (current_character == 26)
+        {
+            break;
+        }
+        
+        // PCB sequence
+        if (current_character == 64 & next_character == 88)
+        {
+            // set graphics rendition
+            color_background = pcb_colors[(input_file_buffer[loop+2])];
+            color_foreground = pcb_colors[(input_file_buffer[loop+3])];
+            
+            loop+=3;
+        }
+        else if (current_character == 64 & next_character == 67 & 
+                 input_file_buffer[loop+2] == 'L' & input_file_buffer[loop+3] == 'S')
+        {
+            // erase display
+            // unset(pcboard_buffer); <--- reminder! not implemented. necessary!?
+            position_x = 0;
+            position_y = 0;
+            
+            position_x_max = 0;
+            position_y_max = 0;
+            
+            loop+=4;
+        }
+        else if (current_character == 64 & next_character == 80 & input_file_buffer[loop+2] == 'O' 
+                 & input_file_buffer[loop+3] == 'S' & input_file_buffer[loop+4]== ':')
+        {
+            // cursor position
+            if (input_file_buffer[loop+6]=='@')
+            {
+                position_x=((input_file_buffer[loop+5])-48)-1;
+                loop+=5;
+            }
+            else
+            {
+                position_x = (10 * ((input_file_buffer[loop+5])-48) + (input_file_buffer[loop+6])-48)-1;
+                loop+=6;
+            }
+        }     
+        else if (current_character != 10 && current_character != 13 && current_character != 9)
+        {
+            // record number of columns and lines used
+            if (position_x > position_x_max)
+            {
+                position_x_max = position_x;
+            }
+            
+            if (position_y > position_y_max)
+            {
+                position_y_max = position_y;
+            }
+            
+            // write current character in ansiChar structure
+            pcboard_buffer[loop].position_x = position_x;
+            pcboard_buffer[loop].position_y = position_y;
+            pcboard_buffer[loop].color_background = color_background;
+            pcboard_buffer[loop].color_foreground = color_foreground;
+            pcboard_buffer[loop].current_character = current_character;
+            
+            position_x++;
+        }
+        loop++;
+    }
+    position_x_max++;
+    position_y_max++;
+    
+    // allocate buffer image memory
+    im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*font_size_y);
+    
+    // error output
+    if (!im_Backgrnd) {
+        fputs ("\nCan't allocate PCB buffer image memory.\n\n", stderr); exit (6);
+    }
+    
+    // allocate black color
+    gdImageColorAllocate(im_PCB, 0, 0, 0);
+
+    // the last value of loop tells us how many items are stored in there
+    int32_t pcbBufferItems = loop;
+    
+    // render PCB
+    for (loop = 0; loop < pcbBufferItems; loop++)
+    {
+        // grab our chars out of the structure
+        position_x = pcboard_buffer[loop].position_x;
+        position_y = pcboard_buffer[loop].position_y;
+        color_background = pcboard_buffer[loop].color_background;
+        color_foreground = pcboard_buffer[loop].color_foreground;
+        character = pcboard_buffer[loop].current_character;
+        
+        gdImageCopy(im_PCB,im_Backgrnd,position_x * int_bits, position_y * 
+                    font_size_y, color_background * 9, 0, int_bits, font_size_y);
+        
+        gdImageCopy(im_PCB,im_Font, position_x * int_bits, position_y * font_size_y, character * 
+                    font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+    }
+    
+    // create output image
+    FILE *file_Out = fopen(output, "wb");
+    gdImagePng(im_PCB, file_Out);
+    fclose(file_Out);
+    
+    // free memory
+    gdImageDestroy(im_PCB);
+    gdImageDestroy(im_Backgrnd);
+    gdImageDestroy(im_Font);
 }
-///*****************************************************************************/
-///* PROCESS PCB                                                               */
-///*****************************************************************************/
-//
-//   $color_background=0;
-//   $color_foreground=7;
-//
-//   $loop=0;
-//
-//   $position_x=0;
-//   $position_y=0;
-//
-//   $position_x_max=0;
-//   $position_y_max=0;
-//
-//   while ($loop<$input_file_size)
-//   {
-//      $current_character=ord($input_file_buffer[$loop]);
-//      $next_character=ord($input_file_buffer[$loop+1]);
-//
-//      if ($position_x==80)
-//      {
-//         $position_y++;
-//         $position_x=0;
-//      }
-//
-///*****************************************************************************/
-///* CR+LF                                                                     */
-///*****************************************************************************/
-//
-//      if ($current_character==13)
-//      {
-//         if ($next_character==10)
-//         {
-//            $position_y++;
-//            $position_x=0;
-//            $loop++;
-//         }
-//      }
-//
-///*****************************************************************************/
-///* LF                                                                        */
-///*****************************************************************************/
-//
-//      if ($current_character==10)
-//      {
-//         $position_y++;
-//         $position_x=0;
-//      }
-//
-///*****************************************************************************/
-///* TAB                                                                       */
-///*****************************************************************************/
-//
-//      if ($current_character==9)
-//      {
-//         $position_x+=8;
-//      }
-//
-///*****************************************************************************/
-///* SUB                                                                       */
-///*****************************************************************************/
-//
-//      if ($current_character==26)
-//      {
-//         break;
-//      }
-//
-///*****************************************************************************/
-///* PCB SEQUENCE                                                              */
-///*****************************************************************************/
-//
-//      if ($current_character==64 & $next_character==88)
-//      {
-//
-///*****************************************************************************/
-///* SET GRAPHIC RENDITION                                                     */
-///*****************************************************************************/
-//
-//            $color_background=$pcb_colors[ord($input_file_buffer[$loop+2])];
-//            $color_foreground=$pcb_colors[ord($input_file_buffer[$loop+3])];
-//
-//            $loop+=3;
-//      }
-//      elseif ($current_character==64 & $next_character==67 & $input_file_buffer[$loop+2]=='L' & $input_file_buffer[$loop+3]=='S')
-//      {
-//
-///*****************************************************************************/
-///* ERASE DISPLAY                                                             */
-///*****************************************************************************/
-//
-//         unset($pcboard_buffer);
-//
-//         $position_x=0;
-//         $position_y=0;
-//
-//         $position_x_max=0;
-//         $position_y_max=0;
-//
-//         $loop+=4;
-//      }
-//      elseif ($current_character==64 & $next_character==80 & $input_file_buffer[$loop+2]=='O' & $input_file_buffer[$loop+3]=='S' & $input_file_buffer[$loop+4]==':')
-//      {
-//
-///*****************************************************************************/
-///* CURSOR POSITION                                                           */
-///*****************************************************************************/
-//
-//         if ($input_file_buffer[$loop+6]=='@')
-//         {
-//            $position_x=(ord($input_file_buffer[$loop+5])-48)-1;
-//            $loop+=5;
-//         }
-//         else
-//         {
-//            $position_x=(10*(ord($input_file_buffer[$loop+5])-48)+ord($input_file_buffer[$loop+6])-48)-1;
-//            $loop+=6;
-//         }
-//      }     
-//      elseif ($current_character!=10 && $current_character!=13 && $current_character!=9)
-//      {
-//
-///*****************************************************************************/
-///* RECORD NUMBER OF COLUMNS AND LINES USED                                   */
-///*****************************************************************************/
-//
-//         if ($position_x>$position_x_max)
-//         {
-//            $position_x_max=$position_x;
-//         }
-//
-//         if ($position_y>$position_y_max)
-//         {
-//            $position_y_max=$position_y;
-//         }
-//
-//
-//
-///*****************************************************************************/
-///* WRITE CURRENT CHARACTER INFO IN A TEMPORARY ARRAY                         */
-///*****************************************************************************/
-//
-//         $pcboard_buffer[]=$position_x;
-//         $pcboard_buffer[]=$position_y;
-//         $pcboard_buffer[]=$color_background;
-//         $pcboard_buffer[]=$color_foreground;
-//         $pcboard_buffer[]=$current_character;
-//
-//         $position_x++;
-//      }
-//      $loop++;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE IMAGE BUFFER MEMORY                                              */
-///*****************************************************************************/
-//
-//   $position_x_max++;
-//   $position_y_max++;
-//
-//   if (!$pcboard = imagecreate($columns*$bits,($position_y_max)*font_size_y))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   imagecolorallocate($pcboard,0,0,0);
-//
-//
-//
-///*****************************************************************************/
-///* RENDER PCB                                                                */
-///*****************************************************************************/
-//
-//   for ($loop=0;$loop<sizeof($pcboard_buffer);$loop+=5)
-//   {
-//      $position_x=$pcboard_buffer[$loop];
-//      $position_y=$pcboard_buffer[$loop+1];
-//      $color_background=$pcboard_buffer[$loop+2];
-//      $color_foreground=$pcboard_buffer[$loop+3];
-//      $character=$pcboard_buffer[$loop+4];
-//
-//      imagecopy($pcboard,$background,$position_x*$bits,$position_y*font_size_y,$color_background*9,0,$bits,font_size_y);
-//      imagecopy($pcboard,$font,$position_x*$bits,$position_y*font_size_y,$character*font_size_x,$color_foreground*font_size_y,$bits,font_size_y);
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* CREATE OUTPUT FILE                                                        */
-///*****************************************************************************/
-//
-//   if ($thumbnail)
-//   {
-//      thumbnail($pcboard,$output,$columns,font_size_y,$position_y_max);
-//   }
-//   else
-//   {
-//      if ($output=='online')
-//      {
-//         Header("Content-type: image/png");
-//         ImagePNG($pcboard);
-//      }
-//      else
-//      {
-//         ImagePNG($pcboard,$output);
-//      }
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* FREE MEMORY                                                               */
-///*****************************************************************************/
-//
-//   imagedestroy($pcboard);
-//   imagedestroy($background);
-//   imagedestroy($font);
-//}
 
 // BINARY
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[])

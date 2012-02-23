@@ -36,7 +36,7 @@
 
 // prototypes
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
-void alPcBoardLoader(char *input, char output[], char font[], char bits[], char icecolors[]);
+void alPcBoardLoader(char *input, char output[], char font[], char bits[]);
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[]);
 void alArtworxLoader(char *input, char output[], char bits[]);
 void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE);
@@ -45,6 +45,15 @@ void alXbinLoader(char *input, char output[], char bits[]);
 
 // helper functions
 char *str_replace(const char *string, const char *substr, const char *replacement);
+
+// character parsing
+struct ansiChar {
+    int32_t position_x;
+    int32_t position_y;
+    int32_t color_background;
+    int32_t color_foreground;
+    int32_t current_character;
+};
 
 // sauce records
 #define RECORD_SIZE  128

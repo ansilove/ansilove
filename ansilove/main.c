@@ -27,7 +27,6 @@
 
 // prototypes
 void showUsage(void);
-void loadPCBoard(void);
 
 // show how to properly set the command line flags
 void showUsage(void)
@@ -199,7 +198,7 @@ int main(int argc, char *argv[])
         // create the output file by invoking the appropiate function
         if (strcmp(fext, ".pcb") == 0) {
             // params: input, output, font, bits, icecolors
-            alPcBoardLoader(input, output, font, bits, icecolors);
+            alPcBoardLoader(input, output, font, bits);
         }
         else if (strcmp(fext, ".bin") == 0) {
             // params: input, output, columns, font, bits, icecolors
