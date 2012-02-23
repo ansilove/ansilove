@@ -240,7 +240,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
     
-    for (i = 0; i < dizCount; ++i) {
+    for (i = 0; i < dizCount; i++) {
         printf("DIZ-extension %d: %s\n", i+1, dizArray[i]);
     }
     
@@ -940,120 +940,141 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 // PCBOARD
 void alPcBoardLoader(char *input, char output[], char font[], char bits[], char icecolors[])
 {
+    // some type declarations
+    int32_t font_size_x;
+    int32_t font_size_y;
+    char *font_file;
+    
+    // let's see what font we should use to render output
+    if (strcmp(font, "80x25") == 0) {
+        font_file = "ansilove_font_pc_80x25.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "80x50") == 0) {
+        font_file = "ansilove_font_pc_80x50.png";
+        font_size_x = 9;
+        font_size_y = 8;
+    }
+    else if (strcmp(font, "terminus") == 0) {
+        font_file = "ansilove_font_pc_terminus.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else {
+        // in all other cases use the standard DOS font
+        font_file = "ansilove_font_pc_80x25.png";
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    
+    // now set bits to 8 if not already value 8 or 9
+    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
+        sprintf(bits, "%s", "8");
+    }
+    
+    // load input file
+    FILE *input_file = fopen(input, "r");
+    if (input_file == NULL) { 
+        fputs("\nFile error.\n\n", stderr); exit (1);
+    }
+    
+    // get the file size (bytes)
+    size_t get_file_size = filesize(input);
+    int32_t input_file_size = (int32_t)get_file_size;
+    
+    // next up is loading our file into a dynamically allocated memory buffer
+    unsigned char *input_file_buffer;
+    size_t result;
+    
+    // allocate memory to contain the whole file
+    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    if (input_file_buffer == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (2);
+    }
+    
+    // copy the file into the buffer
+    result = fread(input_file_buffer, 1, input_file_size, input_file);
+    if (result != input_file_size) {
+        fputs ("\nReading error.\n\n", stderr); exit (3);
+    } // whole file is now loaded into input_file_buffer
+    
+    // close input file, we don't need it anymore
+    rewind(input_file);
+    fclose(input_file);
+    
+    // libgd image pointers
+    gdImagePtr im_PcBoard, im_Backgrnd, im_Font;
+    
+    // additional libgd related declarations
+    FILE *file_Backgrnd, *file_Font;
+    char path_Backgrnd[1000] = { 0 };
+    char path_Font[1000] = { 0 };
+    
+    // resolve paths for font and background image
+    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
+    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
+    
+    // open font and background image, allocate libgd image pointers
+    file_Backgrnd = fopen(path_Backgrnd, "rb");
+    file_Font = fopen(path_Font, "rb");
+    
+    if (!file_Backgrnd) {
+        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
+    }
+    else {
+        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
+    }
+    
+    if (!file_Font) {
+        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
+    }
+    else {
+        im_Font = gdImageCreateFromPng(file_Font);
+    }
+    
+    // set transparent color index for the font
+    gdImageColorTransparent(im_Font, 20);
+    
+    // convert numeric command line flags to integer values
+    int32_t int_bits = atoi(bits);
+    int32_t int_icecolors = atoi(icecolors);
+    
+    // foreground / background color array
+    int32_t pcb_colors[71];
+    
+    // PCBoard colors
+    pcb_colors[48] = 0; 
+    pcb_colors[49] = 4; 
+    pcb_colors[50] = 2; 
+    pcb_colors[51] = 6; 
+    pcb_colors[52] = 1; 
+    pcb_colors[53] = 5; 
+    pcb_colors[54] = 3; 
+    pcb_colors[55] = 7; 
+    pcb_colors[56] = 8; 
+    pcb_colors[57] = 12; 
+    pcb_colors[65] = 10; 
+    pcb_colors[66] = 14; 
+    pcb_colors[67] = 9; 
+    pcb_colors[68] = 13; 
+    pcb_colors[69] = 11; 
+    pcb_colors[70] = 15;
+
+    // defines for stripping PCBoard codes
+    char *stripped_file_buffer;
+    char **pcbStripCodes;
+    int32_t stripCount, loop;
+    
+    // create array of PCBoard strip codes defined in config.h
+    stripCount = explode(&pcbStripCodes, ',', PCBOARD_STRIP_CODES);
+    
+    // remove all specified PCB strip code occurances in input_file_buffer
+    for (loop = 0; loop < stripCount; loop++) {
+        stripped_file_buffer = str_replace((const char *)input_file_buffer, pcbStripCodes[loop], "");
+        input_file_buffer = (unsigned char*)stripped_file_buffer;
+    }
 }
-///*****************************************************************************/
-///* LOAD PCBOARD                                                              */
-///*****************************************************************************/
-//
-//function load_pcboard($input,$output,$font,$bits)
-//{
-//   check_libraries();
-//
-///*****************************************************************************/
-///* CHECK PARAMETERS AND FORCE DEFAULT VALUES IF INVALID INPUT IS DETECTED    */
-///*****************************************************************************/
-//
-//   $columns=80;
-//
-//   if ($bits=='thumbnail')
-//   {
-//      $thumbnail=TRUE;
-//   }
-//   if ($bits!=8 && $bits!=9)
-//   {
-//      $bits=8;
-//   }
-//
-//   switch($font)
-//   {
-//   case '80x25':
-//      font_file = "ansilove_font_pc_80x25.png';
-//      font_size_x = 9;
-//      font_size_y = 16;
-//      break;
-//
-//   case '80x50':
-//      font_file = "ansilove_font_pc_80x50.png';
-//      font_size_x = 9;
-//      font_size_y = 8;
-//      break;
-//
-//   default:
-//      font_file = "ansilove_font_pc_80x25.png';
-//      font_size_x = 9;
-//      font_size_y = 16;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* LOAD INPUT FILE                                                           */
-///*****************************************************************************/
-//
-//   if (!$input_file = fopen($input,'r'))
-//   {
-//      error("Can't open file $input");
-//   }
-//
-//   $input_file_sauce=load_sauce($input);
-//
-//   if ($input_file_sauce!=NULL)
-//   {
-//      $input_file_size=$input_file_sauce['FileSize'];
-//   }
-//   else
-//   {
-//      $input_file_size=filesize($input);
-//   }
-//
-//   if (!$input_file_buffer = fread($input_file,$input_file_size))
-//   {
-//      error("Can't read file $input");
-//   }
-//
-//   fclose($input_file);
-//
-//
-//
-///*****************************************************************************/
-///* LOAD BACKGROUND/FONT                                                      */
-///*****************************************************************************/
-//
-//   if (!$background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
-//   {
-//      error("Can't open file ansilove_background.png");
-//   }
-//
-//   if (!$font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
-//   {
-//      error("Can't open file font_file");
-//   }
-//
-//   imagecolortransparent($font,20);
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE BACKGROUND/FOREGROUND COLOR ARRAYS                               */
-///*****************************************************************************/
-//
-//   $pcb_colors[48]=0; $pcb_colors[49]=4; $pcb_colors[50]=2; $pcb_colors[51]=6; $pcb_colors[52]=1; $pcb_colors[53]=5; $pcb_colors[54]=3; $pcb_colors[55]=7; $pcb_colors[56]=8; $pcb_colors[57]=12; $pcb_colors[65]=10; $pcb_colors[66]=14; $pcb_colors[67]=9; $pcb_colors[68]=13; $pcb_colors[69]=11; $pcb_colors[70]=15;
-//
-//
-//
-///*****************************************************************************/
-///* STRIP UNWANTED PCBOARD CODES (DEFINED IN CONFIG FILE)                     */
-///*****************************************************************************/
-//
-//   $pcboard_strip_codes_exploded=explode(",",PCBOARD_STRIP_CODES);
-//
-//   for ($loop=0;$loop<sizeof($pcboard_strip_codes_exploded);$loop++)
-//   {
-//      $input_file_buffer=preg_replace("/(".$pcboard_strip_codes_exploded[$loop].")/","",$input_file_buffer);
-//   }
-//
-//
-//
 ///*****************************************************************************/
 ///* PROCESS PCB                                                               */
 ///*****************************************************************************/
@@ -2369,6 +2390,42 @@ void alXbinLoader(char *input, char output[], char bits[])
     gdImageDestroy(im_Backgrnd);
     gdImageDestroy(im_Font);
     gdImageDestroy(im_InvertFont); 
+}
+
+// recursive string replacement
+char *str_replace(const char *string, const char *substr, const char *replacement)
+{
+    char *tok = NULL;
+    char *newstr = NULL;
+    char *oldstr = NULL;
+    char *head = NULL;
+    
+    // if either substr or replacement is NULL, duplicate string and let caller handle it
+    if (substr == NULL || replacement == NULL) return strdup(string);
+    newstr = strdup(string);
+    head = newstr;
+    
+    while ((tok = strstr(head, substr)))
+    {
+        oldstr = newstr;
+        newstr = malloc(strlen(oldstr) - strlen(substr) + strlen(replacement) + 1);
+        
+        // failed to allocate memory, free old string and return NULL
+        if (newstr == NULL) {
+            free (oldstr);
+            return NULL;
+        }
+        memcpy (newstr, oldstr, tok - oldstr);
+        memcpy (newstr + (tok - oldstr), replacement, strlen (replacement));
+        memcpy (newstr + (tok - oldstr) + strlen(replacement), 
+                tok + strlen (substr), strlen (oldstr) - strlen (substr) - (tok - oldstr));
+        memset (newstr + strlen (oldstr) - strlen (substr) + strlen (replacement) , 0, 1);
+        
+        // move back head right after the last replacement
+        head = newstr + (tok - oldstr) + strlen(replacement);
+        free (oldstr);
+    }
+    return newstr;
 }
 
 // Reads SAUCE via a filename.

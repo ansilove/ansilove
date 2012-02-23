@@ -43,6 +43,9 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
 void alTundraLoader(char *input, char output[], char font[], char bits[]);
 void alXbinLoader(char *input, char output[], char bits[]);
 
+// helper functions
+char *str_replace(const char *string, const char *substr, const char *replacement);
+
 // sauce records
 #define RECORD_SIZE  128
 #define COMMENT_SIZE 64
