@@ -38,4 +38,13 @@ const unsigned char font_pc_portuguese[4096];
 const unsigned char font_pc_russian[4096];
 const unsigned char font_pc_turkish[4096];
 
+const unsigned char font_amiga_microknight[4096];
+const unsigned char font_amiga_microknight_plus[4096];
+const unsigned char font_amiga_mosoul[4096];
+const unsigned char font_amiga_pot_noodle[4096];
+const unsigned char font_amiga_topaz_1200[4096];
+const unsigned char font_amiga_topaz_1200_plus[4096];
+const unsigned char font_amiga_topaz_500[4096];
+const unsigned char font_amiga_topaz_500_plus[4096];
+
 #endif
