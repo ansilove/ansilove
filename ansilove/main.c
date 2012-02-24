@@ -2,8 +2,10 @@
 //  main.m
 //  AnsiLove/C
 //
-//  Copyright (c) 2011, Stefan Vogt. All rights reserved.
-//  http://byteproject.net
+//  Copyright (c) 2011-2012 "the international ANSi conspiracy".
+//  Project leads: Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  All rights reserved.
+//  https://github.com/ByteProject/AnsiLove-C/
 //
 //  Use of this source code is governed by a MIT-style license.
 //  See the file LICENSE for details.
@@ -57,9 +59,9 @@ void showUsage(void)
 
 int main(int argc, char *argv[])
 {
-    printf("\n---------------------------------------------------------------------------\n");
-    printf("AnsiLove/C %s - copyright (C) 2011 Stefan Vogt\n", VERSION);
-    printf("---------------------------------------------------------------------------\n");
+    printf("\n--------------------------------------------------------------------\n");
+    printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n", VERSION);
+    printf("--------------------------------------------------------------------\n");
     
     // we do this before anything else
     if (argc <= 2) {

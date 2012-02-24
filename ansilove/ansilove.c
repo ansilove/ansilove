@@ -2,8 +2,10 @@
 //  ansilove.c
 //  AnsiLove/C
 //
-//  Copyright (c) 2011, Stefan Vogt. All rights reserved.
-//  http://byteproject.net
+//  Copyright (c) 2011-2012 "the international ANSi conspiracy".
+//  Project leads: Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  All rights reserved.
+//  https://github.com/ByteProject/AnsiLove-C/
 //
 //  Use of this source code is governed by a MIT-style license.
 //  See the file LICENSE for details.
