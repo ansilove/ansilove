@@ -1,5 +1,5 @@
 //
-//  main.m
+//  main.c
 //  AnsiLove/C
 //
 //  Copyright (c) 2011-2012 "the international ANSi conspiracy".
@@ -20,6 +20,7 @@
 #else
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include "alconfig.h"
 #include "strtolower.h"
