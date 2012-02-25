@@ -26,6 +26,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t font_size_y;
     char *font_file;
     bool isAmigaFont = false;
+    bool isDizFile = false;
     bool ced = false;
     bool transparent = false;
     bool workbench = false;
@@ -231,176 +232,160 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         sprintf(bits, "%s", "8");
     }
     
-    // purpose: surpressing Clang warnings of unused font / columns variables :)
-    // gonna remove that pretty soon! 
-    printf("font file: %s / ANSi columns: %d\n", font_file, columns);
+    // load input file
+    FILE *input_file = fopen(input, "r");
+    if (input_file == NULL) { 
+        fputs("\nFile error.\n\n", stderr); exit (1);
+    }
     
-    // this is for testing my explode() function I ported (and enhanced) from PHP.
-    // will be wiped from the codebase again...!
+    // get the file size (bytes)
+    size_t get_file_size = filesize(input);
+    int32_t input_file_size = (int32_t)get_file_size;
+    
+    // next up is loading our file into a dynamically allocated memory buffer
+    unsigned char *input_file_buffer;
+    size_t result;
+    
+    // allocate memory to contain the whole file
+    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+    if (input_file_buffer == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (2);
+    }
+    
+    // copy the file into the buffer
+    result = fread(input_file_buffer, 1, input_file_size, input_file);
+    if (result != input_file_size) {
+        fputs ("\nReading error.\n\n", stderr); exit (3);
+    } // whole file is now loaded into input_file_buffer
+    
+    // close input file, we don't need it anymore
+    rewind(input_file);
+    fclose(input_file);
+    
+    // create array of DIZ extensions
     char **dizArray;
     int32_t dizCount, i;
     
     dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
     
+    // compare current file extension with the ones in our DIZ array
     for (i = 0; i < dizCount; i++) {
-        printf("DIZ-extension %d: %s\n", i+1, dizArray[i]);
+        if (strcmp(fext, dizArray[i]) == 0) {
+            isDizFile = true;
+        }            
+    }
+    // in case we got a DIZ file here, do specific optimizations
+    if (isDizFile == true) 
+    {
+        char *stripped_file_buffer;
+        stripped_file_buffer = str_replace((const char *)input_file_buffer, "\r\n", "");
+        input_file_buffer = (unsigned char *)stripped_file_buffer;
+        input_file_size = strlen((const char *)input_file_buffer);
     }
     
-} // < -- REMINDER: Remove this when enabling the ANSi code below again!
-
-    // load the input file
+    // libgd image pointers
+    gdImagePtr im_ANSi, im_Backgrnd, im_Font;
     
-//   if (!input_file = fopen(input,'r'))
-//   {
-//      error("Can't open file input");
-//   }
-//
-//   input_file_sauce=load_sauce(input);
-//
-//   if (input_file_sauce!=NULL)
-//   {
-//      input_file_size=input_file_sauce['FileSize'];
-//   }
-//   else
-//   {
-//      input_file_size=filesize(input);
-//   }
-//
-//   if (!input_file_buffer = fread(input_file,input_file_size))
-//   {
-//      error("Can't read file input");
-//   }
-//
-//   fclose(input_file);
-//
-//   diz_extensions_exploded=explode(",",DIZ_EXTENSIONS);
-//
-//   for (loop=0;loop<sizeof(diz_extensions_exploded);loop++)
-//   {
-//      diz_extension_length=strlen(diz_extensions_exploded[loop]);
-//
-//      if (strtolower(substr(input,(strlen(input)-diz_extension_length),diz_extension_length))==diz_extensions_exploded[loop] || strtolower(substr(input,strlen(input)-(diz_extension_length+9),(diz_extension_length+9)))==diz_extensions_exploded[loop].'.ansilove')
-//      {
-//         input_file_buffer=preg_replace("/^(\s+[\r\n])+/","",input_file_buffer);
-//         input_file_buffer=rtrim(input_file_buffer);
-//         input_file_size=strlen(input_file_buffer);
-//      }
-//   }
-//
-///*****************************************************************************/
-///* LOAD BACKGROUND/FONT                                                      */
-///*****************************************************************************/
-//
-//   if (!background = imagecreatefrompng(dirname(__FILE__).'/fonts/ansilove_background.png'))
-//   {
-//      error("Can't open file ansilove_background.png");
-//   }
-//
-//   if (!font = imagecreatefrompng(dirname(__FILE__).'/fonts/'.font_file))
-//   {
-//      error("Can't open file font_file");
-//   }
-//
-//   imagecolortransparent(font,20);
-//
-//
-//
-///*****************************************************************************/
-///* PROCESS ANSI                                                              */
-///*****************************************************************************/
-//
-//   color_background=0;
-//   color_foreground=7;
-//
-//   loop=0;
-//
-//   position_x=0;
-//   position_y=0;
-//
-//   position_x_max=0;
-//   position_y_max=0;
-//
-//   while (loop<input_file_size)
-//   {
-//      current_character=ord(input_file_buffer[loop]);
-//      next_character=ord(input_file_buffer[loop+1]);
-//
-//      if (position_x==80 && WRAP_COLUMN_80)
-//      {
-//         position_y++;
-//         position_x=0;
-//      }
-//
-///*****************************************************************************/
-///* CR+LF                                                                     */
-///*****************************************************************************/
-//
-//      if (current_character==13)
-//      {
-//         if (next_character==10)
-//         {
-//            position_y++;
-//            position_x=0;
-//            loop++;
-//         }
-//      }
-//
-///*****************************************************************************/
-///* LF                                                                        */
-///*****************************************************************************/
-//
-//      if (current_character==10)
-//      {
-//         position_y++;
-//         position_x=0;
-//      }
-//
-///*****************************************************************************/
-///* TAB                                                                       */
-///*****************************************************************************/
-//
-//      if (current_character==9)
-//      {
-//         position_x+=8;
-//      }
-//
-///*****************************************************************************/
-///* SUB                                                                       */
-///*****************************************************************************/
-//
-//      if (current_character==26 && SUBSTITUTE_BREAK)
-//      {
-//         break;
-//      }
-//
-//
-//
-///*****************************************************************************/
-///* ANSI SEQUENCE                                                             */
-///*****************************************************************************/
-//
-//      if (current_character==27 && next_character==91)
-//      {
-//         unset(ansi_sequence);
-//
-//         for (ansi_sequence_loop=0;ansi_sequence_loop<12;ansi_sequence_loop++)
-//         {
-//            ansi_sequence_character=input_file_buffer[loop+2+ansi_sequence_loop];
-//
-///*****************************************************************************/
-///* CURSOR POSITION                                                           */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='H' || ansi_sequence_character=='f')
-//            {
-//               ansi_sequence_exploded=explode(";",ansi_sequence);
-//               position_y=ansi_sequence_exploded[0]-1;
-//               position_x=ansi_sequence_exploded[1]-1;
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
+    // additional libgd related declarations
+    FILE *file_Backgrnd, *file_Font;
+    char path_Backgrnd[1000] = { 0 };
+    char path_Font[1000] = { 0 };
+    
+    // resolve paths for font and background image
+    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
+    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
+    
+    // open font and background image, allocate libgd image pointers
+    file_Backgrnd = fopen(path_Backgrnd, "rb");
+    file_Font = fopen(path_Font, "rb");
+    
+    if (!file_Backgrnd) {
+        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
+    }
+    else {
+        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
+    }
+    
+    if (!file_Font) {
+        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
+    }
+    else {
+        im_Font = gdImageCreateFromPng(file_Font);
+    }
+    
+    // set transparent color index for the font
+    gdImageColorTransparent(im_Font, 20);
+    
+    // convert numeric command line flags to integer values
+    int32_t int_bits = atoi(bits);
+    int32_t int_icecolors = atoi(icecolors);
+
+    // process ANSi
+    int32_t loop = 0, ansi_sequence_loop, current_character, next_character; 
+    unsigned char ansi_sequence_character;
+    int32_t color_background = 0, color_foreground = 7; 
+    int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
+    
+    while (loop < input_file_size)
+    {
+        current_character=input_file_buffer[loop];
+        next_character=input_file_buffer[loop+1];
+        
+        if (position_x==80 && (strcmp(WRAP_COLUMN_80, "1") == 0))
+        {
+            position_y++;
+            position_x=0;
+        }
+        
+        // CR + LF
+        if (current_character == 13)
+        {
+            if (next_character == 10)
+            {
+                position_y++;
+                position_x = 0;
+                loop++;
+            }
+        }
+        
+        // LF
+        if (current_character == 10)
+        {
+            position_y++;
+            position_x = 0;
+        }
+        
+        // tab
+        if (current_character == 9)
+        {
+            position_x += 8;
+        }
+        
+        // sub
+        if (current_character == 26 && (strcmp(SUBSTITUTE_BREAK, "1") == 0))
+        {
+            break;
+        }
+        
+        // ANSi sequence
+        if (current_character == 27 && next_character == 91)
+        {
+            for (ansi_sequence_loop = 0; ansi_sequence_loop < 12; ansi_sequence_loop++)
+            {
+                ansi_sequence_character = input_file_buffer[loop + 2 + ansi_sequence_loop];
+                
+                // cursor position
+                if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
+                {
+                    ansi_sequence_exploded=explode(";",ansi_sequence);
+                    position_y=ansi_sequence_exploded[0]-1;
+                    position_x=ansi_sequence_exploded[1]-1;
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+        
+}
 ///*****************************************************************************/
 ///* CURSOR UP                                                                 */
 ///*****************************************************************************/
@@ -2373,6 +2358,7 @@ char *str_replace(const char *string, const char *substr, const char *replacemen
         free (oldstr);
     }
     return newstr;
+}
 }
 
 // Reads SAUCE via a filename.
