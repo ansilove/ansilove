@@ -320,16 +320,32 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t int_bits = atoi(bits);
     int32_t int_icecolors = atoi(icecolors);
 
-    // process ANSi
-    int32_t loop = 0, ansi_sequence_loop, current_character, next_character; 
+    // ANSi processing loops
+    int32_t loop = 0, ansi_sequence_loop; 
+    
+    // character definitions
+    int32_t current_character, next_character; 
     unsigned char ansi_sequence_character;
+    
+    // default color values
     int32_t color_background = 0, color_foreground = 7; 
+    
+    // positions
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
     
+    // sequence parsing variables
+    int32_t seqContent, seqContentLength, seqArrayCount, cnt;
+    char *seqGrab;
+    char **seqArray;
+    
+    // ANSi interpreter
     while (loop < input_file_size)
     {
-        current_character=input_file_buffer[loop];
-        next_character=input_file_buffer[loop+1];
+        current_character = input_file_buffer[loop];
+        next_character = input_file_buffer[loop + 1];
+        
+        // also define sequence content starting point
+        seqContent = input_file_buffer[loop + 2];
         
         if (position_x==80 && (strcmp(WRAP_COLUMN_80, "1") == 0))
         {
@@ -377,13 +393,32 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor position
                 if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
                 {
-                    ansi_sequence_exploded=explode(";",ansi_sequence);
-                    position_y=ansi_sequence_exploded[0]-1;
-                    position_x=ansi_sequence_exploded[1]-1;
+                    // counting up to the sequence's end
+                    for(cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    // create substring from the sequence's content
+                    seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                    
+                    // create sequence content array
+                    seqArrayCount = explode(&seqArray, ';', seqGrab);
+                    
+                    // convert grabbed sequence content to integers
+                    int32_t seq_line = atoi(seqArray[0]);
+                    int32_t seq_column = atoi(seqArray[1]);
+
+                    // finally set the positions
+                    position_y = seq_line;
+                    position_x = seq_column;
                     
                     loop+=ansi_sequence_loop+2;
                     break;
                 }
+            }
+        }
+    }
         
 }
 ///*****************************************************************************/
@@ -2358,7 +2393,6 @@ char *str_replace(const char *string, const char *substr, const char *replacemen
         free (oldstr);
     }
     return newstr;
-}
 }
 
 // Reads SAUCE via a filename.
