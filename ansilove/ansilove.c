@@ -1651,7 +1651,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     // IDF related: file contains a SAUCE record? adjust the file size
     if(fileHasSAUCE == true) {
         sauce *saucerec = sauceReadFile(input_file);
-        input_file_size -= 128 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+        input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
         rewind(input_file);
     }
     
