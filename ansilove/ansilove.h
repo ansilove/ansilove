@@ -36,6 +36,10 @@
 #ifndef ansilove_h
 #define ansilove_h
 
+#if !defined(MIN)
+#define MIN(A,B) ({ __typeof__(A) __a = (A); __typeof__(B) __b = (B); __a < __b ? __a : __b; })
+#endif
+
 // prototypes
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
 void alPcBoardLoader(char *input, char output[], char font[], char bits[]);
@@ -56,6 +60,18 @@ struct pcbChar {
     int32_t color_foreground;
     int32_t current_character;
 };
+
+struct ansiChar {
+    int32_t position_x;
+    int32_t position_y_0xFF;
+    int32_t position_y_bitshift_8;
+    int32_t color_background;
+    int32_t color_foreground;
+    int32_t current_character;
+    bool bold;
+    bool italics;
+    bool underline;
+} ;
 
 // sauce records
 #define RECORD_SIZE  128
