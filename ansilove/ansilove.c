@@ -321,7 +321,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t int_icecolors = atoi(icecolors);
 
     // ANSi processing loops
-    int32_t loop = 0, ansi_sequence_loop; 
+    int32_t loop = 0, ansi_sequence_loop, seq_graphics_loop; 
     
     // character definitions
     int32_t current_character, next_character; 
@@ -330,13 +330,24 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     // default color values
     int32_t color_background = 0, color_foreground = 7; 
     
+    // text attributes
+    bool bold, underline, italics, blink;
+    
     // positions
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
+    int32_t saved_position_y, saved_position_x;
     
     // sequence parsing variables
-    int32_t seqContent, seqContentLength, seqArrayCount, cnt;
+    int32_t seqContent, seqValue, seqContentLength, seqArrayCount, cnt;
     char *seqGrab;
     char **seqArray;
+    
+    // ANSi buffer structure array definition
+    int32_t structIndex = 0;
+    struct ansiChar *ansi_buffer, *temp;
+    
+    // ANSi buffer dynamic memory allocation
+    ansi_buffer = malloc(sizeof(struct ansiChar));
     
     // ANSi interpreter
     while (loop < input_file_size)
@@ -394,7 +405,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
                 {
                     // counting up to the sequence's end
-                    for(cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
                     
                     // now get escape sequence's content length
                     seqContentLength = cnt - seqContent;
@@ -416,352 +427,361 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     loop+=ansi_sequence_loop+2;
                     break;
                 }
+                
+                // cursor up
+                if (ansi_sequence_character=='A')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength == 0) {
+                        seqContentLength = 1;
+                    }
+                    position_y = position_y - seqContentLength;
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // cursor down
+                if (ansi_sequence_character=='B')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength == 0) {
+                        seqContentLength = 1;
+                    }
+                    position_y = position_y + seqContentLength;
+                     
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+
+                // cursor forward
+                if (ansi_sequence_character=='C')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength == 0) {
+                        seqContentLength = 1;
+                    }
+                    position_x = position_x + seqContentLength;
+                    
+                    if (position_x>80)
+                    {
+                        position_x=80;
+                    }
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // cursor backward
+                if (ansi_sequence_character=='D')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength == 0) {
+                        seqContentLength = 1;
+                    }
+                    position_x = position_x - seqContentLength;
+                    
+                    if (position_x < 0)
+                    {
+                        position_x = 0;
+                    }
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // save cursor position
+                if (ansi_sequence_character=='s')
+                {
+                    saved_position_y = position_y;
+                    saved_position_x = position_x;
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // restore cursor position
+                if (ansi_sequence_character=='u')
+                {
+                    position_y = saved_position_y;
+                    position_x = saved_position_x;
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // erase display
+                if (ansi_sequence_character=='J')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength != 0) 
+                    {
+                        // create substring from the sequence's content
+                        seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                        
+                        // convert grab to an integer
+                        int32_t eraseDisplayInt = atoi(seqGrab);
+                        
+                        if (eraseDisplayInt == 2)
+                        {
+                            
+                            position_x=0;
+                            position_y=0;
+                            
+                            position_x_max=0;
+                            position_y_max=0;
+                        }
+                        
+                        loop+=ansi_sequence_loop+2;
+                        break;
+                    } 
+                }
+                
+                // set graphics mode
+                if (ansi_sequence_character=='m')
+                {
+                    // counting up to the sequence's end
+                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    
+                    // now get escape sequence's content length
+                    seqContentLength = cnt - seqContent;
+                    
+                    if (seqContentLength != 0) {
+                        // create substring from the sequence's content
+                        seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                        
+                        // create sequence content array
+                        seqArrayCount = explode(&seqArray, ';', seqGrab);
+                        
+                        // a loophole in limbo
+                        for (seq_graphics_loop = 0; seq_graphics_loop < seqArrayCount; seq_graphics_loop++)
+                        {
+                            // convert split content value to integer
+                            seqValue = atoi(seqArray[seq_graphics_loop]);
+                            
+                            if (seqValue == 0)
+                            {
+                                color_background = 0;
+                                color_foreground=7;
+                                bold = false;
+                                underline = false;
+                                italics = false;
+                                blink = false;
+                            }
+                            
+                            if (seqValue == 1)
+                            {
+                                if (workbench == false)
+                                {
+                                    color_foreground+=8;
+                                }
+                                bold = true;
+                            }
+                            
+                            if (seqValue == 3)
+                            {
+                                italics = true;
+                            }
+                            
+                            if (seqValue == 4)
+                            {
+                                underline = TRUE;
+                            }
+                            
+                            if (seqValue == 5)
+                            {
+                                if (workbench == false)
+                                {
+                                    color_background+=8;
+                                }
+                                blink = true;
+                            }
+                            
+                            if (seqValue > 29 && seqValue < 38)
+                            {
+                                color_foreground = seqValue - 30;
+                                
+                                if (bold == true)
+                                {
+                                    color_foreground+=8;
+                                }
+                            }
+                            
+                            if (seqValue > 39 && seqValue < 48)
+                            {
+                                color_background = seqValue - 40;
+                                
+                                if (blink == true && int_icecolors == 1)
+                                {
+                                    color_background+=8;
+                                }
+                            }
+                        }
+                    }
+                    
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
+                
+                // cursor (de)activation (Amiga ANSi)
+                if (ansi_sequence_character == 'p')
+                {
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
             }
         }
+        else if (current_character!=10 && current_character!=13 && current_character!=9)
+        {
+            // record number of columns and lines used
+            if (position_x>position_x_max)
+            {
+                position_x_max=position_x;
+            }
+            
+            if (position_y>position_y_max)
+            {
+                position_y_max=position_y;
+            }
+            
+            // write current character in ansiChar structure 
+            if (isAmigaFont == false || (current_character != 12 && current_character != 13))
+            {
+                // reallocate structure array memory
+                temp = realloc(ansi_buffer, (structIndex + 1) * sizeof(struct ansiChar));
+                ansi_buffer = temp;
+                
+                ansi_buffer[structIndex].color_background = color_background;
+                ansi_buffer[structIndex].color_foreground = color_foreground;
+                ansi_buffer[structIndex].current_character = current_character;
+                ansi_buffer[structIndex].bold = bold;
+                ansi_buffer[structIndex].italics = italics;
+                ansi_buffer[structIndex].underline = underline;
+                ansi_buffer[structIndex].position_x = position_x;
+                ansi_buffer[structIndex].position_y_0xFF = position_y & 0xFF;
+                ansi_buffer[structIndex].position_y_bitshift_8 = position_y >> 8;
+                
+                structIndex++;
+                position_x++;
+            }
+        }
+        loop++;
     }
+    
+    // allocate image buffer memory
+    position_x_max++;
+    position_y_max++;
+    
+    if (ced == true)
+    {
+        columns=78;
+    }
+    
+    if (isDizFile == true) {
+        columns=MIN(position_x_max,80);
+    }
+    
+    // create that damn thingy
+    im_ANSi = gdImageCreate(columns * int_bits,(position_y_max)*font_size_y);
+    
+    if (!im_ANSi) {
+        fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
+    }
+    
+    if (ced == true)
+    {
+        // get ced colors from configuration
+        char **cedBackgroundArray, **cedForegroundArray;
+        int32_t cedBackgroundCnt, cedForegroundCnt;
+        int32_t cedBackgroundColor[3], cedForegroundColor[3];
         
+        cedBackgroundCnt = explode(&cedBackgroundArray, ',', CED_BACKGROUND_COLOR);
+        cedForegroundCnt = explode(&cedForegroundArray, ',', CED_FOREGROUND_COLOR);
+        
+        // convert string values to integers
+        for (i = 0; i < cedBackgroundCnt; i++) {
+            cedBackgroundColor[i] = atoi(cedBackgroundArray[i]);
+        }
+        for (i = 0; i < cedForegroundCnt; i++) {
+            cedForegroundColor[i] = atoi(cedForegroundArray[i]);
+        }
+        
+        gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+        
+        int32_t ced_color;
+        ced_color = gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+        ced_color = gdImageColorAllocate(im_Backgrnd, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+        
+        gdImageFill(im_ANSi,0,0,ced_color);
+        gdImageFilledRectangle(im_Backgrnd, 0, 0, 144, 16, ced_color);
+        
+        for (loop=0;loop<16;loop++)
+        {
+           // imagecolorset(im_Foop,cedForegroundColor[0],cedForegroundColor[1],cedForegroundColor[2]);
+        }
+//        else if (workbench)
+//    {
+//        workbench_color[0]=explode(",",WORKBENCH_COLOR_0);
+//        workbench_color[1]=explode(",",WORKBENCH_COLOR_4);
+//        workbench_color[2]=explode(",",WORKBENCH_COLOR_2);
+//        workbench_color[3]=explode(",",WORKBENCH_COLOR_6);
+//        workbench_color[4]=explode(",",WORKBENCH_COLOR_1);
+//        workbench_color[5]=explode(",",WORKBENCH_COLOR_5);
+//        workbench_color[6]=explode(",",WORKBENCH_COLOR_3);
+//        workbench_color[7]=explode(",",WORKBENCH_COLOR_7);
+//        
+//        imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
+//        
+//        workbench_background=imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
+//        workbench_background=imagecolorallocate(background,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
+//        
+//        imagefill(ansi,0,0,workbench_background);
+//        
+//        for (loop=0; loop<8; loop++)
+//        {
+//            imagecolorset(background,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//            imagecolorset(background,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//            imagecolorset(font,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//            imagecolorset(font,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
+//        }
+//    }
+//    else
+//    {
+//        background_canvas=imagecolorallocate(ansi,0,0,0);
+//    }
+//    
+//    for (loop=0; loop<16; loop++)
+//    {
+//        /* Generating ANSI colors array in order to be able to draw underlines */
+//        color_index=imagecolorsforindex(background,loop);
+//        colors[loop]=imagecolorallocate(ansi,color_index['red'],color_index['green'],color_index['blue']);
+    }
 }
-///*****************************************************************************/
-///* CURSOR UP                                                                 */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='A')
-//            {
-//               if (ansi_sequence=='')
-//               {
-//                  ansi_sequence=1;
-//               }
-//
-//               position_y=position_y-ansi_sequence;
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* CURSOR DOWN                                                               */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='B')
-//            {
-//               if (ansi_sequence=='')
-//               {
-//                  ansi_sequence=1;
-//               }
-//
-//               position_y=position_y+ansi_sequence;
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* CURSOR FORWARD                                                            */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='C')
-//            {
-//               if (ansi_sequence=='')
-//               {
-//                  ansi_sequence=1;
-//               }
-//
-//               position_x=position_x+ansi_sequence;
-//               if (position_x>80)
-//               {
-//                  position_x=80;
-//               }
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* CURSOR BACKWARD                                                           */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='D')
-//            {
-//               if (ansi_sequence=='')
-//               {
-//                  ansi_sequence=1;
-//               }
-//
-//               position_x=position_x-ansi_sequence;
-//               if (position_x<0)
-//               {
-//                  position_x=0;
-//               }
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* SAVE CURSOR POSITION                                                      */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='s')
-//            {
-//               saved_position_y=position_y;
-//               saved_position_x=position_x;
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* RESTORE CURSOR POSITION                                                   */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='u')
-//            {
-//               position_y=saved_position_y;
-//               position_x=saved_position_x;
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* ERASE DISPLAY                                                             */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='J')
-//            {
-//               if (ansi_sequence==2)
-//               {
-//                  unset(ansi_buffer);
-//
-//                  position_x=0;
-//                  position_y=0;
-//
-//                  position_x_max=0;
-//                  position_y_max=0;
-//               }
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* SET GRAPHIC RENDITION                                                     */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='m')
-//            {
-//               ansi_sequence_exploded=explode(";",ansi_sequence);
-//
-//               sort(ansi_sequence_exploded);
-//
-//               for (loop_ansi_sequence=0;loop_ansi_sequence<sizeof(ansi_sequence_exploded);loop_ansi_sequence++)
-//               {
-//                  ansi_sequence_value=ansi_sequence_exploded[loop_ansi_sequence];
-//
-//                  if (ansi_sequence_value==0)
-//                  {
-//                     color_background=0;
-//                     color_foreground=7;
-//                     bold=FALSE;
-//                     underline=FALSE;
-//                     italics=FALSE;
-//                     blink=FALSE;
-//                  }
-//
-//                  if (ansi_sequence_value==1)
-//                  {
-//                     if (!workbench)
-//                     {
-//                        color_foreground+=8;
-//					 }
-//                     bold=TRUE;
-//                  }
-//
-//                  if (ansi_sequence_value==3)
-//                  {
-//                     italics=TRUE;
-//                  }
-//
-//                  if (ansi_sequence_value==4)
-//                  {
-//                     underline=TRUE;
-//                  }
-//
-//                  if (ansi_sequence_value==5)
-//                  {
-//                     if (!workbench)
-//                     {
-//                        color_background+=8;
-//					 }
-//                     blink=TRUE;
-//                  }
-//
-//                  if (ansi_sequence_value>29 && ansi_sequence_value<38)
-//                  {
-//                     color_foreground=ansi_sequence_value-30;
-//
-//                     if (bold)
-//                     {
-//                        color_foreground+=8;
-//                     }
-//                  }
-//
-//                  if (ansi_sequence_value>39 && ansi_sequence_value<48)
-//                  {
-//                     color_background=ansi_sequence_value-40;
-//
-//                     if (blink && icecolors)
-//                     {
-//                        color_background+=8;
-//                     }
-//                  }
-//               }
-//
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-///*****************************************************************************/
-///* CURSOR DE/ACTIVATION (AMIGA ANSI)                                         */
-///*****************************************************************************/
-//
-//            if (ansi_sequence_character=='p')
-//            {
-//               loop+=ansi_sequence_loop+2;
-//               break;
-//            }
-//
-//            ansi_sequence.=ansi_sequence_character;
-//         }
-//      }
-//      elseif (current_character!=10 && current_character!=13 && current_character!=9)
-//      {
-//
-///*****************************************************************************/
-///* RECORD NUMBER OF COLUMNS AND LINES USED                                   */
-///*****************************************************************************/
-//
-//         if (position_x>position_x_max)
-//         {
-//            position_x_max=position_x;
-//         }
-//
-//         if (position_y>position_y_max)
-//         {
-//            position_y_max=position_y;
-//         }
-//
-//
-//
-///*****************************************************************************/
-///* WRITE CURRENT CHARACTER INFO IN A TEMPORARY ARRAY                         */
-///*****************************************************************************/
-//
-//         if (!font_amiga || (current_character!=12 && current_character!=13))
-//         {
-//            ansi_buffer.=chr(color_background);
-//            ansi_buffer.=chr(color_foreground);
-//            ansi_buffer.=chr(current_character);
-//            ansi_buffer.=chr(bold);
-//            ansi_buffer.=chr(italics);
-//            ansi_buffer.=chr(underline);
-//            ansi_buffer.=chr(position_x);
-//            ansi_buffer.=chr(position_y & 0xFF);
-//            ansi_buffer.=chr(position_y>>8);
-//
-//            position_x++;
-//         }
-//      }
-//      loop++;
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* ALLOCATE IMAGE BUFFER MEMORY                                              */
-///*****************************************************************************/
-//
-//   position_x_max++;
-//   position_y_max++;
-//
-//   if (ced)
-//   {
-//      columns=78;
-//   }
-//
-//   for (loop=0;loop<sizeof(diz_extensions_exploded);loop++)
-//   {
-//      diz_extension_length=strlen(diz_extensions_exploded[loop]);
-//
-//      if (strtolower(substr(input,(strlen(input)-diz_extension_length),diz_extension_length))==diz_extensions_exploded[loop] || strtolower(substr(input,strlen(input)-(diz_extension_length+9),(diz_extension_length+9)))==diz_extensions_exploded[loop].'.ansilove')
-//      {
-//         columns=min(position_x_max,80);
-//      }
-//   }
-//
-//   if (!ansi = imagecreate(columns*bits,(position_y_max)*font_size_y))
-//   {
-//      error("Can't allocate buffer image memory");
-//   }
-//
-//   if (ced)
-//   {
-//      ced_background_color=explode(",",CED_BACKGROUND_COLOR);
-//      ced_foreground_color=explode(",",CED_FOREGROUND_COLOR);
-//
-//      imagecolorallocate(ansi,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
-//
-//      ced_color=imagecolorallocate(ansi,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
-//      ced_color=imagecolorallocate(background,ced_background_color[0],ced_background_color[1],ced_background_color[2]);
-//
-//      imagefill(ansi,0,0,ced_color);
-//      imagefilledrectangle(background,0,0,144,16,ced_color);
-//
-//      for (loop=0;loop<16;loop++)
-//      {
-//         imagecolorset(font,loop,ced_foreground_color[0],ced_foreground_color[1],ced_foreground_color[2]);
-//      }
-//   }
-//   else if (workbench)
-//   {
-//      workbench_color[0]=explode(",",WORKBENCH_COLOR_0);
-//      workbench_color[1]=explode(",",WORKBENCH_COLOR_4);
-//      workbench_color[2]=explode(",",WORKBENCH_COLOR_2);
-//      workbench_color[3]=explode(",",WORKBENCH_COLOR_6);
-//      workbench_color[4]=explode(",",WORKBENCH_COLOR_1);
-//      workbench_color[5]=explode(",",WORKBENCH_COLOR_5);
-//      workbench_color[6]=explode(",",WORKBENCH_COLOR_3);
-//      workbench_color[7]=explode(",",WORKBENCH_COLOR_7);
-//
-//      imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//
-//      workbench_background=imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//      workbench_background=imagecolorallocate(background,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//
-//      imagefill(ansi,0,0,workbench_background);
-//
-//      for (loop=0; loop<8; loop++)
-//      {
-//         imagecolorset(background,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//         imagecolorset(background,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//         imagecolorset(font,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//         imagecolorset(font,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//      }
-//   }
-//   else
-//   {
-//      background_canvas=imagecolorallocate(ansi,0,0,0);
-//   }
-//
-//   for (loop=0; loop<16; loop++)
-//   {
-//	  /* Generating ANSI colors array in order to be able to draw underlines */
-//      color_index=imagecolorsforindex(background,loop);
-//      colors[loop]=imagecolorallocate(ansi,color_index['red'],color_index['green'],color_index['blue']);
-//   }
-//
-//
-//
 ///*****************************************************************************/
 ///* RENDER ANSI                                                               */
 ///*****************************************************************************/
