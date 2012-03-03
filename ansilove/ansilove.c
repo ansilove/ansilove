@@ -699,11 +699,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     if (ced == true)
     {
-        columns=78;
+        columns = 78;
     }
     
     if (isDizFile == true) {
-        columns=MIN(position_x_max,80);
+        columns = MIN(position_x_max,80);
     }
     
     // create that damn thingy
@@ -740,46 +740,97 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         gdImageFill(im_ANSi,0,0,ced_color);
         gdImageFilledRectangle(im_Backgrnd, 0, 0, 144, 16, ced_color);
         
-        for (loop=0;loop<16;loop++)
+        for (loop = 0; loop < 16; loop++)
         {
-           // imagecolorset(im_Foop,cedForegroundColor[0],cedForegroundColor[1],cedForegroundColor[2]);
+//            imagecolorset(im_Font,cedForegroundColor[0],cedForegroundColor[1],cedForegroundColor[2]);
         }
-//        else if (workbench)
-//    {
-//        workbench_color[0]=explode(",",WORKBENCH_COLOR_0);
-//        workbench_color[1]=explode(",",WORKBENCH_COLOR_4);
-//        workbench_color[2]=explode(",",WORKBENCH_COLOR_2);
-//        workbench_color[3]=explode(",",WORKBENCH_COLOR_6);
-//        workbench_color[4]=explode(",",WORKBENCH_COLOR_1);
-//        workbench_color[5]=explode(",",WORKBENCH_COLOR_5);
-//        workbench_color[6]=explode(",",WORKBENCH_COLOR_3);
-//        workbench_color[7]=explode(",",WORKBENCH_COLOR_7);
-//        
-//        imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//        
-//        workbench_background=imagecolorallocate(ansi,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//        workbench_background=imagecolorallocate(background,workbench_color[0][0],workbench_color[0][1],workbench_color[0][2]);
-//        
-//        imagefill(ansi,0,0,workbench_background);
-//        
-//        for (loop=0; loop<8; loop++)
-//        {
-//            imagecolorset(background,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//            imagecolorset(background,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//            imagecolorset(font,loop,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//            imagecolorset(font,loop+8,workbench_color[loop][0],workbench_color[loop][1],workbench_color[loop][2]);
-//        }
-//    }
-//    else
-//    {
-//        background_canvas=imagecolorallocate(ansi,0,0,0);
-//    }
-//    
-//    for (loop=0; loop<16; loop++)
-//    {
-//        /* Generating ANSI colors array in order to be able to draw underlines */
-//        color_index=imagecolorsforindex(background,loop);
-//        colors[loop]=imagecolorallocate(ansi,color_index['red'],color_index['green'],color_index['blue']);
+    }
+    else if (workbench == true)
+    {
+        // get workbench colors from configuration
+        char **wbColorArray, *wbcStorage[8][3];
+        int32_t wbColorCnt, wbColorMAX = 8;
+        int32_t workbench_color[8][3], y;
+        
+        // process workbench colors into multi-dimensional char array
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_0);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[0][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_4);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[4][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_2);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[2][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_6);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[3][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_1);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[4][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_5);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[5][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_3);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[6][i] = wbColorArray[i];
+        }
+        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_7);
+        for (i = 0; i < wbColorCnt; i++) {
+            wbcStorage[7][i] = wbColorArray[i];
+        }
+        
+        // convert multi-dimensional char array to multi-dimensional integer array *sigh*
+        for (i = 0; i < wbColorMAX; i++) {
+            for (y = 0; y < wbColorCnt; y++) {
+                workbench_color[i][y] = atoi(wbcStorage[i][y]);
+            }
+        }
+        
+        // process workbench colors
+        gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
+        
+        int32_t workbench_background;
+        
+        workbench_background = 
+        gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
+        workbench_background = 
+        gdImageColorAllocate(im_Backgrnd, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
+        
+        gdImageFill(im_ANSi, 0, 0, workbench_background);
+        
+        for (loop=0; loop<8; loop++)
+        {
+//            imagecolorset(im_Backgrnd, loop, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+//            imagecolorset(im_Backgrnd, loop+8, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+//            imagecolorset(im_Font, loop, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+//            imagecolorset(im_Font, loop+8, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+        }
+    }
+
+    else
+    {
+        int32_t background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
+    }
+    
+    // color array and RGB definitions
+    int32_t colors[17];
+    int32_t Red, Green, Blue;
+    
+    // generating ANSi colors array in order to draw underlines
+    for (loop = 0; loop < 16; loop++)
+    {
+        Red = gdImageRed(im_Backgrnd, loop);
+        Green = gdImageGreen(im_Backgrnd, loop);
+        Blue = gdImageBlue(im_Backgrnd, loop);
+        
+        colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
     }
 }
 ///*****************************************************************************/
