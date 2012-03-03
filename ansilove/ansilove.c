@@ -324,7 +324,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t loop = 0, ansi_sequence_loop, seq_graphics_loop; 
     
     // character definitions
-    int32_t current_character, next_character; 
+    int32_t current_character, next_character, character; 
     unsigned char ansi_sequence_character;
     
     // default color values
@@ -832,114 +832,115 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         
         colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
     }
-}
-///*****************************************************************************/
-///* RENDER ANSI                                                               */
-///*****************************************************************************/
-//
-//   for (loop=0;loop<strlen(ansi_buffer);loop+=9)
-//   {
-//      color_background=ord(ansi_buffer[loop]);
-//      color_foreground=ord(ansi_buffer[loop+1]);
-//      character=ord(ansi_buffer[loop+2]);
-//      bold=ord(ansi_buffer[loop+3]);
-//      italics=ord(ansi_buffer[loop+4]);
-//      underline=ord(ansi_buffer[loop+5]);
-//      position_x=ord(ansi_buffer[loop+6]);
-//      position_y=ord(ansi_buffer[loop+7])+(ord(ansi_buffer[loop+8])<<8);
-//
-//      if (!font_amiga)
-//      {
-//         imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
-//         imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//      }
-//      else
-//      {
-//         if (color_background!=0 || !italics)
-//         {
+    
+    int32_t ansiBufferItems = structIndex;
+    
+    // render ANSi
+    for (loop = 0; loop < ansiBufferItems; loop+=9)
+    {
+        color_background = ansi_buffer[loop].color_background;
+        color_foreground = ansi_buffer[loop].color_foreground;
+        character = ansi_buffer[loop].current_character;
+        bold = ansi_buffer[loop].bold;
+        italics = ansi_buffer[loop].italics;
+        underline = ansi_buffer[loop].underline;
+        position_x = ansi_buffer[loop].position_x;
+        position_y = ansi_buffer[loop].position_y_0xFF + (ansi_buffer[loop].position_y_bitshift_8 << 8);
+        
+//        if (!font_amiga)
+//        {
 //            imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
-//         }
-//
-//         if (!italics)
-//         {
 //            imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//         }
-//         else
-//         {
-//            imagecopy(ansi,font,position_x*bits+3,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
-//            imagecopy(ansi,font,position_x*bits+2,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
-//            imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
-//            imagecopy(ansi,font,position_x*bits,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
-//            imagecopy(ansi,font,position_x*bits-1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
-//         }
+//        }
+//        else
+//        {
+//            if (color_background!=0 || !italics)
+//            {
+//                imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
+//            }
 //            
-//         if (italics && bold)
-//         {
-//            imagecopy(ansi,font,position_x*bits+3+1,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
-//            imagecopy(ansi,font,position_x*bits+2+1,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
-//            imagecopy(ansi,font,position_x*bits+1+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
-//            imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
-//            imagecopy(ansi,font,position_x*bits-1+1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
-//         }
-//
-//         if (bold && !italics)
-//         {
-//            imagecopy(ansi,font,1+position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//         }
-//
-//         if (underline)
-//         {
-//            loop_column=0;
-//            character_size_x=8;
-//
-//            if (bold)
+//            if (!italics)
 //            {
-//               character_size_x++;
+//                imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
 //            }
-//
-//            if (italics)
+//            else
 //            {
-//               loop_column=-1;
-//               character_size_x=11;
+//                imagecopy(ansi,font,position_x*bits+3,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
+//                imagecopy(ansi,font,position_x*bits+2,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
+//                imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
+//                imagecopy(ansi,font,position_x*bits,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
+//                imagecopy(ansi,font,position_x*bits-1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
 //            }
-//
-//            while (loop_column<character_size_x)
+//            
+//            if (italics && bold)
 //            {
-//               if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)==color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
-//               {
-//                  imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+14,colors[color_foreground]);
-//                  imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+15,colors[color_foreground]);
-//               }
-//               else if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)!=color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
-//               {
-//                  loop_column++;
-//               }
-//               
-//               loop_column++;
+//                imagecopy(ansi,font,position_x*bits+3+1,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
+//                imagecopy(ansi,font,position_x*bits+2+1,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
+//                imagecopy(ansi,font,position_x*bits+1+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
+//                imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
+//                imagecopy(ansi,font,position_x*bits-1+1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
 //            }
-//
-//            if (pixel_carry)
+//            
+//            if (bold && !italics)
 //            {
-//               imagesetpixel(ansi,position_x*bits,position_y*font_size_y+14,colors[color_foreground]);
-//               imagesetpixel(ansi,position_x*bits,position_y*font_size_y+15,colors[color_foreground]);
-//               pixel_carry=FALSE;
+//                imagecopy(ansi,font,1+position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
 //            }
-//
-//            if (imagecolorat(font,character*font_size_x,color_foreground*font_size_y+15)!=20)
+//            
+//            if (underline)
 //            {
-//               imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+14,colors[color_foreground]);
-//               imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+15,colors[color_foreground]);
+//                loop_column=0;
+//                character_size_x=8;
+//                
+//                if (bold)
+//                {
+//                    character_size_x++;
+//                }
+//                
+//                if (italics)
+//                {
+//                    loop_column=-1;
+//                    character_size_x=11;
+//                }
+//                
+//                while (loop_column<character_size_x)
+//                {
+//                    if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)==color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
+//                    {
+//                        imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+14,colors[color_foreground]);
+//                        imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+15,colors[color_foreground]);
+//                    }
+//                    else if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)!=color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
+//                    {
+//                        loop_column++;
+//                    }
+//                    
+//                    loop_column++;
+//                }
+//                
+//                if (pixel_carry)
+//                {
+//                    imagesetpixel(ansi,position_x*bits,position_y*font_size_y+14,colors[color_foreground]);
+//                    imagesetpixel(ansi,position_x*bits,position_y*font_size_y+15,colors[color_foreground]);
+//                    pixel_carry=FALSE;
+//                }
+//                
+//                if (imagecolorat(font,character*font_size_x,color_foreground*font_size_y+15)!=20)
+//                {
+//                    imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+14,colors[color_foreground]);
+//                    imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+15,colors[color_foreground]);
+//                }
+//                
+//                if (imagecolorat(font,character*font_size_x+character_size_x-1,color_foreground*font_size_y+15)!=20)
+//                {
+//                    pixel_carry=TRUE;
+//                }
 //            }
-//
-//            if (imagecolorat(font,character*font_size_x+character_size_x-1,color_foreground*font_size_y+15)!=20)
-//            {
-//               pixel_carry=TRUE;
-//            }
-//         }
-//      }
-//   }
-//
-//
+//        }
+    }
+
+    
+}
+
 //
 ///*****************************************************************************/
 ///* CREATE OUTPUT FILE                                                        */
