@@ -30,6 +30,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     bool ced = false;
     bool transparent = false;
     bool workbench = false;
+    bool pixelCarry = false;
     
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
@@ -348,6 +349,9 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     // ANSi buffer dynamic memory allocation
     ansi_buffer = malloc(sizeof(struct ansiChar));
+    
+    // background canvas
+    int32_t background_canvas;
     
     // ANSi interpreter
     while (loop < input_file_size)
@@ -816,7 +820,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 
     else
     {
-        int32_t background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
+        background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
     }
     
     // color array and RGB definitions
@@ -833,11 +837,15 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
     }
     
+    // even more definitions, sigh
     int32_t ansiBufferItems = structIndex;
+    int32_t loop_column;
+    int32_t character_size_x;
     
     // render ANSi
     for (loop = 0; loop < ansiBufferItems; loop+=9)
     {
+        // grab ANSi char from our structure array
         color_background = ansi_buffer[loop].color_background;
         color_foreground = ansi_buffer[loop].color_foreground;
         character = ansi_buffer[loop].current_character;
@@ -847,189 +855,154 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         position_x = ansi_buffer[loop].position_x;
         position_y = ansi_buffer[loop].position_y_0xFF + (ansi_buffer[loop].position_y_bitshift_8 << 8);
         
-//        if (!font_amiga)
-//        {
-//            imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
-//            imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//        }
-//        else
-//        {
-//            if (color_background!=0 || !italics)
-//            {
-//                imagecopy(ansi,background,position_x*bits,position_y*font_size_y,color_background*9,0,bits,font_size_y);
-//            }
-//            
-//            if (!italics)
-//            {
-//                imagecopy(ansi,font,position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//            }
-//            else
-//            {
-//                imagecopy(ansi,font,position_x*bits+3,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
-//                imagecopy(ansi,font,position_x*bits+2,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
-//                imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
-//                imagecopy(ansi,font,position_x*bits,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
-//                imagecopy(ansi,font,position_x*bits-1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
-//            }
-//            
-//            if (italics && bold)
-//            {
-//                imagecopy(ansi,font,position_x*bits+3+1,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,2);
-//                imagecopy(ansi,font,position_x*bits+2+1,position_y*font_size_y+2,character*font_size_x,color_foreground*font_size_y+2,bits,4);
-//                imagecopy(ansi,font,position_x*bits+1+1,position_y*font_size_y+6,character*font_size_x,color_foreground*font_size_y+6,bits,4);
-//                imagecopy(ansi,font,position_x*bits+1,position_y*font_size_y+10,character*font_size_x,color_foreground*font_size_y+10,bits,4);
-//                imagecopy(ansi,font,position_x*bits-1+1,position_y*font_size_y+14,character*font_size_x,color_foreground*font_size_y+14,bits,2);
-//            }
-//            
-//            if (bold && !italics)
-//            {
-//                imagecopy(ansi,font,1+position_x*bits,position_y*font_size_y,character*font_size_x,color_foreground*font_size_y,bits,font_size_y);
-//            }
-//            
-//            if (underline)
-//            {
-//                loop_column=0;
-//                character_size_x=8;
-//                
-//                if (bold)
-//                {
-//                    character_size_x++;
-//                }
-//                
-//                if (italics)
-//                {
-//                    loop_column=-1;
-//                    character_size_x=11;
-//                }
-//                
-//                while (loop_column<character_size_x)
-//                {
-//                    if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)==color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
-//                    {
-//                        imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+14,colors[color_foreground]);
-//                        imagesetpixel(ansi,position_x*bits+loop_column,position_y*font_size_y+15,colors[color_foreground]);
-//                    }
-//                    else if (imagecolorat(ansi,position_x*bits+loop_column,position_y*font_size_y+15)!=color_background && imagecolorat(ansi,position_x*bits+loop_column+1,position_y*font_size_y+15)==color_background)
-//                    {
-//                        loop_column++;
-//                    }
-//                    
-//                    loop_column++;
-//                }
-//                
-//                if (pixel_carry)
-//                {
-//                    imagesetpixel(ansi,position_x*bits,position_y*font_size_y+14,colors[color_foreground]);
-//                    imagesetpixel(ansi,position_x*bits,position_y*font_size_y+15,colors[color_foreground]);
-//                    pixel_carry=FALSE;
-//                }
-//                
-//                if (imagecolorat(font,character*font_size_x,color_foreground*font_size_y+15)!=20)
-//                {
-//                    imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+14,colors[color_foreground]);
-//                    imagesetpixel(ansi,position_x*bits-1,position_y*font_size_y+15,colors[color_foreground]);
-//                }
-//                
-//                if (imagecolorat(font,character*font_size_x+character_size_x-1,color_foreground*font_size_y+15)!=20)
-//                {
-//                    pixel_carry=TRUE;
-//                }
-//            }
-//        }
+        if (isAmigaFont == false)
+        {
+            gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
+                        position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
+            
+            gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y, 
+                        character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+        }
+        else
+        {
+            if (color_background != 0 || italics == false)
+            {
+                gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
+                            position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
+            }
+            
+            if (italics == false)
+            {
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y, 
+                            character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+            }
+            else
+            {
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3, position_y * font_size_y, 
+                            character * font_size_x, color_foreground * font_size_y, int_bits,2);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2, position_y * font_size_y + 2,
+                            character * font_size_x, color_foreground * font_size_y + 2, int_bits, 4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * font_size_y + 6, 
+                            character * font_size_x, color_foreground * font_size_y + 6, int_bits, 4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y + 10,
+                            character * font_size_x, color_foreground * font_size_y + 10, int_bits,4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1, position_y * font_size_y + 14,
+                            character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
+            }
+            
+            if (italics == true && bold == true)
+            {
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3 + 1, position_y * font_size_y, 
+                            character * font_size_x, color_foreground * font_size_y ,int_bits, 2);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2 + 1, position_y * font_size_y + 2, 
+                            character * font_size_x, color_foreground * font_size_y + 2, int_bits, 4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1 + 1, position_y * font_size_y + 6, 
+                            character * font_size_x, color_foreground * font_size_y + 6, int_bits, 4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * font_size_y + 10,
+                            character * font_size_x, color_foreground * font_size_y + 10, int_bits, 4);
+                
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1 + 1, position_y * font_size_y + 14,
+                            character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
+            }
+            
+            if (bold == true && italics == false)
+            {
+                gdImageCopy(im_ANSi, im_Font, 1 + position_x * int_bits, position_y * font_size_y, 
+                            character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+            }
+            
+            if (underline == true)
+            {
+                loop_column = 0;
+                character_size_x = 8;
+                
+                if (bold == true)
+                {
+                    character_size_x++;
+                }
+                
+                if (italics == true)
+                {
+                    loop_column=-1;
+                    character_size_x = 11;
+                }
+                
+                while (loop_column < character_size_x)
+                {
+                    if (gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column, 
+                                        position_y * font_size_y + 15) == color_background && 
+                        gdImageGetPixel(im_ANSi, position_x * int_bits +loop_column + 1, 
+                                        position_y * font_size_y + 15) == color_background)
+                    {
+                        gdImageSetPixel(im_ANSi, position_x * int_bits + loop_column, 
+                                        position_y * font_size_y + 14, colors[color_foreground]);
+                        
+                        gdImageSetPixel(im_ANSi, position_x * int_bits + loop_column, 
+                                        position_y * font_size_y + 15, colors[color_foreground]);
+                    }
+                    else if (gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column,
+                                             position_y * font_size_y + 15) != color_background && 
+                             gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column + 1,
+                                             position_y * font_size_y + 15) == color_background)
+                    {
+                        loop_column++;
+                    }                    
+                    loop_column++;
+                }
+                
+                if (pixelCarry == true)
+                {
+                    gdImageSetPixel(im_ANSi, position_x * int_bits, 
+                                    position_y * font_size_y + 14, colors[color_foreground]);
+                    
+                    gdImageSetPixel(im_ANSi, position_x * int_bits, 
+                                    position_y * font_size_y + 15, colors[color_foreground]);
+                    
+                    pixelCarry = false;
+                }
+                
+                if (gdImageGetPixel(im_Font, character * font_size_x, 
+                                    color_foreground * font_size_y + 15) != 20)
+                {
+                    gdImageSetPixel(im_ANSi, position_x * int_bits - 1, 
+                                    position_y * font_size_y + 14, colors[color_foreground]);
+                    
+                    gdImageSetPixel(im_ANSi, position_x * int_bits - 1, 
+                                    position_y * font_size_y + 15, colors[color_foreground]);
+                }
+                
+                if (gdImageGetPixel(im_Font, character * font_size_x + character_size_x - 1, 
+                                    color_foreground * font_size_y + 15) != 20)
+                {
+                    pixelCarry = true;
+                }
+            }
+        }
+    }
+    
+    // transparent flag used?
+    if (transparent == true)
+    {
+        gdImageColorTransparent(im_ANSi, background_canvas);
     }
 
+    // create output image
+    FILE *file_Out = fopen(output, "wb");
+    gdImagePng(im_ANSi, file_Out);
+    fclose(file_Out);
     
+    // free memory
+    gdImageDestroy(im_ANSi);
+    gdImageDestroy(im_Backgrnd);
+    gdImageDestroy(im_Font);
 }
-
-//
-///*****************************************************************************/
-///* CREATE OUTPUT FILE                                                        */
-///*****************************************************************************/
-//
-//   if (transparent)
-//   {
-//      imagecolortransparent(ansi,background_canvas);
-//   }
-//
-//   if (thumbnail)
-//   {
-//      thumbnail(ansi,output,columns,font_size_y,position_y_max);
-//   }
-//   else
-//   {
-//      if (output=='online')
-//      {
-//         Header("Content-type: image/png");
-//         ImagePNG(ansi);
-//      }
-//      else
-//      {
-//         if (!SPLIT)
-//         {
-//            ImagePNG(ansi,output);
-//         }
-//         else
-//         {
-//            image_size_y=position_y_max*font_size_y;
-//            split_size_y=SPLIT_HEIGHT;
-//
-//            loop_max=(image_size_y/split_size_y);
-//
-//            for (loop=0; loop<loop_max; loop++)
-//            {
-//               if ((image_size_y-(split_size_y*loop))<split_size_y)
-//               {
-//                  height=(image_size_y-(split_size_y*loop));
-//               }
-//               else
-//               {
-//                  height=split_size_y;
-//               }
-//
-//               if (!split = imagecreate(columns*bits,height))
-//               {
-//                  error("Can't allocate buffer image memory");
-//               }
-//
-//               imagecolorallocate(split,0,0,0);
-//               imagecopy(split,ansi,0,0,0,(loop*split_size_y),columns*bits,height);
-//
-//               if (loop_max>=1)
-//               {
-//                  output_file=output.SPLIT_SEPARATOR.str_pad(loop,4,"0",STR_PAD_LEFT).".png";
-//               }
-//               else
-//               {
-//                  output_file=output.".png";
-//               }
-//
-//               output_files[]=output_file;
-//
-//               if (transparent)
-//               {
-//                  imagecolortransparent(split,background_canvas);
-//               }
-//
-//               ImagePNG(split,output_file);
-//               imagedestroy(split);
-//            }
-//         }
-//      }
-//   }
-//
-//
-//
-///*****************************************************************************/
-///* FREE MEMORY                                                               */
-///*****************************************************************************/
-//
-//   imagedestroy(ansi);
-//   imagedestroy(background);
-//   imagedestroy(font);
-//   
-//   return output_files;
-//}
-
 
 // PCB
 void alPcBoardLoader(char *input, char output[], char font[], char bits[])
