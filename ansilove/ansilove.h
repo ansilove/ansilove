@@ -63,8 +63,7 @@ struct pcbChar {
 
 struct ansiChar {
     int32_t position_x;
-    int32_t position_y_0xFF;
-    int32_t position_y_bitshift_8;
+    int32_t position_y;
     int32_t color_background;
     int32_t color_foreground;
     int32_t current_character;

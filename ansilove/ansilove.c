@@ -339,7 +339,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t saved_position_y, saved_position_x;
     
     // sequence parsing variables
-    int32_t seqContent, seqValue, seqContentLength, seqArrayCount, cnt;
+    int32_t seqContent, seqValue, seqContentLength, seqArrayCount;
     char *seqGrab;
     char **seqArray;
     
@@ -400,7 +400,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         
         // ANSi sequence
         if (current_character == 27 && next_character == 91)
-        {
+        {            
             for (ansi_sequence_loop = 0; ansi_sequence_loop < 12; ansi_sequence_loop++)
             {
                 ansi_sequence_character = input_file_buffer[loop + 2 + ansi_sequence_loop];
@@ -408,14 +408,8 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor position
                 if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
-                    
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
-                    
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
                     // create sequence content array
                     seqArrayCount = explode(&seqArray, ';', seqGrab);
@@ -435,11 +429,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor up
                 if (ansi_sequence_character=='A')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    // create substring from the sequence's content
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
+                    // now get escape sequence's position value
+                    seqContentLength = atoi(seqGrab);
                     
                     if (seqContentLength == 0) {
                         seqContentLength = 1;
@@ -453,11 +447,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor down
                 if (ansi_sequence_character=='B')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
+                    // create substring from the sequence's content
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
+                    // now get escape sequence's position value
+                    seqContentLength = atoi(seqGrab);
                     
                     if (seqContentLength == 0) {
                         seqContentLength = 1;
@@ -471,11 +465,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor forward
                 if (ansi_sequence_character=='C')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
-                    
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
+                    // create substring from the sequence's content                    
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+
+                    // now get escape sequence's position value
+                    seqContentLength = atoi(seqGrab);
                     
                     if (seqContentLength == 0) {
                         seqContentLength = 1;
@@ -494,11 +488,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // cursor backward
                 if (ansi_sequence_character=='D')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
-                    
+                    // create substring from the sequence's content                    
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+
                     // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
+                    seqContentLength = atoi(seqGrab);
                     
                     if (seqContentLength == 0) {
                         seqContentLength = 1;
@@ -537,47 +531,39 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 // erase display
                 if (ansi_sequence_character=='J')
                 {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
-                    
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
-                    
-                    if (seqContentLength != 0) 
-                    {
-                        // create substring from the sequence's content
-                        seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                    // create substring from the sequence's content                    
+                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                         
-                        // convert grab to an integer
-                        int32_t eraseDisplayInt = atoi(seqGrab);
+                    // convert grab to an integer
+                    int32_t eraseDisplayInt = atoi(seqGrab);
                         
-                        if (eraseDisplayInt == 2)
-                        {
+                    if (eraseDisplayInt == 2)
+                    {    
+                        position_x=0;
+                        position_y=0;
                             
-                            position_x=0;
-                            position_y=0;
-                            
-                            position_x_max=0;
-                            position_y_max=0;
-                        }
+                        position_x_max=0;
+                        position_y_max=0;
                         
-                        loop+=ansi_sequence_loop+2;
-                        break;
-                    } 
+                        /*
+                         *
+                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
+                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
+                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
+                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
+                         *
+                         */
+                    }
+                        
+                    loop+=ansi_sequence_loop+2;
+                    break;
                 }
                 
                 // set graphics mode
                 if (ansi_sequence_character=='m')
-                {
-                    // counting up to the sequence's end
-                    for (cnt = seqContent; input_file_buffer[cnt] != ansi_sequence_character; cnt++);
-                    
-                    // now get escape sequence's content length
-                    seqContentLength = cnt - seqContent;
-                    
-                    if (seqContentLength != 0) {
+                {                    
                         // create substring from the sequence's content
-                        seqGrab = substr((char *)input_file_buffer, seqContent, seqContentLength);
+                        seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                         
                         // create sequence content array
                         seqArrayCount = explode(&seqArray, ';', seqGrab);
@@ -646,7 +632,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                                 }
                             }
                         }
-                    }
                     
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -687,9 +672,8 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                 ansi_buffer[structIndex].italics = italics;
                 ansi_buffer[structIndex].underline = underline;
                 ansi_buffer[structIndex].position_x = position_x;
-                ansi_buffer[structIndex].position_y_0xFF = position_y & 0xFF;
-                ansi_buffer[structIndex].position_y_bitshift_8 = position_y >> 8;
-                
+                ansi_buffer[structIndex].position_y = position_y;
+                                
                 structIndex++;
                 position_x++;
             }
@@ -853,7 +837,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         italics = ansi_buffer[loop].italics;
         underline = ansi_buffer[loop].underline;
         position_x = ansi_buffer[loop].position_x;
-        position_y = ansi_buffer[loop].position_y_0xFF + (ansi_buffer[loop].position_y_bitshift_8 << 8);
+        position_y = ansi_buffer[loop].position_y;
         
         if (isAmigaFont == false)
         {
