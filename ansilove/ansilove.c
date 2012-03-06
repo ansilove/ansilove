@@ -843,7 +843,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t character_size_x;
     
     // render ANSi
-    for (loop = 0; loop < ansiBufferItems; loop+=9)
+    for (loop = 0; loop < ansiBufferItems; loop++)
     {
         // grab ANSi char from our structure array
         color_background = ansi_buffer[loop].color_background;
