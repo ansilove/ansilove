@@ -71,7 +71,7 @@ struct ansiChar {
     bool bold;
     bool italics;
     bool underline;
-} ;
+};
 
 // sauce records
 #define RECORD_SIZE  128
