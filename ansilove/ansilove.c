@@ -419,8 +419,8 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     int32_t seq_column = atoi(seqArray[1]);
 
                     // finally set the positions
-                    position_y = seq_line;
-                    position_x = seq_column;
+                    position_y = seq_line-1;
+                    position_x = seq_column-1;
                     
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -433,12 +433,13 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
                     // now get escape sequence's position value
-                    seqContentLength = atoi(seqGrab);
+                    int32_t seq_line = atoi(seqGrab);
                     
-                    if (seqContentLength == 0) {
-                        seqContentLength = 1;
+                    if (seq_line == 0) {
+                        seq_line = 1;
                     }
-                    position_y = position_y - seqContentLength;
+                    
+                    position_y = position_y - seq_line;
                     
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -451,12 +452,13 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
                     // now get escape sequence's position value
-                    seqContentLength = atoi(seqGrab);
+                    int32_t seq_line = atoi(seqGrab);
                     
-                    if (seqContentLength == 0) {
-                        seqContentLength = 1;
+                    if (seq_line == 0) {
+                        seq_line = 1;
                     }
-                    position_y = position_y + seqContentLength;
+                    
+                    position_y = position_y + seq_line;
                      
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -469,12 +471,13 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
-                    seqContentLength = atoi(seqGrab);
+                    int32_t seq_column = atoi(seqGrab);
                     
-                    if (seqContentLength == 0) {
-                        seqContentLength = 1;
+                    if (seq_column == 0) {
+                        seq_column = 1;
                     }
-                    position_x = position_x + seqContentLength;
+                    
+                    position_x = position_x + seq_column;
                     
                     if (position_x>80)
                     {
@@ -492,12 +495,13 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's content length
-                    seqContentLength = atoi(seqGrab);
+                    int32_t seq_column = atoi(seqGrab);
                     
-                    if (seqContentLength == 0) {
-                        seqContentLength = 1;
+                    if (seq_column == 0) {
+                        seq_column = 1;
                     }
-                    position_x = position_x - seqContentLength;
+                    
+                    position_x = position_x - seq_column;
                     
                     if (position_x < 0)
                     {
