@@ -545,14 +545,10 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                         position_x_max=0;
                         position_y_max=0;
                         
-                        /*
-                         *
-                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
-                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
-                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
-                         * /!\ PLACEHOLDER : Code to reinitialize the Ansi Buffer
-                         *
-                         */
+                        // reset ansi buffer
+                        free(ansi_buffer);
+                        ansi_buffer = malloc(sizeof(struct ansiChar));
+                        structIndex=0;
                     }
                         
                     loop+=ansi_sequence_loop+2;
