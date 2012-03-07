@@ -747,7 +747,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         }
         wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_4);
         for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[4][i] = wbColorArray[i];
+            wbcStorage[1][i] = wbColorArray[i];
         }
         wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_2);
         for (i = 0; i < wbColorCnt; i++) {
