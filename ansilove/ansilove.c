@@ -979,6 +979,8 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     fclose(file_Out);
     
     // free memory
+    free(ansi_buffer);
+    
     gdImageDestroy(im_ANSi);
     gdImageDestroy(im_Backgrnd);
     gdImageDestroy(im_Font);
