@@ -1022,36 +1022,36 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     int32_t font_size_x;
     int32_t font_size_y;
     int32_t columns = 80;
-    char *font_file;
-    
+    const unsigned char *font_data;
+        
     // let's see what font we should use to render output
     if (strcmp(font, "80x25") == 0) {
-        font_file = "ansilove_font_pc_80x25.png";
-        font_size_x = 9;
+        font_data = font_pc_80x25;
+        font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
-        font_file = "ansilove_font_pc_80x50.png";
-        font_size_x = 9;
+        font_data = font_pc_80x50;
+        font_size_x = 8;
         font_size_y = 8;
     }
     else if (strcmp(font, "terminus") == 0) {
-        font_file = "ansilove_font_pc_terminus.png";
-        font_size_x = 9;
+        font_data = font_pc_terminus;
+        font_size_x = 8;
         font_size_y = 16;
     }
     else {
         // in all other cases use the standard DOS font
-        font_file = "ansilove_font_pc_80x25.png";
-        font_size_x = 9;
+        font_data = font_pc_80x25;
+        font_size_x = 8;
         font_size_y = 16;
     }
-    
+
     // now set bits to 8 if not already value 8 or 9
     if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
         sprintf(bits, "%s", "8");
     }
-    
+
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1061,7 +1061,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     // get the file size (bytes)
     size_t get_file_size = filesize(input);
     int32_t input_file_size = (int32_t)get_file_size;
-    
+
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
     size_t result;
@@ -1081,63 +1081,12 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     // close input file, we don't need it anymore
     rewind(input_file);
     fclose(input_file);
-    
+
     // libgd image pointers
-    gdImagePtr im_PCB, im_Backgrnd, im_Font;
-    
-    // additional libgd related declarations
-    FILE *file_Backgrnd, *file_Font;
-    char path_Backgrnd[1000] = { 0 };
-    char path_Font[1000] = { 0 };
-    
-    // resolve paths for font and background image
-    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
-    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
-    
-    // open font and background image, allocate libgd image pointers
-    file_Backgrnd = fopen(path_Backgrnd, "rb");
-    file_Font = fopen(path_Font, "rb");
-    
-    if (!file_Backgrnd) {
-        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
-    }
-    else {
-        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
-    }
-    
-    if (!file_Font) {
-        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
-    }
-    else {
-        im_Font = gdImageCreateFromPng(file_Font);
-    }
-    
-    // set transparent color index for the font
-    gdImageColorTransparent(im_Font, 20);
-    
+    gdImagePtr im_PCB;
+
     // convert numeric command line flags to integer values
     int32_t int_bits = atoi(bits);
-
-    // foreground / background color array
-    int32_t pcb_colors[71];
-    
-    // PCB colors
-    pcb_colors[48] = 0; 
-    pcb_colors[49] = 4; 
-    pcb_colors[50] = 2; 
-    pcb_colors[51] = 6; 
-    pcb_colors[52] = 1; 
-    pcb_colors[53] = 5; 
-    pcb_colors[54] = 3; 
-    pcb_colors[55] = 7; 
-    pcb_colors[56] = 8; 
-    pcb_colors[57] = 12; 
-    pcb_colors[65] = 10; 
-    pcb_colors[66] = 14; 
-    pcb_colors[67] = 9; 
-    pcb_colors[68] = 13; 
-    pcb_colors[69] = 11; 
-    pcb_colors[70] = 15;
 
     // defines for stripping PCBoard codes
     char *stripped_file_buffer;
@@ -1213,8 +1162,8 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
         if (current_character == 64 & next_character == 88)
         {
             // set graphics rendition
-            color_background = pcb_colors[(input_file_buffer[loop+2])];
-            color_foreground = pcb_colors[(input_file_buffer[loop+3])];
+            color_background = input_file_buffer[loop+2];
+            color_foreground = input_file_buffer[loop+3];
             
             loop+=3;
         }
@@ -1280,14 +1229,29 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     // allocate buffer image memory
     im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*font_size_y);
     
-    // error output
-    if (!im_Backgrnd) {
-        fputs ("\nCan't allocate PCB buffer image memory.\n\n", stderr); exit (6);
-    }
-    
     // allocate black color
     gdImageColorAllocate(im_PCB, 0, 0, 0);
-
+    
+    // allocate color palette    
+    int32_t colors[71];
+    
+    colors[48] = gdImageColorAllocate(im_PCB, 0, 0, 0);
+    colors[49] = gdImageColorAllocate(im_PCB, 0, 0, 170);
+    colors[50] = gdImageColorAllocate(im_PCB, 0, 170, 0);
+    colors[51] = gdImageColorAllocate(im_PCB, 0, 170, 170);
+    colors[52] = gdImageColorAllocate(im_PCB, 170, 0, 0);
+    colors[53] = gdImageColorAllocate(im_PCB, 170, 0, 170);
+    colors[54] = gdImageColorAllocate(im_PCB, 170, 85, 0);
+    colors[55] = gdImageColorAllocate(im_PCB, 170, 170, 170);
+    colors[56] = gdImageColorAllocate(im_PCB, 85, 85, 85);
+    colors[57] = gdImageColorAllocate(im_PCB, 85, 85, 255);
+    colors[65] = gdImageColorAllocate(im_PCB, 85, 255, 85);
+    colors[66] = gdImageColorAllocate(im_PCB, 85, 255, 255);
+    colors[67] = gdImageColorAllocate(im_PCB, 255, 85, 85);
+    colors[68] = gdImageColorAllocate(im_PCB, 255, 85, 255);
+    colors[69] = gdImageColorAllocate(im_PCB, 255, 255, 85);
+    colors[70] = gdImageColorAllocate(im_PCB, 255, 255, 255);
+    
     // the last value of loop tells us how many items are stored in there
     int32_t pcbBufferItems = structIndex;
     
@@ -1301,11 +1265,7 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
         color_foreground = pcboard_buffer[loop].color_foreground;
         character = pcboard_buffer[loop].current_character;
         
-        gdImageCopy(im_PCB,im_Backgrnd,position_x * int_bits, position_y * 
-                    font_size_y, color_background * 9, 0, int_bits, font_size_y);
-        
-        gdImageCopy(im_PCB,im_Font, position_x * int_bits, position_y * font_size_y, character * 
-                    font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+        alDrawChar(im_PCB, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, colors[color_background], colors[color_foreground], character);
     }
     
     // create output image
@@ -1315,8 +1275,6 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     
     // free memory
     gdImageDestroy(im_PCB);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
 }
 
 // BINARY
