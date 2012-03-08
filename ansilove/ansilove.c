@@ -19,23 +19,27 @@
 
 // ANSi
 
-void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, int32_t color_foreground, unsigned char character)
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, int32_t color_foreground, unsigned char character)
 {
     int32_t column, line;
+
     
+    gdImageFilledRectangle(im, position_x * int_bits, position_y*font_size_y, position_x * int_bits + int_bits-1, position_y*font_size_y + font_size_y-1, color_background);
+
     for (line = 0; line < font_size_y; line++) {
-        for (column = 0; column < font_size_x; column++) {
+        for (column = 0; column < int_bits; column++) {
+
             if ((font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
-                gdImageSetPixel(im, position_x * font_size_x + column, position_y*font_size_y + line, color_foreground);                        
-            }
-            else
-            {
-                gdImageSetPixel(im, position_x * font_size_x + column, position_y*font_size_y + line, color_background);
+                gdImageSetPixel(im, position_x * int_bits + column, position_y*font_size_y + line, color_foreground);
+                
+                if (int_bits==9 && column==7 && character>191 && character<224)
+                {
+                    gdImageSetPixel(im, position_x * int_bits + 8, position_y*font_size_y + line, color_foreground);                    
+                }
+                    
             }
         }
     }
-
-
 }
 
 
@@ -2029,7 +2033,7 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     position_y++;
     
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns*font_size_x, position_y*font_size_y);
+    im_Tundra = gdImageCreateTrueColor(columns*int_bits, position_y*font_size_y);
     
     if (!im_Tundra) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -2104,7 +2108,7 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {            
-            alDrawChar(im_Tundra, font_data, font_size_x, font_size_y, position_x, position_y, color_background, color_foreground, character);
+            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, color_background, color_foreground, character);
             
             position_x++;            
         }
