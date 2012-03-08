@@ -41,6 +41,8 @@
 #endif
 
 // prototypes
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, int32_t color_foreground, unsigned char character);
+
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext);
 void alPcBoardLoader(char *input, char output[], char font[], char bits[]);
 void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[]);

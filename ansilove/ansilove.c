@@ -18,6 +18,27 @@
 #endif
 
 // ANSi
+
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, int32_t color_foreground, unsigned char character)
+{
+    int32_t column, line;
+    
+    for (line = 0; line < font_size_y; line++) {
+        for (column = 0; column < font_size_x; column++) {
+            if ((font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
+                gdImageSetPixel(im, position_x * font_size_x + column, position_y*font_size_y + line, color_foreground);                        
+            }
+            else
+            {
+                gdImageSetPixel(im, position_x * font_size_x + column, position_y*font_size_y + line, color_background);
+            }
+        }
+    }
+
+
+}
+
+
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
     // ladies and gentlemen, it's type declaration time
@@ -2082,20 +2103,8 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         }
         
         if (character !=1 && character !=2 && character !=4 && character !=6)
-        {
-            int line, column;
-            
-            for (line = 0; line < font_size_y; line++) {
-                for (column = 0; column < font_size_x; column++) {
-                    if ((font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
-                        gdImageSetPixel(im_Tundra, position_x * font_size_x + column, position_y*font_size_y + line, color_foreground);                        
-                    }
-                    else
-                    {
-                        gdImageSetPixel(im_Tundra, position_x * font_size_x + column, position_y*font_size_y + line, color_background);
-                    }
-                }
-            }
+        {            
+            alDrawChar(im_Tundra, font_data, font_size_x, font_size_y, position_x, position_y, color_background, color_foreground, character);
             
             position_x++;            
         }
@@ -2542,3 +2551,5 @@ void readComments(FILE *file, char **comment_lines, int32_t comments)
     free(comment_lines);
     return;
 }
+
+
