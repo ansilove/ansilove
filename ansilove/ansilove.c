@@ -339,7 +339,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t saved_position_y, saved_position_x;
     
     // sequence parsing variables
-    int32_t seqContent, seqValue, seqContentLength, seqArrayCount;
+    int32_t seqContent, seqValue, seqArrayCount;
     char *seqGrab;
     char **seqArray;
     
