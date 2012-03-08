@@ -1325,28 +1325,29 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     // some type declarations
     int32_t font_size_x;
     int32_t font_size_y;
-    char *font_file;
+    const unsigned char *font_data;
+
     
     // let's see what font we should use to render output
     if (strcmp(font, "80x25") == 0) {
-        font_file = "ansilove_font_pc_80x25.png";
-        font_size_x = 9;
+        font_data = font_pc_80x25;
+        font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
-        font_file = "ansilove_font_pc_80x50.png";
-        font_size_x = 9;
+        font_data = font_pc_80x50;
+        font_size_x = 8;
         font_size_y = 8;
     }
     else if (strcmp(font, "terminus") == 0) {
-        font_file = "ansilove_font_pc_terminus.png";
-        font_size_x = 9;
+        font_data = font_pc_terminus;
+        font_size_x = 8;
         font_size_y = 16;
     }
     else {
         // in all other cases use the standard DOS font
-        font_file = "ansilove_font_pc_80x25.png";
-        font_size_x = 9;
+        font_data = font_pc_80x25;
+        font_size_x = 8;
         font_size_y = 16;
     }
     
@@ -1386,37 +1387,7 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     fclose(input_file);
     
     // libgd image pointers
-    gdImagePtr im_Binary, im_Backgrnd, im_Font;
-            
-    // additional libgd related declarations
-    FILE *file_Backgrnd, *file_Font;
-    char path_Backgrnd[1000] = { 0 };
-    char path_Font[1000] = { 0 };
-    
-    // resolve paths for font and background image
-    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
-    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
-    
-    // open font and background image, allocate libgd image pointers
-    file_Backgrnd = fopen(path_Backgrnd, "rb");
-    file_Font = fopen(path_Font, "rb");
-    
-    if (!file_Backgrnd) {
-        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
-    }
-    else {
-        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
-    }
-    
-    if (!file_Font) {
-        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
-    }
-    else {
-        im_Font = gdImageCreateFromPng(file_Font);
-    }
-    
-    // set transparent color index for the font
-    gdImageColorTransparent(im_Font, 20);
+    gdImagePtr im_Binary;
 
     // convert numeric command line flags to integer values
     int32_t int_columns = atoi(columns);
@@ -1433,28 +1404,27 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     
     // allocate black color
     gdImageColorAllocate(im_Binary, 0, 0, 0);
+
+    // allocate color palette    
+    int32_t colors[16];
     
-    // background / forground color array
-    int32_t binary_colors[16];
-    
-    // define binary colors
-    binary_colors[0]  = 0; 
-    binary_colors[1]  = 4; 
-    binary_colors[2]  = 2; 
-    binary_colors[3]  = 6; 
-    binary_colors[4]  = 1; 
-    binary_colors[5]  = 5; 
-    binary_colors[6]  = 3; 
-    binary_colors[7]  = 7; 
-    binary_colors[8]  = 8; 
-    binary_colors[9]  = 12; 
-    binary_colors[10] = 10; 
-    binary_colors[11] = 14; 
-    binary_colors[12] = 9; 
-    binary_colors[13] = 13; 
-    binary_colors[14] = 11; 
-    binary_colors[15] = 15;
-    
+    colors[0] = gdImageColorAllocate(im_Binary, 0, 0, 0);
+    colors[1] = gdImageColorAllocate(im_Binary, 0, 0, 170);
+    colors[2] = gdImageColorAllocate(im_Binary, 0, 170, 0);
+    colors[3] = gdImageColorAllocate(im_Binary, 0, 170, 170);
+    colors[4] = gdImageColorAllocate(im_Binary, 170, 0, 0);
+    colors[5] = gdImageColorAllocate(im_Binary, 170, 0, 170);
+    colors[6] = gdImageColorAllocate(im_Binary, 170, 85, 0);
+    colors[7] = gdImageColorAllocate(im_Binary, 170, 170, 170);
+    colors[8] = gdImageColorAllocate(im_Binary, 85, 85, 85);
+    colors[9] = gdImageColorAllocate(im_Binary, 85, 85, 255);
+    colors[10] = gdImageColorAllocate(im_Binary, 85, 255, 85);
+    colors[11] = gdImageColorAllocate(im_Binary, 85, 255, 255);
+    colors[12] = gdImageColorAllocate(im_Binary, 255, 85, 85);
+    colors[13] = gdImageColorAllocate(im_Binary, 255, 85, 255);
+    colors[14] = gdImageColorAllocate(im_Binary, 255, 255, 85);
+    colors[15] = gdImageColorAllocate(im_Binary, 255, 255, 255);
+
     // process binary
     int32_t character, attribute, color_background, color_foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
@@ -1470,25 +1440,17 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
         character = input_file_buffer[loop];
         attribute = input_file_buffer[loop+1];
         
-        color_background = binary_colors[(attribute & 240) >> 4];
-        color_foreground = binary_colors[attribute & 15];
+        color_background = (attribute & 240) >> 4;
+        color_foreground = (attribute & 15);
+
         
         if (color_background > 8 && int_icecolors == 0)
         {
             color_background -= 8;
         }
-        
-        gdImageCopy(im_Binary, im_Backgrnd, position_x * int_bits, 
-                    position_y * font_size_y, 
-                    color_background * 9, 0, 
-                    int_bits, font_size_y);
-        
-        gdImageCopy(im_Binary, im_Font, position_x * int_bits,
-                    position_y * font_size_y, 
-                    character * font_size_x, 
-                    color_foreground * font_size_y,
-                    int_bits, font_size_y);
-        
+
+        alDrawChar(im_Binary, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, colors[color_background], colors[color_foreground], character);
+     
         position_x++;
         loop+=2;
     }
@@ -1500,8 +1462,6 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
 
     // free memory
     gdImageDestroy(im_Binary);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
 }
 
 // ADF
