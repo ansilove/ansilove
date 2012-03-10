@@ -625,7 +625,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                             
                             if (seqValue == 4)
                             {
-                                underline = TRUE;
+                                underline = true;
                             }
                             
                             if (seqValue == 5)
