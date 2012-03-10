@@ -2,8 +2,7 @@
 //  main.c
 //  AnsiLove/C
 //
-//  Copyright (c) 2011-2012 "the international ANSi conspiracy".
-//  Project leads: Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
@@ -29,17 +28,18 @@
 #endif
 
 // prototypes
-void showUsage(void);
+void showHelp(void);
+void showExamples(void);
+void showVersion(void);
+void showSynopsis(void);
 
-// show how to properly set the command line flags
-void showUsage(void)
+void showHelp(void)
 {
-    printf("USAGE:\n");    
-    printf("ansilove <inputfile> <outputfile> columns (.BIN only) font bits icecolors\n\n");
-    printf("Check the README to have details about supported options for each\n");
-    printf("file format. Use flag '-s' for 'outputfile' to write a file to the same\n");
-    printf("path, with the same name and .png suffix appended. Use '-r' for 'outputfile'\n");
-    printf("to just read and display a SAUCE record, without generating output.\n\n");
+    printf("helpmeplease\n\n");
+}
+
+void showExamples(void)
+{
     printf("EXAMPLES:\n"); 
     printf("ansilove ansi.ans ansi.png\n");
     printf("ansilove ansi.ans ansi.png 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
@@ -58,15 +58,30 @@ void showUsage(void)
     printf("ansilove ansiwithsauce.ans -r (just display SAUCE record)\n\n");
 }
 
+void showVersion(void)
+{
+    printf("version fooobazbar\n\n");
+}
+
+// following the IEEE Std 1003.1 for utility conventions
+void showSynopsis(void)
+{
+    printf("USAGE:\n");    
+    printf("ansilove <inputfile> <outputfile> columns (.BIN only) font bits icecolors\n\n");
+    printf("Check the README to have details about supported options for each\n");
+    printf("file format. Use flag '-s' for 'outputfile' to write a file to the same\n");
+    printf("path, with the same name and .png suffix appended. Use '-r' for 'outputfile'\n");
+    printf("to just read and display a SAUCE record, without generating output.\n\n");
+}
+
 int main(int argc, char *argv[])
 {
-    printf("\n--------------------------------------------------------------------\n");
-    printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n", VERSION);
-    printf("--------------------------------------------------------------------\n");
+    printf("\nAnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
+           "Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n\n", VERSION);
     
     // we do this before anything else
     if (argc <= 2) {
-        showUsage();
+        showSynopsis();
         return EXIT_SUCCESS;
     }
     
