@@ -2,8 +2,7 @@
 //  filesize.m
 //  AnsiLove/C
 //
-//  Copyright (c) 2011-2012 "the international ANSi conspiracy".
-//  Project leads: Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
