@@ -15,7 +15,7 @@
 #define alconfig_h
 
 // configuration defines
-#define VERSION "1.0.184"
+#define VERSION "1.0.212"
 
 #define ANSILOVE_FONTS_DIRECTORY "fonts/"
 
