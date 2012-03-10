@@ -66,17 +66,26 @@ void showVersion(void)
 // following the IEEE Std 1003.1 for utility conventions
 void showSynopsis(void)
 {
-    printf("USAGE:\n");    
-    printf("ansilove <inputfile> <outputfile> columns (.BIN only) font bits icecolors\n\n");
-    printf("Check the README to have details about supported options for each\n");
-    printf("file format. Use flag '-s' for 'outputfile' to write a file to the same\n");
-    printf("path, with the same name and .png suffix appended. Use '-r' for 'outputfile'\n");
-    printf("to just read and display a SAUCE record, without generating output.\n\n");
+    printf("SYNOPSIS:\n"
+           "  ansilove file -i [operands]\n"
+           "  ansilove file -o file.png [operands]\n"
+           "  ansilove file -s\n"
+           "  ansilove -vhe\n\n"
+           "OPTIONS:\n"
+           "  -i  output identical to input with .png suffix added\n"
+           "  -o  specify custom file name / path for output\n"
+           "  -s  display SAUCE record without generating output\n"
+           "  -v  version information, equivalent to --version\n"
+           "  -h  show help, equivalent to --help\n"
+           "  -e  print a list of examples\n\n"
+           "OPERANDS:\n"
+           "  font bits icecolors columns\n\n");
+    //printf("ansilove <inputfile> <outputfile> columns (.BIN only) font bits icecolors\n\n");
 }
 
 int main(int argc, char *argv[])
 {
-    printf("\nAnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
+    printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
            "Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n\n", VERSION);
     
     // we do this before anything else
