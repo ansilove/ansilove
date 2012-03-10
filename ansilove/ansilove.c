@@ -17,14 +17,15 @@
 #include "ansilove.h"
 #endif
 
-// ANSi
-
-void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, int32_t color_foreground, unsigned char character)
+// shared method for drawing characters
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, int32_t font_size_x, 
+                int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, 
+                int32_t color_foreground, unsigned char character)
 {
     int32_t column, line;
 
-    
-    gdImageFilledRectangle(im, position_x * int_bits, position_y*font_size_y, position_x * int_bits + int_bits-1, position_y*font_size_y + font_size_y-1, color_background);
+    gdImageFilledRectangle(im, position_x * int_bits, position_y*font_size_y, position_x * int_bits + 
+                           int_bits - 1, position_y * font_size_y + font_size_y - 1, color_background);
 
     for (line = 0; line < font_size_y; line++) {
         for (column = 0; column < int_bits; column++) {
@@ -32,9 +33,9 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
             if ((font_data[line+character*font_size_y] & (0x80 >> column)) != 0) {
                 gdImageSetPixel(im, position_x * int_bits + column, position_y*font_size_y + line, color_foreground);
                 
-                if (int_bits==9 && column==7 && character>191 && character<224)
+                if (int_bits==9 && column==7 && character > 191 && character < 224)
                 {
-                    gdImageSetPixel(im, position_x * int_bits + 8, position_y*font_size_y + line, color_foreground);                    
+                    gdImageSetPixel(im, position_x * int_bits + 8, position_y * font_size_y + line, color_foreground);                    
                 }
                     
             }
@@ -42,7 +43,7 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
     }
 }
 
-
+// ANSi
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
     // ladies and gentlemen, it's type declaration time
@@ -1265,7 +1266,8 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
         color_foreground = pcboard_buffer[loop].color_foreground;
         character = pcboard_buffer[loop].current_character;
         
-        alDrawChar(im_PCB, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, colors[color_background], colors[color_foreground], character);
+        alDrawChar(im_PCB, font_data, int_bits, font_size_x, font_size_y, 
+                   position_x, position_y, colors[color_background], colors[color_foreground], character);
     }
     
     // create output image
@@ -1407,7 +1409,8 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, colors[color_background], colors[color_foreground], character);
+        alDrawChar(im_Binary, font_data, int_bits, font_size_x, font_size_y, 
+                   position_x, position_y, colors[color_background], colors[color_foreground], character);
      
         position_x++;
         loop+=2;
@@ -2026,7 +2029,8 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
         
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {            
-            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y, position_x, position_y, color_background, color_foreground, character);
+            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y, 
+                       position_x, position_y, color_background, color_foreground, character);
             
             position_x++;            
         }
