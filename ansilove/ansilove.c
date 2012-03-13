@@ -51,7 +51,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t columns = 80;
     int32_t font_size_x;
     int32_t font_size_y;
-    char *font_file;
     bool isAmigaFont = false;
     bool isDizFile = false;
     bool ced = false;
