@@ -45,6 +45,8 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 // ANSi
 void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
 {
+    const unsigned char *font_data;
+
     // ladies and gentlemen, it's type declaration time
     int32_t columns = 80;
     int32_t font_size_x;
@@ -59,102 +61,102 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
-        font_file = "ansilove_font_pc_80x25.png";
+        font_data = font_pc_80x25;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
-        font_file = "ansilove_font_pc_80x50.png";
+        font_data = font_pc_80x50;
         font_size_x = 9;
         font_size_y = 8;
     }
     else if (strcmp(font, "terminus") == 0) {
-        font_file = "ansilove_font_pc_terminus.png";
+        font_data = font_pc_terminus;
         font_size_x = 9;
         font_size_y = 16;
     }
-    else if (strcmp(font, "armenian") == 0) {
+/*    else if (strcmp(font, "armenian") == 0) {
         font_file = "ansilove_font_pc_armenian.png";
         font_size_x = 9;
         font_size_y = 16;
-    }
+    }*/
     else if (strcmp(font, "baltic") == 0) {
-        font_file = "ansilove_font_pc_baltic.png";
+        font_data = font_pc_baltic;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "cyrillic") == 0) {
-        font_file = "ansilove_font_pc_cyrillic.png";
+        font_data = font_pc_cyrillic;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "french-canadian") == 0) {
-        font_file = "ansilove_font_pc_french_canadian.png";
+        font_data = font_pc_french_canadian;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "greek") == 0) {
-        font_file = "ansilove_font_pc_greek.png";
+        font_data = font_pc_greek;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "greek-869") == 0) {
-        font_file = "ansilove_font_pc_greek_869.png";
+        font_data = font_pc_greek_869;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "hebrew") == 0) {
-        font_file = "ansilove_font_pc_hebrew.png";
+        font_data = font_pc_hebrew;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "icelandic") == 0) {
-        font_file = "ansilove_font_pc_icelandic.png";
+        font_data = font_pc_icelandic;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "latin1") == 0) {
-        font_file = "ansilove_font_pc_latin1.png";
+        font_data = font_pc_latin1;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "latin2") == 0) {
-        font_file = "ansilove_font_pc_latin2.png";
+        font_data = font_pc_latin2;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "nordic") == 0) {
-        font_file = "ansilove_font_pc_nordic.png";
+        font_data = font_pc_nordic;
         font_size_x = 9;
         font_size_y = 16; 
     }
-    else if (strcmp(font, "persian") == 0) {
+/*    else if (strcmp(font, "persian") == 0) {
         font_file = "ansilove_font_pc_persian.png";
         font_size_x = 9;
         font_size_y = 16;
-    }
+    }*/
     else if (strcmp(font, "portuguese") == 0) {
-        font_file = "ansilove_font_pc_portuguese.png";
+        font_data = font_pc_portuguese;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "russian") == 0) {
-        font_file = "ansilove_font_pc_russian.png";
+        font_data = font_pc_russian;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "turkish") == 0) {
-        font_file = "ansilove_font_pc_turkish.png";
+        font_data = font_pc_turkish;
         font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "amiga") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_1200.png";
+        font_data = font_amiga_topaz_1200;
         font_size_x = 8;
         font_size_y = 16;
     }
-    else if (strcmp(font, "b-strict") == 0) {
+/*    else if (strcmp(font, "b-strict") == 0) {
         isAmigaFont = true;
         font_file = "ansilove_font_amiga_b-strict.png";
         font_size_x = 8;
@@ -165,76 +167,58 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         font_file = "ansilove_font_amiga_b-struct.png";
         font_size_x = 8;
         font_size_y = 8;
-    }
+    }*/
     else if (strcmp(font, "microknight") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_microknight.png";
+        font_data = font_amiga_microknight;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "microknight+") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_microknight+.png";
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknightplus") == 0) {
-        isAmigaFont = true;
-        font_file = "ansilove_font_amiga_microknight+.png";
+        font_data = font_amiga_microknight_plus;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "mosoul") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_mosoul.png";
+        font_data = font_amiga_mosoul;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "pot-noodle") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_pot-noodle.png";
+        font_data = font_amiga_pot_noodle;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "topaz") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_1200.png";
+        font_data = font_amiga_topaz_1200;
         font_size_x = 8;
         font_size_y = 16;   
     }
     else if (strcmp(font, "topaz+") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_1200+.png";
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topazplus") == 0) {
-        isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_1200+.png";
+        font_data = font_amiga_topaz_1200_plus;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "topaz500") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_500.png";
+        font_data = font_amiga_topaz_500;
         font_size_x = 8;
         font_size_y = 16;
     }
     else if (strcmp(font, "topaz500+") == 0) {
         isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_500+.png";
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500plus") == 0) {
-        isAmigaFont = true;
-        font_file = "ansilove_font_amiga_topaz_500+.png";
+        font_data = font_amiga_topaz_500_plus;
         font_size_x = 8;
         font_size_y = 16;
     }
     else {
         // in all other cases use the standard DOS font
-        font_file = "ansilove_font_pc_80x25.png";
+        font_data = font_pc_80x25;
         font_size_x = 9;
         font_size_y = 16;
     }
@@ -312,32 +296,33 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     // libgd image pointers
     gdImagePtr im_ANSi, im_Backgrnd, im_Font;
     
-    // additional libgd related declarations
-    FILE *file_Backgrnd, *file_Font;
-    char path_Backgrnd[1000] = { 0 };
-    char path_Font[1000] = { 0 };
-    
-    // resolve paths for font and background image
-    sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
-    sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, font_file);
-    
-    // open font and background image, allocate libgd image pointers
-    file_Backgrnd = fopen(path_Backgrnd, "rb");
-    file_Font = fopen(path_Font, "rb");
-    
-    if (!file_Backgrnd) {
-        fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
-    }
-    else {
-        im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
-    }
-    
-    if (!file_Font) {
-        fputs ("\nCan't open AnsiLove/C font file, aborted.\n\n", stderr); exit (5);
-    }
-    else {
-        im_Font = gdImageCreateFromPng(file_Font);
-    }
+    im_Backgrnd = gdImageCreate(9*16,16);
+
+    // Allocate font image buffer
+    im_Font = gdImageCreate(font_size_x*256,font_size_y*16);
+
+    // Allocate ANSi colors
+    int32_t colors[21];
+
+    colors[0] = gdImageColorAllocate(im_Font, 0, 0, 0);
+    colors[1] = gdImageColorAllocate(im_Font, 170, 0, 0);
+    colors[2] = gdImageColorAllocate(im_Font, 0, 170, 0);
+    colors[3] = gdImageColorAllocate(im_Font, 170, 85, 0);
+    colors[4] = gdImageColorAllocate(im_Font, 0, 0, 170);
+    colors[5] = gdImageColorAllocate(im_Font, 170, 0, 170);
+    colors[6] = gdImageColorAllocate(im_Font, 0, 170, 170);
+    colors[7] = gdImageColorAllocate(im_Font, 170, 170, 170);
+    colors[8] = gdImageColorAllocate(im_Font, 85, 85, 85);
+    colors[9] = gdImageColorAllocate(im_Font, 255, 85, 85);
+    colors[10] = gdImageColorAllocate(im_Font, 85, 255, 85);
+    colors[11] = gdImageColorAllocate(im_Font, 255, 255, 85);
+    colors[12] = gdImageColorAllocate(im_Font, 85, 85, 255);
+    colors[13] = gdImageColorAllocate(im_Font, 255, 85, 255);
+    colors[14] = gdImageColorAllocate(im_Font, 85, 255, 255);
+    colors[15] = gdImageColorAllocate(im_Font, 255, 255, 255);
+    colors[20] = gdImageColorAllocate(im_Font, 200, 220, 169);
+
+    gdImagePaletteCopy(im_Backgrnd, im_Font);
     
     // set transparent color index for the font
     gdImageColorTransparent(im_Font, 20);
@@ -833,7 +818,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     }
     
     // color array and RGB definitions
-    int32_t colors[17];
+//    int32_t colors[17];
     int32_t Red, Green, Blue;
     
     // generating ANSi colors array in order to draw underlines
@@ -844,6 +829,24 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         Blue = gdImageBlue(im_Backgrnd, loop);
         
         colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
+    }
+    
+    // reconstruct font bitmap from bitfonts data
+    int32_t j , k = 0;
+    
+    for (k=0;k<16;k++)
+    {
+        for (j=0;j<256;j++)
+        {
+            alDrawChar(im_Font, font_data, font_size_x, font_size_x, font_size_y, 
+                       j, k, 20, k, j);
+        }
+    }
+        
+    // reconstruct background bitmap
+    for (loop = 0; loop < 16; loop++)
+    {
+        gdImageFilledRectangle(im_Backgrnd, loop * 9, 0, loop * 9 + 9, 16, loop);
     }
     
     // even more definitions, sigh
