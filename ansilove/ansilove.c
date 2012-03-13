@@ -17,9 +17,9 @@
 #endif
 
 // shared method for drawing characters
-void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, int32_t font_size_x, 
-                int32_t font_size_y, int32_t position_x, int32_t position_y, int32_t color_background, 
-                int32_t color_foreground, unsigned char character)
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, 
+                int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, 
+                int32_t color_background, int32_t color_foreground, unsigned char character)
 {
     int32_t column, line;
 
