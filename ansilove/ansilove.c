@@ -51,7 +51,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t columns = 80;
     int32_t font_size_x;
     int32_t font_size_y;
-    char *font_file;
     bool isAmigaFont = false;
     bool isDizFile = false;
     bool ced = false;
@@ -237,8 +236,9 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         workbench = true;
         transparent = true;
     }
+    
     // force defaults if necessary
-    else if ((strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) || isAmigaFont == true) {
+    if ((strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) || isAmigaFont == true) {
         sprintf(bits, "%s", "8");
     }
     
@@ -300,29 +300,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 
     // Allocate font image buffer
     im_Font = gdImageCreate(font_size_x*256,font_size_y*16);
-
-    // Allocate ANSi colors
-    int32_t colors[21];
-
-    colors[0] = gdImageColorAllocate(im_Font, 0, 0, 0);
-    colors[1] = gdImageColorAllocate(im_Font, 170, 0, 0);
-    colors[2] = gdImageColorAllocate(im_Font, 0, 170, 0);
-    colors[3] = gdImageColorAllocate(im_Font, 170, 85, 0);
-    colors[4] = gdImageColorAllocate(im_Font, 0, 0, 170);
-    colors[5] = gdImageColorAllocate(im_Font, 170, 0, 170);
-    colors[6] = gdImageColorAllocate(im_Font, 0, 170, 170);
-    colors[7] = gdImageColorAllocate(im_Font, 170, 170, 170);
-    colors[8] = gdImageColorAllocate(im_Font, 85, 85, 85);
-    colors[9] = gdImageColorAllocate(im_Font, 255, 85, 85);
-    colors[10] = gdImageColorAllocate(im_Font, 85, 255, 85);
-    colors[11] = gdImageColorAllocate(im_Font, 255, 255, 85);
-    colors[12] = gdImageColorAllocate(im_Font, 85, 85, 255);
-    colors[13] = gdImageColorAllocate(im_Font, 255, 85, 255);
-    colors[14] = gdImageColorAllocate(im_Font, 85, 255, 255);
-    colors[15] = gdImageColorAllocate(im_Font, 255, 255, 255);
-    colors[20] = gdImageColorAllocate(im_Font, 200, 220, 169);
-
-    gdImagePaletteCopy(im_Backgrnd, im_Font);
     
     // set transparent color index for the font
     gdImageColorTransparent(im_Font, 20);
@@ -703,13 +680,15 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     if (isDizFile == true) {
         columns = MIN(position_x_max,80);
     }
-    
+        
     // create that damn thingy
     im_ANSi = gdImageCreate(columns * int_bits,(position_y_max)*font_size_y);
     
     if (!im_ANSi) {
         fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
     }
+    
+    int32_t colors[21];
     
     if (ced == true)
     {
@@ -729,8 +708,11 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
             cedForegroundColor[i] = atoi(cedForegroundArray[i]);
         }
         
-        gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
-        
+        for (loop=0; loop<16; loop++)
+        {     
+            colors[loop]=gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+        }
+
         int32_t ced_color;
         ced_color = gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
         ced_color = gdImageColorAllocate(im_Backgrnd, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
@@ -738,10 +720,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         gdImageFill(im_ANSi,0,0,ced_color);
         gdImageFilledRectangle(im_Backgrnd, 0, 0, 144, 16, ced_color);
         
-        for (loop = 0; loop < 16; loop++)
-        {
-//            imagecolorset(im_Font,cedForegroundColor[0],cedForegroundColor[1],cedForegroundColor[2]);
-        }
     }
     else if (workbench == true)
     {
@@ -795,30 +773,46 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
         gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
         
         int32_t workbench_background;
-        
-        workbench_background = 
-        gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
-        workbench_background = 
-        gdImageColorAllocate(im_Backgrnd, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
-        
+                
         gdImageFill(im_ANSi, 0, 0, workbench_background);
         
         for (loop=0; loop<8; loop++)
         {
-//            imagecolorset(im_Backgrnd, loop, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-//            imagecolorset(im_Backgrnd, loop+8, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-//            imagecolorset(im_Font, loop, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-//            imagecolorset(im_Font, loop+8, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+            colors[loop]=gdImageColorAllocate(im_Backgrnd, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+            colors[loop+8]=gdImageColorAllocate(im_Backgrnd, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+            colors[loop]=gdImageColorAllocate(im_Font, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
+            colors[loop+8]=gdImageColorAllocate(im_Font, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
         }
     }
 
     else
     {
+        // Allocate standard ANSi color palette
+        
+        colors[0] = gdImageColorAllocate(im_Font, 0, 0, 0);
+        colors[1] = gdImageColorAllocate(im_Font, 170, 0, 0);
+        colors[2] = gdImageColorAllocate(im_Font, 0, 170, 0);
+        colors[3] = gdImageColorAllocate(im_Font, 170, 85, 0);
+        colors[4] = gdImageColorAllocate(im_Font, 0, 0, 170);
+        colors[5] = gdImageColorAllocate(im_Font, 170, 0, 170);
+        colors[6] = gdImageColorAllocate(im_Font, 0, 170, 170);
+        colors[7] = gdImageColorAllocate(im_Font, 170, 170, 170);
+        colors[8] = gdImageColorAllocate(im_Font, 85, 85, 85);
+        colors[9] = gdImageColorAllocate(im_Font, 255, 85, 85);
+        colors[10] = gdImageColorAllocate(im_Font, 85, 255, 85);
+        colors[11] = gdImageColorAllocate(im_Font, 255, 255, 85);
+        colors[12] = gdImageColorAllocate(im_Font, 85, 85, 255);
+        colors[13] = gdImageColorAllocate(im_Font, 255, 85, 255);
+        colors[14] = gdImageColorAllocate(im_Font, 85, 255, 255);
+        colors[15] = gdImageColorAllocate(im_Font, 255, 255, 255);
+        colors[20] = gdImageColorAllocate(im_Font, 200, 220, 169);
+        
+        gdImagePaletteCopy(im_Backgrnd, im_Font);
+        
         background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
     }
     
     // color array and RGB definitions
-//    int32_t colors[17];
     int32_t Red, Green, Blue;
     
     // generating ANSi colors array in order to draw underlines
