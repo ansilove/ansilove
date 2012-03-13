@@ -2049,6 +2049,9 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
 // XBIN
 void alXbinLoader(char *input, char output[], char bits[])
 {
+    const unsigned char *font_data;
+    unsigned char *font_data_xbin;
+    
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -2088,13 +2091,18 @@ void alXbinLoader(char *input, char output[], char bits[])
     int32_t xbin_fontsize = input_file_buffer[ 9 ];
     int32_t xbin_flags = input_file_buffer[ 10 ];
 
-    gdImagePtr im_XBIN, im_Backgrnd, im_Font, im_InvertFont;
-
-    im_Backgrnd = gdImageCreate(128, 16);
-    im_Font = gdImageCreate(2048, 256);
-    im_InvertFont = gdImageCreate(2048, 16);
-
-    int32_t colors[21];
+    gdImagePtr im_XBIN;
+    
+    im_XBIN = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
+    
+    if (!im_XBIN) {
+        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
+    }
+    
+    // allocate black color
+    gdImageColorAllocate(im_XBIN, 0, 0, 0);
+    
+    int32_t colors[16];
     int32_t offset = 11;
 
     // palette
@@ -2105,120 +2113,52 @@ void alXbinLoader(char *input, char output[], char bits[])
         for (loop = 0; loop < 16; loop++)
         {
             index = (loop * 3) + offset;
-            colors[loop] = gdImageColorAllocate(im_Backgrnd, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+            
+            colors[loop] = gdImageColorAllocate(im_XBIN, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
                                                 (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
                                                 (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
-            gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, (loop << 3) + 8, 16, colors[loop]);
-
         }
-
-        gdImagePaletteCopy(im_Font, im_Backgrnd);
-        gdImagePaletteCopy(im_InvertFont, im_Backgrnd);
-
-        int32_t Red = gdImageRed(im_Backgrnd, 0);
-        int32_t Green = gdImageGreen(im_Backgrnd, 0);
-        int32_t Blue = gdImageBlue(im_Backgrnd, 0);
-        
-        colors[16] = gdImageColorAllocate(im_Font, Red, Green, Blue);
-        colors[20] = gdImageColorAllocate(im_InvertFont, 200, 220, 169);
 
         offset += 48;
     }
     else {
-        FILE *file_Backgrnd;
-        char path_Backgrnd[1000] = { 0 };
-        
-        // resolve paths for font and background image
-        sprintf(path_Backgrnd, "%sansilove_background.png", ANSILOVE_FONTS_DIRECTORY);
-        
-        // open font and background image, allocate libgd image pointers
-        file_Backgrnd = fopen(path_Backgrnd, "rb");
-
-        if (!file_Backgrnd) {
-            fputs ("\nCan't open AnsiLove/C background image, aborted.\n\n", stderr); exit (4);
-        }
-        else {
-            im_Backgrnd = gdImageCreateFromPng(file_Backgrnd);
-        }
-
-        colors[0]  = 0; 
-        colors[1]  = 4; 
-        colors[2]  = 2; 
-        colors[3]  = 6; 
-        colors[4]  = 1; 
-        colors[5]  = 5; 
-        colors[6]  = 3; 
-        colors[7]  = 7; 
-        colors[8]  = 8; 
-        colors[9]  = 12; 
-        colors[10] = 10; 
-        colors[11] = 14; 
-        colors[12] = 9; 
-        colors[13] = 13; 
-        colors[14] = 11; 
-        colors[15] = 15;
+        colors[0] = gdImageColorAllocate(im_XBIN, 0, 0, 0);
+        colors[1] = gdImageColorAllocate(im_XBIN, 0, 0, 170);
+        colors[2] = gdImageColorAllocate(im_XBIN, 0, 170, 0);
+        colors[3] = gdImageColorAllocate(im_XBIN, 0, 170, 170);
+        colors[4] = gdImageColorAllocate(im_XBIN, 170, 0, 0);
+        colors[5] = gdImageColorAllocate(im_XBIN, 170, 0, 170);
+        colors[6] = gdImageColorAllocate(im_XBIN, 170, 85, 0);
+        colors[7] = gdImageColorAllocate(im_XBIN, 170, 170, 170);
+        colors[8] = gdImageColorAllocate(im_XBIN, 85, 85, 85);
+        colors[9] = gdImageColorAllocate(im_XBIN, 85, 85, 255);
+        colors[10] = gdImageColorAllocate(im_XBIN, 85, 255, 85);
+        colors[11] = gdImageColorAllocate(im_XBIN, 85, 255, 255);
+        colors[12] = gdImageColorAllocate(im_XBIN, 255, 85, 85);
+        colors[13] = gdImageColorAllocate(im_XBIN, 255, 85, 255);
+        colors[14] = gdImageColorAllocate(im_XBIN, 255, 255, 85);
+        colors[15] = gdImageColorAllocate(im_XBIN, 255, 255, 255);
     }
 
     // font
     if( (xbin_flags & 2) == 2 ) {
         int32_t numchars = ( xbin_flags & 0x10 ? 512 : 256 );
+        
+        // allocate memory to contain the XBin font
+        font_data_xbin = (unsigned char *) malloc(sizeof(unsigned char)*(xbin_fontsize * numchars));
+        if (font_data_xbin == NULL) {
+            fputs ("\nMemory error.\n\n", stderr); exit (5);
+        }
+        memcpy(font_data_xbin,input_file_buffer+offset,(xbin_fontsize * numchars));
 
-        gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
-        gdImageColorTransparent(im_InvertFont, colors[20]);
-
-        int32_t font_size_y, character_line = 0, character_column = 0, loop_column, loop;
-        
-        for (loop = 0; loop < numchars; loop++)
-        {
-            for (font_size_y = 0; font_size_y < xbin_fontsize; font_size_y++)
-            {
-                character_line = input_file_buffer[offset + font_size_y + (loop * xbin_fontsize)];
-                
-                for (loop_column = 0; loop_column < 8; loop_column++)
-                {
-                    character_column = 0x80 >> loop_column;
-                    
-                    if ((character_line & character_column) != character_column)
-                    {
-                        gdImageSetPixel(im_InvertFont, (loop * 8) + loop_column, font_size_y, colors[0]);
-                    }
-                }
-            }
-        }
-        
-        for (loop = 1; loop < 16; loop++)
-        {
-            gdImageFilledRectangle(im_Font, 0, loop * 16, 2048,(loop * 16) + 16, colors[loop]);
-        }
-        gdImageFilledRectangle(im_Font, 0, 0, 2048, 15, colors[16]);
-        
-        for (loop = 0; loop < 16; loop++)
-        {
-            gdImageCopy(im_Font, im_InvertFont, 0, loop * 16, 0, 0, 2048, 16);
-        }
-        gdImageColorTransparent(im_Font, colors[0]);
+        font_data=font_data_xbin;
 
         offset += ( xbin_fontsize * numchars );
     }
     else {
-        FILE *file_Font;
-        char path_Font[1000] = { 0 };
-
-        sprintf(path_Font, "%s%s", ANSILOVE_FONTS_DIRECTORY, "ansilove_font_pc_80x25.png");
-        file_Font = fopen(path_Font, "rb");
-
-        im_Font = gdImageCreateFromPng(file_Font);
-        gdImageColorTransparent(im_Font, 20);
+        // using default 80x25 font
+        font_data = font_pc_80x25;
     }
-
-    im_XBIN = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
-    
-    if (!im_XBIN) {
-        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
-    }
-    
-    // allocate black color
-    gdImageColorAllocate(im_XBIN, 0, 0, 0);
 
     int32_t position_x = 0, position_y = 0; 
     int32_t character, attribute, color_foreground, color_background;
@@ -2273,10 +2213,9 @@ void alXbinLoader(char *input, char output[], char bits[])
 
                 color_background = (attribute & 240) >> 4;
                 color_foreground = attribute & 15;
-                
-                gdImageCopy(im_XBIN, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
-                gdImageCopy(im_XBIN, im_Font, position_x * 8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
-                
+             
+                alDrawChar(im_XBIN, font_data, 8, 8, 16, position_x, position_y, color_background, color_foreground, character);
+
                 position_x++;
 
                 if (position_x == xbin_width)
@@ -2302,14 +2241,12 @@ void alXbinLoader(char *input, char output[], char bits[])
             
             color_background = (attribute & 240) >> 4;
             color_foreground = attribute & 15;
-            
-            gdImageCopy(im_XBIN, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
-            gdImageCopy(im_XBIN, im_Font, position_x * 8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+
+            alDrawChar(im_XBIN, font_data, 8, 8, 16, position_x, position_y, color_background, color_foreground, character);
             
             position_x++;
             offset+=2;
         }
-
     }
 
     // create output file
@@ -2319,9 +2256,6 @@ void alXbinLoader(char *input, char output[], char bits[])
     
     // nuke garbage
     gdImageDestroy(im_XBIN);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
-    gdImageDestroy(im_InvertFont); 
 }
 
 // recursive string replacement
