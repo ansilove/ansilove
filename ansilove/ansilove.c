@@ -1535,6 +1535,9 @@ void alArtworxLoader(char *input, char output[], char bits[])
 // IDF
 void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
 {
+    const unsigned char *font_data;
+    unsigned char *font_data_idf;
+    
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1578,89 +1581,21 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
 
     // libgd image pointers
-    gdImagePtr im_IDF, im_Backgrnd, im_Font, im_InvertFont;
+    gdImagePtr im_IDF;
 
-    // create gd image instances
-    im_Backgrnd = gdImageCreate(128, 16);
-    im_Font = gdImageCreate(2048, 256);
-    im_InvertFont = gdImageCreate(2048, 16);
-
-    // error output
-    if (!im_Backgrnd) {
-        fputs ("\nCan't allocate background buffer image memory.\n\n", stderr); exit (4);
-    }
-    if (!im_Font) {
-        fputs ("\nCan't allocate font buffer image memory.\n\n", stderr); exit (5);
-    }
-    if (!im_InvertFont) {
-        fputs ("\nCan't allocate temporary font buffer image memory.\n\n", stderr); exit (6);
-    }
-
-    // process IDF palette
     int32_t loop;
     int32_t index;
-    int32_t colors[21];
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        index = (loop * 3) + input_file_size - 48;
-        colors[loop] = gdImageColorAllocate(im_Backgrnd, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
-                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
-                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
-    }
-    gdImagePaletteCopy(im_Font, im_Backgrnd);
-    gdImagePaletteCopy(im_InvertFont, im_Backgrnd);
-    
-    // get and apply RGB values
-    int32_t Red = gdImageRed(im_Backgrnd, 0);
-    int32_t Green = gdImageGreen(im_Backgrnd, 0);
-    int32_t Blue = gdImageBlue(im_Backgrnd, 0);
-    
-    colors[16] = gdImageColorAllocate(im_Font, Red, Green, Blue);
-    colors[20] = gdImageColorAllocate(im_InvertFont, 200, 220, 169);
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, 
-                               (loop << 3) + 8, 16, colors[loop]);
-    }
+    int32_t colors[16];
     
     // process IDF font
-    gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
-    gdImageColorTransparent(im_InvertFont, colors[20]);
-    
-    int32_t idf_font_size_y, idf_character_line = 0, idf_character_column = 0, loop_column;
-    
-    for (loop = 0; loop < 256; loop++)
-    {
-        for (idf_font_size_y = 0; idf_font_size_y < 16; idf_font_size_y++)
-        {
-            idf_character_line = input_file_buffer[input_file_size - 48 - 4096 + idf_font_size_y + (loop * 16)];
-            
-            for (loop_column = 0; loop_column < 8; loop_column++)
-            {
-                idf_character_column = 0x80 >> loop_column;
-                
-                if ((idf_character_line & idf_character_column) != idf_character_column)
-                {
-                    gdImageSetPixel(im_InvertFont, (loop * 8) + loop_column, idf_font_size_y, colors[0]);
-                }
-            }
-        }
+    font_data_idf = (unsigned char *) malloc(sizeof(unsigned char)*4096);
+    if (font_data_idf == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (7);
     }
+    memcpy(font_data_idf,input_file_buffer+(input_file_size - 48 - 4096),4096);
     
-    for (loop = 1; loop < 16; loop++)
-    {
-        gdImageFilledRectangle(im_Font, 0, loop * 16, 2048,(loop * 16) + 16, colors[loop]);
-    }
-    gdImageFilledRectangle(im_Font, 0, 0, 2048, 15, colors[16]);
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        gdImageCopy(im_Font, im_InvertFont, 0, loop * 16, 0, 0, 2048, 16);
-    }
-    gdImageColorTransparent(im_Font, colors[0]); 
-    
+    font_data=font_data_idf;
+
     // process IDF
     loop = 12;
     int32_t idf_sequence_length, idf_sequence_loop, i = 0;
@@ -1726,6 +1661,15 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     }
     gdImageColorAllocate(im_IDF, 0, 0, 0);
     
+    // process IDF palette
+    for (loop = 0; loop < 16; loop++)
+    {
+        index = (loop * 3) + input_file_size - 48;
+        colors[loop] = gdImageColorAllocate(im_IDF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
+                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
+    }
+
     // render IDF    
     int32_t position_x = 0, position_y = 0; 
     int32_t character, attribute, color_foreground, color_background;
@@ -1744,8 +1688,7 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;
         
-        gdImageCopy(im_IDF, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
-        gdImageCopy(im_IDF, im_Font, position_x *8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+        alDrawChar(im_IDF, font_data, 8, 8, 16, position_x, position_y, color_background, color_foreground, character);
         
         position_x++;
     }
@@ -1760,9 +1703,6 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     
     // nuke garbage
     gdImageDestroy(im_IDF);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
-    gdImageDestroy(im_InvertFont); 
 }
 
 // TUNDRA
