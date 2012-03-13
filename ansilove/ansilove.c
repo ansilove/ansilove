@@ -1427,6 +1427,9 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
 // ADF
 void alArtworxLoader(char *input, char output[], char bits[])
 {
+    const unsigned char *font_data;
+    unsigned char *font_data_adf;    
+    
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1458,98 +1461,39 @@ void alArtworxLoader(char *input, char output[], char bits[])
     fclose(input_file);
     
     // libgd image pointers
-    gdImagePtr im_ADF, im_Backgrnd, im_Font, im_InvertFont;
+    gdImagePtr im_ADF;
 
-    // create gd image instances
-    im_Backgrnd = gdImageCreate(128, 16);
-    im_Font = gdImageCreate(2048, 256);
-    im_InvertFont = gdImageCreate(2048, 16);
-    
-    // error output
-    if (!im_Backgrnd) {
-        fputs ("\nCan't allocate background buffer image memory.\n\n", stderr); exit (4);
-    }
-    if (!im_Font) {
-        fputs ("\nCan't allocate font buffer image memory.\n\n", stderr); exit (5);
-    }
-    if (!im_InvertFont) {
-        fputs ("\nCan't allocate temporary font buffer image memory.\n\n", stderr); exit (6);
-    }
-    
-    // ADF color palette array
-    int32_t adf_colors[16] = { 0, 1, 2, 3, 4, 5, 20, 7, 56, 57, 58, 59, 60, 61, 62, 63 };
-    
-    // process ADF palette
-    int32_t loop;
-    int32_t index;
-    int32_t colors[21];
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        index = (adf_colors[loop] * 3) + 1;
-        colors[loop] = gdImageColorAllocate(im_Backgrnd, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
-                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
-                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
-    }
-    gdImagePaletteCopy(im_Font, im_Backgrnd);
-    gdImagePaletteCopy(im_InvertFont, im_Backgrnd);
-    
-    // get and apply RGB values
-    int32_t Red = gdImageRed(im_Backgrnd, 0);
-    int32_t Green = gdImageGreen(im_Backgrnd, 0);
-    int32_t Blue = gdImageBlue(im_Backgrnd, 0);
-    
-    colors[16] = gdImageColorAllocate(im_Font, Red, Green, Blue);
-    colors[20] = gdImageColorAllocate(im_InvertFont, 200, 220, 169);
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        gdImageFilledRectangle(im_Backgrnd, loop << 3, 0, 
-                               (loop << 3) + 8, 16, colors[loop]);
-    }
-    
-    // process ADF font
-    gdImageFilledRectangle(im_InvertFont, 0, 0, 2048, 16, colors[20]);
-    gdImageColorTransparent(im_InvertFont, colors[20]);
-    
-    int32_t adf_font_size_y, adf_character_line = 0, adf_character_column = 0, loop_column;
-    
-    for (loop = 0; loop < 256; loop++)
-    {
-        for (adf_font_size_y = 0; adf_font_size_y < 16; adf_font_size_y++)
-        {
-            adf_character_line = input_file_buffer[193 + adf_font_size_y + (loop * 16)];
-            
-            for (loop_column = 0; loop_column < 8; loop_column++)
-            {
-                adf_character_column = 0x80 >> loop_column;
-                
-                if ((adf_character_line & adf_character_column) != adf_character_column)
-                {
-                    gdImageSetPixel(im_InvertFont, (loop * 8) + loop_column, adf_font_size_y, colors[0]);
-                }
-            }
-        }
-    }
-    
-    for (loop = 1; loop < 16; loop++)
-    {
-        gdImageFilledRectangle(im_Font, 0, loop * 16, 2048,(loop * 16) + 16, colors[loop]);
-    }
-    gdImageFilledRectangle(im_Font, 0, 0, 2048, 15, colors[16]);
-    
-    for (loop = 0; loop < 16; loop++)
-    {
-        gdImageCopy(im_Font, im_InvertFont, 0, loop * 16, 0, 0, 2048, 16);
-    }
-    gdImageColorTransparent(im_Font, colors[0]);
-    
     // create ADF instance
     im_ADF = gdImageCreate(640,(((input_file_size - 192 - 4096 -1) / 2) / 80) * 16);
     
     // error output
     if (!im_ADF) {
         fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
+    }
+    
+    // ADF color palette array
+    int32_t adf_colors[16] = { 0, 1, 2, 3, 4, 5, 20, 7, 56, 57, 58, 59, 60, 61, 62, 63 };
+    
+    int32_t loop;
+    int32_t index;
+    int32_t colors[16];
+            
+    // process ADF font
+    font_data_adf = (unsigned char *) malloc(sizeof(unsigned char)*4096);
+    if (font_data_adf == NULL) {
+        fputs ("\nMemory error.\n\n", stderr); exit (7);
+    }
+    memcpy(font_data_adf,input_file_buffer+193,4096);
+    
+    font_data=font_data_adf;
+
+    // process ADF palette    
+    for (loop = 0; loop < 16; loop++)
+    {
+        index = (adf_colors[loop] * 3) + 1;
+        colors[loop] = gdImageColorAllocate(im_ADF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
+                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
     }
     
     gdImageColorAllocate(im_ADF, 0, 0, 0);
@@ -1572,9 +1516,8 @@ void alArtworxLoader(char *input, char output[], char bits[])
         
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;
-        
-        gdImageCopy(im_ADF, im_Backgrnd, position_x * 8, position_y * 16, color_background * 8, 0, 8, 16);
-        gdImageCopy(im_ADF, im_Font, position_x * 8, position_y * 16, character * 8, color_foreground * 16, 8, 16);
+
+        alDrawChar(im_ADF, font_data, 8, 8, 16, position_x, position_y, color_background, color_foreground, character);
         
         position_x++;
         loop+=2;
@@ -1587,9 +1530,6 @@ void alArtworxLoader(char *input, char output[], char bits[])
     
     // nuke garbage
     gdImageDestroy(im_ADF);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
-    gdImageDestroy(im_InvertFont); 
 }
 
 // IDF
