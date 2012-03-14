@@ -16,8 +16,6 @@
 // configuration defines
 #define VERSION "1.0.212"
 
-#define ANSILOVE_FONTS_DIRECTORY "fonts/"
-
 #define PCBOARD_STRIP_CODES "@POFF@,@WAIT@"
 
 #define DIZ_EXTENSIONS ".diz,.ion"
