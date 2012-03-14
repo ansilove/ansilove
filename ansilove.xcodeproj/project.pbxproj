@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */ = {isa = PBXBuildFile; fileRef = F83C075A14F2CB2900FD3EDB /* albinfonts.c */; };
+		F860209D150FE6F7001649C5 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
+		F860209E150FE6F9001649C5 /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
 		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
 		F8CE942014A9198B00AA40BF /* libgd.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */; };
-		F8CE942214A9199900AA40BF /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
 		F8CE942414A919D800AA40BF /* libgd.2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE941F14A9198B00AA40BF /* libgd.2.0.0.dylib */; };
-		F8CE942514A919D800AA40BF /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
 		F8CF83DF14A9BB9700ABB607 /* ansilove.c in Sources */ = {isa = PBXBuildFile; fileRef = F8CF83DE14A9BB9700ABB607 /* ansilove.c */; };
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
 		F8FBC5BB14A1DE640034BF83 /* strtolower.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5BA14A1DE640034BF83 /* strtolower.c */; };
@@ -29,7 +29,7 @@
 			dstSubfolderSpec = 6;
 			files = (
 				F8CE942414A919D800AA40BF /* libgd.2.0.0.dylib in CopyFiles */,
-				F8CE942514A919D800AA40BF /* libjpeg.8.dylib in CopyFiles */,
+				F860209E150FE6F9001649C5 /* libjpeg.8.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +64,7 @@
 			files = (
 				F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */,
 				F8CE942014A9198B00AA40BF /* libgd.2.0.0.dylib in Frameworks */,
-				F8CE942214A9199900AA40BF /* libjpeg.8.dylib in Frameworks */,
+				F860209D150FE6F7001649C5 /* libjpeg.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
