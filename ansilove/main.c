@@ -35,27 +35,28 @@ void synopsis(void);
 
 void showHelp(void)
 {
-    printf("\nHelp is on the way!\n\n");
+    printf("\nSUPPORTED FILE TYPES:\n"
+           "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
+           "  Files with custom suffix default to the ANSi renderer.\n\n"
+           "OPERANDS:\n"
+           "  Optional values to adjust output. There are certain cases where you need to\n"
+           "  set operands for proper rendering. However, this is occassionally. Results\n"
+           "  turn out well with the built-in defaults. You may launch AnsiLove with the\n"
+           "  option -e to get a list of basic examples, with and without operands. Note\n"
+           "  that columns is restricted to BIN files, it won't affect other file types.\n\n"
+           "DOCUMENTATION:\n"
+           "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
+           "  <https://github.com/ByteProject/AnsiLove-C/>\n\n");
 }
 
 void listExamples(void)
 {
     printf("\nEXAMPLES:\n"); 
-    printf("ansilove ansi.ans ansi.png\n");
-    printf("ansilove ansi.ans ansi.png 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
-    printf("ansilove ansi.ans -s 80x25 (80x25 font)\n");
-    printf("ansilove ansi.ans ansi.png 80x50 9 (80x50 font, 9-bit)\n");
-    printf("ansilove ansi.ans -s russian 9 (Russian font, 9-bit)\n");
-    printf("ansilove ansi.ans ansi.png amiga (Amiga font)\n");
-    printf("ansilove pcboard.pcb pcboard.png\n");
-    printf("ansilove pcboard.pcb pcboard.png 80x25 9 (80x25 font, 9-bit)\n");
-    printf("ansilove binary.bin -s 160\n");
-    printf("ansilove binary.bin binary.png 160 80x25 9 1 (80x25 font, 9-bit, iCE colors)\n");
-    printf("ansilove binary.bin binary.png 160 80x50 9 (80x50 font, 9-bit)\n");
-    printf("ansilove tundra.tnd tundra.png\n");
-    printf("ansilove tundra.tnd -s 80x25 9 (80x25 font, 9-bit)\n");
-    printf("ansilove xbin.xb xbin.png\n");
-    printf("ansilove ansiwithsauce.ans -r (just display SAUCE record)\n\n");
+    printf("  ansilove file.ans -i (output identical input with .png suffix, no operands)\n"
+           "  ansilove file.ans -o foo/out.png (custom path for output, no operands)\n"
+           "  ansilove file.bin -s (just display SAUCE record, don't generate output)\n"
+           "  ansilove file.bin -i terminus 8 1 202 (set font, bits, icecolors, columns)\n"
+           "  ansilove file.ans -o out.png terminus 8 1 (custom font, bits, icecolors)\n\n");
 }
 
 void versionInfo(void)
