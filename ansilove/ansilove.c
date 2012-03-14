@@ -2287,5 +2287,3 @@ void readComments(FILE *file, char **comment_lines, int32_t comments)
     free(comment_lines);
     return;
 }
-
-
