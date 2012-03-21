@@ -1,10 +1,10 @@
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into PNG images. Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as completed and stable, current version is `1.0.237`.
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as completed and stable, current version is `1.0.237`.
 
 # Specs 
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `gcc` and `Clang`, others may work but aren't tested. All files include the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`. In other words: on the Mac, the resulting binary is a Foundation tool. We use Mac OS X and Linux for AnsiLove/C development. You'll find a Xcode project file in this repository. Additional there's a shell script that builds AnsiLove/C on Ubuntu, it should compile on other distros as well. Feel free to fork and add custom build scripts for your own platform, [Homebrew](https://github.com/mxcl/homebrew) formulas, Linux packages, whatever.
+AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. All files include the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`. In other words: on the Mac, the resulting binary is a Foundation tool. We use Mac OS X and Linux for AnsiLove/C development. You'll find a Xcode project file in this repository. Additional there's a shell script that builds AnsiLove/C on Ubuntu, it should compile on other distros as well. Feel free to fork and add custom build scripts for your own platform, [Homebrew](https://github.com/mxcl/homebrew) formulas, Linux packages, whatever.
 
 # Why C?
 
@@ -19,14 +19,14 @@ If you're looking for something to implement into your Cocoa applications, we hi
 Rendering of all known ANSi / ASCII art file types:
 
 - ANSi (.ANS)
-- BiNARY (.BIN)
+- Binary (.BIN)
 - Artworx (.ADF)
 - iCE Draw (.IDF)
-- XBiN (.XB) [details](http://www.acid.org/info/xbin/xbin.htm)
-- PCBOARD (.PCB)
-- TUNDRA (.TND) [details](http://sourceforge.net/projects/tundradraw)
+- Xbin (.XB) [details](http://www.acid.org/info/xbin/xbin.htm)
+- PCBoard (.PCB)
+- Tundra (.TND) [details](http://sourceforge.net/projects/tundradraw)
 - ASCII (.ASC)
-- RELEASE info (.NFO)
+- Release info (.NFO)
 - Description in zipfile (.DIZ)
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
@@ -37,11 +37,11 @@ AnsiLove/C is capabable of processing:
 - DOS and Amiga fonts (embedded binary dump) 
 - iCE colors
 
-What else is there:
+Even more:
 
-- Output files are highly optimized 4-bit PNGs
-- You can use custom operands for adjusting output results
-- Built-in support for rendering Amiga ASCII
+- Output files are highly optimized 4-bit PNGs.
+- You can use custom operands for adjusting output results.
+- Built-in support for rendering Amiga ASCII.
 
 # Documentation
 
@@ -71,7 +71,7 @@ Optional values to adjust output. There are certain cases where you need to set 
 
 ## font (operand)
 
-We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available right at your fingertips. 
+We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available at your fingertips. 
 
 PC fonts can be (all case-sensitive):
 
@@ -131,7 +131,7 @@ Settings the bits to `transparent` will produce output files with transparent ba
 - `0`
 - `1`
 
-Setting `icecolors` to `1` will enable iCE color codes. On the opposite `0` means that that `iceColors` are disabled, which is the default value. When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
+Setting `icecolors` to `1` will enable iCE color codes. On the opposite `0` means that that `icecolors` are disabled, which is the default value. When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
 
 ## columns (operand)
 
