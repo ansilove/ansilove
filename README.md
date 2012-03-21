@@ -67,7 +67,7 @@ One major goal for AnsiLove/C was implementing the look and feel of common UNIX 
 
 	font bits icecolors columns
 
-Optional values to adjust output. There are certain cases where you need to set operands for proper rendering. However, this is occassionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples, with and without operands. Note that columns is restricted to BIN files, it won't affect other file types. It's also worth mentioning that setting a certain operand requires to set all operands before, so if you need to modifiy the `icecolors` operand, you have to set `font` and `bits` as well. On the other hand, it's fine to set the `font` operand while not setting any of the following. Got that?
+Optional values to adjust output. There are certain cases where you need to set operands for proper rendering. However, this is occassionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples, with and without operands. Note that columns is restricted to `BIN` files, it won't affect other file types. It's also worth mentioning that setting a certain operand requires to set all operands before, so if you need to modifiy the `icecolors` operand, you have to set `font` and `bits` as well. On the other hand, it's fine to set the `font` operand while not setting any of the following. Got that?
 
 ## font (operand)
 
@@ -118,11 +118,11 @@ AMIGA fonts can be (all case-sensitive):
 
 Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode. 
 
-Setting the bits to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `.ans` files). Used together with an `AMIGA` font, the output will look like it is displayed on Amiga.
+Setting the bits to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an `AMIGA` font, the output will look like it is displayed on Amiga.
 
-Setting the bits to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `.ans` files).
+Setting the bits to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `ANS` files).
 
-Settings the bits to `transparent` will produce output files with transparent background (only available for `.ans` files).
+Settings the bits to `transparent` will produce output files with transparent background (only available for `ANS` files).
 
 ## icecolors (operand)
 
@@ -135,7 +135,7 @@ Setting `icecolors` to `1` will enable iCE color codes. On the opposite `0` mean
 
 ## columns (operand)
 
-`columns` is only relevant for ANSi source files with `.bin` extension and even for those files optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to .bin files and only if you exactly know what you're doing. A KITTEN MAY DIE SOMEWHERE.
+`columns` is only relevant for ANSi source files with `BIN` extension and even for those files optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to `BIN` files and only if you exactly know what you're doing. A KITTEN MAY DIE SOMEWHERE.
 
 ## SAUCE records
 
