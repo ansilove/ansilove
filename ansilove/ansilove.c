@@ -326,7 +326,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     int32_t saved_position_y, saved_position_x;
     
     // sequence parsing variables
-    int32_t seqContent, seqValue, seqArrayCount;
+    int32_t seqContent, seqValue, seqArrayCount, seq_line, seq_column;
     char *seqGrab;
     char **seqArray;
     
@@ -401,14 +401,20 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                     // create sequence content array
                     seqArrayCount = explode(&seqArray, ';', seqGrab);
                     
-                    // convert grabbed sequence content to integers
-                    int32_t seq_line = atoi(seqArray[0]);
-                    int32_t seq_column = atoi(seqArray[1]);
-
-                    // finally set the positions
-                    position_y = seq_line-1;
-                    position_x = seq_column-1;
-                    
+                    if (seqArrayCount > 1) {
+                        // convert grabbed sequence content to integers
+                        seq_line = atoi(seqArray[0]);
+                        seq_column = atoi(seqArray[1]);
+                        
+                        // finally set the positions
+                        position_y = seq_line-1;
+                        position_x = seq_column-1;
+                    }
+                    else {
+                        // no coordinates specified? we move to the home position
+                        position_y = 0;
+                        position_x = 0;
+                    }
                     loop+=ansi_sequence_loop+2;
                     break;
                 }
