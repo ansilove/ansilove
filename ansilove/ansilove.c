@@ -547,7 +547,6 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
                         ansi_buffer = malloc(sizeof(struct ansiChar));
                         structIndex=0;
                     }
-                        
                     loop+=ansi_sequence_loop+2;
                     break;
                 }
