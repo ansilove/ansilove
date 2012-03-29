@@ -2124,7 +2124,7 @@ void alXbinLoader(char *input, char output[], char bits[])
             color_background = (attribute & 240) >> 4;
             color_foreground = attribute & 15;
 
-            alDrawChar(im_XBIN, font_data, 8, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
+            alDrawChar(im_XBIN, font_data, 8, 8, xbin_fontsize, position_x, position_y, colors[color_background], colors[color_foreground], character);
             
             position_x++;
             offset+=2;
