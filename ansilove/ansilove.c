@@ -2047,7 +2047,7 @@ void alXbinLoader(char *input, char output[], char bits[])
 
     // read compressed xbin
     if( (xbin_flags & 4) == 4) {
-        while(offset < input_file_size && input_file_buffer[ offset ] != 0x1A )
+        while(offset < input_file_size && position_y != xbin_height )
         {
             int32_t ctype = input_file_buffer[ offset ] & 0xC0;
             int32_t counter = ( input_file_buffer[ offset ] & 0x3F ) + 1;
@@ -2110,7 +2110,7 @@ void alXbinLoader(char *input, char output[], char bits[])
     }
     // read uncompressed xbin
     else {
-        while(offset < input_file_size && input_file_buffer[ offset ] != 0x1A )
+        while(offset < input_file_size && position_y != xbin_height )
         {
             if (position_x == xbin_width)
             {
