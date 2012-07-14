@@ -164,7 +164,7 @@
 		F8D6326E14A08C0F00C5352F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = F8D6327114A08C0F00C5352F /* Build configuration list for PBXProject "ansilove" */;
 			compatibilityVersion = "Xcode 3.2";

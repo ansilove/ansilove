@@ -1,6 +1,6 @@
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as completed and stable, current version is `1.0.248`.
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as completed and stable, current version is `1.1.0`.
 
 # Specs 
 
@@ -77,7 +77,6 @@ PC fonts can be (all case-sensitive):
 
 - `80x25` (code page 437)
 - `80x50` (code page 437, 80x50 mode)
-- `armenian`
 - `baltic` (code page 775)
 - `cyrillic` (code page 855)
 - `french-canadian` (code page 863)
@@ -88,7 +87,6 @@ PC fonts can be (all case-sensitive):
 - `latin1` (code page 850)
 - `latin2` (code page 852)
 - `nordic` (code page 865)
-- `persian` (Iran System encoding standard)
 - `portuguese` (Code page 860)
 - `russian` (code page 866)
 - `terminus` (modern font, code page 437)
