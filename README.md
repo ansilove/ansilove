@@ -98,7 +98,7 @@ AMIGA fonts can be (all case-sensitive):
 
 - `amiga` (alias to Topaz)
 - `microknight` (Original MicroKnight version)
-- `microknightplus` (Modified MicroKnight version)
+- `microknight+` (Modified MicroKnight version)
 - `mosoul` (Original mO'sOul font)
 - `pot-noodle` (Original P0T-NOoDLE font)
 - `topaz` (Original Topaz Kickstart 2.x version)
