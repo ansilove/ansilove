@@ -102,9 +102,9 @@ AMIGA fonts can be (all case-sensitive):
 - `mosoul` (Original mO'sOul font)
 - `pot-noodle` (Original P0T-NOoDLE font)
 - `topaz` (Original Topaz Kickstart 2.x version)
-- `topazplus` (Modified Topaz Kickstart 2.x+ version)
+- `topaz+` (Modified Topaz Kickstart 2.x+ version)
 - `topaz500` (Original Topaz Kickstart 1.x version)
-- `topaz500plus` (Modified Topaz Kickstart 1.x version)
+- `topaz500+` (Modified Topaz Kickstart 1.x version)
 
 ## bits (operand)
 
