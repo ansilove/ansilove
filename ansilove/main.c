@@ -52,11 +52,17 @@ void showHelp(void)
 void listExamples(void)
 {
     printf("\nEXAMPLES:\n"); 
-    printf("  ansilove file.ans -i (output identical input with .png suffix, no operands)\n"
-           "  ansilove file.ans -o foo/out.png (custom path for output, no operands)\n"
+    printf("  ansilove file.ans -i (output path/name identical to input, no operands)\n"
+           "  ansilove file.ans -ir (same as -i, adds Retina @2x output file)\n"
+           "  ansilove file.ans -o dir/file (custom path/name for output, no operands)\n"
+           "  ansilove file.ans -or dir/file (same as -o, adds Retina @2x output file)\n"
            "  ansilove file.bin -s (just display SAUCE record, don't generate output)\n"
            "  ansilove file.bin -i terminus 8 1 202 (set font, bits, icecolors, columns)\n"
-           "  ansilove file.ans -o out.png terminus 8 1 (custom font, bits, icecolors)\n\n");
+           "  ansilove file.ans -o dir/file terminus 8 1 (custom font, bits, icecolors)\n"
+           "  ansilove file.ans -or dir/file 80x25 8 1 (DOS font, bits, iCE, Retina)\n\n"
+           "HINT:\n"
+           "  Don't add .png suffix when specifying a custom path/name for output as it\n"
+           "  will be added automatically.\n\n");
 }
 
 void versionInfo(void)
@@ -74,17 +80,21 @@ void versionInfo(void)
 void synopsis(void)
 {
     printf("\nSYNOPSIS:\n"
-           "  ansilove file -i [operands]\n"
-           "  ansilove file -o file.png [operands]\n"
-           "  ansilove file -s\n"
+           "  ansilove input -i [operands]\n"
+           "  ansilove input -ir [operands]\n"
+           "  ansilove input -o output [operands]\n"
+           "  ansilove input -or output [operands]\n"
+           "  ansilove input -s\n"
            "  ansilove -vhe\n\n"
            "OPTIONS:\n"
-           "  -i  output identical to input with .png suffix added\n"
-           "  -o  specify custom file name / path for output\n"
-           "  -s  display SAUCE record without generating output\n"
-           "  -v  version information, equivalent to --version\n"
-           "  -h  show help, equivalent to --help\n"
-           "  -e  print a list of examples\n\n"
+           "  -i   output identical to input with .png suffix added\n"
+           "  -ir  same as -i, creates additional Retina @2x output file\n"
+           "  -o   specify custom file name/path for output\n"
+           "  -or  same as -o, creates additional Retina @2x output file\n"
+           "  -s   display SAUCE record without generating output\n"
+           "  -v   version information, equivalent to --version\n"
+           "  -h   show help, equivalent to --help\n"
+           "  -e   print a list of examples\n\n"
            "OPERANDS:\n"
            "  font bits icecolors columns\n\n");
 }
@@ -97,6 +107,9 @@ int main(int argc, char *argv[])
     // SAUCE record related bool types
     bool justDisplaySAUCE = false;
     bool fileHasSAUCE = false;
+    
+    // retina output bool type
+    bool createRetinaRep = false;
     
     // analyze options and do what has to be done
     bool outputIdentical = false;
@@ -121,14 +134,20 @@ int main(int argc, char *argv[])
         listExamples();
         return EXIT_SUCCESS;
     }
-    if ((argv[2] && (strcmp(argv[2], "-s") == 0)) ||
-        (argv[2] && (strcmp(argv[2], "-i") == 0)) ||
-        (argv[2] && (strcmp(argv[2], "-o") == 0))) 
+    if ((argv[2] && (strcmp(argv[2], "-s") == 0))  ||
+        (argv[2] && (strcmp(argv[2], "-i") == 0))  ||
+        (argv[2] && (strcmp(argv[2], "-ir") == 0)) ||
+        (argv[2] && (strcmp(argv[2], "-o") == 0))  ||
+        (argv[2] && (strcmp(argv[2], "-or") == 0)))
     {
         if (strcmp(argv[2], "-s") == 0) {
             justDisplaySAUCE = true;
         }
         
+        if (strcmp(argv[2], "-ir") == 0 || strcmp(argv[2], "-or") == 0) {
+            createRetinaRep = true;
+        }
+                
         // let's check the file for a valid SAUCE record
         sauce *record = sauceReadFileName(argv[1]);
         
@@ -150,6 +169,7 @@ int main(int argc, char *argv[])
             // declaration of types we pass to ansilove.c
             char *input = argv[1];
             char output[1000] = { 0 };
+            char retinaout[1000] = { 0 };
             char columns[1000] = { 0 };
             char font[1000] = { 0 };
             char bits[1000] = { 0 };
@@ -172,21 +192,42 @@ int main(int argc, char *argv[])
                 fext = "none";
             }
             
-            // in case we got arguments for input and the '-i' flag is set
+            // in case we got arguments for input and the '-i' or '-ir' flag is set
             if (strcmp(argv[2], "-i") == 0) {
                 // append .png suffix to file name
                 sprintf(output, "%s.png", input);
+                sprintf(retinaout, "placeholder_%s.png", input);
+                outputIdentical = true;
+            }
+            
+            if (strcmp(argv[2], "-ir") == 0) {
+                // again, append .png and also add @2x for retina output
+                sprintf(output, "%s.png", input);
+                sprintf(retinaout, "%s@2x.png", input);
                 outputIdentical = true;
             }
             
             if ((strcmp(argv[2], "-o") == 0) && argv[3]) {
                 // so the user provided an alternate path / file name
-                sprintf(output, "%s", argv[3]);
+                sprintf(output, "%s.png", argv[3]);
+                sprintf(retinaout, "placeholder_%s.png", input);
+            }
+            
+            if ((strcmp(argv[2], "-or") == 0) && argv[3]) {
+                // alternate path and retina? damn you! even more work.
+                sprintf(output, "%s.png", argv[3]);
+                sprintf(retinaout, "%s@2x.png", argv[3]);
             }
         
             if ((strcmp(argv[2], "-o") == 0) && !argv[3]) {
                 // arrr... matey! setting the option -o without output file argument, eh?
                 printf("\nOption -o is invalid without output file argument.\n\n");
+                return EXIT_FAILURE;
+            }
+            
+            if ((strcmp(argv[2], "-or") == 0) && !argv[3]) {
+                // y u no enter output file argument?
+                printf("\nOption -or is invalid without output file argument.\n\n");
                 return EXIT_FAILURE;
             }
             
@@ -310,39 +351,42 @@ int main(int argc, char *argv[])
             // create the output file by invoking the appropiate function
             if (strcmp(fext, ".pcb") == 0) {
                 // params: input, output, font, bits, icecolors
-                alPcBoardLoader(input, output, font, bits);
+                alPcBoardLoader(input, output, retinaout, font, bits, createRetinaRep);
                 fileIsPCBoard = true;
             }
             else if (strcmp(fext, ".bin") == 0) {
                 // params: input, output, columns, font, bits, icecolors
-                alBinaryLoader(input, output, columns, font, bits, icecolors);
+                alBinaryLoader(input, output, retinaout, columns, font, bits, icecolors, createRetinaRep);
                 fileIsBinary = true;
             }
             else if (strcmp(fext, ".adf") == 0) {
                 // params: input, output, bits
-                alArtworxLoader(input, output, bits);
+                alArtworxLoader(input, output, retinaout, bits, createRetinaRep);
             }
             else if (strcmp(fext, ".idf") == 0) {
                 // params: input, output, bits
-                alIcedrawLoader(input, output, bits, fileHasSAUCE);
+                alIcedrawLoader(input, output, retinaout, bits, fileHasSAUCE, createRetinaRep);
             }
             else if (strcmp(fext, ".tnd") == 0) {
-                alTundraLoader(input, output, font, bits);
+                alTundraLoader(input, output, retinaout, font, bits, createRetinaRep);
                 fileIsTundra = true;
             }
             else if (strcmp(fext, ".xb") == 0) {
                 // params: input, output, bits
-                alXbinLoader(input, output, bits);
+                alXbinLoader(input, output, retinaout, bits, createRetinaRep);
             }
             else {
                 // params: input, output, font, bits, icecolors, fext
-                alAnsiLoader(input, output, font, bits, icecolors, fext);
+                alAnsiLoader(input, output, retinaout, font, bits, icecolors, fext, createRetinaRep);
                 fileIsANSi = true;
             }
             
             // gather information and report to the command line
             printf("\nInput File: %s\n", input);
             printf("Output File: %s\n", output);
+            if (createRetinaRep == true) {
+                printf("Retina Output File: %s\n", retinaout);
+            }
             if (fileIsANSi == true || fileIsBinary == true || 
                 fileIsPCBoard == true || fileIsTundra == true) {
                 printf("Font: %s\n", font);

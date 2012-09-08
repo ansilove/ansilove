@@ -43,7 +43,7 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 }
 
 // ANSi
-void alAnsiLoader(char *input, char output[], char font[], char bits[], char icecolors[], char *fext)
+void alAnsiLoader(char *input, char output[], char retinaout[], char font[], char bits[], char icecolors[], char *fext, bool createRetinaRep)
 {
     const unsigned char *font_data;
 
@@ -987,6 +987,26 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
     gdImagePng(im_ANSi, file_Out);
     fclose(file_Out);
     
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_ANSi
+        im_RetinaANSi = gdImageCreate(im_ANSi->sx * 2, im_ANSi->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_ANSi, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_ANSi->sx, im_ANSi->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
+    
     // free memory
     free(ansi_buffer);
     
@@ -996,7 +1016,7 @@ void alAnsiLoader(char *input, char output[], char font[], char bits[], char ice
 }
 
 // PCB
-void alPcBoardLoader(char *input, char output[], char font[], char bits[])
+void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1364,12 +1384,32 @@ void alPcBoardLoader(char *input, char output[], char font[], char bits[])
     gdImagePng(im_PCB, file_Out);
     fclose(file_Out);
     
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_PCB
+        im_RetinaANSi = gdImageCreate(im_PCB->sx * 2, im_PCB->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_PCB, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_PCB->sx, im_PCB->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
+    
     // free memory
     gdImageDestroy(im_PCB);
 }
 
 // BINARY
-void alBinaryLoader(char *input, char output[], char columns[], char font[], char bits[], char icecolors[])
+void alBinaryLoader(char *input, char output[], char retinaout[], char columns[], char font[], char bits[], char icecolors[], bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1618,13 +1658,33 @@ void alBinaryLoader(char *input, char output[], char columns[], char font[], cha
     FILE *file_Out = fopen(output, "wb");
     gdImagePng(im_Binary, file_Out);
     fclose(file_Out);
+    
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_Binary
+        im_RetinaANSi = gdImageCreate(im_Binary->sx * 2, im_Binary->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_Binary, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_Binary->sx, im_Binary->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
 
     // free memory
     gdImageDestroy(im_Binary);
 }
 
 // ADF
-void alArtworxLoader(char *input, char output[], char bits[])
+void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;    
@@ -1727,12 +1787,32 @@ void alArtworxLoader(char *input, char output[], char bits[])
     gdImagePng(im_ADF, file_Out);
     fclose(file_Out);
     
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_ADF
+        im_RetinaANSi = gdImageCreate(im_ADF->sx * 2, im_ADF->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_ADF, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_ADF->sx, im_ADF->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
+
     // nuke garbage
     gdImageDestroy(im_ADF);
 }
 
 // IDF
-void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
+void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;
@@ -1900,12 +1980,32 @@ void alIcedrawLoader(char *input, char output[], char bits[], bool fileHasSAUCE)
     gdImagePng(im_IDF, file_Out);
     fclose(file_Out);
     
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_IDF
+        im_RetinaANSi = gdImageCreate(im_IDF->sx * 2, im_IDF->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_IDF, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_IDF->sx, im_IDF->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
+    
     // nuke garbage
     gdImageDestroy(im_IDF);
 }
 
 // TUNDRA
-void alTundraLoader(char *input, char output[], char font[], char bits[])
+void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep)
 {
     int32_t columns = 80;
     int32_t font_size_x;
@@ -2121,12 +2221,32 @@ void alTundraLoader(char *input, char output[], char font[], char bits[])
     gdImagePng(im_Tundra, file_Out);
     fclose(file_Out);
     
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_Tundra
+        im_RetinaANSi = gdImageCreate(im_Tundra->sx * 2, im_Tundra->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_Tundra, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_Tundra->sx, im_Tundra->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
+    
     // free memory
     gdImageDestroy(im_Tundra);    
 }
 
 // XBIN
-void alXbinLoader(char *input, char output[], char bits[])
+void alXbinLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_xbin;
@@ -2332,6 +2452,26 @@ void alXbinLoader(char *input, char output[], char bits[])
     FILE *file_Out = fopen(output, "wb");
     gdImagePng(im_XBIN, file_Out);
     fclose(file_Out);
+    
+    // in case Retina image output is wanted
+    if (createRetinaRep == true)
+    {
+        gdImagePtr im_RetinaANSi;
+        
+        // make the Retina image @2x as large as im_XBIN
+        im_RetinaANSi = gdImageCreate(im_XBIN->sx * 2, im_XBIN->sy * 2);
+        
+        gdImageCopyResized(im_RetinaANSi, im_XBIN, 0, 0, 0, 0,
+                           im_RetinaANSi->sx, im_RetinaANSi->sy,
+                           im_XBIN->sx, im_XBIN->sy);
+        
+        // create retina output image
+        FILE *file_RetinaOut = fopen(retinaout, "wb");
+        gdImagePng(im_RetinaANSi, file_RetinaOut);
+        fclose(file_RetinaOut);
+        
+        gdImageDestroy(im_RetinaANSi);
+    }
     
     // nuke garbage
     gdImageDestroy(im_XBIN);
