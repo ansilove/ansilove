@@ -2017,13 +2017,134 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
         font_data = font_pc_80x25;
-        font_size_x = 8;
+        font_size_x = 9;
         font_size_y = 16;
     }
     else if (strcmp(font, "80x50") == 0) {
         font_data = font_pc_80x50;
-        font_size_x = 8;
+        font_size_x = 9;
         font_size_y = 8;
+    }
+    else if (strcmp(font, "terminus") == 0) {
+        font_data = font_pc_terminus;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "baltic") == 0) {
+        font_data = font_pc_baltic;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "cyrillic") == 0) {
+        font_data = font_pc_cyrillic;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "french-canadian") == 0) {
+        font_data = font_pc_french_canadian;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "greek") == 0) {
+        font_data = font_pc_greek;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "greek-869") == 0) {
+        font_data = font_pc_greek_869;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "hebrew") == 0) {
+        font_data = font_pc_hebrew;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "icelandic") == 0) {
+        font_data = font_pc_icelandic;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "latin1") == 0) {
+        font_data = font_pc_latin1;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "latin2") == 0) {
+        font_data = font_pc_latin2;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "nordic") == 0) {
+        font_data = font_pc_nordic;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "portuguese") == 0) {
+        font_data = font_pc_portuguese;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "russian") == 0) {
+        font_data = font_pc_russian;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "turkish") == 0) {
+        font_data = font_pc_turkish;
+        font_size_x = 9;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "amiga") == 0) {
+        font_data = font_amiga_topaz_1200;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "microknight") == 0) {
+        font_data = font_amiga_microknight;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "microknight+") == 0) {
+        font_data = font_amiga_microknight_plus;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "mosoul") == 0) {
+        font_data = font_amiga_mosoul;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "pot-noodle") == 0) {
+        font_data = font_amiga_pot_noodle;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz") == 0) {
+        font_data = font_amiga_topaz_1200;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz+") == 0) {
+        font_data = font_amiga_topaz_1200_plus;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500") == 0) {
+        font_data = font_amiga_topaz_500;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500+") == 0) {
+        font_data = font_amiga_topaz_500_plus;
+        font_size_x = 8;
+        font_size_y = 16;
+    }
+    else {
+        // in all other cases use the standard DOS font
+        font_data = font_pc_80x25;
+        font_size_x = 9;
+        font_size_y = 16;
     }
     
     // now set bits to 8 if not already value 8 or 9
