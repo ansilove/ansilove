@@ -14,7 +14,7 @@
 #define alconfig_h
 
 // configuration defines
-#define VERSION "2.0.1"
+#define VERSION "2.0.2"
 
 #define PCBOARD_STRIP_CODES "@POFF@,@WAIT@"
 
