@@ -613,6 +613,13 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
                     loop+=ansi_sequence_loop+2;
                     break;
                 }
+
+                // skipping set mode and reset mode sequences
+                if (ansi_sequence_character == 'h' || ansi_sequence_character == 'l')
+                {
+                    loop+=ansi_sequence_loop+2;
+                    break;
+                }
             }
         }
         else if (current_character!=10 && current_character!=13 && current_character!=9)
