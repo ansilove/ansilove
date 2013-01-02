@@ -13,6 +13,7 @@ echo "========================================="
 echo "AnsiLove/C build script --> Ubuntu Linux "
 echo "========================================="
 echo "... building"
+mkdir ../bin > /dev/null
 gcc -Wall ../ansilove/main.c \
         ../ansilove/alconfig.h ../ansilove/ansilove.h ../ansilove/ansilove.c \
         ../ansilove/substr.h ../ansilove/substr.c ../ansilove/strtolower.h \
