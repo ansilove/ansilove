@@ -20,7 +20,7 @@ gcc -Wall ../ansilove/main.c \
         ../ansilove/filesize.h ../ansilove/filesize.c ../ansilove/albinfonts.h \
         ../ansilove/albinfonts.c \
  -lz -ljpeg -lpng -lfreetype -lm -lgd \
- -o /home/main/ansilove
+ -o ../bin/ansilove
 echo "... done.  Get on with that looooove!"
 
 exit
