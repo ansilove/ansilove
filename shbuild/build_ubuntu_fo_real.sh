@@ -13,12 +13,14 @@ echo "========================================="
 echo "AnsiLove/C build script --> Ubuntu Linux "
 echo "========================================="
 echo "... building"
-gcc -Wall -lgd -ljpeg -lpng -lz -lfreetype -lm ../ansilove/main.c \
+gcc -Wall ../ansilove/main.c \
         ../ansilove/alconfig.h ../ansilove/ansilove.h ../ansilove/ansilove.c \
         ../ansilove/substr.h ../ansilove/substr.c ../ansilove/strtolower.h \
         ../ansilove/strtolower.c ../ansilove/explode.h ../ansilove/explode.c \
         ../ansilove/filesize.h ../ansilove/filesize.c ../ansilove/albinfonts.h \
-        ../ansilove/albinfonts.c -o ansilove
+        ../ansilove/albinfonts.c \
+ -lz -ljpeg -lpng -lfreetype -lm -lgd \
+ -o /home/main/ansilove
 echo "... done.  Get on with that looooove!"
 
 exit
