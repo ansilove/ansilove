@@ -2,7 +2,7 @@
 //  ansilove.c
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2013 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
@@ -762,8 +762,8 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
         // process workbench colors
         gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
         
-        int32_t workbench_background;
-                
+        int32_t workbench_background = 0;
+        
         gdImageFill(im_ANSi, 0, 0, workbench_background);
         
         for (loop=0; loop<8; loop++)
