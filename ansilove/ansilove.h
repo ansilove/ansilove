@@ -2,7 +2,7 @@
 //  ansilove.h
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2012 Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2013 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
