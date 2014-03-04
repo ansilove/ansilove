@@ -2,7 +2,7 @@
 //  ansilove.h
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2013 Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2014 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
@@ -30,6 +30,7 @@
 #include "substr.h"
 #include "explode.h"
 #include "filesize.h"
+#include "ord.h"
 #endif
 
 #ifndef ansilove_h
@@ -49,7 +50,7 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
 void alBinaryLoader(char *input, char output[], char retinaout[], char columns[], char font[], char bits[], char icecolors[], bool createRetinaRep);
 void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep);
 void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], bool fileHasSAUCE, bool createRetinaRep);
-void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep);
+void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool fileHasSAUCE, bool createRetinaRep);
 void alXbinLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep);
 
 // helper functions
