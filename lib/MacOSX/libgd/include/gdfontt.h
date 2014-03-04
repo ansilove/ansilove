@@ -1,8 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 #ifndef _GDFONTT_H_
 #define _GDFONTT_H_ 1
 
@@ -21,18 +16,13 @@ extern "C"
 	"Libor Skarvada, libor@informatics.muni.cz"
  */
 
-
 #include "gd.h"
 
-   BGD_EXPORT_DATA_PROT  gdFontPtr gdFontTiny;
-   BGD_DECLARE(gdFontPtr) gdFontGetTiny(void);
+extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontTiny;
+BGD_DECLARE(gdFontPtr) gdFontGetTiny(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
-
-#ifdef __cplusplus
-}
 #endif

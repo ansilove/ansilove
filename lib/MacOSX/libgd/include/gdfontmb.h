@@ -1,8 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 #ifndef _GDFONTMB_H_
 #define _GDFONTMB_H_ 1
 
@@ -20,18 +15,13 @@ extern "C"
 	No copyright info was found in the original bdf.
  */
 
-
 #include "gd.h"
 
-   BGD_EXPORT_DATA_PROT  gdFontPtr gdFontMediumBold;
-   BGD_DECLARE(gdFontPtr) gdFontGetMediumBold(void);
+extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontMediumBold;
+BGD_DECLARE(gdFontPtr) gdFontGetMediumBold(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
-
-#ifdef __cplusplus
-}
 #endif
