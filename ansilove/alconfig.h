@@ -2,7 +2,7 @@
 //  alconfig.h
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2013 Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2014 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
 //  https://github.com/ByteProject/AnsiLove-C/
 //
@@ -14,7 +14,7 @@
 #define alconfig_h
 
 // configuration defines
-#define VERSION "2.1.0"
+#define VERSION "2.1.1"
 
 #define PCBOARD_STRIP_CODES "@POFF@,@WAIT@"
 
