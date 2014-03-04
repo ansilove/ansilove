@@ -908,7 +908,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
                             character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
             }
             
-            if (bold == true && italics == false)
+            if (bold == true && italics == false && (ced == true || workbench == true))
             {
                 gdImageCopy(im_ANSi, im_Font, 1 + position_x * int_bits, position_y * font_size_y, 
                             character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
@@ -2012,7 +2012,7 @@ void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], 
 }
 
 // TUNDRA
-void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep)
+void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
 {
     int32_t columns = 80;
     int32_t font_size_x;
@@ -2020,7 +2020,7 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
     const unsigned char *font_data;
     char tundra_version;
     char tundra_header[8];
-    
+
     // determine the font we use to render the output
     if (strcmp(font, "80x25") == 0) {
         font_data = font_pc_80x25;
@@ -2153,45 +2153,53 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
         font_size_x = 9;
         font_size_y = 16;
     }
-    
+
     // now set bits to 8 if not already value 8 or 9
     if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
         sprintf(bits, "%s", "8");
     }
-    
+
     // load input file
     FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) { 
+    if (input_file == NULL) {
         fputs("\nFile error.\n\n", stderr); exit (1);
     }
-    
+
     // get the file size (bytes)
     size_t get_file_size = filesize(input);
     int32_t input_file_size = (int32_t)get_file_size;
-    
+
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
     size_t result;
-    
+
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
     if (input_file_buffer == NULL) {
         fputs ("\nMemory error.\n\n", stderr); exit (2);
     }
-    
+
     // copy the file into the buffer
     result = fread(input_file_buffer, 1, input_file_size, input_file);
     if (result != input_file_size) {
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
-    
-    // close input file, we don't need it anymore
+
+    // rewind the input file
     rewind(input_file);
+
+    // exclude SAUCE record from file buffer
+    if(fileHasSAUCE == true) {
+        sauce *saucerec = sauceReadFile(input_file);
+        input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+        rewind(input_file);
+    }
+    // close input file, we don't need it anymore
     fclose(input_file);
-    
+
     // libgd image pointers
     gdImagePtr im_Tundra;
-    
+
     // convert numeric command line flags to integer values
     int32_t int_bits = atoi(bits);
 
@@ -2203,174 +2211,178 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
     if (tundra_version != 24)
     {
         fputs ("\nInput file is not a TUNDRA file.\n\n", stderr); exit (4);
-    }    
-        
+    }
+
     // read tundra file a first time to find the image size
     int32_t character, color_background, color_foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
-    
+
     loop=9;
-    
+
     while (loop < input_file_size)
     {
-        if (position_x == 80) 
+        if (position_x == 80)
         {
             position_x = 0;
             position_y++;
         }
-        
+
         character = input_file_buffer[loop];
-        
+
         if (character == 1)
         {
-            position_y = 
-            (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) + 
-            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
-            
+            position_y =
+                    (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) +
+                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+
             position_x =
-            (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + 
-            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
-            
+                    (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) +
+                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+
             loop+=8;
         }
-        
+
         if (character == 2)
         {
+            character = input_file_buffer[loop + 1];
+
             loop+=5;
         }
-        
+
         if (character == 4)
         {
+            character = input_file_buffer[loop + 1];
+
             loop+=5;
         }
-        
+
         if (character == 6)
         {
+            character = input_file_buffer[loop + 1];
+
             loop+=9;
         }
-        
+
         if (character !=1 && character !=2 && character !=4 && character != 6)
         {
             position_x++;
         }
-        
+
         loop++;
-    }    
-    
+    }
     position_y++;
-    
+
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns*int_bits, position_y*font_size_y);
-    
+    im_Tundra = gdImageCreateTrueColor(columns * int_bits , (position_y) * font_size_y);
+
     if (!im_Tundra) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
     }
-    
+
     // process tundra
     position_x = 0;
     position_y = 0;
-    
-    loop = 9;    
-    
+
+    loop = 9;
+
     while (loop < input_file_size)
     {
-        if (position_x == 80) 
+        if (position_x == 80)
         {
             position_x = 0;
             position_y++;
         }
-        
+
         character = input_file_buffer[loop];
-        
+
         if (character == 1)
         {
             position_y =
-            (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) + 
-            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
-            
+                    (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) +
+                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+
             position_x =
-            (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) + 
-            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
-            
-            
+                    (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) +
+                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+
             loop+=8;
         }
-        
+
         if (character == 2)
         {
-            color_foreground = 
-            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
-            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
-            
+            color_foreground =
+                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
+                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+
             character = input_file_buffer[loop+1];
-            
+
             loop+=5;
         }
-        
+
         if (character == 4)
         {
-            color_background = 
-            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
-            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
-            
+            color_background =
+                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
+                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+
             character = input_file_buffer[loop+1];
-            
+
             loop+=5;
         }
-        
+
         if (character==6)
         {
-            color_foreground = 
-            (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) + 
-            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
-            
-            color_background = 
-            (input_file_buffer[loop + 6] << 24) + (input_file_buffer[loop + 7] << 16) + 
-            (input_file_buffer[loop + 8] << 8) + input_file_buffer[loop+9];
-            
+            color_foreground =
+                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
+                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+
+            color_background =
+                    (input_file_buffer[loop + 6] << 24) + (input_file_buffer[loop + 7] << 16) +
+                            (input_file_buffer[loop + 8] << 8) + input_file_buffer[loop+9];
+
             character = input_file_buffer[loop+1];
-            
+
             loop+=9;
         }
-        
+
         if (character !=1 && character !=2 && character !=4 && character !=6)
-        {            
-            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y, 
-                       position_x, position_y, color_background, color_foreground, character);
-            
-            position_x++;            
+        {
+            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y,
+                    position_x, position_y, color_background, color_foreground, character);
+
+            position_x++;
         }
-        
+
         loop++;
-    }      
+    }
 
     // create output image
     FILE *file_Out = fopen(output, "wb");
     gdImagePng(im_Tundra, file_Out);
     fclose(file_Out);
-    
+
     // in case Retina image output is wanted
     if (createRetinaRep == true)
     {
         gdImagePtr im_RetinaANSi;
-        
+
         // make the Retina image @2x as large as im_Tundra
         im_RetinaANSi = gdImageCreate(im_Tundra->sx * 2, im_Tundra->sy * 2);
-        
+
         gdImageCopyResized(im_RetinaANSi, im_Tundra, 0, 0, 0, 0,
-                           im_RetinaANSi->sx, im_RetinaANSi->sy,
-                           im_Tundra->sx, im_Tundra->sy);
-        
+                im_RetinaANSi->sx, im_RetinaANSi->sy,
+                im_Tundra->sx, im_Tundra->sy);
+
         // create retina output image
         FILE *file_RetinaOut = fopen(retinaout, "wb");
         gdImagePng(im_RetinaANSi, file_RetinaOut);
         fclose(file_RetinaOut);
-        
+
         gdImageDestroy(im_RetinaANSi);
     }
-    
+
     // free memory
-    gdImageDestroy(im_Tundra);    
+    gdImageDestroy(im_Tundra);
 }
 
 // XBIN
