@@ -1,6 +1,6 @@
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as completed and stable, current version is `2.1.0`.
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as stable, current version is `2.1.1`.
 
 # Specs 
 
@@ -8,7 +8,7 @@ AnsiLove/C is strictly using the `C99 standard` to achieve high portability to a
 
 # Why C?
 
-There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common  with it's ancestor. 
+There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
 
 # Cocoa developers
 
