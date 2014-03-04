@@ -11,9 +11,12 @@
 *.perspectivev3
 *.pbxuser
 
-# Xcode 4
+# Xcode
 xcuserdata/
 project.xcworkspace/
+
+# AppCode
+.idea/
 
 # Generated files
 VersionX-revision.h
