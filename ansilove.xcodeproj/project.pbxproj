@@ -7,17 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F814529218C776F000B57CA4 /* libgd.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529118C776F000B57CA4 /* libgd.3.dylib */; };
+		F814529418C776FA00B57CA4 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529318C776FA00B57CA4 /* libjpeg.8.dylib */; };
+		F814529618C7770400B57CA4 /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529518C7770400B57CA4 /* libpng15.15.dylib */; };
 		F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */ = {isa = PBXBuildFile; fileRef = F83C075A14F2CB2900FD3EDB /* albinfonts.c */; };
-		F860209D150FE6F7001649C5 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
-		F860209E150FE6F9001649C5 /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CE942114A9199900AA40BF /* libjpeg.8.dylib */; };
 		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
 		F8CF83DF14A9BB9700ABB607 /* ansilove.c in Sources */ = {isa = PBXBuildFile; fileRef = F8CF83DE14A9BB9700ABB607 /* ansilove.c */; };
-		F8D0CCAD18C3A2EF007F9DEE /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D0CCAC18C3A2EF007F9DEE /* libpng15.15.dylib */; };
-		F8D0CCAF18C3A324007F9DEE /* libgd.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D0CCAE18C3A324007F9DEE /* libgd.3.dylib */; };
-		F8D0CCB018C3A349007F9DEE /* libpng15.15.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D0CCAC18C3A2EF007F9DEE /* libpng15.15.dylib */; };
-		F8D0CCB118C3A34B007F9DEE /* libgd.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8D0CCAE18C3A324007F9DEE /* libgd.3.dylib */; };
 		F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6327B14A08C0F00C5352F /* Foundation.framework */; };
 		F8FBC5BB14A1DE640034BF83 /* strtolower.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5BA14A1DE640034BF83 /* strtolower.c */; };
 		F8FBC5C314A1E2900034BF83 /* substr.c in Sources */ = {isa = PBXBuildFile; fileRef = F8FBC5C214A1E2900034BF83 /* substr.c */; };
@@ -30,15 +27,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				F8D0CCB118C3A34B007F9DEE /* libgd.3.dylib in CopyFiles */,
-				F8D0CCB018C3A349007F9DEE /* libpng15.15.dylib in CopyFiles */,
-				F860209E150FE6F9001649C5 /* libjpeg.8.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F814529118C776F000B57CA4 /* libgd.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgd.3.dylib; path = lib/MacOSX/libgd/libgd.3.dylib; sourceTree = "<group>"; };
+		F814529318C776FA00B57CA4 /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = lib/MacOSX/libjpeg/libjpeg.8.dylib; sourceTree = "<group>"; };
+		F814529518C7770400B57CA4 /* libpng15.15.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng15.15.dylib; path = lib/MacOSX/libpng/libpng15.15.dylib; sourceTree = "<group>"; };
 		F83C075714F2C86200FD3EDB /* albinfonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albinfonts.h; sourceTree = "<group>"; };
 		F83C075A14F2CB2900FD3EDB /* albinfonts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = albinfonts.c; sourceTree = "<group>"; };
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
@@ -48,11 +45,8 @@
 		F89ED0B714B8ED1500AEDAEA /* explode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = explode.c; sourceTree = "<group>"; };
 		F89ED0B814B8ED1500AEDAEA /* explode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explode.h; sourceTree = "<group>"; };
 		F8AE164114A130FE00393A1C /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		F8CE942114A9199900AA40BF /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = lib/MacOSX/libjpeg/libjpeg.8.dylib; sourceTree = "<group>"; };
 		F8CF83D814A9B8C600ABB607 /* ansilove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ansilove.h; sourceTree = "<group>"; };
 		F8CF83DE14A9BB9700ABB607 /* ansilove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ansilove.c; sourceTree = "<group>"; };
-		F8D0CCAC18C3A2EF007F9DEE /* libpng15.15.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng15.15.dylib; path = lib/MacOSX/libpng/libpng15.15.dylib; sourceTree = "<group>"; };
-		F8D0CCAE18C3A324007F9DEE /* libgd.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgd.3.dylib; path = lib/MacOSX/libgd/libgd.3.dylib; sourceTree = "<group>"; };
 		F8D6327714A08C0F00C5352F /* ansilove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ansilove; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D6327B14A08C0F00C5352F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F8D6328114A08C0F00C5352F /* ansilove-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ansilove-Prefix.pch"; sourceTree = "<group>"; };
@@ -68,9 +62,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */,
-				F8D0CCAF18C3A324007F9DEE /* libgd.3.dylib in Frameworks */,
-				F8D0CCAD18C3A2EF007F9DEE /* libpng15.15.dylib in Frameworks */,
-				F860209D150FE6F7001649C5 /* libjpeg.8.dylib in Frameworks */,
+				F814529218C776F000B57CA4 /* libgd.3.dylib in Frameworks */,
+				F814529618C7770400B57CA4 /* libpng15.15.dylib in Frameworks */,
+				F814529418C776FA00B57CA4 /* libjpeg.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,9 +93,9 @@
 			isa = PBXGroup;
 			children = (
 				F8D6327B14A08C0F00C5352F /* Foundation.framework */,
-				F8D0CCAE18C3A324007F9DEE /* libgd.3.dylib */,
-				F8D0CCAC18C3A2EF007F9DEE /* libpng15.15.dylib */,
-				F8CE942114A9199900AA40BF /* libjpeg.8.dylib */,
+				F814529118C776F000B57CA4 /* libgd.3.dylib */,
+				F814529518C7770400B57CA4 /* libpng15.15.dylib */,
+				F814529318C776FA00B57CA4 /* libjpeg.8.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -293,7 +287,11 @@
 					"\"$(SRCROOT)/lib/MacOSX/libjpeg/include\"",
 				);
 				INFOPLIST_FILE = ansilove/info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
+					"\"$(SRCROOT)/lib/MacOSX/libpng\"",
+					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -322,7 +320,11 @@
 					"\"$(SRCROOT)/lib/MacOSX/libjpeg/include\"",
 				);
 				INFOPLIST_FILE = ansilove/info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
+					"\"$(SRCROOT)/lib/MacOSX/libpng\"",
+					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
