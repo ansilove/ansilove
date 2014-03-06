@@ -2214,7 +2214,7 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
     }
 
     // read tundra file a first time to find the image size
-    int32_t character, color_background, color_foreground;
+    int32_t character, color_background = 0, color_foreground = 0;
     int32_t loop = 0, position_x = 0, position_y = 0;
 
     loop=9;
@@ -2299,11 +2299,11 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
         {
             position_y =
                     (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) +
-                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop + 4];
 
             position_x =
                     (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) +
-                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop + 8];
 
             loop+=8;
         }
@@ -2311,8 +2311,8 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
         if (character == 2)
         {
             color_foreground =
-                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
-                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+                    (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
+                            input_file_buffer[loop + 5];
 
             character = input_file_buffer[loop+1];
 
@@ -2321,9 +2321,8 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
 
         if (character == 4)
         {
-            color_background =
-                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
-                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+            color_background = (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
+                    input_file_buffer[loop+5];
 
             character = input_file_buffer[loop+1];
 
@@ -2333,12 +2332,12 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
         if (character==6)
         {
             color_foreground =
-                    (input_file_buffer[loop + 2] << 24) + (input_file_buffer[loop + 3] << 16) +
-                            (input_file_buffer[loop + 4] << 8) + input_file_buffer[loop+5];
+                    (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
+                            input_file_buffer[loop+5];
 
             color_background =
-                    (input_file_buffer[loop + 6] << 24) + (input_file_buffer[loop + 7] << 16) +
-                            (input_file_buffer[loop + 8] << 8) + input_file_buffer[loop+9];
+                    (input_file_buffer[loop + 7] << 16) + (input_file_buffer[loop + 8] << 8) +
+                            input_file_buffer[loop+9];
 
             character = input_file_buffer[loop+1];
 
