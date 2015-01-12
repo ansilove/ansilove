@@ -2,11 +2,10 @@
 //  filesize.h
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2014 Stefan Vogt, Brian Cassidy, Frederic Cambus.
+//  Copyright (C) 2011-2015 Stefan Vogt, Brian Cassidy, Frederic Cambus.
 //  All rights reserved.
-//  https://github.com/ByteProject/AnsiLove-C/
 //
-//  Use of this source code is governed by a MIT-style license.
+//  This source code is licensed under the BSD 3-Clause License.
 //  See the file LICENSE for details.
 //
 
