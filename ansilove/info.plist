@@ -17,9 +17,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>212</string>
+	<string>213</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2011-2014 Stefan Vogt, Brian Cassidy, Frederic Cambus. All rights reserved.</string>
+	<string>Copyright © 2011-2015 Stefan Vogt, Brian Cassidy, Frederic Cambus. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>
