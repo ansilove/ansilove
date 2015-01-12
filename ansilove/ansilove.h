@@ -30,7 +30,6 @@
 #include "substr.h"
 #include "explode.h"
 #include "filesize.h"
-#include "ord.h"
 #endif
 
 #ifndef ansilove_h
