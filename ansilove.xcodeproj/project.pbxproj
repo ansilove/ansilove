@@ -11,6 +11,9 @@
 		F814529418C776FA00B57CA4 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529318C776FA00B57CA4 /* libjpeg.8.dylib */; };
 		F814529618C7770400B57CA4 /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529518C7770400B57CA4 /* libpng15.15.dylib */; };
 		F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */ = {isa = PBXBuildFile; fileRef = F83C075A14F2CB2900FD3EDB /* albinfonts.c */; };
+		F83CAA511A64925500B93707 /* libgd.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529118C776F000B57CA4 /* libgd.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F83CAA521A64925500B93707 /* libpng15.15.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529518C7770400B57CA4 /* libpng15.15.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F83CAA531A64925500B93707 /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529318C776FA00B57CA4 /* libjpeg.8.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
@@ -27,6 +30,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				F83CAA511A64925500B93707 /* libgd.3.dylib in CopyFiles */,
+				F83CAA521A64925500B93707 /* libpng15.15.dylib in CopyFiles */,
+				F83CAA531A64925500B93707 /* libjpeg.8.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
