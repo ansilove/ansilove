@@ -45,7 +45,7 @@ void showHelp(void)
            "  that columns is restricted to BIN files, it won't affect other file types.\n\n"
            "DOCUMENTATION:\n"
            "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
-           "  <https://github.com/ByteProject/AnsiLove-C/>\n\n");
+           "  <https://github.com/ansilove/AnsiLove-C>\n\n");
 }
 
 void listExamples(void)
@@ -67,12 +67,12 @@ void listExamples(void)
 void versionInfo(void)
 {
     printf("All rights reserved.\n"
-           "\nFork me on GitHub: <https://github.com/ByteProject/AnsiLove-C/>\n"
-           "Bug reports: <https://github.com/ByteProject/AnsiLove-C/issues/>\n\n"
-           "This is free software, released under a MIT-style license.\n"
-           "<https://github.com/ByteProject/AnsiLove-C/blob/master/LICENSE>\n\n"
+           "\nFork me on GitHub: <https://github.com/ansilove/AnsiLove-C>\n"
+           "Bug reports: <https://github.com/ansilove/AnsiLove-C/issues>\n\n"
+           "This is free software, released under the 3-Clause BSD license.\n"
+           "<https://github.com/ansilove/AnsiLove-C/blob/master/LICENSE>\n\n"
            "LibGD is copyright (C) Thomas Boutell, Pierre-Alain Joye and contributors.\n"
-           "<https://bitbucket.org/pierrejoye/gd-libgd/>\n\n");
+           "<https://bitbucket.org/pierrejoye/gd-libgd>\n\n");
 }
 
 // following the IEEE Std 1003.1 for utility conventions
@@ -101,7 +101,7 @@ void synopsis(void)
 int main(int argc, char *argv[])
 {
     printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
-           "Copyright (C) 2011-2014 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n", VERSION);
+           "Copyright (C) 2011-2015 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n", VERSION);
     
     // SAUCE record related bool types
     bool justDisplaySAUCE = false;
