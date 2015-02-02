@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F814529218C776F000B57CA4 /* libgd.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529118C776F000B57CA4 /* libgd.3.dylib */; };
-		F814529418C776FA00B57CA4 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529318C776FA00B57CA4 /* libjpeg.8.dylib */; };
-		F814529618C7770400B57CA4 /* libpng15.15.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F814529518C7770400B57CA4 /* libpng15.15.dylib */; };
 		F83C075B14F2CB2900FD3EDB /* albinfonts.c in Sources */ = {isa = PBXBuildFile; fileRef = F83C075A14F2CB2900FD3EDB /* albinfonts.c */; };
-		F83CAA511A64925500B93707 /* libgd.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529118C776F000B57CA4 /* libgd.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		F83CAA521A64925500B93707 /* libpng15.15.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529518C7770400B57CA4 /* libpng15.15.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		F83CAA531A64925500B93707 /* libjpeg.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529318C776FA00B57CA4 /* libjpeg.8.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F83CAA511A64925500B93707 /* libgd.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F814529118C776F000B57CA4 /* libgd.3.dylib */; };
+		F84C8B491A7E35E000DAB192 /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F84C8B481A7E35E000DAB192 /* libpng16.16.dylib */; };
+		F84C8B4A1A7E363D00DAB192 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F84C8B481A7E35E000DAB192 /* libpng16.16.dylib */; };
 		F864739414CAE3E900D7E08D /* filesize.c in Sources */ = {isa = PBXBuildFile; fileRef = F864739214CAE3E900D7E08D /* filesize.c */; };
 		F89ED0B914B8ED1500AEDAEA /* explode.c in Sources */ = {isa = PBXBuildFile; fileRef = F89ED0B714B8ED1500AEDAEA /* explode.c */; };
 		F8AE164A14A130FE00393A1C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F8AE164114A130FE00393A1C /* main.c */; };
@@ -30,9 +28,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				F84C8B4A1A7E363D00DAB192 /* libpng16.16.dylib in CopyFiles */,
 				F83CAA511A64925500B93707 /* libgd.3.dylib in CopyFiles */,
-				F83CAA521A64925500B93707 /* libpng15.15.dylib in CopyFiles */,
-				F83CAA531A64925500B93707 /* libjpeg.8.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,10 +37,9 @@
 
 /* Begin PBXFileReference section */
 		F814529118C776F000B57CA4 /* libgd.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgd.3.dylib; path = lib/MacOSX/libgd/libgd.3.dylib; sourceTree = "<group>"; };
-		F814529318C776FA00B57CA4 /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = lib/MacOSX/libjpeg/libjpeg.8.dylib; sourceTree = "<group>"; };
-		F814529518C7770400B57CA4 /* libpng15.15.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng15.15.dylib; path = lib/MacOSX/libpng/libpng15.15.dylib; sourceTree = "<group>"; };
 		F83C075714F2C86200FD3EDB /* albinfonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albinfonts.h; sourceTree = "<group>"; };
 		F83C075A14F2CB2900FD3EDB /* albinfonts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = albinfonts.c; sourceTree = "<group>"; };
+		F84C8B481A7E35E000DAB192 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = lib/MacOSX/libpng/libpng16.16.dylib; sourceTree = "<group>"; };
 		F856F2BD14A559F000E49D60 /* strtolower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtolower.h; sourceTree = "<group>"; };
 		F856F2BE14A560CC00E49D60 /* substr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substr.h; sourceTree = "<group>"; };
 		F864739214CAE3E900D7E08D /* filesize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesize.c; sourceTree = "<group>"; };
@@ -68,9 +64,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D6327C14A08C0F00C5352F /* Foundation.framework in Frameworks */,
+				F84C8B491A7E35E000DAB192 /* libpng16.16.dylib in Frameworks */,
 				F814529218C776F000B57CA4 /* libgd.3.dylib in Frameworks */,
-				F814529618C7770400B57CA4 /* libpng15.15.dylib in Frameworks */,
-				F814529418C776FA00B57CA4 /* libjpeg.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +95,7 @@
 			children = (
 				F8D6327B14A08C0F00C5352F /* Foundation.framework */,
 				F814529118C776F000B57CA4 /* libgd.3.dylib */,
-				F814529518C7770400B57CA4 /* libpng15.15.dylib */,
-				F814529318C776FA00B57CA4 /* libjpeg.8.dylib */,
+				F84C8B481A7E35E000DAB192 /* libpng16.16.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,13 +288,11 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib/MacOSX/libgd/include\"",
 					"\"$(SRCROOT)/lib/MacOSX/libpng/include\"",
-					"\"$(SRCROOT)/lib/MacOSX/libjpeg/include\"",
 				);
 				INFOPLIST_FILE = ansilove/info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
 					"\"$(SRCROOT)/lib/MacOSX/libpng\"",
-					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
@@ -327,13 +319,11 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib/MacOSX/libgd/include\"",
 					"\"$(SRCROOT)/lib/MacOSX/libpng/include\"",
-					"\"$(SRCROOT)/lib/MacOSX/libjpeg/include\"",
 				);
 				INFOPLIST_FILE = ansilove/info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib/MacOSX/libgd\"",
 					"\"$(SRCROOT)/lib/MacOSX/libpng\"",
-					"\"$(SRCROOT)/lib/MacOSX/libjpeg\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
