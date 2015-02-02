@@ -214,8 +214,8 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
         transparent = true;
     }
     
-    // force defaults if necessary
-    if ((strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) || isAmigaFont == true) {
+    // force defaults... exactly now!
+    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
         sprintf(bits, "%s", "8");
     }
     
