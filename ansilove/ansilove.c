@@ -546,7 +546,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
                             if (seqValue == 0)
                             {
                                 color_background = 0;
-                                color_foreground=7;
+                                color_foreground = 7;
                                 bold = false;
                                 underline = false;
                                 italics = false;
@@ -1345,8 +1345,9 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
     // allocate buffer image memory
     im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*font_size_y);
     
-    // allocate black color
+    // allocate black color and create background canvas
     gdImageColorAllocate(im_PCB, 0, 0, 0);
+    gdImageFill(im_PCB, 0, 0, 0);
     
     // allocate color palette    
     int32_t colors[71];
