@@ -9,12 +9,8 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import <Foundation/Foundation.h>
-#else
 #include <stdio.h>
 #include <stdlib.h>
-#endif
 
 #ifndef filesize_h
 #define filesize_h

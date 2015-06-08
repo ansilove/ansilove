@@ -9,11 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import "substr.h"
-#else
 #include "substr.h"
-#endif
 
 char *substr(char *str, size_t begin, size_t len)
 { 

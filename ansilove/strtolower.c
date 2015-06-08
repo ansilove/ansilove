@@ -9,11 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import "strtolower.h"
-#else
 #include "strtolower.h"
-#endif
 
 char *strtolower(char *str)
 {

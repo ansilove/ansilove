@@ -9,16 +9,6 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import <Foundation/Foundation.h>
-#import <gd.h>
-#import "alconfig.h"
-#import "albinfonts.h"
-#import "strtolower.h"
-#import "substr.h"
-#import "explode.h"
-#import "filesize.h"
-#else
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -29,7 +19,6 @@
 #include "substr.h"
 #include "explode.h"
 #include "filesize.h"
-#endif
 
 #ifndef ansilove_h
 #define ansilove_h

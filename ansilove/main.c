@@ -9,13 +9,6 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import <Foundation/Foundation.h>
-#import "alconfig.h"
-#import "strtolower.h"
-#import "substr.h"
-#import "ansilove.h"
-#else
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +17,6 @@
 #include "strtolower.h"
 #include "substr.h"
 #include "ansilove.h"
-#endif
 
 // prototypes
 void showHelp(void);

@@ -9,11 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import "filesize.h"
-#else
 #include "filesize.h"
-#endif
 
 size_t filesize(char *filepath) 
 {

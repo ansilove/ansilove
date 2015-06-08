@@ -9,11 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import "explode.h"
-#else
 #include "explode.h"
-#endif
 
 int32_t explode(char ***arr_ptr, char delimiter, char *str)
 {

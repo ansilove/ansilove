@@ -9,11 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import "ansilove.h"
-#else
 #include "ansilove.h"
-#endif
 
 // shared method for drawing characters
 void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, 

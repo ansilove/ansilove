@@ -9,13 +9,9 @@
 //  See the file LICENSE for details.
 //
 
-#if defined(__APPLE__) && defined(__MACH__)
-#import <Foundation/Foundation.h>
-#else
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#endif
 
 #ifndef strtolower_h
 #define strtolower_h
