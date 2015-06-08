@@ -37,3 +37,9 @@ CVS
 Backup[ ]of[ ]*.pages/
 Backup[ ]of[ ]*.key/
 Backup[ ]of[ ]*.numbers/
+
+# CMake
+CMakeFiles
+CMakeCache.txt
+Makefile
+cmake_install.cmake
