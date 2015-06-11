@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 project (ansilove C)
 
 find_library(LIB_GD NAMES gd REQUIRED)
+include_directories(/usr/local/include)
 
 add_definitions(-Wall -std=c99 -pedantic)
 
