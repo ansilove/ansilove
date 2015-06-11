@@ -9,6 +9,7 @@
 //  See the file LICENSE for details.
 //
 
+#include <math.h>
 #include "ansilove.h"
 
 // shared method for drawing characters
@@ -663,7 +664,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
     }
     
     if (isDizFile == true) {
-        columns = MIN(position_x_max,80);
+        columns = fmin(position_x_max,80);
     }
         
     // create that damn thingy

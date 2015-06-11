@@ -23,10 +23,6 @@
 #ifndef ansilove_h
 #define ansilove_h
 
-#if !defined(MIN)
-#define MIN(A,B) ({ __typeof__(A) __a = (A); __typeof__(B) __b = (B); __a < __b ? __a : __b; })
-#endif
-
 // prototypes
 void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, 
                 int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, 
