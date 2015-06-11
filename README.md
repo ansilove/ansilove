@@ -4,15 +4,20 @@ This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in
 
 # Specs 
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. All files include the C standard headers. An exception is compilation on `Mac OS X`, where defines in the sources ensure importing `<Foundation/Foundation.h>`, so the resulting binary is a Foundation tool. We use Linux and Mac OS X for AnsiLove/C development. We added a shell script that builds AnsiLove/C on Ubuntu (and flavours), but it should compile fine on other distros. Mac users can compile using the Xcode project. Feel free to fork and add custom build scripts for your own platform, create Linux packages, [Homebrew](https://github.com/mxcl/homebrew) formulas, whatever.
+AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Be sure to link against `libgd` when compiling which is also needed when running the binary. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux and Mac OS X for AnsiLove/C development.
+
+Feel free to fork and create Linux packages, [Homebrew](https://github.com/mxcl/homebrew) formulas, whatever.
 
 # Why C?
 
 There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
 
-# Build script for Ubuntu
+# Building
 
-Use `shbuild/build_ubuntu.sh` to build AnsiLove/C on Ubuntu.
+AnsiLove/C uses the CMake build system :
+
+	cmake .
+	make
 
 # Cocoa
 
