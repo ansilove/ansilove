@@ -9,8 +9,9 @@
 //  See the file LICENSE for details.
 //
 
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 #ifndef explode_h
