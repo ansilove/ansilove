@@ -1272,7 +1272,7 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
         }
         
         // PCB sequence
-        if (current_character == 64 & next_character == 88)
+        if (current_character == 64 && next_character == 88)
         {
             // set graphics rendition
             color_background = input_file_buffer[loop+2];
@@ -1280,8 +1280,8 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
             
             loop+=3;
         }
-        else if (current_character == 64 & next_character == 67 & 
-                 input_file_buffer[loop+2] == 'L' & input_file_buffer[loop+3] == 'S')
+        else if (current_character == 64 && next_character == 67 &&
+                 input_file_buffer[loop+2] == 'L' && input_file_buffer[loop+3] == 'S')
         {
             // erase display
             position_x = 0;
@@ -1292,8 +1292,8 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
             
             loop+=4;
         }
-        else if (current_character == 64 & next_character == 80 & input_file_buffer[loop+2] == 'O' 
-                 & input_file_buffer[loop+3] == 'S' & input_file_buffer[loop+4]== ':')
+        else if (current_character == 64 && next_character == 80 && input_file_buffer[loop+2] == 'O' 
+                 && input_file_buffer[loop+3] == 'S' && input_file_buffer[loop+4]== ':')
         {
             // cursor position
             if (input_file_buffer[loop+6]=='@')
