@@ -165,24 +165,11 @@ int main(int argc, char *argv[])
             char font[1000] = { 0 };
             char bits[1000] = { 0 };
             char icecolors[1000] = { 0 };
-            char *fext;
-            
-            // find last position of char '.' so we can determine the file extension
-            size_t index = strrchr(input, '.') - input;
-            
-            // calculate size of the input string
-            size_t inpSize = strlen(input);
-            
-            // generate size_t result we can pass to our substr() implementation
-            size_t result = inpSize - index;
-            
-            // finally create the file extension string
-            fext = substr(input, inpSize - result, result);
-            fext = strtolower(fext);
-            if (fext == NULL) {
-                fext = "none";
-            }
-            
+
+            // get file extension
+            char *fext = strrchr(input, '.');
+            fext = fext ? strtolower(fext) : "none";
+
             // in case we got arguments for input and the '-i' or '-ir' flag is set
             if (strcmp(argv[2], "-i") == 0) {
                 // append .png suffix to file name
