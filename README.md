@@ -1,3 +1,19 @@
+	         _______         ___________          ___
+	       __\___   \_  ____/     /\   /______ ___\_/__            /\
+	      /    \|     \/  _ \    /--\_____    \\   /  /\          /  \
+	    _/      |     /    \     \      |/     /      \ \ _ _____/    \_______
+	    \       |_____\____/     /      /      \____  /\/                    /
+	     \______|      \  \_____/\______       /\   \/  \   /\NSILOVE / C   /____ _
+	      \     |_______\__\___ \ \    \      /  \___\__/____
+	       \____|        /____/\_\/\__ /     / __/___ \     /\    ____
+	                     \    \ \     /     /_/ __   \/    /__\__/  _/ _____ ___
+	                 /\   \____\/    /     //   \    /    /    /    _>/    //__/\
+	                /  \           _/      \   //   /    /    /     \/    / \__\/
+	_ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
+	           \  /                 \ \___/\       \_______/\\  \  \______/\/
+	            \/                   \_\  \ \_______\      \ \\/ \__\     \ \
+	                                    \__\/        \______\/ h7/dS!\_____\/
+	                                    
 # AnsiLove/C
 
 This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as stable, current version is `2.2.0`.
