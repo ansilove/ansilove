@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <math.h>
 #include <gd.h>
 #include "alconfig.h"
 #include "albinfonts.h"
