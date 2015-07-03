@@ -9,7 +9,6 @@
 //  See the file LICENSE for details.
 //
 
-#include <math.h>
 #include "ansilove.h"
 
 // shared method for drawing characters
