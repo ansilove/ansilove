@@ -222,7 +222,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1165,7 +1165,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
 
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1550,7 +1550,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1684,7 +1684,7 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1812,7 +1812,7 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -2142,7 +2142,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
 
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
 
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -2370,7 +2370,7 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
