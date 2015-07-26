@@ -1018,7 +1018,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *
 }
 
 // PCB
-void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep)
+void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1412,7 +1412,7 @@ void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], 
 }
 
 // BINARY
-void alBinaryLoader(char *input, char output[], char retinaout[], char columns[], char font[], char bits[], char icecolors[], bool createRetinaRep)
+void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, char *bits, char *icecolors, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1687,7 +1687,7 @@ void alBinaryLoader(char *input, char output[], char retinaout[], char columns[]
 }
 
 // ADF
-void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
+void alArtworxLoader(char *input, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;    
@@ -1815,7 +1815,7 @@ void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], 
 }
 
 // IDF
-void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
+void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;
@@ -2008,7 +2008,7 @@ void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], 
 }
 
 // TUNDRA
-void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
+void alTundraLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool fileHasSAUCE, bool createRetinaRep)
 {
     int32_t columns = 80;
     int32_t font_size_x;
@@ -2381,7 +2381,7 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
 }
 
 // XBIN
-void alXbinLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
+void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_xbin;

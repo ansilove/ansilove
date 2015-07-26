@@ -224,11 +224,11 @@ int main(int argc, char *argv[])
     }
     else if (strcmp(fext, ".adf") == 0) {
         // params: input, output, bits
-        alArtworxLoader(input, output, retinaout, bits, createRetinaRep);
+        alArtworxLoader(input, output, retinaout, createRetinaRep);
     }
     else if (strcmp(fext, ".idf") == 0) {
         // params: input, output, bits
-        alIcedrawLoader(input, output, retinaout, bits, fileHasSAUCE, createRetinaRep);
+        alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
     }
     else if (strcmp(fext, ".tnd") == 0) {
         alTundraLoader(input, output, retinaout, font, bits, fileHasSAUCE, createRetinaRep);
@@ -236,7 +236,7 @@ int main(int argc, char *argv[])
     }
     else if (strcmp(fext, ".xb") == 0) {
         // params: input, output, bits
-        alXbinLoader(input, output, retinaout, bits, createRetinaRep);
+        alXbinLoader(input, output, retinaout, createRetinaRep);
     }
     else {
         // params: input, output, font, bits, icecolors, fext
