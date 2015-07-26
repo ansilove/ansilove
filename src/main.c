@@ -104,7 +104,6 @@ int main(int argc, char *argv[])
     bool createRetinaRep = false;
     
     // analyze options and do what has to be done
-    bool outputIdentical = false;
     bool fileIsBinary = false;
     bool fileIsANSi = false;
     bool fileIsPCBoard = false;
