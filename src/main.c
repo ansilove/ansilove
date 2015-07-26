@@ -162,6 +162,21 @@ int main(int argc, char *argv[])
     argc -= optind; 
     argv += optind;
 
+    // let's check the file for a valid SAUCE record
+    sauce *record = sauceReadFileName(input);
+    
+    // record == NULL also means there is no file, we can stop here
+    if (record == NULL) {
+        printf("\nFile %s not found.\n\n", input);
+        return EXIT_FAILURE;
+    }
+    else {
+        // if we find a SAUCE record, update bool flag
+        if (strcmp(record->ID, SAUCE_ID) == 0) {
+            fileHasSAUCE = true;
+        }
+    }
+
     // create output file name if output is not specified
     if (!output) {
         int outputLen = strlen(input) + 5;
@@ -239,6 +254,42 @@ int main(int argc, char *argv[])
     }
     if (fileIsBinary == true) {
         printf("Columns: %s\n", columns);
+    }
+
+    // either display SAUCE or tell us if there is no record
+    if (fileHasSAUCE == false) {
+        printf("\nFile %s does not have a SAUCE record.\n", input);
+    }
+    else {
+        printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
+        printf( "%s: %s\n", "Title", record->title );
+        printf( "%s: %s\n", "Author", record->author);
+        printf( "%s: %s\n", "Group", record->group);
+        printf( "%s: %s\n", "Date", record->date);
+        printf( "%s: %d\n", "Datatype", record->dataType);
+        printf( "%s: %d\n", "Filetype", record->fileType);
+        if (record->flags != 0) {
+            printf( "%s: %d\n", "Flags", record->flags);
+        }
+        if (record->tinfo1 != 0) {
+            printf( "%s: %d\n", "Tinfo1", record->tinfo1);
+        }
+        if (record->tinfo2 != 0) {
+            printf( "%s: %d\n", "Tinfo2", record->tinfo2);
+        }
+        if (record->tinfo3 != 0) {
+            printf( "%s: %d\n", "Tinfo3", record->tinfo3);
+        }
+        if (record->tinfo4 != 0) {
+            printf( "%s: %d\n", "Tinfo4", record->tinfo4);
+        }
+        if (record->comments > 0) {
+            int32_t i;
+            printf( "Comments: ");
+            for(i = 0; i < record->comments; i++) {
+                printf( "%s\n", record->comment_lines[i] );
+            }
+        }
     }
 
     return EXIT_SUCCESS;
