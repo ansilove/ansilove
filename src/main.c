@@ -163,11 +163,24 @@ int main(int argc, char *argv[])
     argv += optind;
 
     // create output file name if output is not specified
-    if (!output) {        
+    if (!output) {
         int outputLen = strlen(input) + 5;
         output = malloc(outputLen);
         snprintf(output, outputLen, "%s%s", input, ".png");
     }
+
+    // default to 8 if bits option is not specified
+    if (!bits) {
+        bits = "8";
+    }
+
+    // default to 80x25 font if font option is not specified
+    if (!font) {
+        font = "80x25";
+    }
+
+    // enabling iCE colors by default (For now)
+    icecolors = "1";
 
     // get file extension
     char *fext = strrchr(input, '.');
