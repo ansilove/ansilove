@@ -116,6 +116,7 @@ int main(int argc, char *argv[])
 
     int getoptFlag;
     char *bits = NULL;
+    char *mode = NULL;
     char *columns = NULL;
     char *font = NULL;
     char *icecolors = NULL;
@@ -123,7 +124,7 @@ int main(int argc, char *argv[])
     char *input = NULL, *output = NULL;
     char *retinaout = NULL;
 
-    while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:o:rsv")) != -1) {
+    while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:m:o:rsv")) != -1) {
         switch(getoptFlag) {
         case 'b':
             bits = optarg;
@@ -142,6 +143,9 @@ int main(int argc, char *argv[])
             return EXIT_SUCCESS;
         case 'i':
             input = optarg;
+            break;
+        case 'm':
+            mode = optarg;
             break;
         case 'o':
             output = optarg;
@@ -192,6 +196,11 @@ int main(int argc, char *argv[])
     // default to 8 if bits option is not specified
     if (!bits) {
         bits = "8";
+    }
+
+    // default to empty string if mode option is not specified
+    if (!mode) {
+        mode = "";
     }
 
     // default to 160 if columns option is not specified
