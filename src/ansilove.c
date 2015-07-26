@@ -38,7 +38,7 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 }
 
 // ANSi
-void alAnsiLoader(char *input, char output[], char retinaout[], char font[], char bits[], char icecolors[], char *fext, bool createRetinaRep)
+void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *bits, char *icecolors, char *fext, bool createRetinaRep)
 {
     const unsigned char *font_data;
 
