@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
     else {
         // params: input, output, font, bits, icecolors, fext
         //alAnsiLoader(input, output, retinaout, font, bits, icecolors, fext, createRetinaRep);
-        alAnsiLoader(input, output, retinaout, "80x25", "9", "1", fext, createRetinaRep);
+        alAnsiLoader(input, output, retinaout, font, bits, icecolors, fext, createRetinaRep);
         fileIsANSi = true;
     }
 
