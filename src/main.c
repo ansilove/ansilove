@@ -116,12 +116,12 @@ int main(int argc, char *argv[])
     }
 
     int getoptFlag;
-    char *bits;
-    char *columns;
-    char *font;
-    char *icecolors = NULL; // TODO : Re-enable icecolors
+    char *bits = NULL;
+    char *columns = NULL;
+    char *font = NULL;
+    char *icecolors = NULL;
 
-    char *input, *output = NULL;
+    char *input = NULL, *output = NULL;
     char *retinaout = NULL;
 
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:o:rsv")) != -1) {
