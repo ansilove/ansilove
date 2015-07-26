@@ -220,5 +220,26 @@ int main(int argc, char *argv[])
         fileIsANSi = true;
     }
 
+    // gather information and report to the command line
+    printf("\nInput File: %s\n", input);
+    printf("Output File: %s\n", output);
+    if (createRetinaRep == true) {
+        printf("Retina Output File: %s\n", retinaout);
+    }
+    if (fileIsANSi == true || fileIsBinary == true || 
+        fileIsPCBoard == true || fileIsTundra == true) {
+        printf("Font: %s\n", font);
+    }
+    if (fileIsANSi == true || fileIsBinary == true || 
+        fileIsPCBoard == true || fileIsTundra == true) {
+        printf("Bits: %s\n", bits);
+    }
+    if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
+        printf("iCE Colors: %s\n", icecolors);
+    }
+    if (fileIsBinary == true) {
+        printf("Columns: %s\n", columns);
+    }
+
     return EXIT_SUCCESS;
 }
