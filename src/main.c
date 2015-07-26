@@ -195,6 +195,11 @@ int main(int argc, char *argv[])
         bits = "8";
     }
 
+    // default to 160 if columns option is not specified
+    if (!columns) {
+        columns = "160";
+    }
+
     // default to 80x25 font if font option is not specified
     if (!font) {
         font = "80x25";
