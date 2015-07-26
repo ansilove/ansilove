@@ -203,6 +203,14 @@ int main(int argc, char *argv[])
         mode = "";
     }
 
+    // convert numeric command line flags to integer values
+    int32_t int_bits = atoi(bits);
+
+    // now set bits to 8 if not already value 8 or 9
+    if (int_bits != 8 && int_bits != 9) {
+        int_bits = 8;
+    }
+
     // default to 160 if columns option is not specified
     if (!columns) {
         columns = "160";
