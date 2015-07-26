@@ -273,7 +273,7 @@ int main(int argc, char *argv[])
     }
     if (fileIsANSi == true || fileIsBinary == true || 
         fileIsPCBoard == true || fileIsTundra == true) {
-        printf("Bits: %s\n", bits);
+        printf("Bits: %d\n", int_bits);
     }
     if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
         printf("iCE Colors: %s\n", icecolors);
