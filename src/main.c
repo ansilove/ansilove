@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
     char *font;
     char *icecolors = NULL; // TODO : Re-enable icecolors
 
-    char *input, *output;
+    char *input, *output = NULL;
     char *retinaout = NULL;
 
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:o:rsv")) != -1) {
@@ -161,6 +161,13 @@ int main(int argc, char *argv[])
 
     argc -= optind; 
     argv += optind;
+
+    // create output file name if output is not specified
+    if (!output) {        
+        int outputLen = strlen(input) + 5;
+        output = malloc(outputLen);
+        snprintf(output, outputLen, "%s%s", input, ".png");
+    }
 
     // get file extension
     char *fext = strrchr(input, '.');
