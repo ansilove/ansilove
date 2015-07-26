@@ -196,16 +196,16 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *
     }
     
     // to deal with the bits flag, we declared handy bool types   
-    if (strcmp(bits, "ced") == 0) {
+    if (strcmp(mode, "ced") == 0) {
         ced = true;
     }
-    else if (strcmp(bits, "transparent") == 0) {
+    else if (strcmp(mode, "transparent") == 0) {
         transparent = true;
     }
-    else if (strcmp(bits, "workbench") == 0) {
+    else if (strcmp(mode, "workbench") == 0) {
         workbench = true;
     }
-    else if (strcmp(bits, "workbench-transparent") == 0) {
+    else if (strcmp(mode, "workbench-transparent") == 0) {
         workbench = true;
         transparent = true;
     }
