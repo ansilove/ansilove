@@ -38,7 +38,7 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 }
 
 // ANSi
-void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *bits, char *icecolors, char *fext, bool createRetinaRep)
+void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, char *icecolors, char *fext, bool createRetinaRep)
 {
     const unsigned char *font_data;
 
@@ -1012,7 +1012,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *
 }
 
 // PCB
-void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool createRetinaRep)
+void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1398,7 +1398,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
 }
 
 // BINARY
-void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, char *bits, char *icecolors, bool createRetinaRep)
+void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, char *icecolors, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1988,7 +1988,7 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
 }
 
 // TUNDRA
-void alTundraLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool fileHasSAUCE, bool createRetinaRep)
+void alTundraLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
 {
     int32_t columns = 80;
     int32_t font_size_x;

@@ -231,12 +231,12 @@ int main(int argc, char *argv[])
     // create the output file by invoking the appropiate function
     if (strcmp(fext, ".pcb") == 0) {
         // params: input, output, font, bits, icecolors
-        alPcBoardLoader(input, output, retinaout, font, bits, createRetinaRep);
+        alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
         fileIsPCBoard = true;
     }
     else if (strcmp(fext, ".bin") == 0) {
         // params: input, output, columns, font, bits, icecolors
-        alBinaryLoader(input, output, retinaout, columns, font, bits, icecolors, createRetinaRep);
+        alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
         fileIsBinary = true;
     }
     else if (strcmp(fext, ".adf") == 0) {
@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
         alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
     }
     else if (strcmp(fext, ".tnd") == 0) {
-        alTundraLoader(input, output, retinaout, font, bits, fileHasSAUCE, createRetinaRep);
+        alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
         fileIsTundra = true;
     }
     else if (strcmp(fext, ".xb") == 0) {
@@ -257,7 +257,7 @@ int main(int argc, char *argv[])
     }
     else {
         // params: input, output, font, bits, icecolors, fext
-        alAnsiLoader(input, output, retinaout, font, bits, icecolors, fext, createRetinaRep);
+        alAnsiLoader(input, output, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
         fileIsANSi = true;
     }
 
