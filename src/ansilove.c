@@ -210,11 +210,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *
         transparent = true;
     }
     
-    // force defaults... exactly now!
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-    
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -278,7 +273,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, char *
     gdImageColorTransparent(im_Font, 20);
     
     // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
     int32_t int_icecolors = atoi(icecolors);
 
     // ANSi processing loops
@@ -1159,11 +1153,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
         font_size_y = 16;
     }
 
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1196,9 +1185,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
 
     // libgd image pointers
     gdImagePtr im_PCB;
-
-    // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
 
     // defines for stripping PCBoard codes
     char *stripped_file_buffer;
@@ -1552,11 +1538,6 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
         font_size_y = 16;
     }
     
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1592,7 +1573,6 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
 
     // convert numeric command line flags to integer values
     int32_t int_columns = atoi(columns);
-    int32_t int_bits = atoi(bits);
     int32_t int_icecolors = atoi(icecolors);
     
     // allocate buffer image memory
@@ -2150,11 +2130,6 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, char
         font_size_y = 16;
     }
 
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) {
@@ -2195,9 +2170,6 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, char
 
     // libgd image pointers
     gdImagePtr im_Tundra;
-
-    // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
 
     // extract tundra header
     tundra_version = input_file_buffer[0];
