@@ -61,6 +61,13 @@ struct ansiChar {
     bool underline;
 };
 
+struct fontStruct {
+    char *font_data;
+    int32_t font_size_x;
+    int32_t font_size_y;
+    bool isAmigaFont;
+};
+
 // sauce records
 #define RECORD_SIZE  128
 #define COMMENT_SIZE 64

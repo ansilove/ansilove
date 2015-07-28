@@ -37,164 +37,167 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
     }
 }
 
+void alSelectFont(struct fontStruct* fontData, char *font) {
+    // determine the font we use to render the output
+    if (strcmp(font, "80x25") == 0) {
+        fontData->font_data = font_pc_80x25;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "80x50") == 0) {
+        fontData->font_data = font_pc_80x50;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 8;
+    }
+    else if (strcmp(font, "terminus") == 0) {
+        fontData->font_data = font_pc_terminus;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "baltic") == 0) {
+        fontData->font_data = font_pc_baltic;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "cyrillic") == 0) {
+        fontData->font_data = font_pc_cyrillic;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "french-canadian") == 0) {
+        fontData->font_data = font_pc_french_canadian;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "greek") == 0) {
+        fontData->font_data = font_pc_greek;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "greek-869") == 0) {
+        fontData->font_data = font_pc_greek_869;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "hebrew") == 0) {
+        fontData->font_data = font_pc_hebrew;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "icelandic") == 0) {
+        fontData->font_data = font_pc_icelandic;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "latin1") == 0) {
+        fontData->font_data = font_pc_latin1;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "latin2") == 0) {
+        fontData->font_data = font_pc_latin2;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "nordic") == 0) {
+        fontData->font_data = font_pc_nordic;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16; 
+    }
+    else if (strcmp(font, "portuguese") == 0) {
+        fontData->font_data = font_pc_portuguese;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "russian") == 0) {
+        fontData->font_data = font_pc_russian;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "turkish") == 0) {
+        fontData->font_data = font_pc_turkish;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "amiga") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_topaz_1200;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "microknight") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_microknight;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "microknight+") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_microknight_plus;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "mosoul") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_mosoul;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "pot-noodle") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_pot_noodle;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_topaz_1200;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;   
+    }
+    else if (strcmp(font, "topaz+") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_topaz_1200_plus;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_topaz_500;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else if (strcmp(font, "topaz500+") == 0) {
+        fontData->isAmigaFont = true;
+        fontData->font_data = font_amiga_topaz_500_plus;
+        fontData->font_size_x = 8;
+        fontData->font_size_y = 16;
+    }
+    else {
+        // in all other cases use the standard DOS font
+        fontData->font_data = font_pc_80x25;
+        fontData->font_size_x = 9;
+        fontData->font_size_y = 16;
+    }
+}
+
 // ANSi
 void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, char *icecolors, char *fext, bool createRetinaRep)
 {
-    const unsigned char *font_data;
-
     // ladies and gentlemen, it's type declaration time
+    struct fontStruct fontData;
+
     int32_t columns = 80;
-    int32_t font_size_x;
-    int32_t font_size_y;
-    bool isAmigaFont = false;
+    
     bool isDizFile = false;
     bool ced = false;
     bool transparent = false;
     bool workbench = false;
     bool pixelCarry = false;
-    
-    // determine the font we use to render the output
-    if (strcmp(font, "80x25") == 0) {
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "80x50") == 0) {
-        font_data = font_pc_80x50;
-        font_size_x = 9;
-        font_size_y = 8;
-    }
-    else if (strcmp(font, "terminus") == 0) {
-        font_data = font_pc_terminus;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "baltic") == 0) {
-        font_data = font_pc_baltic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "cyrillic") == 0) {
-        font_data = font_pc_cyrillic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "french-canadian") == 0) {
-        font_data = font_pc_french_canadian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek") == 0) {
-        font_data = font_pc_greek;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek-869") == 0) {
-        font_data = font_pc_greek_869;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "hebrew") == 0) {
-        font_data = font_pc_hebrew;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "icelandic") == 0) {
-        font_data = font_pc_icelandic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin1") == 0) {
-        font_data = font_pc_latin1;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin2") == 0) {
-        font_data = font_pc_latin2;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "nordic") == 0) {
-        font_data = font_pc_nordic;
-        font_size_x = 9;
-        font_size_y = 16; 
-    }
-    else if (strcmp(font, "portuguese") == 0) {
-        font_data = font_pc_portuguese;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "russian") == 0) {
-        font_data = font_pc_russian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "turkish") == 0) {
-        font_data = font_pc_turkish;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "amiga") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_microknight;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight+") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_microknight_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "mosoul") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_mosoul;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "pot-noodle") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_pot_noodle;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;   
-    }
-    else if (strcmp(font, "topaz+") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_topaz_1200_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_topaz_500;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500+") == 0) {
-        isAmigaFont = true;
-        font_data = font_amiga_topaz_500_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else {
-        // in all other cases use the standard DOS font
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    
+
+    // font selection
+    alSelectFont(&fontData, font);
+        
     // to deal with the bits flag, we declared handy bool types   
     if (!strcmp(mode, "ced")) {
         ced = true;
@@ -267,7 +270,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     im_Backgrnd = gdImageCreate(9*16,16);
 
     // Allocate font image buffer
-    im_Font = gdImageCreate(font_size_x*256,font_size_y*16);
+    im_Font = gdImageCreate(fontData.font_size_x*256,fontData.font_size_y*16);
     
     // set transparent color index for the font
     gdImageColorTransparent(im_Font, 20);
@@ -625,7 +628,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
             }
             
             // write current character in ansiChar structure 
-            if (!isAmigaFont || (current_character != 12 && current_character != 13))
+            if (!fontData.isAmigaFont || (current_character != 12 && current_character != 13))
             {
                 // reallocate structure array memory
                 temp = realloc(ansi_buffer, (structIndex + 1) * sizeof(struct ansiChar));
@@ -661,7 +664,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     }
         
     // create that damn thingy
-    im_ANSi = gdImageCreate(columns * int_bits,(position_y_max)*font_size_y);
+    im_ANSi = gdImageCreate(columns * int_bits,(position_y_max)*fontData.font_size_y);
     
     if (!im_ANSi) {
         fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
@@ -811,7 +814,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     {
         for (j=0;j<256;j++)
         {
-            alDrawChar(im_Font, font_data, font_size_x, font_size_x, font_size_y, 
+            alDrawChar(im_Font, fontData.font_data, fontData.font_size_x, fontData.font_size_x, fontData.font_size_y, 
                        j, k, 20, k, j);
         }
     }
@@ -840,67 +843,67 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         position_x = ansi_buffer[loop].position_x;
         position_y = ansi_buffer[loop].position_y;
         
-        if (!isAmigaFont)
+        if (!fontData.isAmigaFont)
         {
             gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
-                        position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
+                        position_y * fontData.font_size_y, color_background * 9, 0, int_bits, fontData.font_size_y);
             
-            gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y, 
-                        character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+            gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * fontData.font_size_y, 
+                        character * fontData.font_size_x, color_foreground * fontData.font_size_y, int_bits, fontData.font_size_y);
         }
         else
         {
             if (color_background != 0 || !italics)
             {
                 gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
-                            position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
+                            position_y * fontData.font_size_y, color_background * 9, 0, int_bits, fontData.font_size_y);
             }
             
             if (!italics)
             {
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y, 
-                            character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * fontData.font_size_y, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y, int_bits, fontData.font_size_y);
             }
             else
             {
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3, position_y * font_size_y, 
-                            character * font_size_x, color_foreground * font_size_y, int_bits,2);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3, position_y * fontData.font_size_y, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y, int_bits,2);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2, position_y * font_size_y + 2,
-                            character * font_size_x, color_foreground * font_size_y + 2, int_bits, 4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2, position_y * fontData.font_size_y + 2,
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 2, int_bits, 4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * font_size_y + 6, 
-                            character * font_size_x, color_foreground * font_size_y + 6, int_bits, 4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * fontData.font_size_y + 6, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 6, int_bits, 4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y + 10,
-                            character * font_size_x, color_foreground * font_size_y + 10, int_bits,4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * fontData.font_size_y + 10,
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 10, int_bits,4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1, position_y * font_size_y + 14,
-                            character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1, position_y * fontData.font_size_y + 14,
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 14, int_bits, 2);
             }
             
             if (italics && bold)
             {
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3 + 1, position_y * font_size_y, 
-                            character * font_size_x, color_foreground * font_size_y ,int_bits, 2);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3 + 1, position_y * fontData.font_size_y, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y ,int_bits, 2);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2 + 1, position_y * font_size_y + 2, 
-                            character * font_size_x, color_foreground * font_size_y + 2, int_bits, 4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 2 + 1, position_y * fontData.font_size_y + 2, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 2, int_bits, 4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1 + 1, position_y * font_size_y + 6, 
-                            character * font_size_x, color_foreground * font_size_y + 6, int_bits, 4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1 + 1, position_y * fontData.font_size_y + 6, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 6, int_bits, 4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * font_size_y + 10,
-                            character * font_size_x, color_foreground * font_size_y + 10, int_bits, 4);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 1, position_y * fontData.font_size_y + 10,
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 10, int_bits, 4);
                 
-                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1 + 1, position_y * font_size_y + 14,
-                            character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
+                gdImageCopy(im_ANSi, im_Font, position_x * int_bits - 1 + 1, position_y * fontData.font_size_y + 14,
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y + 14, int_bits, 2);
             }
             
             if (bold && !italics && (ced || workbench))
             {
-                gdImageCopy(im_ANSi, im_Font, 1 + position_x * int_bits, position_y * font_size_y, 
-                            character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
+                gdImageCopy(im_ANSi, im_Font, 1 + position_x * int_bits, position_y * fontData.font_size_y, 
+                            character * fontData.font_size_x, color_foreground * fontData.font_size_y, int_bits, fontData.font_size_y);
             }
             
             if (underline)
@@ -922,20 +925,20 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                 while (loop_column < character_size_x)
                 {
                     if (gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column, 
-                                        position_y * font_size_y + 15) == color_background && 
+                                        position_y * fontData.font_size_y + 15) == color_background && 
                         gdImageGetPixel(im_ANSi, position_x * int_bits +loop_column + 1, 
-                                        position_y * font_size_y + 15) == color_background)
+                                        position_y * fontData.font_size_y + 15) == color_background)
                     {
                         gdImageSetPixel(im_ANSi, position_x * int_bits + loop_column, 
-                                        position_y * font_size_y + 14, colors[color_foreground]);
+                                        position_y * fontData.font_size_y + 14, colors[color_foreground]);
                         
                         gdImageSetPixel(im_ANSi, position_x * int_bits + loop_column, 
-                                        position_y * font_size_y + 15, colors[color_foreground]);
+                                        position_y * fontData.font_size_y + 15, colors[color_foreground]);
                     }
                     else if (gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column,
-                                             position_y * font_size_y + 15) != color_background && 
+                                             position_y * fontData.font_size_y + 15) != color_background && 
                              gdImageGetPixel(im_ANSi, position_x * int_bits + loop_column + 1,
-                                             position_y * font_size_y + 15) == color_background)
+                                             position_y * fontData.font_size_y + 15) == color_background)
                     {
                         loop_column++;
                     }                    
@@ -945,26 +948,26 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                 if (pixelCarry)
                 {
                     gdImageSetPixel(im_ANSi, position_x * int_bits, 
-                                    position_y * font_size_y + 14, colors[color_foreground]);
+                                    position_y * fontData.font_size_y + 14, colors[color_foreground]);
                     
                     gdImageSetPixel(im_ANSi, position_x * int_bits, 
-                                    position_y * font_size_y + 15, colors[color_foreground]);
+                                    position_y * fontData.font_size_y + 15, colors[color_foreground]);
                     
                     pixelCarry = false;
                 }
                 
-                if (gdImageGetPixel(im_Font, character * font_size_x, 
-                                    color_foreground * font_size_y + 15) != 20)
+                if (gdImageGetPixel(im_Font, character * fontData.font_size_x, 
+                                    color_foreground * fontData.font_size_y + 15) != 20)
                 {
                     gdImageSetPixel(im_ANSi, position_x * int_bits - 1, 
-                                    position_y * font_size_y + 14, colors[color_foreground]);
+                                    position_y * fontData.font_size_y + 14, colors[color_foreground]);
                     
                     gdImageSetPixel(im_ANSi, position_x * int_bits - 1, 
-                                    position_y * font_size_y + 15, colors[color_foreground]);
+                                    position_y * fontData.font_size_y + 15, colors[color_foreground]);
                 }
                 
-                if (gdImageGetPixel(im_Font, character * font_size_x + character_size_x - 1, 
-                                    color_foreground * font_size_y + 15) != 20)
+                if (gdImageGetPixel(im_Font, character *fontData. font_size_x + character_size_x - 1, 
+                                    color_foreground * fontData.font_size_y + 15) != 20)
                 {
                     pixelCarry = true;
                 }
@@ -1015,143 +1018,11 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
 void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
 {
     // some type declarations
-    int32_t font_size_x;
-    int32_t font_size_y;
+    struct fontStruct fontData;
     int32_t columns = 80;
-    const unsigned char *font_data;
-        
-    // let's see what font we should use to render output
-    if (strcmp(font, "80x25") == 0) {
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "80x50") == 0) {
-        font_data = font_pc_80x50;
-        font_size_x = 9;
-        font_size_y = 8;
-    }
-    else if (strcmp(font, "terminus") == 0) {
-        font_data = font_pc_terminus;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "baltic") == 0) {
-        font_data = font_pc_baltic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "cyrillic") == 0) {
-        font_data = font_pc_cyrillic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "french-canadian") == 0) {
-        font_data = font_pc_french_canadian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek") == 0) {
-        font_data = font_pc_greek;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek-869") == 0) {
-        font_data = font_pc_greek_869;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "hebrew") == 0) {
-        font_data = font_pc_hebrew;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "icelandic") == 0) {
-        font_data = font_pc_icelandic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin1") == 0) {
-        font_data = font_pc_latin1;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin2") == 0) {
-        font_data = font_pc_latin2;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "nordic") == 0) {
-        font_data = font_pc_nordic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "portuguese") == 0) {
-        font_data = font_pc_portuguese;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "russian") == 0) {
-        font_data = font_pc_russian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "turkish") == 0) {
-        font_data = font_pc_turkish;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "amiga") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight") == 0) {
-        font_data = font_amiga_microknight;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight+") == 0) {
-        font_data = font_amiga_microknight_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "mosoul") == 0) {
-        font_data = font_amiga_mosoul;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "pot-noodle") == 0) {
-        font_data = font_amiga_pot_noodle;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz+") == 0) {
-        font_data = font_amiga_topaz_1200_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500") == 0) {
-        font_data = font_amiga_topaz_500;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500+") == 0) {
-        font_data = font_amiga_topaz_500_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else {
-        // in all other cases use the standard DOS font
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
+
+    // font selection
+    alSelectFont(&fontData, font);
 
     // load input file
     FILE *input_file = fopen(input, "r");
@@ -1325,7 +1196,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
     position_y_max++;
     
     // allocate buffer image memory
-    im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*font_size_y);
+    im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*fontData.font_size_y);
     
     // allocate black color and create background canvas
     gdImageColorAllocate(im_PCB, 0, 0, 0);
@@ -1364,7 +1235,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
         color_foreground = pcboard_buffer[loop].color_foreground;
         character = pcboard_buffer[loop].current_character;
         
-        alDrawChar(im_PCB, font_data, int_bits, font_size_x, font_size_y, 
+        alDrawChar(im_PCB, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
     }
     
@@ -1401,142 +1272,10 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
 void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, char *icecolors, bool createRetinaRep)
 {
     // some type declarations
-    int32_t font_size_x;
-    int32_t font_size_y;
-    const unsigned char *font_data;
+    struct fontStruct fontData;
 
-    // let's see what font we should use to render output
-    if (strcmp(font, "80x25") == 0) {
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "80x50") == 0) {
-        font_data = font_pc_80x50;
-        font_size_x = 9;
-        font_size_y = 8;
-    }
-    else if (strcmp(font, "terminus") == 0) {
-        font_data = font_pc_terminus;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "baltic") == 0) {
-        font_data = font_pc_baltic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "cyrillic") == 0) {
-        font_data = font_pc_cyrillic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "french-canadian") == 0) {
-        font_data = font_pc_french_canadian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek") == 0) {
-        font_data = font_pc_greek;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek-869") == 0) {
-        font_data = font_pc_greek_869;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "hebrew") == 0) {
-        font_data = font_pc_hebrew;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "icelandic") == 0) {
-        font_data = font_pc_icelandic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin1") == 0) {
-        font_data = font_pc_latin1;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin2") == 0) {
-        font_data = font_pc_latin2;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "nordic") == 0) {
-        font_data = font_pc_nordic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "portuguese") == 0) {
-        font_data = font_pc_portuguese;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "russian") == 0) {
-        font_data = font_pc_russian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "turkish") == 0) {
-        font_data = font_pc_turkish;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "amiga") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight") == 0) {
-        font_data = font_amiga_microknight;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight+") == 0) {
-        font_data = font_amiga_microknight_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "mosoul") == 0) {
-        font_data = font_amiga_mosoul;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "pot-noodle") == 0) {
-        font_data = font_amiga_pot_noodle;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz+") == 0) {
-        font_data = font_amiga_topaz_1200_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500") == 0) {
-        font_data = font_amiga_topaz_500;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500+") == 0) {
-        font_data = font_amiga_topaz_500_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else {
-        // in all other cases use the standard DOS font
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
+    // font selection
+    alSelectFont(&fontData, font);
     
     // load input file
     FILE *input_file = fopen(input, "r");
@@ -1577,7 +1316,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
     
     // allocate buffer image memory
     im_Binary = gdImageCreate(int_columns * int_bits, 
-                              ((input_file_size / 2) / int_columns * font_size_y));
+                              ((input_file_size / 2) / int_columns * fontData.font_size_y));
     
     if (!im_Binary) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -1630,7 +1369,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, font_data, int_bits, font_size_x, font_size_y, 
+        alDrawChar(im_Binary, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
      
         position_x++;
@@ -1990,145 +1729,14 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
 // TUNDRA
 void alTundraLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
 {
+    // some type declarations
+    struct fontStruct fontData;
     int32_t columns = 80;
-    int32_t font_size_x;
-    int32_t font_size_y;
-    const unsigned char *font_data;
     char tundra_version;
     char tundra_header[8];
 
-    // determine the font we use to render the output
-    if (strcmp(font, "80x25") == 0) {
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "80x50") == 0) {
-        font_data = font_pc_80x50;
-        font_size_x = 9;
-        font_size_y = 8;
-    }
-    else if (strcmp(font, "terminus") == 0) {
-        font_data = font_pc_terminus;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "baltic") == 0) {
-        font_data = font_pc_baltic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "cyrillic") == 0) {
-        font_data = font_pc_cyrillic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "french-canadian") == 0) {
-        font_data = font_pc_french_canadian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek") == 0) {
-        font_data = font_pc_greek;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "greek-869") == 0) {
-        font_data = font_pc_greek_869;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "hebrew") == 0) {
-        font_data = font_pc_hebrew;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "icelandic") == 0) {
-        font_data = font_pc_icelandic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin1") == 0) {
-        font_data = font_pc_latin1;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "latin2") == 0) {
-        font_data = font_pc_latin2;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "nordic") == 0) {
-        font_data = font_pc_nordic;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "portuguese") == 0) {
-        font_data = font_pc_portuguese;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "russian") == 0) {
-        font_data = font_pc_russian;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "turkish") == 0) {
-        font_data = font_pc_turkish;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "amiga") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight") == 0) {
-        font_data = font_amiga_microknight;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "microknight+") == 0) {
-        font_data = font_amiga_microknight_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "mosoul") == 0) {
-        font_data = font_amiga_mosoul;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "pot-noodle") == 0) {
-        font_data = font_amiga_pot_noodle;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz") == 0) {
-        font_data = font_amiga_topaz_1200;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz+") == 0) {
-        font_data = font_amiga_topaz_1200_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500") == 0) {
-        font_data = font_amiga_topaz_500;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else if (strcmp(font, "topaz500+") == 0) {
-        font_data = font_amiga_topaz_500_plus;
-        font_size_x = 8;
-        font_size_y = 16;
-    }
-    else {
-        // in all other cases use the standard DOS font
-        font_data = font_pc_80x25;
-        font_size_x = 9;
-        font_size_y = 16;
-    }
+    // font selection
+    alSelectFont(&fontData, font);
 
     // load input file
     FILE *input_file = fopen(input, "r");
@@ -2241,7 +1849,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
     position_y++;
 
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns * int_bits , (position_y) * font_size_y);
+    im_Tundra = gdImageCreateTrueColor(columns * int_bits , (position_y) * fontData.font_size_y);
 
     if (!im_Tundra) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -2314,7 +1922,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(im_Tundra, font_data, int_bits, font_size_x, font_size_y,
+            alDrawChar(im_Tundra, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y,
                     position_x, position_y, color_background, color_foreground, character);
 
             position_x++;
