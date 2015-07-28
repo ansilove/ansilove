@@ -1018,7 +1018,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
 }
 
 // PCB
-void alPcBoardLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool createRetinaRep)
+void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
