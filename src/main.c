@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <getopt.h>
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
@@ -103,7 +104,6 @@ int main(int argc, char *argv[])
     bool createRetinaRep = false;
     
     // analyze options and do what has to be done
-    bool outputIdentical = false;
     bool fileIsBinary = false;
     bool fileIsANSi = false;
     bool fileIsPCBoard = false;
@@ -113,322 +113,213 @@ int main(int argc, char *argv[])
         synopsis();
         return EXIT_SUCCESS;
     }
-    if ((strcmp(argv[1], "-v") == 0) || (strcmp(argv[1], "--version") == 0)) {
-        versionInfo();
-        return EXIT_SUCCESS;
-    }
-    if ((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0)) {
-        showHelp();
-        return EXIT_SUCCESS;
-    }
-    if (strcmp(argv[1], "-e") == 0) {
-        listExamples();
-        return EXIT_SUCCESS;
-    }
-    if ((argv[2] && (strcmp(argv[2], "-s") == 0))  ||
-        (argv[2] && (strcmp(argv[2], "-i") == 0))  ||
-        (argv[2] && (strcmp(argv[2], "-ir") == 0)) ||
-        (argv[2] && (strcmp(argv[2], "-o") == 0))  ||
-        (argv[2] && (strcmp(argv[2], "-or") == 0)))
-    {
-        if (strcmp(argv[2], "-s") == 0) {
-            justDisplaySAUCE = true;
-        }
-        
-        if (strcmp(argv[2], "-ir") == 0 || strcmp(argv[2], "-or") == 0) {
+
+    int getoptFlag;
+    char *bits = NULL;
+    char *mode = NULL;
+    char *columns = NULL;
+    char *font = NULL;
+    char *icecolors = NULL;
+
+    char *input = NULL, *output = NULL;
+    char *retinaout = NULL;
+
+    while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:m:o:rsv")) != -1) {
+        switch(getoptFlag) {
+        case 'b':
+            bits = optarg;
+            break;
+        case 'c':
+            columns = optarg;
+            break;
+        case 'e':
+            listExamples();
+            return EXIT_SUCCESS;
+        case 'f':
+            font = optarg;
+            break;
+        case 'h':
+            showHelp();
+            return EXIT_SUCCESS;
+        case 'i':
+            input = optarg;
+            break;
+        case 'm':
+            mode = optarg;
+            break;
+        case 'o':
+            output = optarg;
+            break;
+        case 'r':
             createRetinaRep = true;
+            break;
+        case 's':
+            justDisplaySAUCE = true;
+            break;
+        case 'v':
+            versionInfo();
+            return EXIT_SUCCESS;
         }
-                
-        // let's check the file for a valid SAUCE record
-        sauce *record = sauceReadFileName(argv[1]);
-        
-        // record == NULL also means there is no file, we can stop here
-        if (record == NULL) {
-            printf("\nFile %s not found.\n\n", argv[1]);
-            return EXIT_FAILURE;
-        }
-        else {
-            // if we find a SAUCE record, update bool flag
-            if (strcmp(record->ID, SAUCE_ID) == 0) {
-                fileHasSAUCE = true;
-            }
-        }
-        
-        // this should be self-explanatory
-        if (justDisplaySAUCE == false) 
-        {
-            // declaration of types we pass to ansilove.c
-            char *input = argv[1];
-            char output[1000] = { 0 };
-            char retinaout[1000] = { 0 };
-            char columns[1000] = { 0 };
-            char font[1000] = { 0 };
-            char bits[1000] = { 0 };
-            char icecolors[1000] = { 0 };
+    }
 
-            // get file extension
-            char *fext = strrchr(input, '.');
-            fext = fext ? strtolower(fext) : "none";
+    argc -= optind; 
+    argv += optind;
 
-            // in case we got arguments for input and the '-i' or '-ir' flag is set
-            if (strcmp(argv[2], "-i") == 0) {
-                // append .png suffix to file name
-                sprintf(output, "%s.png", input);
-                sprintf(retinaout, "placeholder_%s.png", input);
-                outputIdentical = true;
-            }
-            
-            if (strcmp(argv[2], "-ir") == 0) {
-                // again, append .png and also add @2x for retina output
-                sprintf(output, "%s.png", input);
-                sprintf(retinaout, "%s@2x.png", input);
-                outputIdentical = true;
-            }
-            
-            if ((strcmp(argv[2], "-o") == 0) && argv[3]) {
-                // so the user provided an alternate path / file name
-                sprintf(output, "%s.png", argv[3]);
-                sprintf(retinaout, "placeholder_%s.png", input);
-            }
-            
-            if ((strcmp(argv[2], "-or") == 0) && argv[3]) {
-                // alternate path and retina? damn you! even more work.
-                sprintf(output, "%s.png", argv[3]);
-                sprintf(retinaout, "%s@2x.png", argv[3]);
-            }
-        
-            if ((strcmp(argv[2], "-o") == 0) && !argv[3]) {
-                // arrr... matey! setting the option -o without output file argument, eh?
-                printf("\nOption -o is invalid without output file argument.\n\n");
-                return EXIT_FAILURE;
-            }
-            
-            if ((strcmp(argv[2], "-or") == 0) && !argv[3]) {
-                // y u no enter output file argument?
-                printf("\nOption -or is invalid without output file argument.\n\n");
-                return EXIT_FAILURE;
-            }
-            
-            // check for operands and apply them based on the file extension
-            if ((strcmp(fext, ".bin") == 0) && outputIdentical == true)
-            {
-                // set binary bool value
-                fileIsBinary = true;
-                
-                // font
-                if (argc >= 4) {
-                    sprintf(font, "%s", argv[3]);
-                }
-                else {
-                    sprintf(font, "%s", "80x25");
-                }
-                // bits
-                if (argc >= 5) {
-                    sprintf(bits, "%s", argv[4]);
-                }
-                else {
-                    sprintf(bits, "%s", "8");
-                    
-                }
-                // iCE colors
-                if (argc >= 6) {
-                    sprintf(icecolors, "%s", argv[5]);
-                }
-                else {
-                    sprintf(icecolors, "%s", "0");
-                }
-                // columns
-                if (argc >= 7) {
-                    sprintf(columns, "%s", argv[6]);
-                }
-                else {
-                    sprintf(columns, "%s", "160");
-                }
-            }
-            else if ((strcmp(fext, ".bin") == 0) && outputIdentical == false)
-            {
-                // font
-                if (argc >= 5) {
-                    sprintf(font, "%s", argv[4]);
-                }
-                else {
-                    sprintf(font, "%s", "80x25");
-                }
-                // bits
-                if (argc >= 6) {
-                    sprintf(bits, "%s", argv[5]);
-                }
-                else {
-                    sprintf(bits, "%s", "8");
-                    
-                }
-                // iCE colors
-                if (argc >= 7) {
-                    sprintf(icecolors, "%s", argv[6]);
-                }
-                else {
-                    sprintf(icecolors, "%s", "0");
-                }
-                // columns
-                if (argc >= 8) {
-                    sprintf(columns, "%s", argv[7]);
-                }
-                else {
-                    sprintf(columns, "%s", "160");
-                }
-            }
-            else {
-                if (outputIdentical == true) {
-                    // font
-                    if (argc >= 4) {
-                        sprintf(font, "%s", argv[3]);
-                    }
-                    else {
-                        sprintf(font, "%s", "80x25");
-                    }
-                    // bits
-                    if (argc >= 5) {
-                        sprintf(bits, "%s", argv[4]);
-                    }
-                    else {
-                        sprintf(bits, "%s", "8");
-                    }
-                    // iCE colors
-                    if (argc >= 6) {
-                        sprintf(icecolors, "%s", argv[5]);
-                    }
-                    else {
-                        sprintf(icecolors, "%s", "0");
-                    }
-                }
-                else {
-                    // font
-                    if (argc >= 5) {
-                        sprintf(font, "%s", argv[4]);
-                    }
-                    else {
-                        sprintf(font, "%s", "80x25");
-                    }
-                    // bits
-                    if (argc >= 6) {
-                        sprintf(bits, "%s", argv[5]);
-                    }
-                    else {
-                        sprintf(bits, "%s", "8");
-                    }
-                    // iCE colors
-                    if (argc >= 7) {
-                        sprintf(icecolors, "%s", argv[6]);
-                    }
-                    else {
-                        sprintf(icecolors, "%s", "0");
-                    }
-                }
-            }
-            
-            // create the output file by invoking the appropiate function
-            if (strcmp(fext, ".pcb") == 0) {
-                // params: input, output, font, bits, icecolors
-                alPcBoardLoader(input, output, retinaout, font, bits, createRetinaRep);
-                fileIsPCBoard = true;
-            }
-            else if (strcmp(fext, ".bin") == 0) {
-                // params: input, output, columns, font, bits, icecolors
-                alBinaryLoader(input, output, retinaout, columns, font, bits, icecolors, createRetinaRep);
-                fileIsBinary = true;
-            }
-            else if (strcmp(fext, ".adf") == 0) {
-                // params: input, output, bits
-                alArtworxLoader(input, output, retinaout, bits, createRetinaRep);
-            }
-            else if (strcmp(fext, ".idf") == 0) {
-                // params: input, output, bits
-                alIcedrawLoader(input, output, retinaout, bits, fileHasSAUCE, createRetinaRep);
-            }
-            else if (strcmp(fext, ".tnd") == 0) {
-                alTundraLoader(input, output, retinaout, font, bits, fileHasSAUCE, createRetinaRep);
-                fileIsTundra = true;
-            }
-            else if (strcmp(fext, ".xb") == 0) {
-                // params: input, output, bits
-                alXbinLoader(input, output, retinaout, bits, createRetinaRep);
-            }
-            else {
-                // params: input, output, font, bits, icecolors, fext
-                alAnsiLoader(input, output, retinaout, font, bits, icecolors, fext, createRetinaRep);
-                fileIsANSi = true;
-            }
-            
-            // gather information and report to the command line
-            printf("\nInput File: %s\n", input);
-            printf("Output File: %s\n", output);
-            if (createRetinaRep == true) {
-                printf("Retina Output File: %s\n", retinaout);
-            }
-            if (fileIsANSi == true || fileIsBinary == true || 
-                fileIsPCBoard == true || fileIsTundra == true) {
-                printf("Font: %s\n", font);
-            }
-            if (fileIsANSi == true || fileIsBinary == true || 
-                fileIsPCBoard == true || fileIsTundra == true) {
-                printf("Bits: %s\n", bits);
-            }
-            if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
-                printf("iCE Colors: %s\n", icecolors);
-            }
-            if (fileIsBinary == true) {
-                printf("Columns: %s\n", columns);
-            }
-        }
-        
-        // either display SAUCE or tell us if there is no record
-        if (fileHasSAUCE == false) {
-            printf("\nFile %s does not have a SAUCE record.\n", argv[1]);
-        }
-        else {
-            printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
-            printf( "%s: %s\n", "Title", record->title );
-            printf( "%s: %s\n", "Author", record->author);
-            printf( "%s: %s\n", "Group", record->group);
-            printf( "%s: %s\n", "Date", record->date);
-            printf( "%s: %d\n", "Datatype", record->dataType);
-            printf( "%s: %d\n", "Filetype", record->fileType);
-            if (record->flags != 0) {
-                printf( "%s: %d\n", "Flags", record->flags);
-            }
-            if (record->tinfo1 != 0) {
-                printf( "%s: %d\n", "Tinfo1", record->tinfo1);
-            }
-            if (record->tinfo2 != 0) {
-                printf( "%s: %d\n", "Tinfo2", record->tinfo2);
-            }
-            if (record->tinfo3 != 0) {
-                printf( "%s: %d\n", "Tinfo3", record->tinfo3);
-            }
-            if (record->tinfo4 != 0) {
-                printf( "%s: %d\n", "Tinfo4", record->tinfo4);
-            }
-            if (record->comments > 0) {
-                int32_t i;
-                printf( "Comments: ");
-                for(i = 0; i < record->comments; i++) {
-                    printf( "%s\n", record->comment_lines[i] );
-                }
-            }
-        }
-        
-        // post a message when the output file is created (in case we created output)
-        if (justDisplaySAUCE == false) {
-            printf("\nSuccessfully created output file.\n\n");
-        }
-        else {
-            printf("\n");
-        }
+    // let's check the file for a valid SAUCE record
+    sauce *record = sauceReadFileName(input);
+    
+    // record == NULL also means there is no file, we can stop here
+    if (record == NULL) {
+        printf("\nFile %s not found.\n\n", input);
+        return EXIT_FAILURE;
     }
     else {
-        // in any other case the synopsis will be just fine
-        synopsis();
-        return EXIT_SUCCESS;
+        // if we find a SAUCE record, update bool flag
+        if (strcmp(record->ID, SAUCE_ID) == 0) {
+            fileHasSAUCE = true;
+        }
     }
+
+    if (justDisplaySAUCE == false) 
+    {
+        // create output file name if output is not specified
+        if (!output) {
+            int outputLen = strlen(input) + 5;
+            output = malloc(outputLen);
+            snprintf(output, outputLen, "%s%s", input, ".png");
+        }
+
+        if (createRetinaRep) {
+            int retinaLen = strlen(input) + 8;
+            retinaout = malloc(retinaLen);
+            snprintf(retinaout, retinaLen, "%s%s", input, "@2x.png");        
+        }
+
+        // default to 8 if bits option is not specified
+        if (!bits) {
+            bits = "8";
+        }
+
+        // default to empty string if mode option is not specified
+        if (!mode) {
+            mode = "";
+        }
+
+        // convert numeric command line flags to integer values
+        int32_t int_bits = atoi(bits);
+
+        // now set bits to 8 if not already value 8 or 9
+        if (int_bits != 8 && int_bits != 9) {
+            int_bits = 8;
+        }
+
+        // default to 160 if columns option is not specified
+        if (!columns) {
+            columns = "160";
+        }
+
+        // default to 80x25 font if font option is not specified
+        if (!font) {
+            font = "80x25";
+        }
+
+        // enabling iCE colors by default (For now)
+        icecolors = "1";
+
+        // get file extension
+        char *fext = strrchr(input, '.');
+        fext = fext ? strtolower(fext) : "none";
+
+        // create the output file by invoking the appropiate function
+        if (strcmp(fext, ".pcb") == 0) {
+            // params: input, output, font, bits, icecolors
+            alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
+            fileIsPCBoard = true;
+        }
+        else if (strcmp(fext, ".bin") == 0) {
+            // params: input, output, columns, font, bits, icecolors
+            alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
+            fileIsBinary = true;
+        }
+        else if (strcmp(fext, ".adf") == 0) {
+            // params: input, output, bits
+            alArtworxLoader(input, output, retinaout, createRetinaRep);
+        }
+        else if (strcmp(fext, ".idf") == 0) {
+            // params: input, output, bits
+            alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
+        }
+        else if (strcmp(fext, ".tnd") == 0) {
+            alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
+            fileIsTundra = true;
+        }
+        else if (strcmp(fext, ".xb") == 0) {
+            // params: input, output, bits
+            alXbinLoader(input, output, retinaout, createRetinaRep);
+        }
+        else {
+            // params: input, output, font, bits, icecolors, fext
+            alAnsiLoader(input, output, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
+            fileIsANSi = true;
+        }
+
+        // gather information and report to the command line
+        printf("\nInput File: %s\n", input);
+        printf("Output File: %s\n", output);
+        if (createRetinaRep == true) {
+            printf("Retina Output File: %s\n", retinaout);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || 
+            fileIsPCBoard == true || fileIsTundra == true) {
+            printf("Font: %s\n", font);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || 
+            fileIsPCBoard == true || fileIsTundra == true) {
+            printf("Bits: %d\n", int_bits);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
+            printf("iCE Colors: %s\n", icecolors);
+        }
+        if (fileIsBinary == true) {
+            printf("Columns: %s\n", columns);
+        }
+    }
+
+    // either display SAUCE or tell us if there is no record
+    if (fileHasSAUCE == false) {
+        printf("\nFile %s does not have a SAUCE record.\n", input);
+    }
+    else {
+        printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
+        printf( "%s: %s\n", "Title", record->title );
+        printf( "%s: %s\n", "Author", record->author);
+        printf( "%s: %s\n", "Group", record->group);
+        printf( "%s: %s\n", "Date", record->date);
+        printf( "%s: %d\n", "Datatype", record->dataType);
+        printf( "%s: %d\n", "Filetype", record->fileType);
+        if (record->flags != 0) {
+            printf( "%s: %d\n", "Flags", record->flags);
+        }
+        if (record->tinfo1 != 0) {
+            printf( "%s: %d\n", "Tinfo1", record->tinfo1);
+        }
+        if (record->tinfo2 != 0) {
+            printf( "%s: %d\n", "Tinfo2", record->tinfo2);
+        }
+        if (record->tinfo3 != 0) {
+            printf( "%s: %d\n", "Tinfo3", record->tinfo3);
+        }
+        if (record->tinfo4 != 0) {
+            printf( "%s: %d\n", "Tinfo4", record->tinfo4);
+        }
+        if (record->comments > 0) {
+            int32_t i;
+            printf( "Comments: ");
+            for(i = 0; i < record->comments; i++) {
+                printf( "%s\n", record->comment_lines[i] );
+            }
+        }
+    }
+
     return EXIT_SUCCESS;
 }

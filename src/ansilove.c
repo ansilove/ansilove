@@ -38,7 +38,7 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 }
 
 // ANSi
-void alAnsiLoader(char *input, char output[], char retinaout[], char font[], char bits[], char icecolors[], char *fext, bool createRetinaRep)
+void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, char *icecolors, char *fext, bool createRetinaRep)
 {
     const unsigned char *font_data;
 
@@ -196,23 +196,18 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
     }
     
     // to deal with the bits flag, we declared handy bool types   
-    if (strcmp(bits, "ced") == 0) {
+    if (strcmp(mode, "ced") == 0) {
         ced = true;
     }
-    else if (strcmp(bits, "transparent") == 0) {
+    else if (strcmp(mode, "transparent") == 0) {
         transparent = true;
     }
-    else if (strcmp(bits, "workbench") == 0) {
+    else if (strcmp(mode, "workbench") == 0) {
         workbench = true;
     }
-    else if (strcmp(bits, "workbench-transparent") == 0) {
+    else if (strcmp(mode, "workbench-transparent") == 0) {
         workbench = true;
         transparent = true;
-    }
-    
-    // force defaults... exactly now!
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
     }
     
     // load input file
@@ -227,7 +222,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -278,7 +273,6 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
     gdImageColorTransparent(im_Font, 20);
     
     // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
     int32_t int_icecolors = atoi(icecolors);
 
     // ANSi processing loops
@@ -1018,7 +1012,7 @@ void alAnsiLoader(char *input, char output[], char retinaout[], char font[], cha
 }
 
 // PCB
-void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, char *bits, bool createRetinaRep)
+void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1159,11 +1153,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
         font_size_y = 16;
     }
 
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1176,7 +1165,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
 
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1196,9 +1185,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
 
     // libgd image pointers
     gdImagePtr im_PCB;
-
-    // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
 
     // defines for stripping PCBoard codes
     char *stripped_file_buffer;
@@ -1412,7 +1398,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, cha
 }
 
 // BINARY
-void alBinaryLoader(char *input, char output[], char retinaout[], char columns[], char font[], char bits[], char icecolors[], bool createRetinaRep)
+void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, char *icecolors, bool createRetinaRep)
 {
     // some type declarations
     int32_t font_size_x;
@@ -1552,11 +1538,6 @@ void alBinaryLoader(char *input, char output[], char retinaout[], char columns[]
         font_size_y = 16;
     }
     
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) { 
@@ -1569,7 +1550,7 @@ void alBinaryLoader(char *input, char output[], char retinaout[], char columns[]
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1592,7 +1573,6 @@ void alBinaryLoader(char *input, char output[], char retinaout[], char columns[]
 
     // convert numeric command line flags to integer values
     int32_t int_columns = atoi(columns);
-    int32_t int_bits = atoi(bits);
     int32_t int_icecolors = atoi(icecolors);
     
     // allocate buffer image memory
@@ -1687,7 +1667,7 @@ void alBinaryLoader(char *input, char output[], char retinaout[], char columns[]
 }
 
 // ADF
-void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
+void alArtworxLoader(char *input, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;    
@@ -1704,7 +1684,7 @@ void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], 
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -1815,7 +1795,7 @@ void alArtworxLoader(char *input, char output[], char retinaout[], char bits[], 
 }
 
 // IDF
-void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
+void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;
@@ -1832,7 +1812,7 @@ void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], 
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -2008,7 +1988,7 @@ void alIcedrawLoader(char *input, char output[], char retinaout[], char bits[], 
 }
 
 // TUNDRA
-void alTundraLoader(char *input, char output[], char retinaout[], char font[], char bits[], bool fileHasSAUCE, bool createRetinaRep)
+void alTundraLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
 {
     int32_t columns = 80;
     int32_t font_size_x;
@@ -2150,11 +2130,6 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
         font_size_y = 16;
     }
 
-    // now set bits to 8 if not already value 8 or 9
-    if (strcmp(bits, "8") != 0 && strcmp(bits, "9") != 0) {
-        sprintf(bits, "%s", "8");
-    }
-
     // load input file
     FILE *input_file = fopen(input, "r");
     if (input_file == NULL) {
@@ -2167,7 +2142,7 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
 
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
 
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
@@ -2195,9 +2170,6 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
 
     // libgd image pointers
     gdImagePtr im_Tundra;
-
-    // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
 
     // extract tundra header
     tundra_version = input_file_buffer[0];
@@ -2381,7 +2353,7 @@ void alTundraLoader(char *input, char output[], char retinaout[], char font[], c
 }
 
 // XBIN
-void alXbinLoader(char *input, char output[], char retinaout[], char bits[], bool createRetinaRep)
+void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_xbin;
@@ -2398,7 +2370,7 @@ void alXbinLoader(char *input, char output[], char retinaout[], char bits[], boo
     
     // next up is loading our file into a dynamically allocated memory buffer
     unsigned char *input_file_buffer;
-    size_t result;
+    int32_t result;
     
     // allocate memory to contain the whole file
     input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
