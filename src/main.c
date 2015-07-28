@@ -175,12 +175,12 @@ int main(int argc, char *argv[])
     }
     else {
         // if we find a SAUCE record, update bool flag
-        if (strcmp(record->ID, SAUCE_ID) == 0) {
+        if (!strcmp(record->ID, SAUCE_ID)) {
             fileHasSAUCE = true;
         }
     }
 
-    if (justDisplaySAUCE == false) 
+    if (!justDisplaySAUCE) 
     {
         // create output file name if output is not specified
         if (!output) {
@@ -231,29 +231,29 @@ int main(int argc, char *argv[])
         fext = fext ? strtolower(fext) : "none";
 
         // create the output file by invoking the appropiate function
-        if (strcmp(fext, ".pcb") == 0) {
+        if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
             alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
             fileIsPCBoard = true;
         }
-        else if (strcmp(fext, ".bin") == 0) {
+        else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
             alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         }
-        else if (strcmp(fext, ".adf") == 0) {
+        else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
             alArtworxLoader(input, output, retinaout, createRetinaRep);
         }
-        else if (strcmp(fext, ".idf") == 0) {
+        else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
             alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
         }
-        else if (strcmp(fext, ".tnd") == 0) {
+        else if (!strcmp(fext, ".tnd")) {
             alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
             fileIsTundra = true;
         }
-        else if (strcmp(fext, ".xb") == 0) {
+        else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
             alXbinLoader(input, output, retinaout, createRetinaRep);
         }
@@ -266,27 +266,27 @@ int main(int argc, char *argv[])
         // gather information and report to the command line
         printf("\nInput File: %s\n", input);
         printf("Output File: %s\n", output);
-        if (createRetinaRep == true) {
+        if (createRetinaRep) {
             printf("Retina Output File: %s\n", retinaout);
         }
-        if (fileIsANSi == true || fileIsBinary == true || 
-            fileIsPCBoard == true || fileIsTundra == true) {
+        if (fileIsANSi || fileIsBinary || 
+            fileIsPCBoard || fileIsTundra) {
             printf("Font: %s\n", font);
         }
-        if (fileIsANSi == true || fileIsBinary == true || 
-            fileIsPCBoard == true || fileIsTundra == true) {
+        if (fileIsANSi || fileIsBinary || 
+            fileIsPCBoard || fileIsTundra) {
             printf("Bits: %d\n", int_bits);
         }
-        if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
+        if (fileIsANSi || fileIsBinary || fileIsPCBoard) {
             printf("iCE Colors: %s\n", icecolors);
         }
-        if (fileIsBinary == true) {
+        if (fileIsBinary) {
             printf("Columns: %s\n", columns);
         }
     }
 
     // either display SAUCE or tell us if there is no record
-    if (fileHasSAUCE == false) {
+    if (!fileHasSAUCE) {
         printf("\nFile %s does not have a SAUCE record.\n", input);
     }
     else {
