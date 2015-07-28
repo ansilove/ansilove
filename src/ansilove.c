@@ -196,16 +196,16 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     }
     
     // to deal with the bits flag, we declared handy bool types   
-    if (strcmp(mode, "ced") == 0) {
+    if (!strcmp(mode, "ced")) {
         ced = true;
     }
-    else if (strcmp(mode, "transparent") == 0) {
+    else if (!strcmp(mode, "transparent")) {
         transparent = true;
     }
-    else if (strcmp(mode, "workbench") == 0) {
+    else if (!strcmp(mode, "workbench")) {
         workbench = true;
     }
-    else if (strcmp(mode, "workbench-transparent") == 0) {
+    else if (!strcmp(mode, "workbench-transparent")) {
         workbench = true;
         transparent = true;
     }
@@ -248,12 +248,12 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     
     // compare current file extension with the ones in our DIZ array
     for (i = 0; i < dizCount; i++) {
-        if (strcmp(fext, dizArray[i]) == 0) {
+        if (!strcmp(fext, dizArray[i])) {
             isDizFile = true;
         }            
     }
     // in case we got a DIZ file here, do specific optimizations
-    if (isDizFile == true) 
+    if (isDizFile) 
     {
         char *stripped_file_buffer;
         stripped_file_buffer = str_replace((const char *)input_file_buffer, "\r\n", "");
@@ -316,7 +316,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         // also define sequence content starting point
         seqContent = input_file_buffer[loop + 2];
         
-        if (position_x==80 && (strcmp(WRAP_COLUMN_80, "1") == 0))
+        if (position_x==80 && !strcmp(WRAP_COLUMN_80, "1"))
         {
             position_y++;
             position_x=0;
@@ -347,7 +347,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         }
         
         // sub
-        if (current_character == 26 && (strcmp(SUBSTITUTE_BREAK, "1") == 0))
+        if (current_character == 26 && !strcmp(SUBSTITUTE_BREAK, "1"))
         {
             break;
         }
@@ -545,7 +545,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             
                             if (seqValue == 1)
                             {
-                                if (workbench == false)
+                                if (!workbench)
                                 {
                                     color_foreground+=8;
                                 }
@@ -564,7 +564,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             
                             if (seqValue == 5)
                             {
-                                if (workbench == false)
+                                if (!workbench)
                                 {
                                     color_background+=8;
                                 }
@@ -575,7 +575,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             {
                                 color_foreground = seqValue - 30;
                                 
-                                if (bold == true)
+                                if (bold)
                                 {
                                     color_foreground+=8;
                                 }
@@ -585,7 +585,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             {
                                 color_background = seqValue - 40;
                                 
-                                if (blink == true && int_icecolors == 1)
+                                if (blink && int_icecolors == 1)
                                 {
                                     color_background+=8;
                                 }
@@ -625,7 +625,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
             }
             
             // write current character in ansiChar structure 
-            if (isAmigaFont == false || (current_character != 12 && current_character != 13))
+            if (!isAmigaFont || (current_character != 12 && current_character != 13))
             {
                 // reallocate structure array memory
                 temp = realloc(ansi_buffer, (structIndex + 1) * sizeof(struct ansiChar));
@@ -651,12 +651,12 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     position_x_max++;
     position_y_max++;
     
-    if (ced == true)
+    if (ced)
     {
         columns = 78;
     }
     
-    if (isDizFile == true) {
+    if (isDizFile) {
         columns = fmin(position_x_max,80);
     }
         
@@ -669,7 +669,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     
     int32_t colors[21];
     
-    if (ced == true)
+    if (ced)
     {
         // get ced colors from configuration
         char **cedBackgroundArray, **cedForegroundArray;
@@ -700,7 +700,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         gdImageFilledRectangle(im_Backgrnd, 0, 0, 144, 16, ced_color);
         
     }
-    else if (workbench == true)
+    else if (workbench)
     {
         // get workbench colors from configuration
         char **wbColorArray, *wbcStorage[8][3];
@@ -840,7 +840,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         position_x = ansi_buffer[loop].position_x;
         position_y = ansi_buffer[loop].position_y;
         
-        if (isAmigaFont == false)
+        if (!isAmigaFont)
         {
             gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
                         position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
@@ -850,13 +850,13 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         }
         else
         {
-            if (color_background != 0 || italics == false)
+            if (color_background != 0 || !italics)
             {
                 gdImageCopy(im_ANSi, im_Backgrnd, position_x * int_bits, 
                             position_y * font_size_y, color_background * 9, 0, int_bits, font_size_y);
             }
             
-            if (italics == false)
+            if (!italics)
             {
                 gdImageCopy(im_ANSi, im_Font, position_x * int_bits, position_y * font_size_y, 
                             character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
@@ -879,7 +879,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
             }
             
-            if (italics == true && bold == true)
+            if (italics && bold)
             {
                 gdImageCopy(im_ANSi, im_Font, position_x * int_bits + 3 + 1, position_y * font_size_y, 
                             character * font_size_x, color_foreground * font_size_y ,int_bits, 2);
@@ -897,23 +897,23 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             character * font_size_x, color_foreground * font_size_y + 14, int_bits, 2);
             }
             
-            if (bold == true && italics == false && (ced == true || workbench == true))
+            if (bold && !italics && (ced || workbench))
             {
                 gdImageCopy(im_ANSi, im_Font, 1 + position_x * int_bits, position_y * font_size_y, 
                             character * font_size_x, color_foreground * font_size_y, int_bits, font_size_y);
             }
             
-            if (underline == true)
+            if (underline)
             {
                 loop_column = 0;
                 character_size_x = 8;
                 
-                if (bold == true)
+                if (bold)
                 {
                     character_size_x++;
                 }
                 
-                if (italics == true)
+                if (italics)
                 {
                     loop_column=-1;
                     character_size_x = 11;
@@ -942,7 +942,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                     loop_column++;
                 }
                 
-                if (pixelCarry == true)
+                if (pixelCarry)
                 {
                     gdImageSetPixel(im_ANSi, position_x * int_bits, 
                                     position_y * font_size_y + 14, colors[color_foreground]);
@@ -973,7 +973,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     }
     
     // transparent flag used?
-    if (transparent == true)
+    if (transparent)
     {
         gdImageColorTransparent(im_ANSi, background_canvas);
     }
@@ -984,7 +984,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
@@ -1374,7 +1374,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
@@ -1643,7 +1643,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
@@ -1771,7 +1771,7 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
@@ -1830,7 +1830,7 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
     rewind(input_file);
 
     // IDF related: file contains a SAUCE record? adjust the file size
-    if(fileHasSAUCE == true) {
+    if(fileHasSAUCE) {
         sauce *saucerec = sauceReadFile(input_file);
         input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
         rewind(input_file);
@@ -1964,7 +1964,7 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
@@ -2160,7 +2160,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
     rewind(input_file);
 
     // exclude SAUCE record from file buffer
-    if(fileHasSAUCE == true) {
+    if(fileHasSAUCE) {
         sauce *saucerec = sauceReadFile(input_file);
         input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
         rewind(input_file);
@@ -2329,7 +2329,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
     fclose(file_Out);
 
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
 
@@ -2561,7 +2561,7 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
     fclose(file_Out);
     
     // in case Retina image output is wanted
-    if (createRetinaRep == true)
+    if (createRetinaRep)
     {
         gdImagePtr im_RetinaANSi;
         
