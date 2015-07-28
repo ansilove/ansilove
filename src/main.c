@@ -180,106 +180,109 @@ int main(int argc, char *argv[])
         }
     }
 
-    // create output file name if output is not specified
-    if (!output) {
-        int outputLen = strlen(input) + 5;
-        output = malloc(outputLen);
-        snprintf(output, outputLen, "%s%s", input, ".png");
-    }
+    if (justDisplaySAUCE == false) 
+    {
+        // create output file name if output is not specified
+        if (!output) {
+            int outputLen = strlen(input) + 5;
+            output = malloc(outputLen);
+            snprintf(output, outputLen, "%s%s", input, ".png");
+        }
 
-    if (createRetinaRep) {
-        int retinaLen = strlen(input) + 8;
-        retinaout = malloc(retinaLen);
-        snprintf(retinaout, retinaLen, "%s%s", input, "@2x.png");        
-    }
+        if (createRetinaRep) {
+            int retinaLen = strlen(input) + 8;
+            retinaout = malloc(retinaLen);
+            snprintf(retinaout, retinaLen, "%s%s", input, "@2x.png");        
+        }
 
-    // default to 8 if bits option is not specified
-    if (!bits) {
-        bits = "8";
-    }
+        // default to 8 if bits option is not specified
+        if (!bits) {
+            bits = "8";
+        }
 
-    // default to empty string if mode option is not specified
-    if (!mode) {
-        mode = "";
-    }
+        // default to empty string if mode option is not specified
+        if (!mode) {
+            mode = "";
+        }
 
-    // convert numeric command line flags to integer values
-    int32_t int_bits = atoi(bits);
+        // convert numeric command line flags to integer values
+        int32_t int_bits = atoi(bits);
 
-    // now set bits to 8 if not already value 8 or 9
-    if (int_bits != 8 && int_bits != 9) {
-        int_bits = 8;
-    }
+        // now set bits to 8 if not already value 8 or 9
+        if (int_bits != 8 && int_bits != 9) {
+            int_bits = 8;
+        }
 
-    // default to 160 if columns option is not specified
-    if (!columns) {
-        columns = "160";
-    }
+        // default to 160 if columns option is not specified
+        if (!columns) {
+            columns = "160";
+        }
 
-    // default to 80x25 font if font option is not specified
-    if (!font) {
-        font = "80x25";
-    }
+        // default to 80x25 font if font option is not specified
+        if (!font) {
+            font = "80x25";
+        }
 
-    // enabling iCE colors by default (For now)
-    icecolors = "1";
+        // enabling iCE colors by default (For now)
+        icecolors = "1";
 
-    // get file extension
-    char *fext = strrchr(input, '.');
-    fext = fext ? strtolower(fext) : "none";
+        // get file extension
+        char *fext = strrchr(input, '.');
+        fext = fext ? strtolower(fext) : "none";
 
-    // create the output file by invoking the appropiate function
-    if (strcmp(fext, ".pcb") == 0) {
-        // params: input, output, font, bits, icecolors
-        alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
-        fileIsPCBoard = true;
-    }
-    else if (strcmp(fext, ".bin") == 0) {
-        // params: input, output, columns, font, bits, icecolors
-        alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
-        fileIsBinary = true;
-    }
-    else if (strcmp(fext, ".adf") == 0) {
-        // params: input, output, bits
-        alArtworxLoader(input, output, retinaout, createRetinaRep);
-    }
-    else if (strcmp(fext, ".idf") == 0) {
-        // params: input, output, bits
-        alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
-    }
-    else if (strcmp(fext, ".tnd") == 0) {
-        alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
-        fileIsTundra = true;
-    }
-    else if (strcmp(fext, ".xb") == 0) {
-        // params: input, output, bits
-        alXbinLoader(input, output, retinaout, createRetinaRep);
-    }
-    else {
-        // params: input, output, font, bits, icecolors, fext
-        alAnsiLoader(input, output, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
-        fileIsANSi = true;
-    }
+        // create the output file by invoking the appropiate function
+        if (strcmp(fext, ".pcb") == 0) {
+            // params: input, output, font, bits, icecolors
+            alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
+            fileIsPCBoard = true;
+        }
+        else if (strcmp(fext, ".bin") == 0) {
+            // params: input, output, columns, font, bits, icecolors
+            alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
+            fileIsBinary = true;
+        }
+        else if (strcmp(fext, ".adf") == 0) {
+            // params: input, output, bits
+            alArtworxLoader(input, output, retinaout, createRetinaRep);
+        }
+        else if (strcmp(fext, ".idf") == 0) {
+            // params: input, output, bits
+            alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
+        }
+        else if (strcmp(fext, ".tnd") == 0) {
+            alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
+            fileIsTundra = true;
+        }
+        else if (strcmp(fext, ".xb") == 0) {
+            // params: input, output, bits
+            alXbinLoader(input, output, retinaout, createRetinaRep);
+        }
+        else {
+            // params: input, output, font, bits, icecolors, fext
+            alAnsiLoader(input, output, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
+            fileIsANSi = true;
+        }
 
-    // gather information and report to the command line
-    printf("\nInput File: %s\n", input);
-    printf("Output File: %s\n", output);
-    if (createRetinaRep == true) {
-        printf("Retina Output File: %s\n", retinaout);
-    }
-    if (fileIsANSi == true || fileIsBinary == true || 
-        fileIsPCBoard == true || fileIsTundra == true) {
-        printf("Font: %s\n", font);
-    }
-    if (fileIsANSi == true || fileIsBinary == true || 
-        fileIsPCBoard == true || fileIsTundra == true) {
-        printf("Bits: %d\n", int_bits);
-    }
-    if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
-        printf("iCE Colors: %s\n", icecolors);
-    }
-    if (fileIsBinary == true) {
-        printf("Columns: %s\n", columns);
+        // gather information and report to the command line
+        printf("\nInput File: %s\n", input);
+        printf("Output File: %s\n", output);
+        if (createRetinaRep == true) {
+            printf("Retina Output File: %s\n", retinaout);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || 
+            fileIsPCBoard == true || fileIsTundra == true) {
+            printf("Font: %s\n", font);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || 
+            fileIsPCBoard == true || fileIsTundra == true) {
+            printf("Bits: %d\n", int_bits);
+        }
+        if (fileIsANSi == true || fileIsBinary == true || fileIsPCBoard == true) {
+            printf("iCE Colors: %s\n", icecolors);
+        }
+        if (fileIsBinary == true) {
+            printf("Columns: %s\n", columns);
+        }
     }
 
     // either display SAUCE or tell us if there is no record
