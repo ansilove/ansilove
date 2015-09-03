@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     char *input = NULL, *output = NULL;
     char *retinaout = NULL;
 
-    while ((getoptFlag = getopt(argc, argv, "b:c:ef:hi:m:o:rsv")) != -1) {
+    while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
         switch(getoptFlag) {
         case 'b':
             bits = optarg;
@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
             showHelp();
             return EXIT_SUCCESS;
         case 'i':
-            input = optarg;
+            // TODO : Implement iCE Colors on/off toggle
             break;
         case 'm':
             mode = optarg;
@@ -161,6 +161,8 @@ int main(int argc, char *argv[])
             return EXIT_SUCCESS;
         }
     }
+
+    input = argv[optind];
 
     argc -= optind; 
     argv += optind;
