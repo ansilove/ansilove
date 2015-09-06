@@ -30,12 +30,21 @@ void showHelp(void)
     printf("\nSUPPORTED FILE TYPES:\n"
            "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
            "  Files with custom suffix default to the ANSi renderer.\n\n"
-           "OPERANDS:\n"
-           "  Optional values to adjust output. There are certain cases where you need to\n"
-           "  set operands for proper rendering. However, this is occassionally. Results\n"
-           "  turn out well with the built-in defaults. You may launch AnsiLove with the\n"
-           "  option -e to get a list of basic examples, with and without operands. Note\n"
-           "  that columns is restricted to BIN files, it won't affect other file types.\n\n"
+           "PC FONTS:\n"
+           "  80x25              icelandic\n"
+           "  80x50              latin1\n"
+           "  baltic             latin2\n"
+           "  cyrillic           nordic\n"
+           "  french-canadian    portuguese\n"
+           "  greek              russian\n"
+           "  greek-869          terminus\n"
+           "  hebrew             turkish\n\n"
+           "AMIGA FONTS:\n"
+           "  amiga              topaz\n"
+           "  microknight        topaz+\n"
+           "  microknight+       topaz500\n"
+           "  mosoul             topaz500+\n"
+           "  pot-noodle\n\n"
            "DOCUMENTATION:\n"
            "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
            "  <https://github.com/ansilove/AnsiLove-C>\n\n");
@@ -44,17 +53,13 @@ void showHelp(void)
 void listExamples(void)
 {
     printf("\nEXAMPLES:\n"); 
-    printf("  ansilove file.ans -i (output path/name identical to input, no operands)\n"
-           "  ansilove file.ans -ir (same as -i, adds Retina @2x output file)\n"
-           "  ansilove file.ans -o dir/file (custom path/name for output, no operands)\n"
-           "  ansilove file.ans -or dir/file (same as -o, adds Retina @2x output file)\n"
-           "  ansilove file.bin -s (just display SAUCE record, don't generate output)\n"
-           "  ansilove file.bin -i terminus 8 1 202 (set font, bits, icecolors, columns)\n"
-           "  ansilove file.ans -o dir/file terminus 8 1 (custom font, bits, icecolors)\n"
-           "  ansilove file.ans -or dir/file 80x25 8 1 (DOS font, bits, iCE, Retina)\n\n"
-           "HINT:\n"
-           "  Don't add .png suffix when specifying a custom path/name for output as it\n"
-           "  will be added automatically.\n\n");
+    printf("  ansilove file.ans (output path/name identical to input, no options)\n"
+           "  ansilove -r file.ans (adds Retina @2x output file)\n"
+           "  ansilove -o dir/file file.ans (custom path/name for output)\n"
+           "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
+           "  ansilove -m transparent file.ans (render with transparent background)\n"
+           "  ansilove -f amiga -b 9 -c 202 file.bin (set font, bits, columns)\n"
+           "\n");
 }
 
 void versionInfo(void)
@@ -72,23 +77,23 @@ void versionInfo(void)
 void synopsis(void)
 {
     printf("\nSYNOPSIS:\n"
-           "  ansilove input -i [operands]\n"
-           "  ansilove input -ir [operands]\n"
-           "  ansilove input -o output [operands]\n"
-           "  ansilove input -or output [operands]\n"
-           "  ansilove input -s\n"
-           "  ansilove -vhe\n\n"
+           "  ansilove [options] file\n"
+           "  ansilove -e | -h | -v\n\n"
            "OPTIONS:\n"
-           "  -i   output identical to input with .png suffix added\n"
-           "  -ir  same as -i, creates additional Retina @2x output file\n"
-           "  -o   specify custom file name/path for output\n"
-           "  -or  same as -o, creates additional Retina @2x output file\n"
-           "  -s   display SAUCE record without generating output\n"
-           "  -v   version information, equivalent to --version\n"
-           "  -h   show help, equivalent to --help\n"
-           "  -e   print a list of examples\n\n"
-           "OPERANDS:\n"
-           "  font bits icecolors columns\n\n");
+           "  -b bits     set to 9 to render 9th column of block characters (default: 8)\n"
+           "  -c columns  adjust number of columns for BIN files (default: 160)\n"
+           "  -e          print a list of examples\n"
+           "  -f font     select font (default: 80x25)\n"
+           "  -h          show help\n"
+           "  -m mode     set rendering mode for ANS files:\n"
+           "                ced            black on gray, with 78 columns\n"
+           "                transparent    render with transparent background\n"
+           "                workbench      use Amiga Workbench palette\n"
+           "  -o file     specify output filename/path\n"
+           "  -r          creates additional Retina @2x output file\n"
+           "  -s          show SAUCE record without generating output\n"
+           "  -v          show version information\n"
+           "\n");
 }
 
 int main(int argc, char *argv[])

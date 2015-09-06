@@ -66,7 +66,7 @@ Even more:
 
 - Output files are highly optimized 4-bit PNGs.
 - Optionally generates additional (and proper) Retina @2x PNG.
-- You can use custom operands for adjusting output results.
+- You can use custom options for adjusting output results.
 - Built-in support for rendering Amiga ASCII.
 
 # Documentation
@@ -75,33 +75,28 @@ One major goal for AnsiLove/C was implementing the look and feel of common UNIX 
 
 ## Synopsis
 
-	ansilove file -i [operands]
-	ansilove file -ir [operands]
-	ansilove file -o output [operands]
-	ansilove file -or output [operands]
-	ansilove file -s
-	ansilove -vhe
+       ansilove [options] file
+       ansilove -e | -h | -v
 
 ## Options
 
-	-i   output identical to input with .png suffix added
-	-ir  same as -i, creates additional Retina @2x output file
-	-o   specify custom file name / path for output
-	-or  same as -o, creates additional Retina @2x output file
-	-s   display SAUCE record without generating output
-	-v   version information, equivalent to --version
-	-h   show help, equivalent to --help
-	-e   print a list of examples
+       -b bits     set to 9 to render 9th column of block characters (default: 8)
+       -c columns  adjust number of columns for BIN files (default: 160)
+       -e          print a list of examples
+       -f font     select font (default: 80x25)
+       -h          show help
+       -m mode     set rendering mode for ANS files:
+                     ced            black on gray, with 78 columns
+                     transparent    render with transparent background
+                     workbench      use Amiga Workbench palette
+       -o file     specify output filename/path
+       -r          creates additional Retina @2x output file
+       -s          show SAUCE record without generating output
+       -v          show version information
 
-Hint: Don't add .png suffix when specifying a custom path/name for output as it will be added automatically.
+There are certain cases where you need to set options for proper rendering. However, this is occassionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples. Note that columns is restricted to `BIN` files, it won't affect other file types.
 
-## Operands
-
-	font bits icecolors columns
-
-Optional values to adjust output. There are certain cases where you need to set operands for proper rendering. However, this is occassionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples, with and without operands. Note that columns is restricted to `BIN` files, it won't affect other file types. It's also worth mentioning that setting a certain operand requires to set all operands before, so if you need to modifiy the `icecolors` operand, you have to set `font` and `bits` as well. On the other hand, it's fine to set the `font` operand while not setting any of the following. Got that?
-
-## font (operand)
+## Fonts
 
 We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available at your fingertips. 
 
@@ -136,25 +131,30 @@ AMIGA fonts can be (all case-sensitive):
 - `topaz500` (Original Topaz Kickstart 1.x version)
 - `topaz500+` (Modified Topaz Kickstart 1.x version)
 
-## bits (operand)
+## Bits
 
 `bits` can be (all case-sensitive): 
 
 - `8` (8-bit)
 - `9` (9-bit)
+
+Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode. 
+
+## Rendering Mode
+
+`mode` can be (all case-sensitive): 
+
 - `ced`
 - `transparent`
 - `workbench`
 
-Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode. 
+Setting the mode to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an `AMIGA` font, the output will look like it is displayed on Amiga.
 
-Setting the bits to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an `AMIGA` font, the output will look like it is displayed on Amiga.
+Setting the mode to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `ANS` files).
 
-Setting the bits to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `ANS` files).
+Settings the mode to `transparent` will produce output files with transparent background (only available for `ANS` files).
 
-Settings the bits to `transparent` will produce output files with transparent background (only available for `ANS` files).
-
-## icecolors (operand)
+## iCE Colors
 
 `icecolors` can be:
 
@@ -163,7 +163,7 @@ Settings the bits to `transparent` will produce output files with transparent ba
 
 Setting `icecolors` to `1` will enable iCE color codes. On the opposite `0` means that that `icecolors` are disabled, which is the default value. When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
 
-## columns (operand)
+## Columns
 
 `columns` is only relevant for ANSi source files with `BIN` extension and even for those files optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to `BIN` files and only if you exactly know what you're doing. A KITTEN MAY DIE SOMEWHERE.
 
