@@ -68,9 +68,7 @@ void versionInfo(void)
            "\nFork me on GitHub: <https://github.com/ansilove/AnsiLove-C>\n"
            "Bug reports: <https://github.com/ansilove/AnsiLove-C/issues>\n\n"
            "This is free software, released under the 3-Clause BSD license.\n"
-           "<https://github.com/ansilove/AnsiLove-C/blob/master/LICENSE>\n\n"
-           "LibGD is copyright (C) Thomas Boutell, Pierre-Alain Joye and contributors.\n"
-           "<https://bitbucket.org/pierrejoye/gd-libgd>\n\n");
+           "<https://github.com/ansilove/AnsiLove-C/blob/master/LICENSE>\n\n");
 }
 
 // following the IEEE Std 1003.1 for utility conventions
