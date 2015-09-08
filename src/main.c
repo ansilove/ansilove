@@ -54,6 +54,7 @@ void listExamples(void)
 {
     printf("\nEXAMPLES:\n"); 
     printf("  ansilove file.ans (output path/name identical to input, no options)\n"
+           "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"
            "  ansilove -o dir/file file.ans (custom path/name for output)\n"
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
@@ -83,6 +84,7 @@ void synopsis(void)
            "  -e          print a list of examples\n"
            "  -f font     select font (default: 80x25)\n"
            "  -h          show help\n"
+           "  -i          enable iCE colors\n"
            "  -m mode     set rendering mode for ANS files:\n"
            "                ced            black on gray, with 78 columns\n"
            "                transparent    render with transparent background\n"
@@ -106,6 +108,9 @@ int main(int argc, char *argv[])
     // retina output bool type
     bool createRetinaRep = false;
     
+    // iCE colors bool type
+    bool icecolors = false;
+
     // analyze options and do what has to be done
     bool fileIsBinary = false;
     bool fileIsANSi = false;
@@ -122,7 +127,6 @@ int main(int argc, char *argv[])
     char *mode = NULL;
     char *columns = NULL;
     char *font = NULL;
-    char *icecolors = NULL;
 
     char *input = NULL, *output = NULL;
     char *retinaout = NULL;
@@ -145,7 +149,7 @@ int main(int argc, char *argv[])
             showHelp();
             return EXIT_SUCCESS;
         case 'i':
-            // TODO : Implement iCE Colors on/off toggle
+            icecolors = true;
             break;
         case 'm':
             mode = optarg;
@@ -228,9 +232,6 @@ int main(int argc, char *argv[])
             font = "80x25";
         }
 
-        // enabling iCE colors by default (For now)
-        icecolors = "1";
-
         // get file extension
         char *fext = strrchr(input, '.');
         fext = fext ? strtolower(fext) : "none";
@@ -282,8 +283,8 @@ int main(int argc, char *argv[])
             fileIsPCBoard || fileIsTundra) {
             printf("Bits: %d\n", int_bits);
         }
-        if (fileIsANSi || fileIsBinary || fileIsPCBoard) {
-            printf("iCE Colors: %s\n", icecolors);
+        if (icecolors && (fileIsANSi || fileIsBinary)) {
+            printf("iCE Colors: enabled");
         }
         if (fileIsBinary) {
             printf("Columns: %s\n", columns);

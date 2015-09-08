@@ -182,7 +182,7 @@ void alSelectFont(struct fontStruct* fontData, char *font) {
 }
 
 // ANSi
-void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, char *icecolors, char *fext, bool createRetinaRep)
+void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
 {
     // ladies and gentlemen, it's type declaration time
     struct fontStruct fontData;
@@ -274,9 +274,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     
     // set transparent color index for the font
     gdImageColorTransparent(im_Font, 20);
-    
-    // convert numeric command line flags to integer values
-    int32_t int_icecolors = atoi(icecolors);
 
     // ANSi processing loops
     int32_t loop = 0, ansi_sequence_loop, seq_graphics_loop; 
@@ -588,7 +585,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
                             {
                                 color_background = seqValue - 40;
                                 
-                                if (blink && int_icecolors == 1)
+                                if (blink && icecolors)
                                 {
                                     color_background+=8;
                                 }
@@ -1269,7 +1266,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
 }
 
 // BINARY
-void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, char *icecolors, bool createRetinaRep)
+void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -1312,7 +1309,6 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
 
     // convert numeric command line flags to integer values
     int32_t int_columns = atoi(columns);
-    int32_t int_icecolors = atoi(icecolors);
     
     // allocate buffer image memory
     im_Binary = gdImageCreate(int_columns * int_bits, 
@@ -1364,7 +1360,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
         color_foreground = (attribute & 15);
 
         
-        if (color_background > 8 && int_icecolors == 0)
+        if (color_background > 8 && !icecolors)
         {
             color_background -= 8;
         }
