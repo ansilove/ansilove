@@ -85,6 +85,7 @@ One major goal for AnsiLove/C was implementing the look and feel of common UNIX 
        -e          print a list of examples
        -f font     select font (default: 80x25)
        -h          show help
+       -i          enable iCE colors
        -m mode     set rendering mode for ANS files:
                      ced            black on gray, with 78 columns
                      transparent    render with transparent background
@@ -156,12 +157,9 @@ Settings the mode to `transparent` will produce output files with transparent ba
 
 ## iCE Colors
 
-`icecolors` can be:
+iCE colors are disabled by default, and can be enabled by specifying the `-i` option.
 
-- `0`
-- `1`
-
-Setting `icecolors` to `1` will enable iCE color codes. On the opposite `0` means that that `icecolors` are disabled, which is the default value. When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
+When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
 
 ## Columns
 
