@@ -95,7 +95,7 @@ One major goal for AnsiLove/C was implementing the look and feel of common UNIX 
        -s          show SAUCE record without generating output
        -v          show version information
 
-There are certain cases where you need to set options for proper rendering. However, this is occassionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples. Note that columns is restricted to `BIN` files, it won't affect other file types.
+There are certain cases where you need to set options for proper rendering. However, this is occasionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples. Note that columns is restricted to `BIN` files, it won't affect other file types.
 
 ## Fonts
 
@@ -139,11 +139,11 @@ AMIGA fonts can be (all case-sensitive):
 - `8` (8-bit)
 - `9` (9-bit)
 
-Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode. 
+Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode.
 
 ## Rendering Mode
 
-`mode` can be (all case-sensitive): 
+`mode` can be (all case-sensitive):
 
 - `ced`
 - `transparent`
