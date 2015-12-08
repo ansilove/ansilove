@@ -292,10 +292,10 @@ int main(int argc, char *argv[])
             printf("Bits: %d\n", int_bits);
         }
         if (icecolors && (fileIsANSi || fileIsBinary)) {
-            printf("iCE Colors: enabled");
+            printf("iCE Colors: enabled\n");
         }
         if (fileIsBinary) {
-            printf("Columns: %s\n", columns);
+            printf("Columns: %d\n", int_columns);
         }
     }
 
