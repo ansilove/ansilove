@@ -62,7 +62,7 @@ struct ansiChar {
 };
 
 struct fontStruct {
-    char *font_data;
+    unsigned char *font_data;
     int32_t font_size_x;
     int32_t font_size_y;
     bool isAmigaFont;
