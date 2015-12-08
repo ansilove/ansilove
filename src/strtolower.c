@@ -1,5 +1,5 @@
 //
-//  strtolower.m
+//  strtolower.c
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2015 Stefan Vogt, Brian Cassidy, Frederic Cambus.
