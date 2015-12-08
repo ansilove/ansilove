@@ -121,11 +121,6 @@ int main(int argc, char *argv[])
     bool fileIsANSi = false;
     bool fileIsPCBoard = false;
     bool fileIsTundra = false;
-    
-    if (argc == 1 || argc >= 9) {
-        synopsis();
-        return EXIT_SUCCESS;
-    }
 
     int getoptFlag;
     char *bits = NULL;
@@ -174,7 +169,12 @@ int main(int argc, char *argv[])
         }
     }
 
-    input = argv[optind];
+    if (optind < argc) {
+        input = argv[optind];
+    } else {
+        synopsis();
+        return EXIT_SUCCESS;
+    }
 
     argc -= optind; 
     argv += optind;
