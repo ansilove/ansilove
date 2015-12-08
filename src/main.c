@@ -14,6 +14,11 @@
 #include <string.h>
 #include <stdbool.h>
 #include <getopt.h>
+
+#ifndef HAVE_STRTONUM
+#include "../compat/strtonum.h"
+#endif
+
 #include "alconfig.h"
 #include "strtolower.h"
 #include "substr.h"
