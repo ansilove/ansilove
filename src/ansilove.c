@@ -1266,7 +1266,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
 }
 
 // BINARY
-void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
+void alBinaryLoader(char *input, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -1306,9 +1306,6 @@ void alBinaryLoader(char *input, char *output, char *retinaout, char *columns, c
     
     // libgd image pointers
     gdImagePtr im_Binary;
-
-    // convert numeric command line flags to integer values
-    int32_t int_columns = atoi(columns);
     
     // allocate buffer image memory
     im_Binary = gdImageCreate(int_columns * int_bits, 

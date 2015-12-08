@@ -232,6 +232,9 @@ int main(int argc, char *argv[])
             columns = "160";
         }
 
+        // convert numeric command line flags to integer values
+        int32_t int_columns = atoi(columns);
+
         // default to 80x25 font if font option is not specified
         if (!font) {
             font = "80x25";
@@ -249,7 +252,7 @@ int main(int argc, char *argv[])
         }
         else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            alBinaryLoader(input, output, retinaout, columns, font, int_bits, icecolors, createRetinaRep);
+            alBinaryLoader(input, output, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         }
         else if (!strcmp(fext, ".adf")) {
