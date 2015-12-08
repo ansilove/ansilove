@@ -304,32 +304,31 @@ int main(int argc, char *argv[])
         printf("\nFile %s does not have a SAUCE record.\n", input);
     }
     else {
-        printf( "\n%s: %s v%s\n", "Id", record->ID, record->version);
-        printf( "%s: %s\n", "Title", record->title );
-        printf( "%s: %s\n", "Author", record->author);
-        printf( "%s: %s\n", "Group", record->group);
-        printf( "%s: %s\n", "Date", record->date);
-        printf( "%s: %d\n", "Datatype", record->dataType);
-        printf( "%s: %d\n", "Filetype", record->fileType);
+        printf( "\nId: %s v%s\n", record->ID, record->version);
+        printf( "Title: %s\n", record->title );
+        printf( "Author: %s\n", record->author);
+        printf( "Group: %s\n", record->group);
+        printf( "Date: %s\n", record->date);
+        printf( "Datatype: %d\n", record->dataType);
+        printf( "Filetype: %d\n", record->fileType);
         if (record->flags != 0) {
-            printf( "%s: %d\n", "Flags", record->flags);
+            printf( "Flags: %d\n", record->flags);
         }
         if (record->tinfo1 != 0) {
-            printf( "%s: %d\n", "Tinfo1", record->tinfo1);
+            printf( "Tinfo1: %d\n", record->tinfo1);
         }
         if (record->tinfo2 != 0) {
-            printf( "%s: %d\n", "Tinfo2", record->tinfo2);
+            printf( "Tinfo2: %d\n", record->tinfo2);
         }
         if (record->tinfo3 != 0) {
-            printf( "%s: %d\n", "Tinfo3", record->tinfo3);
+            printf( "Tinfo3: %d\n", record->tinfo3);
         }
         if (record->tinfo4 != 0) {
-            printf( "%s: %d\n", "Tinfo4", record->tinfo4);
+            printf( "Tinfo4: %d\n", record->tinfo4);
         }
         if (record->comments > 0) {
-            int32_t i;
             printf( "Comments: ");
-            for(i = 0; i < record->comments; i++) {
+            for(int32_t i = 0; i < record->comments; i++) {
                 printf( "%s\n", record->comment_lines[i] );
             }
         }
