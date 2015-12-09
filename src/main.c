@@ -131,6 +131,8 @@ int main(int argc, char *argv[])
     char *input = NULL, *output = NULL;
     char *retinaout = NULL;
 
+    char *outputFile;
+
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
         switch(getoptFlag) {
         case 'b':
@@ -197,21 +199,20 @@ int main(int argc, char *argv[])
     if (!justDisplaySAUCE) 
     {
         // create output file name if output is not specified
+        char *outputName;
+
         if (!output) {
-            int outputLen = strlen(input) + 5;
-            output = malloc(outputLen);
-            snprintf(output, outputLen, "%s%s", input, ".png");
+            outputName = input;
+        } else {
+            outputName = output;
         }
 
+        // appending ".png" extension to output file name
+        int outputLen = strlen(outputName) + 5;
+        outputFile = malloc(outputLen);
+        snprintf(outputFile, outputLen, "%s%s", outputName, ".png");
+
         if (createRetinaRep) {
-            char *outputName;
-
-            if (!output) {
-                outputName = input;
-            } else {
-                outputName = output;
-            }
-
             int retinaLen = strlen(outputName) + 8;
             retinaout = malloc(retinaLen);
             snprintf(retinaout, retinaLen, "%s%s", outputName, "@2x.png");
@@ -255,39 +256,39 @@ int main(int argc, char *argv[])
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            alPcBoardLoader(input, output, retinaout, font, int_bits, createRetinaRep);
+            alPcBoardLoader(input, outputFile, retinaout, font, int_bits, createRetinaRep);
             fileIsPCBoard = true;
         }
         else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            alBinaryLoader(input, output, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
+            alBinaryLoader(input, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         }
         else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            alArtworxLoader(input, output, retinaout, createRetinaRep);
+            alArtworxLoader(input, outputFile, retinaout, createRetinaRep);
         }
         else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            alIcedrawLoader(input, output, retinaout, fileHasSAUCE, createRetinaRep);
+            alIcedrawLoader(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
         }
         else if (!strcmp(fext, ".tnd")) {
-            alTundraLoader(input, output, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
+            alTundraLoader(input, outputFile, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
             fileIsTundra = true;
         }
         else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            alXbinLoader(input, output, retinaout, createRetinaRep);
+            alXbinLoader(input, outputFile, retinaout, createRetinaRep);
         }
         else {
             // params: input, output, font, bits, icecolors, fext
-            alAnsiLoader(input, output, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
+            alAnsiLoader(input, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
             fileIsANSi = true;
         }
 
         // gather information and report to the command line
         printf("\nInput File: %s\n", input);
-        printf("Output File: %s\n", output);
+        printf("Output File: %s\n", outputFile);
         if (createRetinaRep) {
             printf("Retina Output File: %s\n", retinaout);
         }
