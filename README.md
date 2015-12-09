@@ -22,15 +22,13 @@ This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in
 
 AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. It's developed from ground up with the vision to compile just fine on your platform. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux, OpenBSD and Mac OS X for AnsiLove/C development.
 
-Feel free to fork and create Linux packages, [Homebrew](https://github.com/mxcl/homebrew) formulas, whatever.
-
 # Why C?
 
 There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
 
 # Dependencies
 
-AnsiLove/C uses the `CMake` build system and requires the GD library and header files.
+AnsiLove/C uses the `CMake` build system and requires the `GD` library and header files.
 
 # Installing dependencies
 
