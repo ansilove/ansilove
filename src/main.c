@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
 
         // get file extension
         char *fext = strrchr(input, '.');
-        fext = fext ? strtolower(fext) : "none";
+        fext = fext ? strtolower(fext) : "";
 
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
