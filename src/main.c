@@ -204,9 +204,17 @@ int main(int argc, char *argv[])
         }
 
         if (createRetinaRep) {
-            int retinaLen = strlen(input) + 8;
+            char *outputName;
+
+            if (!output) {
+                outputName = input;
+            } else {
+                outputName = output;
+            }
+
+            int retinaLen = strlen(outputName) + 8;
             retinaout = malloc(retinaLen);
-            snprintf(retinaout, retinaLen, "%s%s", input, "@2x.png");        
+            snprintf(retinaout, retinaLen, "%s%s", outputName, "@2x.png");
         }
 
         // default to 8 if bits option is not specified
