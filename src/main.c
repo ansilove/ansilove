@@ -133,6 +133,10 @@ int main(int argc, char *argv[])
 
     char *outputFile;
 
+    const char *errstr;
+
+    int32_t int_bits;
+
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
         switch(getoptFlag) {
         case 'b':
@@ -219,21 +223,21 @@ int main(int argc, char *argv[])
         }
 
         // default to 8 if bits option is not specified
-        if (!bits) {
-            bits = "8";
+        if (bits) {
+            // convert numeric command line flags to integer values
+            int_bits = strtonum(bits, 8, 9, &errstr);
+
+            if (errstr) {
+                printf("\nInvalid value for bits.\n\n");
+                return EXIT_FAILURE;
+            }
+        } else {
+            int_bits = 8;
         }
 
         // default to empty string if mode option is not specified
         if (!mode) {
             mode = "";
-        }
-
-        // convert numeric command line flags to integer values
-        int32_t int_bits = atoi(bits);
-
-        // now set bits to 8 if not already value 8 or 9
-        if (int_bits != 8 && int_bits != 9) {
-            int_bits = 8;
         }
 
         // default to 160 if columns option is not specified
