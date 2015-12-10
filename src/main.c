@@ -30,8 +30,7 @@ void listExamples(void);
 void versionInfo(void);
 void synopsis(void);
 
-void showHelp(void)
-{
+void showHelp(void) {
     printf("\nSUPPORTED FILE TYPES:\n"
            "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
            "  Files with custom suffix default to the ANSi renderer.\n\n"
@@ -55,8 +54,7 @@ void showHelp(void)
            "  <https://github.com/ansilove/AnsiLove-C>\n\n");
 }
 
-void listExamples(void)
-{
+void listExamples(void) {
     printf("\nEXAMPLES:\n"); 
     printf("  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
@@ -68,8 +66,7 @@ void listExamples(void)
            "\n");
 }
 
-void versionInfo(void)
-{
+void versionInfo(void) {
     printf("All rights reserved.\n"
            "\nFork me on GitHub: <https://github.com/ansilove/AnsiLove-C>\n"
            "Bug reports: <https://github.com/ansilove/AnsiLove-C/issues>\n\n"
@@ -78,8 +75,7 @@ void versionInfo(void)
 }
 
 // following the IEEE Std 1003.1 for utility conventions
-void synopsis(void)
-{
+void synopsis(void) {
     printf("\nSYNOPSIS:\n"
            "  ansilove [options] file\n"
            "  ansilove -e | -h | -v\n\n"
@@ -101,8 +97,7 @@ void synopsis(void)
            "\n");
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
            "Copyright (C) 2011-2015 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n", VERSION);
     
@@ -192,16 +187,14 @@ int main(int argc, char *argv[])
     if (record == NULL) {
         printf("\nFile %s not found.\n\n", input);
         return EXIT_FAILURE;
-    }
-    else {
+    } else {
         // if we find a SAUCE record, update bool flag
         if (!strcmp(record->ID, SAUCE_ID)) {
             fileHasSAUCE = true;
         }
     }
 
-    if (!justDisplaySAUCE) 
-    {
+    if (!justDisplaySAUCE) {
         // create output file name if output is not specified
         char *outputName;
 
@@ -267,29 +260,23 @@ int main(int argc, char *argv[])
             // params: input, output, font, bits, icecolors
             alPcBoardLoader(input, outputFile, retinaout, font, int_bits, createRetinaRep);
             fileIsPCBoard = true;
-        }
-        else if (!strcmp(fext, ".bin")) {
+        } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
             alBinaryLoader(input, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
-        }
-        else if (!strcmp(fext, ".adf")) {
+        } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
             alArtworxLoader(input, outputFile, retinaout, createRetinaRep);
-        }
-        else if (!strcmp(fext, ".idf")) {
+        } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
             alIcedrawLoader(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
-        }
-        else if (!strcmp(fext, ".tnd")) {
+        } else if (!strcmp(fext, ".tnd")) {
             alTundraLoader(input, outputFile, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
             fileIsTundra = true;
-        }
-        else if (!strcmp(fext, ".xb")) {
+        } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
             alXbinLoader(input, outputFile, retinaout, createRetinaRep);
-        }
-        else {
+        } else {
             // params: input, output, font, bits, icecolors, fext
             alAnsiLoader(input, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
             fileIsANSi = true;
@@ -320,8 +307,7 @@ int main(int argc, char *argv[])
     // either display SAUCE or tell us if there is no record
     if (!fileHasSAUCE) {
         printf("\nFile %s does not have a SAUCE record.\n", input);
-    }
-    else {
+    } else {
         printf( "\nId: %s v%s\n", record->ID, record->version);
         printf( "Title: %s\n", record->title );
         printf( "Author: %s\n", record->author);
@@ -346,7 +332,7 @@ int main(int argc, char *argv[])
         }
         if (record->comments > 0) {
             printf( "Comments: ");
-            for(int32_t i = 0; i < record->comments; i++) {
+            for (int32_t i = 0; i < record->comments; i++) {
                 printf( "%s\n", record->comment_lines[i] );
             }
         }
