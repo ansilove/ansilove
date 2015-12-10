@@ -255,15 +255,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
             isDizFile = true;
         }            
     }
-    // in case we got a DIZ file here, do specific optimizations
-    if (isDizFile) 
-    {
-        char *stripped_file_buffer;
-        stripped_file_buffer = str_replace((const char *)input_file_buffer, "\r\n", "");
-        input_file_buffer = (unsigned char *)stripped_file_buffer;
-        input_file_size = (int32_t)strlen((const char *)input_file_buffer);
-    }
-    
+
     // libgd image pointers
     gdImagePtr im_ANSi, im_Backgrnd, im_Font;
     
