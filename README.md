@@ -79,8 +79,6 @@ Even more:
 
 # Documentation
 
-One major goal for AnsiLove/C was implementing the look and feel of common UNIX command line tools. We strictly follow the `IEEE Std 1003.1` for utility conventions while maintaining compabtiblity with `GNU`. Users comfortable with either one or the other standard should feel home.
-
 ## Synopsis
 
        ansilove [options] file
