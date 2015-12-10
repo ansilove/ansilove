@@ -1,0 +1,30 @@
+Ansilove/C 3.0.0 (2015-12-??)
+
+- Switching to getopt for parsing command line options
+- Removing bits parameters for ADF, IDF, and XBIN loaders
+- Adding a mode option to specify CED, Workbench and transparent rendering modes
+- Using mode instead of bits to check for rendering modes to enable
+- New 'alSelectFont' function returning a structure with font information
+- Adding a compat directory and importing 'strtonum' function from OpenBSD
+- Made CMakeList more modular, and linking strtonum conditionally
+- Remove .diz pre-filtering as it was a remnant of the PHP version
+- Using 'strtonum' to parse and validate bits and columns parameter value
+  before calling the loaders
+- Removing unused parameter 'font_size_x' in alDrawChar
+- Enabling the '-Wextra' and '-Werror' flags in CMakeLists.txt
+- Group checks for CR + LF in the ANSi and PCBoard loaders
+- Documentation cleanups and updates
+
+
+
+Ansilove/C 2.2.1 (2015-06-28)
+
+- Switching to CMake to build the project
+- Moving source files to the 'src' directory
+- Removing legacy Ubuntu compilation script
+- Updated documentation (build requirements + instructions)
+- Remove MIN macro and use math.h's 'fmin' instead
+- Adding Ansilove artwork, both ASCII and ANSI as example files
+- Adding 'AUTHORS', 'FILE_ID.DIZ', and 'THANKS' files
+- Fixing file extension detection (Close #2)
+- Fixing the PCB loader to use logical AND as it should
