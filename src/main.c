@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
 
     const char *errstr;
 
-    int32_t int_bits;
+    int32_t int_bits, int_columns;
 
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
         switch(getoptFlag) {
