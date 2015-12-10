@@ -241,13 +241,18 @@ int main(int argc, char *argv[])
         }
 
         // default to 160 if columns option is not specified
-        if (!columns) {
-            columns = "160";
+        if (columns) {
+            // convert numeric command line flags to integer values
+            int_columns = strtonum(columns, 1, 8192, &errstr);
+
+            if (errstr) {
+                printf("\nInvalid value for columns.\n\n");
+                return EXIT_FAILURE;
+            }
+        } else {
+            int_columns = 160;
         }
-
-        // convert numeric command line flags to integer values
-        int32_t int_columns = atoi(columns);
-
+        
         // default to 80x25 font if font option is not specified
         if (!font) {
             font = "80x25";
