@@ -13,7 +13,7 @@
 
 // shared method for drawing characters
 void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits, 
-                int32_t font_size_x, int32_t font_size_y, int32_t position_x, int32_t position_y, 
+                int32_t font_size_y, int32_t position_x, int32_t position_y, 
                 int32_t color_background, int32_t color_foreground, unsigned char character)
 {
     int32_t column, line;
@@ -799,7 +799,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     {
         for (j=0;j<256;j++)
         {
-            alDrawChar(im_Font, fontData.font_data, fontData.font_size_x, fontData.font_size_x, fontData.font_size_y, 
+            alDrawChar(im_Font, fontData.font_data, fontData.font_size_x, fontData.font_size_y, 
                        j, k, 20, k, j);
         }
     }
@@ -1220,7 +1220,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
         color_foreground = pcboard_buffer[loop].color_foreground;
         character = pcboard_buffer[loop].current_character;
         
-        alDrawChar(im_PCB, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y, 
+        alDrawChar(im_PCB, fontData.font_data, int_bits, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
     }
     
@@ -1350,7 +1350,7 @@ void alBinaryLoader(char *input, char *output, char *retinaout, int32_t int_colu
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y, 
+        alDrawChar(im_Binary, fontData.font_data, int_bits, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
      
         position_x++;
@@ -1479,7 +1479,7 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;
 
-        alDrawChar(im_ADF, font_data, 8, 8, 16, position_x, position_y, color_background, color_foreground, character);
+        alDrawChar(im_ADF, font_data, 8, 16, position_x, position_y, color_background, color_foreground, character);
         
         position_x++;
         loop+=2;
@@ -1670,7 +1670,7 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;
         
-        alDrawChar(im_IDF, font_data, 8, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
+        alDrawChar(im_IDF, font_data, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
         
         position_x++;
     }
@@ -1903,7 +1903,7 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(im_Tundra, fontData.font_data, int_bits, fontData.font_size_x, fontData.font_size_y,
+            alDrawChar(im_Tundra, fontData.font_data, int_bits, fontData.font_size_y,
                     position_x, position_y, color_background, color_foreground, character);
 
             position_x++;
@@ -2109,7 +2109,7 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
                 color_background = (attribute & 240) >> 4;
                 color_foreground = attribute & 15;
              
-                alDrawChar(im_XBIN, font_data, 8, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
+                alDrawChar(im_XBIN, font_data, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
 
                 position_x++;
 
@@ -2137,7 +2137,7 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
             color_background = (attribute & 240) >> 4;
             color_foreground = attribute & 15;
 
-            alDrawChar(im_XBIN, font_data, 8, 8, xbin_fontsize, position_x, position_y, colors[color_background], colors[color_foreground], character);
+            alDrawChar(im_XBIN, font_data, 8, xbin_fontsize, position_x, position_y, colors[color_background], colors[color_foreground], character);
             
             position_x++;
             offset+=2;
