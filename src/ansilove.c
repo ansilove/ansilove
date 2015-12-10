@@ -315,16 +315,12 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         }
         
         // CR + LF
-        if (current_character == 13)
-        {
-            if (next_character == 10)
-            {
-                position_y++;
-                position_x = 0;
-                loop++;
-            }
+        if (current_character == 13 && next_character == 10) {
+            position_y++;
+            position_x = 0;
+            loop++;
         }
-        
+
         // LF
         if (current_character == 10)
         {
