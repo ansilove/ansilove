@@ -62,7 +62,8 @@ void listExamples(void) {
            "  ansilove -o dir/file file.ans (custom path/name for output)\n"
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
            "  ansilove -m transparent file.ans (render with transparent background)\n"
-           "  ansilove -f amiga -b 9 -c 202 file.bin (set font, bits, columns)\n"
+           "  ansilove -f amiga file.txt (custom font)\n"
+           "  ansilove -f 80x50 -b 9 -c 320 -i file.bin (custom font, bits, columns, icecolors)\n"
            "\n");
 }
 
