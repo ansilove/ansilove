@@ -13,7 +13,7 @@
 	           \  /                 \ \___/\       \_______/\\  \  \______/\/
 	            \/                   \_\  \ \_______\      \ \\/ \__\     \ \
 	                                    \__\/        \______\/ h7/dS!\_____\/
-	                                    
+	
 # AnsiLove/C
 
 This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into [PNG images](http://cl.ly/1D0o1M2t2Y190v33462F/o). Unlike the PHP variant, AnsiLove/C is intended as UNIX command line tool you install preferably to `/usr/bin`. The project is considered as stable, current version is `2.2.1`.
@@ -32,16 +32,16 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 
 # Installing dependencies
 
-    OpenBSD : pkg_add -r cmake gd
-    NetBSD : pkgin install cmake gd
-    Mac OS X : brew install cmake gd
-    Alpine Linux : apk add cmake gcc make musl-dev gd-dev
-	Debian / Ubuntu : apt-get install cmake libgd-dev
+- OpenBSD : pkg_add -r cmake gd
+- NetBSD : pkgin install cmake gd
+- Mac OS X : brew install cmake gd
+- Alpine Linux : apk add cmake gcc make musl-dev gd-dev
+- Debian / Ubuntu : apt-get install cmake libgd-dev
 
 # Compiling
 
-	cmake .
-	make
+    cmake .
+    make
 
 # Cocoa
 
@@ -155,7 +155,7 @@ Setting the bits to `9` will render the 9th column of block characters, so the o
 - `transparent`
 - `workbench`
 
-Setting the mode to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an `AMIGA` font, the output will look like it is displayed on Amiga.
+Setting the mode to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an Amiga font, the output will look like it is displayed on Amiga.
 
 Setting the mode to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `ANS` files).
 
@@ -165,11 +165,11 @@ Settings the mode to `transparent` will produce output files with transparent ba
 
 iCE colors are disabled by default, and can be enabled by specifying the `-i` option.
 
-When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors. But now the important part: when the ANSi source does not make specific use of iCE colors, you should NOT set this flag. The file could look pretty weird in normal mode. So in most cases it's fine to turn iCE colors off. 
+When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors.
 
 ## Columns
 
-`columns` is only relevant for ANSi source files with `BIN` extension and even for those files optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to `BIN` files and only if you exactly know what you're doing. A KITTEN MAY DIE SOMEWHERE.
+`columns` is only relevant for .BIN files, and even for those files is optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to `BIN` files and only if you exactly know what you're doing.
 
 ## SAUCE records
 
