@@ -16,7 +16,7 @@
 	
 # AnsiLove/C
 
-This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `2.2.1`.
+This is a complete rewrite of [AnsiLove/PHP](http://ansilove.sourceforge.net) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `3.0.0`.
 
 # Specs 
 
