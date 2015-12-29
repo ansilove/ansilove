@@ -278,11 +278,11 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     int32_t color_background = 0, color_foreground = 7; 
     
     // text attributes
-    bool bold, underline, italics, blink;
+    bool bold = false, underline = false, italics = false, blink = false;
     
     // positions
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
-    int32_t saved_position_y, saved_position_x;
+    int32_t saved_position_y = 0, saved_position_x = 0;
     
     // sequence parsing variables
     int32_t seqContent, seqValue, seqArrayCount, seq_line, seq_column;
@@ -297,7 +297,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     ansi_buffer = malloc(sizeof(struct ansiChar));
     
     // background canvas
-    int32_t background_canvas;
+    int32_t background_canvas = 0;
     
     // ANSi interpreter
     while (loop < input_file_size)
