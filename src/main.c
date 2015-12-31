@@ -292,9 +292,6 @@ int main(int argc, char *argv[]) {
         if (fileIsANSi || fileIsBinary || 
             fileIsPCBoard || fileIsTundra) {
             printf("Font: %s\n", font);
-        }
-        if (fileIsANSi || fileIsBinary || 
-            fileIsPCBoard || fileIsTundra) {
             printf("Bits: %d\n", int_bits);
         }
         if (icecolors && (fileIsANSi || fileIsBinary)) {
