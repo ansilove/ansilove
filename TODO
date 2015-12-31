@@ -1,3 +1,5 @@
 - Import documentation from Ansilove/PHP
 - Refactor stuff inherited from the PHP version
 - Create a manual page
+- Display mode information in summary
+- Use standard C functions to parse ANSI sequences and get rid of explode
