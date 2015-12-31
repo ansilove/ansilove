@@ -15,7 +15,7 @@ if(NOT HAVE_STRTONUM)
   set (SRC ${SRC} compat/strtonum.c)
 endif()
 
-add_definitions(-Wall -Wextra -Werror -std=c99 -pedantic)
+add_definitions(-Wall -Wextra -std=c99 -pedantic)
 add_executable(ansilove ${SRC})
 
 target_link_libraries(ansilove ${LIB_GD} m)
