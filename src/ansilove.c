@@ -648,93 +648,42 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     
     if (ced)
     {
-        // get ced colors from configuration
-        char **cedBackgroundArray;
-        int32_t cedBackgroundCnt;
-        int32_t cedBackgroundColor[3];
-        
-        cedBackgroundCnt = explode(&cedBackgroundArray, ',', CED_BACKGROUND_COLOR);
-        
-        // convert string values to integers
-        for (i = 0; i < cedBackgroundCnt; i++) {
-            cedBackgroundColor[i] = atoi(cedBackgroundArray[i]);
-        }
-        
         for (loop=0; loop<16; loop++)
         {     
-            colors[loop]=gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+            colors[loop]=gdImageColorAllocate(im_ANSi, 170, 170, 170);
         }
 
         int32_t ced_color;
-        ced_color = gdImageColorAllocate(im_ANSi, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
-        ced_color = gdImageColorAllocate(im_Backgrnd, cedBackgroundColor[0], cedBackgroundColor[1], cedBackgroundColor[2]);
+        ced_color = gdImageColorAllocate(im_ANSi, 170, 170, 170);
+        ced_color = gdImageColorAllocate(im_Backgrnd, 170, 170, 170);
         
         gdImageFill(im_ANSi,0,0,ced_color);
         gdImageFilledRectangle(im_Backgrnd, 0, 0, 144, 16, ced_color);
         
     }
     else if (workbench)
-    {
-        // get workbench colors from configuration
-        char **wbColorArray, *wbcStorage[8][3];
-        int32_t wbColorCnt, wbColorMAX = 8;
-        int32_t workbench_color[8][3], y;
-        
-        // process workbench colors into multi-dimensional char array
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_0);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[0][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_4);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[1][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_2);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[2][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_6);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[3][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_1);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[4][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_5);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[5][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_3);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[6][i] = wbColorArray[i];
-        }
-        wbColorCnt = explode(&wbColorArray, ',', WORKBENCH_COLOR_7);
-        for (i = 0; i < wbColorCnt; i++) {
-            wbcStorage[7][i] = wbColorArray[i];
-        }
-        
-        // convert multi-dimensional char array to multi-dimensional integer array *sigh*
-        for (i = 0; i < wbColorMAX; i++) {
-            for (y = 0; y < wbColorCnt; y++) {
-                workbench_color[i][y] = atoi(wbcStorage[i][y]);
-            }
-        }
-        
-        // process workbench colors
-        gdImageColorAllocate(im_ANSi, workbench_color[0][0], workbench_color[0][1], workbench_color[0][2]);
-        
-        int32_t workbench_background = 0;
-        
-        gdImageFill(im_ANSi, 0, 0, workbench_background);
-        
-        for (loop=0; loop<8; loop++)
-        {
-            colors[loop]=gdImageColorAllocate(im_Backgrnd, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-            colors[loop+8]=gdImageColorAllocate(im_Backgrnd, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-            colors[loop]=gdImageColorAllocate(im_Font, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-            colors[loop+8]=gdImageColorAllocate(im_Font, workbench_color[loop][0], workbench_color[loop][1], workbench_color[loop][2]);
-        }
+    {        
+        gdImageColorAllocate(im_ANSi, 170, 170, 170);
+        gdImageFill(im_ANSi, 0, 0, 0);
+
+        colors[0] = gdImageColorAllocate(im_Font, 170, 170, 170);
+        colors[1] = gdImageColorAllocate(im_Font, 0, 0, 255);
+        colors[2] = gdImageColorAllocate(im_Font, 255, 255, 255);
+        colors[3] = gdImageColorAllocate(im_Font, 0, 255, 255);
+        colors[4] = gdImageColorAllocate(im_Font, 0, 0, 0);
+        colors[5] = gdImageColorAllocate(im_Font, 255, 0, 255);
+        colors[6] = gdImageColorAllocate(im_Font, 102, 136, 187);
+        colors[7] = gdImageColorAllocate(im_Font, 255, 255, 255);
+        colors[8] = gdImageColorAllocate(im_Font, 170, 170, 170);
+        colors[9] = gdImageColorAllocate(im_Font, 0, 0, 255);
+        colors[10] = gdImageColorAllocate(im_Font, 255, 255, 255);
+        colors[11] = gdImageColorAllocate(im_Font, 0, 255, 255);
+        colors[12] = gdImageColorAllocate(im_Font, 0, 0, 0);
+        colors[13] = gdImageColorAllocate(im_Font, 255, 0, 255);
+        colors[14] = gdImageColorAllocate(im_Font, 102, 136, 187);
+        colors[15] = gdImageColorAllocate(im_Font, 255, 255, 255);
+
+        gdImagePaletteCopy(im_Backgrnd, im_Font);
     }
 
     else
