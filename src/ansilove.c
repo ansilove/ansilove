@@ -1427,7 +1427,6 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
     
     int32_t loop;
     int32_t index;
-    int32_t colors[16];
             
     // process ADF font
     font_data_adf = (unsigned char *) malloc(sizeof(unsigned char)*4096);
@@ -1442,7 +1441,7 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
     for (loop = 0; loop < 16; loop++)
     {
         index = (adf_colors[loop] * 3) + 1;
-        colors[loop] = gdImageColorAllocate(im_ADF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
+        gdImageColorAllocate(im_ADF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4), 
                                             (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4), 
                                             (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
     }
