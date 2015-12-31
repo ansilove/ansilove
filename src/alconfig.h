@@ -15,8 +15,6 @@
 // configuration defines
 #define VERSION "3.0.0"
 
-#define PCBOARD_STRIP_CODES "@POFF@,@WAIT@"
-
 #define DIZ_EXTENSIONS ".diz,.ion"
 
 #define SUBSTITUTE_BREAK "1"

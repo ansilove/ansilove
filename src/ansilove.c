@@ -998,6 +998,7 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
     // some type declarations
     struct fontStruct fontData;
     int32_t columns = 80;
+    int32_t loop, structIndex;
 
     // font selection
     alSelectFont(&fontData, font);
@@ -1034,20 +1035,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
 
     // libgd image pointers
     gdImagePtr im_PCB;
-
-    // defines for stripping PCBoard codes
-    char *stripped_file_buffer;
-    char **pcbStripCodes;
-    int32_t stripCount, loop, structIndex;
-    
-    // create array of PCBoard strip codes defined in alconfig.h
-    stripCount = explode(&pcbStripCodes, ',', PCBOARD_STRIP_CODES);
-    
-    // remove all specified PCB strip code occurances in input_file_buffer
-    for (loop = 0; loop < stripCount; loop++) {
-        stripped_file_buffer = str_replace((const char *)input_file_buffer, pcbStripCodes[loop], "");
-        input_file_buffer = (unsigned char *)stripped_file_buffer;
-    }
     
     // process PCBoard
     int32_t character, current_character, next_character; 
