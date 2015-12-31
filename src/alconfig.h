@@ -15,8 +15,6 @@
 // configuration defines
 #define VERSION "3.0.0"
 
-#define DIZ_EXTENSIONS ".diz,.ion"
-
 #define SUBSTITUTE_BREAK "1"
 #define WRAP_COLUMN_80 "1"
 

@@ -242,18 +242,10 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     // close input file, we don't need it anymore
     rewind(input_file);
     fclose(input_file);
-    
-    // create array of DIZ extensions
-    char **dizArray;
-    int32_t dizCount, i;
-    
-    dizCount = explode(&dizArray, ',', DIZ_EXTENSIONS);
-    
-    // compare current file extension with the ones in our DIZ array
-    for (i = 0; i < dizCount; i++) {
-        if (!strcmp(fext, dizArray[i])) {
-            isDizFile = true;
-        }            
+
+    // check if current file has a .diz extension
+    if (!strcmp(fext, ".diz")) {
+        isDizFile = true;
     }
 
     // libgd image pointers
