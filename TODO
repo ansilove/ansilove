@@ -1,4 +1,3 @@
 - Import documentation from Ansilove/PHP
 - Refactor stuff inherited from the PHP version
 - Create a manual page
-- Re-enable the '-Werror' flag
