@@ -285,7 +285,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     int32_t saved_position_y = 0, saved_position_x = 0;
     
     // sequence parsing variables
-    int32_t seqContent, seqValue, seqArrayCount, seq_line, seq_column;
+    int32_t seqValue, seqArrayCount, seq_line, seq_column;
     char *seqGrab;
     char **seqArray;
     
@@ -304,10 +304,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     {
         current_character = input_file_buffer[loop];
         next_character = input_file_buffer[loop + 1];
-        
-        // also define sequence content starting point
-        seqContent = input_file_buffer[loop + 2];
-        
+
         if (position_x==80 && !strcmp(WRAP_COLUMN_80, "1"))
         {
             position_y++;
@@ -660,19 +657,15 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     if (ced)
     {
         // get ced colors from configuration
-        char **cedBackgroundArray, **cedForegroundArray;
-        int32_t cedBackgroundCnt, cedForegroundCnt;
-        int32_t cedBackgroundColor[3], cedForegroundColor[3];
+        char **cedBackgroundArray;
+        int32_t cedBackgroundCnt;
+        int32_t cedBackgroundColor[3];
         
         cedBackgroundCnt = explode(&cedBackgroundArray, ',', CED_BACKGROUND_COLOR);
-        cedForegroundCnt = explode(&cedForegroundArray, ',', CED_FOREGROUND_COLOR);
         
         // convert string values to integers
         for (i = 0; i < cedBackgroundCnt; i++) {
             cedBackgroundColor[i] = atoi(cedBackgroundArray[i]);
-        }
-        for (i = 0; i < cedForegroundCnt; i++) {
-            cedForegroundColor[i] = atoi(cedForegroundArray[i]);
         }
         
         for (loop=0; loop<16; loop++)
