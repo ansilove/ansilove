@@ -1893,7 +1893,7 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
     rewind(input_file);
     fclose(input_file);
 
-    if (strcmp(strndup((char *)input_file_buffer, 5), "XBIN\x1a") != 0) {
+    if (strncmp((char *)input_file_buffer, "XBIN\x1a", 5) != 0) {
         fputs("\nNot an XBin.\n\n", stderr); exit (4);
     }
 
