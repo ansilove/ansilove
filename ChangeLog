@@ -1,4 +1,18 @@
-Ansilove/C 3.0.0 (2015-12-??)
+AnsiLove/C 3.0.1 (2016-01-03)
+
+- Initializing some uninitialized variables
+- Removing some unused variables and assignments
+- Removing optional filters for PCBoard sequences
+- Pruning now unused 'str_replace' function
+- Remove support for configurable diz extensions
+- Remove support for configurable RGB values for CED + WorkBench modes
+- Using strncmp instead of strcmp + strndup combo, as strndup is not
+  part of C99
+- Added a manual page
+
+
+
+AnsiLove/C 3.0.0 (2015-12-13)
 
 - Switching to getopt for parsing command line options
 - Removing bits parameters for ADF, IDF, and XBIN loaders
@@ -17,7 +31,7 @@ Ansilove/C 3.0.0 (2015-12-??)
 
 
 
-Ansilove/C 2.2.1 (2015-06-28)
+AnsiLove/C 2.2.1 (2015-06-28)
 
 - Switching to CMake to build the project
 - Moving source files to the 'src' directory
