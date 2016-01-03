@@ -1,0 +1,94 @@
+.\"
+.\" Copyright (c) 2011-2016, Stefan Vogt, Brian Cassidy, Frederic Cambus
+.\" All rights reserved.
+.\" 
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions are met:
+.\" 
+.\"   * Redistributions of source code must retain the above copyright
+.\"     notice, this list of conditions and the following disclaimer.
+.\" 
+.\"   * Redistributions in binary form must reproduce the above copyright
+.\"     notice, this list of conditions and the following disclaimer in the
+.\"     documentation and/or other materials provided with the distribution.
+.\" 
+.\"   * Neither the name of the copyright holder nor the names of its
+.\"     contributors may be used to endorse or promote products derived from
+.\"     this software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+.\" TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+.\" PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE
+.\" LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+.\" CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+.\" SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+.\" CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+.\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+.\" POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd $Mdocdate: January 3 2016 $
+.Dt ANSILOVE 1
+.Os
+.Sh NAME
+.Nm ansilove
+.Nd ANSI / ASCII art to PNG converter
+.Sh SYNOPSIS
+.Nm
+.Op Fl ehirsv
+.Op Fl b Ar bits
+.Op Fl c Ar columns
+.Op Fl f Ar font
+.Op Fl m Ar mode
+.Op Fl o Ar file
+.Ar file
+.Sh DESCRIPTION
+.Nm
+is an ANSI / ASCII art to PNG converter, allowing to convert ANSI and
+artscene-related file formats into PNG images, supporting ANSI (.ANS),
+PCBoard (.PCB), Binary (.BIN), Artworx (.ADF), iCE Draw (.IDF),
+Tundra (.TND) and XBin (.XB) formats.
+.Pp
+It creates size optimized 4-bit PNG files and supports SAUCE (Standard
+Architecture for Universal Comment Extentions), 80x25 and 80x50 PC fonts
+(including all the 14 MS-DOS charsets), Amiga fonts, and iCE colors.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl b Ar bits
+Set to 9 to render 9th column of block characters (default: 8)
+.It Fl c Ar columns
+Adjust number of columns for BIN files (default: 160)
+.It Fl e
+Print a list of examples
+.It Fl f Ar font
+Adjust number of columns for BIN files (default: 160)
+Select font (default: 80x25)
+.It Fl h
+Show help
+.It Fl i
+Enable iCE colors
+.It Fl m Ar mode
+Set rendering mode for ANS files. Valid options are:
+.Bl -tag -width Ds
+.It Ic ced
+Black on gray, with 78 columns
+.It Ic transparent
+Render with transparent background
+.It Ic workbench
+Use Amiga Workbench palette
+.El
+.It Fl o Ar file
+Specify output filename/path
+.It Fl r
+Creates additional Retina @2x output file
+.It Fl s
+Show SAUCE record without generating output
+.It Fl v
+Show version information
+.El
+.Sh AUTHORS
+.Nm
+was written by
+.An Stefan Vogt, Brian Cassidy, Frederic Cambus
