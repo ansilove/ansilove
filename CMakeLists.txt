@@ -4,6 +4,7 @@ project (ansilove C)
 
 include(CheckFunctionExists)
 include_directories(/usr/local/include /usr/pkg/include)
+include(GNUInstallDirs)
 
 check_function_exists(strtonum HAVE_STRTONUM)
 
@@ -21,3 +22,4 @@ add_executable(ansilove ${SRC})
 target_link_libraries(ansilove ${LIB_GD} m)
 
 install(TARGETS ansilove DESTINATION bin)
+install(FILES ansilove.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/)
