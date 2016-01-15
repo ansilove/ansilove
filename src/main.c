@@ -16,7 +16,7 @@
 #include <getopt.h>
 
 #ifndef HAVE_STRTONUM
-#include "../compat/strtonum.h"
+#include "strtonum.h"
 #endif
 
 #include "alconfig.h"

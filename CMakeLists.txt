@@ -9,6 +9,9 @@ include(GNUInstallDirs)
 list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_OPENBSD_SOURCE)
 check_function_exists(strtonum HAVE_STRTONUM)
 
+# Additional include directories for compat functions
+include_directories("compat")
+
 # GD
 find_path(GD_INCLUDE_DIRS gd.h)
 find_library(GD_LIBRARIES NAMES gd REQUIRED)
