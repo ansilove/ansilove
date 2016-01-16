@@ -28,6 +28,7 @@
 #include "artworx.h"
 #include "binary.h"
 #include "icedraw.h"
+#include "tundra.h"
 #include "xbin.h"
 
 // prototypes

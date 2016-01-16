@@ -34,7 +34,6 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
 
 void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep);
 void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep);
-void alTundraLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep);
 
 // helper functions
 char *str_replace(const char *string, const char *substr, const char *replacement);
