@@ -25,6 +25,7 @@
 #include "ansilove.h"
 #include "sauce.h"
 
+#include "artworx.h"
 #include "binary.h"
 
 // prototypes
