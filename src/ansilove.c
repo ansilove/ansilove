@@ -725,25 +725,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
         
         colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
     }
-    
-    // reconstruct font bitmap from bitfonts data
-    int32_t j , k = 0;
-    
-    for (k=0;k<16;k++)
-    {
-        for (j=0;j<256;j++)
-        {
-            alDrawChar(im_Font, fontData.font_data, fontData.font_size_x, fontData.font_size_y, 
-                       j, k, 20, k, j);
-        }
-    }
-        
-    // reconstruct background bitmap
-    for (loop = 0; loop < 16; loop++)
-    {
-        gdImageFilledRectangle(im_Backgrnd, loop * 9, 0, loop * 9 + 9, 16, loop);
-    }
-    
+
     // even more definitions, sigh
     int32_t ansiBufferItems = structIndex;
     int32_t loop_column;
