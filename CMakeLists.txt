@@ -17,7 +17,7 @@ find_path(GD_INCLUDE_DIRS gd.h)
 find_library(GD_LIBRARIES NAMES gd REQUIRED)
 include_directories(${GD_INCLUDE_DIRS})
 
-set(SRC src/main.c src/albinfonts.c src/ansilove.c src/explode.c src/filesize.c src/strtolower.c src/substr.c)
+set(SRC src/main.c src/albinfonts.c src/ansilove.c src/explode.c src/filesize.c src/strtolower.c src/substr.c src/sauce.c)
 
 if(NOT HAVE_STRTONUM)
   set (SRC ${SRC} compat/strtonum.c)

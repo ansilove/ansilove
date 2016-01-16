@@ -23,6 +23,7 @@
 #include "strtolower.h"
 #include "substr.h"
 #include "ansilove.h"
+#include "sauce.h"
 
 // prototypes
 void showHelp(void);
