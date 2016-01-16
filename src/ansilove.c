@@ -699,19 +699,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
 
         background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
     }
-    
-    // color array and RGB definitions
-    int32_t Red, Green, Blue;
-    
-    // generating ANSi colors array in order to draw underlines
-    for (loop = 0; loop < 16; loop++)
-    {
-        Red = gdImageRed(im_Backgrnd, loop);
-        Green = gdImageGreen(im_Backgrnd, loop);
-        Blue = gdImageBlue(im_Backgrnd, loop);
-        
-        colors[loop] = gdImageColorAllocate(im_ANSi, Red, Green, Blue);
-    }
 
     // even more definitions, sigh
     int32_t ansiBufferItems = structIndex;
