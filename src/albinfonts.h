@@ -10,11 +10,21 @@
 //
 
 #include <stdio.h> 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 #ifndef albinfonts_h
 #define albinfonts_h
+
+struct fontStruct {
+    unsigned char *font_data;
+    int32_t font_size_x;
+    int32_t font_size_y;
+    bool isAmigaFont;
+};
+
+void alSelectFont(struct fontStruct* fontData, char *font);
 
 // Binary font and image data.
 

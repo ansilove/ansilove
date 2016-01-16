@@ -63,11 +63,4 @@ struct ansiChar {
     bool underline;
 };
 
-struct fontStruct {
-    unsigned char *font_data;
-    int32_t font_size_x;
-    int32_t font_size_y;
-    bool isAmigaFont;
-};
-
 #endif
