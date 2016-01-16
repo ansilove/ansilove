@@ -193,7 +193,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     bool ced = false;
     bool transparent = false;
     bool workbench = false;
-    bool pixelCarry = false;
 
     // font selection
     alSelectFont(&fontData, font);
@@ -248,15 +247,7 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     }
 
     // libgd image pointers
-    gdImagePtr im_ANSi, im_Backgrnd, im_Font;
-    
-    im_Backgrnd = gdImageCreate(9*16,16);
-
-    // Allocate font image buffer
-    im_Font = gdImageCreate(fontData.font_size_x*256,fontData.font_size_y*16);
-    
-    // set transparent color index for the font
-    gdImageColorTransparent(im_Font, 20);
+    gdImagePtr im_ANSi;
 
     // ANSi processing loops
     int32_t loop = 0, ansi_sequence_loop, seq_graphics_loop; 
@@ -702,8 +693,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
 
     // even more definitions, sigh
     int32_t ansiBufferItems = structIndex;
-    int32_t loop_column;
-    int32_t character_size_x;
     
     // render ANSi
     for (loop = 0; loop < ansiBufferItems; loop++)
@@ -758,8 +747,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     free(ansi_buffer);
     
     gdImageDestroy(im_ANSi);
-    gdImageDestroy(im_Backgrnd);
-    gdImageDestroy(im_Font);
 }
 
 // PCB
