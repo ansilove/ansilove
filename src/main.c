@@ -25,6 +25,7 @@
 #include "ansilove.h"
 #include "sauce.h"
 
+#include "ansi.h"
 #include "artworx.h"
 #include "binary.h"
 #include "icedraw.h"
