@@ -27,6 +27,7 @@
 
 #include "artworx.h"
 #include "binary.h"
+#include "icedraw.h"
 
 // prototypes
 void showHelp(void);
