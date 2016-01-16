@@ -10,6 +10,7 @@
 //
 
 #include "ansilove.h"
+#include "pcboard.h"
 
 void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
 {

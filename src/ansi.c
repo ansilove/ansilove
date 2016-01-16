@@ -10,6 +10,7 @@
 //
 
 #include "ansilove.h"
+#include "ansi.h"
 
 void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
 {

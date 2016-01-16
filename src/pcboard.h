@@ -12,6 +12,15 @@
 #ifndef pcboard_h
 #define pcboard_h
 
+// Character structure
+struct pcbChar {
+    int32_t position_x;
+    int32_t position_y;
+    int32_t color_background;
+    int32_t color_foreground;
+    int32_t current_character;
+};
+
 void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep);
 
 #endif

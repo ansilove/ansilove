@@ -32,24 +32,4 @@ void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
                 int32_t font_size_y, int32_t position_x, int32_t position_y, 
                 int32_t color_background, int32_t color_foreground, unsigned char character);
 
-// character structures
-struct pcbChar {
-    int32_t position_x;
-    int32_t position_y;
-    int32_t color_background;
-    int32_t color_foreground;
-    int32_t current_character;
-};
-
-struct ansiChar {
-    int32_t position_x;
-    int32_t position_y;
-    int32_t color_background;
-    int32_t color_foreground;
-    int32_t current_character;
-    bool bold;
-    bool italics;
-    bool underline;
-};
-
 #endif
