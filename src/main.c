@@ -25,6 +25,8 @@
 #include "ansilove.h"
 #include "sauce.h"
 
+#include "binary.h"
+
 // prototypes
 void showHelp(void);
 void listExamples(void);
