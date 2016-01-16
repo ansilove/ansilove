@@ -240,7 +240,6 @@ void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
-    rewind(input_file);
     fclose(input_file);
 
     // check if current file has a .diz extension
@@ -826,7 +825,6 @@ void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
-    rewind(input_file);
     fclose(input_file);
 
     // libgd image pointers
@@ -1061,7 +1059,6 @@ void alBinaryLoader(char *input, char *output, char *retinaout, int32_t int_colu
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
-    rewind(input_file);
     fclose(input_file);
     
     // libgd image pointers
@@ -1191,7 +1188,6 @@ void alArtworxLoader(char *input, char *output, char *retinaout, bool createReti
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
-    rewind(input_file);
     fclose(input_file);
     
     // libgd image pointers
@@ -1316,15 +1312,11 @@ void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAU
     if (result != input_file_size) {
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
-    
-    // just like a tape, you know?
-    rewind(input_file);
 
     // IDF related: file contains a SAUCE record? adjust the file size
     if(fileHasSAUCE) {
         sauce *saucerec = sauceReadFile(input_file);
         input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
-        rewind(input_file);
     }
     
     // close input file, we don't need it anymore
@@ -1516,14 +1508,10 @@ void alTundraLoader(char *input, char *output, char *retinaout, char *font, int3
         fputs ("\nReading error.\n\n", stderr); exit (3);
     } // whole file is now loaded into input_file_buffer
 
-    // rewind the input file
-    rewind(input_file);
-
     // exclude SAUCE record from file buffer
     if(fileHasSAUCE) {
         sauce *saucerec = sauceReadFile(input_file);
         input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
-        rewind(input_file);
     }
     // close input file, we don't need it anymore
     fclose(input_file);
@@ -1745,7 +1733,6 @@ void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaR
     } // whole file is now loaded into input_file_buffer
     
     // close input file, we don't need it anymore
-    rewind(input_file);
     fclose(input_file);
 
     if (strncmp((char *)input_file_buffer, "XBIN\x1a", 5) != 0) {
