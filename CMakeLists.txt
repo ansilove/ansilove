@@ -17,14 +17,16 @@ find_path(GD_INCLUDE_DIRS gd.h)
 find_library(GD_LIBRARIES NAMES gd REQUIRED)
 include_directories(${GD_INCLUDE_DIRS})
 
-set(SRC src/main.c src/albinfonts.c src/ansilove.c src/ansi.c src/artworx.c src/binary.c src/icedraw.c src/pcboard.c src/tundra.c src/xbin.c src/explode.c src/filesize.c src/strtolower.c src/substr.c src/sauce.c)
+set(SRC src/main.c src/albinfonts.c src/ansilove.c src/explode.c src/filesize.c src/strtolower.c src/substr.c src/sauce.c)
+
+set(FORMATS src/ansi.c src/artworx.c src/binary.c src/icedraw.c src/pcboard.c src/tundra.c src/xbin.c)
 
 if(NOT HAVE_STRTONUM)
   set (SRC ${SRC} compat/strtonum.c)
 endif()
 
 add_definitions(-Wall -Wextra -Werror -std=gnu99 -pedantic)
-add_executable(ansilove ${SRC})
+add_executable(ansilove ${SRC} ${FORMATS})
 
 target_link_libraries(ansilove ${GD_LIBRARIES} m)
 
