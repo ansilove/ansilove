@@ -21,6 +21,6 @@ struct pcbChar {
     int32_t current_character;
 };
 
-void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep);
+void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep);
 
 #endif

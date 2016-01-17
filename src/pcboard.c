@@ -12,7 +12,7 @@
 #include "ansilove.h"
 #include "pcboard.h"
 
-void alPcBoardLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
+void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;

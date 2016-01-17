@@ -11,7 +11,7 @@
 
 #include "ansilove.h"
 
-void alTundraLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
+void tundra(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;

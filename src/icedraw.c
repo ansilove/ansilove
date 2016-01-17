@@ -11,7 +11,7 @@
 
 #include "ansilove.h"
 
-void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
+void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;

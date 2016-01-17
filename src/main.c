@@ -268,27 +268,27 @@ int main(int argc, char *argv[]) {
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            alPcBoardLoader(input, outputFile, retinaout, font, int_bits, createRetinaRep);
+            pcboard(input, outputFile, retinaout, font, int_bits, createRetinaRep);
             fileIsPCBoard = true;
         } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            alBinaryLoader(input, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
+            binary(input, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            alArtworxLoader(input, outputFile, retinaout, createRetinaRep);
+            artworx(input, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            alIcedrawLoader(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
+            icedraw(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
         } else if (!strcmp(fext, ".tnd")) {
-            alTundraLoader(input, outputFile, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
+            tundra(input, outputFile, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            alXbinLoader(input, outputFile, retinaout, createRetinaRep);
+            xbin(input, outputFile, retinaout, createRetinaRep);
         } else {
             // params: input, output, font, bits, icecolors, fext
-            alAnsiLoader(input, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
+            ansi(input, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
             fileIsANSi = true;
         }
 

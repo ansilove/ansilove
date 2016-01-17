@@ -12,7 +12,7 @@
 #ifndef icedraw_h
 #define icedraw_h
 
-void alIcedrawLoader(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep);
+void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep);
 
 #endif
 

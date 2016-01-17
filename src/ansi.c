@@ -12,7 +12,7 @@
 #include "ansilove.h"
 #include "ansi.h"
 
-void alAnsiLoader(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
+void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
 {
     // ladies and gentlemen, it's type declaration time
     struct fontStruct fontData;

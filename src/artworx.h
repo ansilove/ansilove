@@ -12,6 +12,6 @@
 #ifndef artworx_h
 #define artworx_h
 
-void alArtworxLoader(char *input, char *output, char *retinaout, bool createRetinaRep);
+void artworx(char *input, char *output, char *retinaout, bool createRetinaRep);
 
 #endif

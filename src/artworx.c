@@ -11,7 +11,7 @@
 
 #include "ansilove.h"
 
-void alArtworxLoader(char *input, char *output, char *retinaout, bool createRetinaRep)
+void artworx(char *input, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;    

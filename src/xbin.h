@@ -12,6 +12,6 @@
 #ifndef xbin_h
 #define xbin_h
 
-void alXbinLoader(char *input, char *output, char *retinaout, bool createRetinaRep);
+void xbin(char *input, char *output, char *retinaout, bool createRetinaRep);
 
 #endif
