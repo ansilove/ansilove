@@ -116,7 +116,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         current_character = input_file_buffer[loop];
         next_character = input_file_buffer[loop + 1];
 
-        if (position_x==80 && !strcmp(WRAP_COLUMN_80, "1"))
+        if (position_x==80 && WRAP_COLUMN_80)
         {
             position_y++;
             position_x=0;
@@ -143,7 +143,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         }
         
         // sub
-        if (current_character == 26 && !strcmp(SUBSTITUTE_BREAK, "1"))
+        if (current_character == 26 && SUBSTITUTE_BREAK)
         {
             break;
         }

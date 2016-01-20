@@ -15,7 +15,9 @@
 // configuration defines
 #define VERSION "3.0.1"
 
-#define SUBSTITUTE_BREAK "1"
-#define WRAP_COLUMN_80 "1"
+enum {
+    SUBSTITUTE_BREAK = 1,
+    WRAP_COLUMN_80 = 1
+};
 
 #endif
