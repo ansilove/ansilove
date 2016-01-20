@@ -2,3 +2,6 @@
 - Refactor stuff inherited from the PHP version
 - Display mode information in summary
 - Use standard C functions to parse ANSI sequences and get rid of explode
+- Drop 'strdup' in the SAUCE functions as it's not C99, and switch back to
+  compiling with -std=c99 instead of -std=gnu99
+
