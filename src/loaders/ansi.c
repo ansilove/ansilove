@@ -465,7 +465,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
     }
     
-    int32_t colors[21];
+    int32_t colors[16];
     
     if (ced)
     {
@@ -517,7 +517,6 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         colors[13] = gdImageColorAllocate(im_ANSi, 255, 85, 255);
         colors[14] = gdImageColorAllocate(im_ANSi, 85, 255, 255);
         colors[15] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[20] = gdImageColorAllocate(im_ANSi, 200, 220, 169);
 
         background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
     }
