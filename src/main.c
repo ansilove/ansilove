@@ -148,6 +148,10 @@ int main(int argc, char *argv[]) {
 
     int32_t int_bits, int_columns;
 
+    if (pledge("stdio cpath rpath wpath", NULL) == -1) {
+        err(EXIT_FAILURE, "pledge");
+    }
+
     while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
         switch(getoptFlag) {
         case 'b':
