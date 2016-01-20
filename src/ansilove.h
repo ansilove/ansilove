@@ -24,6 +24,10 @@
 #include "filesize.h"
 #include "sauce.h"
 
+#ifndef HAVE_STRTONUM
+#include "strtonum.h"
+#endif
+
 #ifndef ansilove_h
 #define ansilove_h
 

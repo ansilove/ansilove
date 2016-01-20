@@ -23,6 +23,8 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     bool transparent = false;
     bool workbench = false;
 
+    const char *errstr;
+
     // font selection
     alSelectFont(&fontData, font);
         
@@ -166,8 +168,8 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     
                     if (seqArrayCount > 1) {
                         // convert grabbed sequence content to integers
-                        seq_line = atoi(seqArray[0]);
-                        seq_column = atoi(seqArray[1]);
+                        seq_line = strtonum(seqArray[0], 0, INT32_MAX, &errstr);
+                        seq_column = strtonum(seqArray[1], 0, INT32_MAX, &errstr);
                         
                         // finally set the positions
                         position_y = seq_line-1;
@@ -189,7 +191,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
                     // now get escape sequence's position value
-                    int32_t seq_line = atoi(seqGrab);
+                    int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     
                     if (seq_line == 0) {
                         seq_line = 1;
@@ -208,7 +210,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                     
                     // now get escape sequence's position value
-                    int32_t seq_line = atoi(seqGrab);
+                    int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     
                     if (seq_line == 0) {
                         seq_line = 1;
@@ -227,7 +229,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
-                    int32_t seq_column = atoi(seqGrab);
+                    int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     
                     if (seq_column == 0) {
                         seq_column = 1;
@@ -251,7 +253,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's content length
-                    int32_t seq_column = atoi(seqGrab);
+                    int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     
                     if (seq_column == 0) {
                         seq_column = 1;
@@ -295,7 +297,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                     seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
                         
                     // convert grab to an integer
-                    int32_t eraseDisplayInt = atoi(seqGrab);
+                    int32_t eraseDisplayInt = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                         
                     if (eraseDisplayInt == 2)
                     {    
@@ -327,7 +329,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                         for (seq_graphics_loop = 0; seq_graphics_loop < seqArrayCount; seq_graphics_loop++)
                         {
                             // convert split content value to integer
-                            seqValue = atoi(seqArray[seq_graphics_loop]);
+                            seqValue = strtonum(seqArray[seq_graphics_loop], 0, INT32_MAX, &errstr);
                             
                             if (seqValue == 0)
                             {
