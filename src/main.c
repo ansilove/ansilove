@@ -14,6 +14,12 @@
 #include <string.h>
 #include <stdbool.h>
 #include <getopt.h>
+#include <unistd.h>
+#include <err.h>
+
+#ifndef HAVE_PLEDGE
+#include "pledge.h"
+#endif
 
 #ifndef HAVE_STRTONUM
 #include "strtonum.h"
