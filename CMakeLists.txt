@@ -20,7 +20,7 @@ include_directories(${GD_INCLUDE_DIRS})
 
 set(SRC src/main.c src/albinfonts.c src/ansilove.c src/explode.c src/filesize.c src/strtolower.c src/substr.c src/sauce.c)
 
-set(FORMATS src/ansi.c src/artworx.c src/binary.c src/icedraw.c src/pcboard.c src/tundra.c src/xbin.c)
+set(LOADERS src/loaders/ansi.c src/loaders/artworx.c src/loaders/binary.c src/loaders/icedraw.c src/loaders/pcboard.c src/loaders/tundra.c src/loaders/xbin.c)
 
 if(NOT HAVE_PLEDGE)
   set (SRC ${SRC} compat/pledge.c)
@@ -31,7 +31,7 @@ if(NOT HAVE_STRTONUM)
 endif()
 
 add_definitions(-Wall -Wextra -Werror -std=gnu99 -pedantic)
-add_executable(ansilove ${SRC} ${FORMATS})
+add_executable(ansilove ${SRC} ${LOADERS})
 
 target_link_libraries(ansilove ${GD_LIBRARIES} m)
 

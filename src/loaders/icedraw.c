@@ -9,7 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#include "ansilove.h"
+#include "icedraw.h"
 
 void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
 {

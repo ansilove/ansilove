@@ -9,6 +9,8 @@
 //  See the file LICENSE for details.
 //
 
+#include "../ansilove.h"
+
 #ifndef icedraw_h
 #define icedraw_h
 

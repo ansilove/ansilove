@@ -9,7 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#include "ansilove.h"
+#include "artworx.h"
 
 void artworx(char *input, char *output, char *retinaout, bool createRetinaRep)
 {

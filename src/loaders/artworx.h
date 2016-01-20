@@ -9,6 +9,8 @@
 //  See the file LICENSE for details.
 //
 
+#include "../ansilove.h"
+
 #ifndef artworx_h
 #define artworx_h
 

@@ -31,13 +31,13 @@
 #include "ansilove.h"
 #include "sauce.h"
 
-#include "ansi.h"
-#include "artworx.h"
-#include "binary.h"
-#include "icedraw.h"
-#include "pcboard.h"
-#include "tundra.h"
-#include "xbin.h"
+#include "loaders/ansi.h"
+#include "loaders/artworx.h"
+#include "loaders/binary.h"
+#include "loaders/icedraw.h"
+#include "loaders/pcboard.h"
+#include "loaders/tundra.h"
+#include "loaders/xbin.h"
 
 // prototypes
 void showHelp(void);

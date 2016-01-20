@@ -1,5 +1,5 @@
 //
-//  tundra.h
+//  binary.h
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2016 Stefan Vogt, Brian Cassidy, Frederic Cambus.
@@ -9,9 +9,12 @@
 //  See the file LICENSE for details.
 //
 
-#ifndef tundra_h
-#define tundra_h
+#include "../ansilove.h"
 
-void tundra(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep);
+#ifndef binary_h
+#define binary_h
+
+void binary(char *input, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep);
 
 #endif
+

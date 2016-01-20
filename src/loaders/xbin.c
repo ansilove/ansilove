@@ -9,7 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#include "ansilove.h"
+#include "xbin.h"
 
 void xbin(char *input, char *output, char *retinaout, bool createRetinaRep)
 {

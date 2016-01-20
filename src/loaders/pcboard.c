@@ -9,7 +9,6 @@
 //  See the file LICENSE for details.
 //
 
-#include "ansilove.h"
 #include "pcboard.h"
 
 void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)

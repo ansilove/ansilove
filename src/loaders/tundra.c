@@ -9,7 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#include "ansilove.h"
+#include "tundra.h"
 
 void tundra(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep)
 {
