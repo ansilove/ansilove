@@ -261,6 +261,14 @@ int main(int argc, char *argv[]) {
             font = "80x25";
         }
 
+        // display name of input and output files
+        printf("\nInput File: %s\n", input);
+        printf("Output File: %s\n", outputFile);
+
+        if (createRetinaRep) {
+            printf("Retina Output File: %s\n", retinaout);
+        }
+
         // get file extension
         char *fext = strrchr(input, '.');
         fext = fext ? strtolower(fext) : "";
@@ -293,11 +301,6 @@ int main(int argc, char *argv[]) {
         }
 
         // gather information and report to the command line
-        printf("\nInput File: %s\n", input);
-        printf("Output File: %s\n", outputFile);
-        if (createRetinaRep) {
-            printf("Retina Output File: %s\n", retinaout);
-        }
         if (fileIsANSi || fileIsBinary || 
             fileIsPCBoard || fileIsTundra) {
             printf("Font: %s\n", font);
