@@ -27,7 +27,6 @@
 
 #include "config.h"
 #include "strtolower.h"
-#include "substr.h"
 #include "ansilove.h"
 #include "sauce.h"
 
