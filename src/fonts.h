@@ -1,5 +1,5 @@
 //
-//  albinfonts.h
+//  fonts.h
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2016 Stefan Vogt, Brian Cassidy, Frederic Cambus.

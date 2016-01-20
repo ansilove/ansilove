@@ -1,5 +1,5 @@
 //
-//  albinfonts.c
+//  fonts.c
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2016 Stefan Vogt, Brian Cassidy, Frederic Cambus.
@@ -9,7 +9,7 @@
 //  See the file LICENSE for details.
 //
 
-#include "albinfonts.h"
+#include "fonts.h"
 
 void alSelectFont(struct fontStruct* fontData, char *font) {
     // determine the font we use to render the output

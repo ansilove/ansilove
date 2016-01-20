@@ -17,7 +17,7 @@
 #include <math.h>
 #include <gd.h>
 #include "alconfig.h"
-#include "albinfonts.h"
+#include "fonts.h"
 #include "strtolower.h"
 #include "substr.h"
 #include "explode.h"
