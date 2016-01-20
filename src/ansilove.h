@@ -16,7 +16,7 @@
 #include <string.h>
 #include <math.h>
 #include <gd.h>
-#include "alconfig.h"
+#include "config.h"
 #include "fonts.h"
 #include "strtolower.h"
 #include "substr.h"

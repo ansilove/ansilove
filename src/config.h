@@ -1,5 +1,5 @@
 //
-//  alconfig.h
+//  config.h
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2016 Stefan Vogt, Brian Cassidy, Frederic Cambus.
@@ -9,8 +9,8 @@
 //  See the file LICENSE for details.
 //
 
-#ifndef alconfig_h
-#define alconfig_h
+#ifndef config_h
+#define config_h
 
 // configuration defines
 #define VERSION "3.0.1"

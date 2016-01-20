@@ -25,7 +25,7 @@
 #include "strtonum.h"
 #endif
 
-#include "alconfig.h"
+#include "config.h"
 #include "strtolower.h"
 #include "substr.h"
 #include "ansilove.h"
