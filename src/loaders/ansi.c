@@ -105,9 +105,6 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     // ANSi buffer dynamic memory allocation
     ansi_buffer = malloc(sizeof(struct ansiChar));
     
-    // background canvas
-    int32_t background_canvas = 0;
-    
     // ANSi interpreter
     while (loop < input_file_size)
     {
@@ -514,8 +511,6 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         colors[13] = gdImageColorAllocate(im_ANSi, 255, 85, 255);
         colors[14] = gdImageColorAllocate(im_ANSi, 85, 255, 255);
         colors[15] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-
-        background_canvas = gdImageColorAllocate(im_ANSi, 0, 0, 0);
     }
 
     // even more definitions, sigh
@@ -547,7 +542,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     // transparent flag used?
     if (transparent)
     {
-        gdImageColorTransparent(im_ANSi, background_canvas);
+        gdImageColorTransparent(im_ANSi, 0);
     }
 
     // create output image
