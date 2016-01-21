@@ -1,3 +1,28 @@
+AnsiLove/C 3.0.2 (2016-01-21)
+
+- Adding a new example XBin (Thanks Enzo)
+- Adding install target for man page
+- Removing hardcoded paths in 'CMakeLists.txt' for GD library detection
+- Add additional include directories for compat functions to avoid
+  using relative path in includes
+- Refactoring of the ANSI loader, and removed support for drawing bold,
+  italics and underline characters for Amiga fonts, allowing to plot
+  characters directly to the canvas and drop a lot of code
+- Move SAUCE functions into their own file
+- Moving all format loaders to their own files + simplifying names
+- Removed prototype for 'str_replace' which has been pruned
+- Moving ANSI and PCBoard character structures to their respective
+  loader headers
+- AnsiLove is now pledged on OpenBSD
+- Renaming a bunch of files and improving the project structure
+- Removing all calls to 'atoi' and using OpenBSD's 'strtonum' instead
+- Fixing regression in the CED mode rendering
+- Removing 'workbench-transparent' rendering mode, it never made sense
+- Fixing regression in the Workbench mode rendering
+- Adding detailed font options in the manual page
+
+
+
 AnsiLove/C 3.0.1 (2016-01-03)
 
 - Initializing some uninitialized variables
@@ -42,3 +67,4 @@ AnsiLove/C 2.2.1 (2015-06-28)
 - Adding 'AUTHORS', 'FILE_ID.DIZ', and 'THANKS' files
 - Fixing file extension detection (Close #2)
 - Fixing the PCB loader to use logical AND as it should
+	
