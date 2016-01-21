@@ -13,7 +13,7 @@
 #define config_h
 
 // configuration defines
-#define VERSION "3.0.1"
+#define VERSION "3.0.2"
 
 enum {
     SUBSTITUTE_BREAK = 1,
