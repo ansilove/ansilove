@@ -38,10 +38,6 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     else if (!strcmp(mode, "workbench")) {
         workbench = true;
     }
-    else if (!strcmp(mode, "workbench-transparent")) {
-        workbench = true;
-        transparent = true;
-    }
     
     // load input file
     FILE *input_file = fopen(input, "r");
