@@ -43,6 +43,14 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
     cmake .
     make
 
+# Installation
+
+AnsiLove/C packages are available for :
+
+## OpenBSD
+
+    pkg_add ansilove
+
 # Cocoa
 
 If you're looking for something to implement into your Cocoa applications, we highly recommend taking a look at [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework).
