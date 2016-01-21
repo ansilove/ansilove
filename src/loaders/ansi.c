@@ -466,15 +466,15 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     }
     
     int32_t colors[16];
+
     
+    int32_t ced_background = 0, ced_foreground = 0;
+
     if (ced)
     {
-        colors[0]=gdImageColorAllocate(im_ANSi, 170, 170, 170);
-
-        for (loop=1; loop<16; loop++)
-        {     
-            colors[loop]=gdImageColorAllocate(im_ANSi, 0, 0, 0);
-        }
+        ced_background = gdImageColorAllocate(im_ANSi, 170, 170, 170);
+        ced_foreground = gdImageColorAllocate(im_ANSi, 0, 0, 0);
+        gdImageFill(im_ANSi, 0, 0, ced_background);
     }
     else if (workbench)
     {        
@@ -537,8 +537,13 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         position_x = ansi_buffer[loop].position_x;
         position_y = ansi_buffer[loop].position_y;
         
-        alDrawChar(im_ANSi, fontData.font_data, int_bits, fontData.font_size_y, 
+        if (ced) {
+            alDrawChar(im_ANSi, fontData.font_data, int_bits, fontData.font_size_y, 
+                   position_x, position_y, ced_background, ced_foreground, character);            
+        } else {
+            alDrawChar(im_ANSi, fontData.font_data, int_bits, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
+        }
 
     }
     
