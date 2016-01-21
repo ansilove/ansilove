@@ -475,21 +475,22 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     else if (workbench)
     {        
         gdImageFill(im_ANSi, 0, 0, 0);
+
         colors[0] = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        colors[1] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
+        colors[1] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
         colors[2] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[3] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
-        colors[4] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
+        colors[3] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
+        colors[4] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
         colors[5] = gdImageColorAllocate(im_ANSi, 255, 0, 255);
-        colors[6] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
+        colors[6] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
         colors[7] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
         colors[8] = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        colors[9] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
+        colors[9] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
         colors[10] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[11] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
-        colors[12] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
+        colors[11] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
+        colors[12] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
         colors[13] = gdImageColorAllocate(im_ANSi, 255, 0, 255);
-        colors[14] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
+        colors[14] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
         colors[15] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
     }
 
