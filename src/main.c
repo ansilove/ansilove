@@ -119,10 +119,10 @@ int main(int argc, char *argv[]) {
     // SAUCE record related bool types
     bool justDisplaySAUCE = false;
     bool fileHasSAUCE = false;
-    
+
     // retina output bool type
     bool createRetinaRep = false;
-    
+
     // iCE colors bool type
     bool icecolors = false;
 
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
 
     // let's check the file for a valid SAUCE record
     sauce *record = sauceReadFileName(input);
-    
+
     // record == NULL also means there is no file, we can stop here
     if (record == NULL) {
         printf("\nFile %s not found.\n\n", input);
@@ -264,7 +264,7 @@ int main(int argc, char *argv[]) {
         } else {
             int_columns = 160;
         }
-        
+
         // default to 80x25 font if font option is not specified
         if (!font) {
             font = "80x25";

@@ -16,15 +16,15 @@ int32_t explode(char ***arr_ptr, char delimiter, char *str)
     char *src = str, *end, *dst;
     char **arr;
     int32_t size = 1, i;
-    
+
     while ((end = strchr(src, delimiter)) != NULL)
     {
         ++size;
         src = end + 1;
     }
-    
+
     arr = malloc(size * sizeof(char *) + (strlen(str) + 1) * sizeof(char));
-    
+
     src = str;
     dst = (char *) arr + size * sizeof(char *);
     for (i = 0; i < size; ++i)
@@ -38,6 +38,6 @@ int32_t explode(char ***arr_ptr, char delimiter, char *str)
         src = end + 1;
     }
     *arr_ptr = arr;
-    
+
     return size;
 }

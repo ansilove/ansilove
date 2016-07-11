@@ -18,7 +18,7 @@ sauce *sauceReadFileName(char *fileName)
     if (file == NULL) {
         return NULL;
     }
-    
+
     sauce *record = sauceReadFile(file);
     fclose(file);
     return record;
@@ -29,7 +29,7 @@ sauce *sauceReadFile(FILE *file)
 {
     sauce *record;
     record = malloc(sizeof *record);
-    
+
     if (record != NULL) {
         readRecord(file, record);
     }
@@ -42,26 +42,26 @@ void readRecord(FILE *file, sauce *record)
         free(record);
         return;
     }
-    
+
     size_t read_status = fread(record->ID, sizeof(record->ID) - 1, 1, file);
     record->ID[sizeof(record->ID) - 1] = '\0';
-    
+
     if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
         free(record);
         return;
     }
     fread(record->version, sizeof(record->version) - 1, 1, file);
     record->version[sizeof(record->version) - 1] = '\0';
-    fread(record->title, sizeof(record->title) - 1, 1, file);    
+    fread(record->title, sizeof(record->title) - 1, 1, file);
     record->title[sizeof(record->title) - 1] = '\0';
     fread(record->author, sizeof(record->author) - 1, 1, file);
     record->author[sizeof(record->author) - 1] = '\0';
-    fread(record->group, sizeof(record->group) - 1, 1, file);    
+    fread(record->group, sizeof(record->group) - 1, 1, file);
     record->group[sizeof(record->group) - 1] = '\0';
     fread(record->date, sizeof(record->date) - 1, 1, file);
     record->date[sizeof(record->date) - 1] = '\0';
-    fread(&(record->fileSize), sizeof(record->fileSize), 1, file);    
-    fread(&(record->dataType), sizeof(record->dataType), 1, file);    
+    fread(&(record->fileSize), sizeof(record->fileSize), 1, file);
+    fread(&(record->dataType), sizeof(record->dataType), 1, file);
     fread(&(record->fileType), sizeof(record->fileType), 1, file);
     fread(&(record->tinfo1), sizeof(record->tinfo1), 1, file);
     fread(&(record->tinfo2), sizeof(record->tinfo2), 1, file);
@@ -71,15 +71,15 @@ void readRecord(FILE *file, sauce *record)
     fread(&(record->flags), sizeof(record->flags), 1, file);
     fread(record->filler, sizeof(record->filler) - 1, 1, file);
     record->filler[sizeof(record->filler) - 1] = '\0';
-    
+
     if (ferror(file) != EXIT_SUCCESS) {
         free(record);
         return;
     }
-    
+
     if (record->comments > 0) {
         record->comment_lines = malloc(record->comments *sizeof(*record->comment_lines));
-        
+
         if (record->comment_lines != NULL) {
             readComments(file, record->comment_lines, record->comments);
         }
@@ -93,23 +93,23 @@ void readRecord(FILE *file, sauce *record)
 void readComments(FILE *file, char **comment_lines, int32_t comments) 
 {
     int32_t i;
-    
+
     if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == EXIT_SUCCESS) {
         char ID[6];
         fread(ID, sizeof(ID) - 1, 1, file);
         ID[sizeof(ID) - 1] = '\0';
-        
+
         if (strcmp(ID, COMMENT_ID) != 0) {
             free(comment_lines);
             return;
         }
-        
+
         for (i = 0; i < comments; i++) {
             char buf[COMMENT_SIZE + 1] = "";
-            
+
             fread(buf, COMMENT_SIZE, 1, file);
             buf[COMMENT_SIZE] = '\0';
-            
+
             if (ferror(file) == EXIT_SUCCESS) {
                 comment_lines[i] = strdup(buf);
                 if (comment_lines[i] == NULL) {
@@ -123,7 +123,7 @@ void readComments(FILE *file, char **comment_lines, int32_t comments)
             }
         }
         return;
-    }    
+    }
     free(comment_lines);
     return;
 }

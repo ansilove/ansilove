@@ -12,9 +12,9 @@
 #include "substr.h"
 
 char *substr(char *str, size_t begin, size_t len)
-{ 
-    if (str == 0 || strlen(str) == 0) 
-        return 0; 
-    
+{
+    if (str == 0 || strlen(str) == 0)
+        return 0;
+
     return strndup(str + begin, len);
-} 
+}
