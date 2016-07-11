@@ -16,7 +16,7 @@ char *strtolower(char *str)
     char *p;
     for (p = str; *p != '\0'; ++p) 
     {
-        *p = tolower(*p);
+        *p = tolower((unsigned char) *p);
     }
     return str;
 }
