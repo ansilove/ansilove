@@ -116,7 +116,7 @@ void synopsis(void) {
 int main(int argc, char *argv[]) {
     printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
            "Copyright (C) 2011-2016 Stefan Vogt, Brian Cassidy, Frederic Cambus.\n", VERSION);
-    
+
     // SAUCE record related bool types
     bool justDisplaySAUCE = false;
     bool fileHasSAUCE = false;
@@ -197,7 +197,7 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
-    argc -= optind; 
+    argc -= optind;
     argv += optind;
 
     // let's check the file for a valid SAUCE record
@@ -311,7 +311,7 @@ int main(int argc, char *argv[]) {
         }
 
         // gather information and report to the command line
-        if (fileIsANSi || fileIsBinary || 
+        if (fileIsANSi || fileIsBinary ||
             fileIsPCBoard || fileIsTundra) {
             printf("Font: %s\n", font);
             printf("Bits: %d\n", int_bits);
