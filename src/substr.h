@@ -9,11 +9,6 @@
 //  See the file LICENSE for details.
 //
 
-#define _XOPEN_SOURCE 700
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h>
-
 #ifndef substr_h
 #define substr_h
 

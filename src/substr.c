@@ -9,7 +9,8 @@
 //  See the file LICENSE for details.
 //
 
-#include "substr.h"
+#define _XOPEN_SOURCE 700
+#include <string.h>
 
 char *substr(char *str, size_t begin, size_t len)
 {
