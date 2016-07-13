@@ -1,3 +1,14 @@
+AnsiLove/C 3.0.3 (2016-07-14)
+
+- Adding some missing includes
+- Define _XOPEN_SOURCE macro (for 'strdup' and 'strndup' functions)
+- Switch back to compiling with -std=c99 instead of -std=gnu99
+- Adding cast to fix compilation with GCC on NetBSD [-Werror=char-subscripts]
+- Use strdup when lowercasing file extension, to avoid modifying input filename
+- Define _NETBSD_SOURCE macro to make 'strndup' declaration visible on NetBSD
+
+
+
 AnsiLove/C 3.0.2 (2016-01-21)
 
 - Adding a new example XBin (Thanks Enzo)
