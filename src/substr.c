@@ -10,6 +10,7 @@
 //
 
 #define _XOPEN_SOURCE 700
+#define _NETBSD_SOURCE
 #include <string.h>
 
 char *substr(char *str, size_t begin, size_t len)
