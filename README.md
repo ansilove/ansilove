@@ -189,7 +189,7 @@ AnsiLove/C is developed by Stefan Vogt ([@ByteProject](https://github.com/BytePr
 
 # License
 
-AnsiLove/C is released under the BSD 3-Clause License. See the file `LICENSE` for details.
+AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` for details.
 
 # Resources
 
