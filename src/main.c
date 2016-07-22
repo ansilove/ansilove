@@ -283,6 +283,35 @@ int main(int argc, char *argv[]) {
         char *fext = strrchr(input, '.');
         fext = fext ? strtolower(strdup(fext)) : "";
 
+        // load input file
+        FILE *input_file = fopen(input, "r");
+        if (input_file == NULL) {
+            fputs("\nFile error.\n\n", stderr); exit (1);
+        }
+
+        // get the file size (bytes)
+        size_t get_file_size = filesize(input);
+        int32_t input_file_size = (int32_t)get_file_size;
+
+        // next up is loading our file into a dynamically allocated memory buffer
+        unsigned char *input_file_buffer;
+        int32_t result;
+
+        // allocate memory to contain the whole file
+        input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
+        if (input_file_buffer == NULL) {
+            fputs ("\nMemory error.\n\n", stderr); exit (2);
+        }
+
+        // copy the file into the buffer
+        result = fread(input_file_buffer, 1, input_file_size, input_file);
+        if (result != input_file_size) {
+            fputs ("\nReading error.\n\n", stderr); exit (3);
+        } // whole file is now loaded into input_file_buffer
+
+        // close input file, we don't need it anymore
+        fclose(input_file);
+
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
