@@ -335,7 +335,7 @@ int main(int argc, char *argv[]) {
             xbin(input, outputFile, retinaout, createRetinaRep);
         } else {
             // params: input, output, font, bits, icecolors, fext
-            ansi(input, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
+            ansi(input_file_buffer, input_file_size, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);
             fileIsANSi = true;
         }
 
