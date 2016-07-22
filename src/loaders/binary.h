@@ -14,7 +14,7 @@
 #ifndef binary_h
 #define binary_h
 
-void binary(char *input, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep);
+void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep);
 
 #endif
 

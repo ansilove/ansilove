@@ -11,42 +11,13 @@
 
 #include "binary.h"
 
-void binary(char *input, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
+void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
 
     // font selection
     alSelectFont(&fontData, font);
-
-    // load input file
-    FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) { 
-        fputs("\nFile error.\n\n", stderr); exit (1);
-    }
-
-    // get the file size (bytes)
-    size_t get_file_size = filesize(input);
-    int32_t input_file_size = (int32_t)get_file_size;
-
-    // next up is loading our file into a dynamically allocated memory buffer
-    unsigned char *input_file_buffer;
-    int32_t result;
-
-    // allocate memory to contain the whole file
-    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-    if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (2);
-    }
-
-    // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size, input_file);
-    if (result != input_file_size) {
-        fputs ("\nReading error.\n\n", stderr); exit (3);
-    } // whole file is now loaded into input_file_buffer
-
-    // close input file, we don't need it anymore
-    fclose(input_file);
 
     // libgd image pointers
     gdImagePtr im_Binary;

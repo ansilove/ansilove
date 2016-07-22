@@ -312,15 +312,15 @@ int main(int argc, char *argv[]) {
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            pcboard(input, outputFile, retinaout, font, int_bits, createRetinaRep);
+            pcboard(input_file_buffer, input_file_size, outputFile, retinaout, font, int_bits, createRetinaRep);
             fileIsPCBoard = true;
         } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            binary(input, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
+            binary(input_file_buffer, input_file_size, outputFile, retinaout, int_columns, font, int_bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            artworx(input, outputFile, retinaout, createRetinaRep);
+            artworx(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
             icedraw(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
@@ -329,7 +329,7 @@ int main(int argc, char *argv[]) {
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            xbin(input, outputFile, retinaout, createRetinaRep);
+            xbin(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
         } else {
             // params: input, output, font, bits, icecolors, fext
             ansi(input_file_buffer, input_file_size, outputFile, retinaout, font, int_bits, mode, icecolors, fext, createRetinaRep);

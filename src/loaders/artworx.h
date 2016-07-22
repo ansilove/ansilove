@@ -14,6 +14,6 @@
 #ifndef artworx_h
 #define artworx_h
 
-void artworx(char *input, char *output, char *retinaout, bool createRetinaRep);
+void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, bool createRetinaRep);
 
 #endif
