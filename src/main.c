@@ -329,9 +329,9 @@ int main(int argc, char *argv[]) {
             artworx(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            icedraw(input, outputFile, retinaout, fileHasSAUCE, createRetinaRep);
+            icedraw(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".tnd")) {
-            tundra(input, outputFile, retinaout, font, int_bits, fileHasSAUCE, createRetinaRep);
+            tundra(input_file_buffer, input_file_size, outputFile, retinaout, font, int_bits, createRetinaRep);
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
