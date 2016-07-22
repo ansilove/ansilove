@@ -306,6 +306,12 @@ int main(int argc, char *argv[]) {
             fputs ("\nReading error.\n\n", stderr); exit (3);
         } // whole file is now loaded into input_file_buffer
 
+        // adjust the file size if file contains a SAUCE record
+        if(fileHasSAUCE) {
+            sauce *saucerec = sauceReadFile(input_file);
+            input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+        }
+
         // close input file, we don't need it anymore
         fclose(input_file);
 
