@@ -21,7 +21,6 @@
 #include "strtolower.h"
 #include "substr.h"
 #include "explode.h"
-#include "filesize.h"
 #include "sauce.h"
 
 #ifndef HAVE_STRTONUM
