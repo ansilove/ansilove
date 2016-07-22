@@ -66,7 +66,7 @@ void showHelp(void) {
            "  pot-noodle\n\n"
            "DOCUMENTATION:\n"
            "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
-           "  <https://github.com/ansilove/AnsiLove-C>\n\n");
+           "  <https://github.com/ansilove/ansilove>\n\n");
 }
 
 void listExamples(void) {
@@ -84,10 +84,10 @@ void listExamples(void) {
 
 void versionInfo(void) {
     printf("All rights reserved.\n"
-           "\nFork me on GitHub: <https://github.com/ansilove/AnsiLove-C>\n"
-           "Bug reports: <https://github.com/ansilove/AnsiLove-C/issues>\n\n"
-           "This is free software, released under the 3-Clause BSD license.\n"
-           "<https://github.com/ansilove/AnsiLove-C/blob/master/LICENSE>\n\n");
+           "\nFork me on GitHub: <https://github.com/ansilove/ansilove>\n"
+           "Bug reports: <https://github.com/ansilove/ansilove/issues>\n\n"
+           "This is free software, released under the 2-Clause BSD license.\n"
+           "<https://github.com/ansilove/ansilove/blob/master/LICENSE>\n\n");
 }
 
 // following the IEEE Std 1003.1 for utility conventions
