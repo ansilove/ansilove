@@ -10,6 +10,7 @@
 //
 
 #define _XOPEN_SOURCE 700
+#include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -290,7 +291,9 @@ int main(int argc, char *argv[]) {
         }
 
         // get the file size (bytes)
-        size_t input_file_size = filesize(input);
+        struct stat input_file_stat;
+        stat (input, &input_file_stat);
+        size_t input_file_size=input_file_stat.st_size;
 
         // next up is loading our file into a dynamically allocated memory buffer
         unsigned char *input_file_buffer;
