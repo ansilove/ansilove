@@ -11,7 +11,7 @@
 
 #include "tundra.h"
 
-void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
+void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -26,8 +26,8 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
     gdImagePtr im_Tundra;
 
     // extract tundra header
-    tundra_version = input_file_buffer[0];
-    memcpy(&tundra_header,input_file_buffer+1,8);
+    tundra_version = inputFileBuffer[0];
+    memcpy(&tundra_header,inputFileBuffer+1,8);
 
     // need to add check for "TUNDRA24" string in the header
     if (tundra_version != 24)
@@ -41,7 +41,7 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
 
     loop=9;
 
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
         if (position_x == 80)
         {
@@ -49,38 +49,38 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
             position_y++;
         }
 
-        character = input_file_buffer[loop];
+        character = inputFileBuffer[loop];
 
         if (character == 1)
         {
             position_y =
-                    (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) +
-                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop+4];
+                    (inputFileBuffer[loop + 1] << 24) + (inputFileBuffer[loop + 2] << 16) +
+                            (inputFileBuffer[loop + 3] << 8) + inputFileBuffer[loop+4];
 
             position_x =
-                    (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) +
-                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop+8];
+                    (inputFileBuffer[loop + 5] << 24) + (inputFileBuffer[loop + 6] << 16) +
+                            (inputFileBuffer[loop + 7] << 8) + inputFileBuffer[loop+8];
 
             loop+=8;
         }
 
         if (character == 2)
         {
-            character = input_file_buffer[loop + 1];
+            character = inputFileBuffer[loop + 1];
 
             loop+=5;
         }
 
         if (character == 4)
         {
-            character = input_file_buffer[loop + 1];
+            character = inputFileBuffer[loop + 1];
 
             loop+=5;
         }
 
         if (character == 6)
         {
-            character = input_file_buffer[loop + 1];
+            character = inputFileBuffer[loop + 1];
 
             loop+=9;
         }
@@ -95,7 +95,7 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
     position_y++;
 
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns * int_bits , (position_y) * fontData.font_size_y);
+    im_Tundra = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.font_size_y);
 
     if (!im_Tundra) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -107,7 +107,7 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
 
     loop = 9;
 
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
         if (position_x == 80)
         {
@@ -115,17 +115,17 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
             position_y++;
         }
 
-        character = input_file_buffer[loop];
+        character = inputFileBuffer[loop];
 
         if (character == 1)
         {
             position_y =
-                    (input_file_buffer[loop + 1] << 24) + (input_file_buffer[loop + 2] << 16) +
-                            (input_file_buffer[loop + 3] << 8) + input_file_buffer[loop + 4];
+                    (inputFileBuffer[loop + 1] << 24) + (inputFileBuffer[loop + 2] << 16) +
+                            (inputFileBuffer[loop + 3] << 8) + inputFileBuffer[loop + 4];
 
             position_x =
-                    (input_file_buffer[loop + 5] << 24) + (input_file_buffer[loop + 6] << 16) +
-                            (input_file_buffer[loop + 7] << 8) + input_file_buffer[loop + 8];
+                    (inputFileBuffer[loop + 5] << 24) + (inputFileBuffer[loop + 6] << 16) +
+                            (inputFileBuffer[loop + 7] << 8) + inputFileBuffer[loop + 8];
 
             loop+=8;
         }
@@ -133,20 +133,20 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
         if (character == 2)
         {
             color_foreground =
-                    (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
-                            input_file_buffer[loop + 5];
+                    (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
+                            inputFileBuffer[loop + 5];
 
-            character = input_file_buffer[loop+1];
+            character = inputFileBuffer[loop+1];
 
             loop+=5;
         }
 
         if (character == 4)
         {
-            color_background = (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
-                    input_file_buffer[loop+5];
+            color_background = (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
+                    inputFileBuffer[loop+5];
 
-            character = input_file_buffer[loop+1];
+            character = inputFileBuffer[loop+1];
 
             loop+=5;
         }
@@ -154,21 +154,21 @@ void tundra(unsigned char *input_file_buffer, int32_t input_file_size, char *out
         if (character==6)
         {
             color_foreground =
-                    (input_file_buffer[loop + 3] << 16) + (input_file_buffer[loop + 4] << 8) +
-                            input_file_buffer[loop+5];
+                    (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
+                            inputFileBuffer[loop+5];
 
             color_background =
-                    (input_file_buffer[loop + 7] << 16) + (input_file_buffer[loop + 8] << 8) +
-                            input_file_buffer[loop+9];
+                    (inputFileBuffer[loop + 7] << 16) + (inputFileBuffer[loop + 8] << 8) +
+                            inputFileBuffer[loop+9];
 
-            character = input_file_buffer[loop+1];
+            character = inputFileBuffer[loop+1];
 
             loop+=9;
         }
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(im_Tundra, fontData.font_data, int_bits, fontData.font_size_y,
+            alDrawChar(im_Tundra, fontData.font_data, bits, fontData.font_size_y,
                     position_x, position_y, color_background, color_foreground, character);
 
             position_x++;

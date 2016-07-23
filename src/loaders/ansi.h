@@ -26,6 +26,6 @@ struct ansiChar {
     bool underline;
 };
 
-void ansi(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep);
+void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, char *mode, bool icecolors, char *fext, bool createRetinaRep);
 
 #endif

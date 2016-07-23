@@ -11,7 +11,7 @@
 
 #include "artworx.h"
 
-void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, bool createRetinaRep)
+void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;
@@ -20,7 +20,7 @@ void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *ou
     gdImagePtr im_ADF;
 
     // create ADF instance
-    im_ADF = gdImageCreate(640,(((input_file_size - 192 - 4096 -1) / 2) / 80) * 16);
+    im_ADF = gdImageCreate(640,(((inputFileSize - 192 - 4096 -1) / 2) / 80) * 16);
 
     // error output
     if (!im_ADF) {
@@ -38,7 +38,7 @@ void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *ou
     if (font_data_adf == NULL) {
         fputs ("\nMemory error.\n\n", stderr); exit (7);
     }
-    memcpy(font_data_adf,input_file_buffer+193,4096);
+    memcpy(font_data_adf,inputFileBuffer+193,4096);
 
     font_data=font_data_adf;
 
@@ -46,9 +46,9 @@ void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *ou
     for (loop = 0; loop < 16; loop++)
     {
         index = (adf_colors[loop] * 3) + 1;
-        gdImageColorAllocate(im_ADF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4),
-                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4),
-                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
+        gdImageColorAllocate(im_ADF, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
+                                            (inputFileBuffer[index + 1] << 2 | inputFileBuffer[index + 1] >> 4),
+                                            (inputFileBuffer[index + 2] << 2 | inputFileBuffer[index + 2] >> 4));
     }
 
     gdImageColorAllocate(im_ADF, 0, 0, 0);
@@ -58,7 +58,7 @@ void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *ou
     int32_t character, attribute, color_foreground, color_background;
     loop = 192 + 4096 + 1;
 
-    while(loop < input_file_size)
+    while(loop < inputFileSize)
     {
         if (position_x == 80)
         {
@@ -66,8 +66,8 @@ void artworx(unsigned char *input_file_buffer, int32_t input_file_size, char *ou
             position_y++;
         }
 
-        character = input_file_buffer[loop];
-        attribute = input_file_buffer[loop+1];
+        character = inputFileBuffer[loop];
+        attribute = inputFileBuffer[loop+1];
 
         color_background = (attribute & 240) >> 4;
         color_foreground = attribute & 15;

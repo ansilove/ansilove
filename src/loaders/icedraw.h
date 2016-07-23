@@ -14,7 +14,7 @@
 #ifndef icedraw_h
 #define icedraw_h
 
-void icedraw(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, bool createRetinaRep);
+void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep);
 
 #endif
 

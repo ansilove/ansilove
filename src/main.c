@@ -283,26 +283,26 @@ int main(int argc, char *argv[]) {
         // get the file size (bytes)
         struct stat input_file_stat;
         stat (input, &input_file_stat);
-        size_t input_file_size=input_file_stat.st_size;
+        size_t inputFileSize=input_file_stat.st_size;
 
         // next up is loading our file into a dynamically allocated memory buffer
-        unsigned char *input_file_buffer;
+        unsigned char *inputFileBuffer;
 
         // allocate memory to contain the whole file
-        input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-        if (input_file_buffer == NULL) {
+        inputFileBuffer = (unsigned char *) malloc(sizeof(unsigned char)*inputFileSize);
+        if (inputFileBuffer == NULL) {
             fputs ("\nMemory error.\n\n", stderr); exit (2);
         }
 
         // copy the file into the buffer
-        if (fread(input_file_buffer, 1, input_file_size, input_file) != input_file_size) {
+        if (fread(inputFileBuffer, 1, inputFileSize, input_file) != inputFileSize) {
             fputs ("\nReading error.\n\n", stderr); exit (3);
-        } // whole file is now loaded into input_file_buffer
+        } // whole file is now loaded into inputFileBuffer
 
         // adjust the file size if file contains a SAUCE record
         if(fileHasSAUCE) {
             sauce *saucerec = sauceReadFile(input_file);
-            input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+            inputFileSize -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
         }
 
         // close input file, we don't need it anymore
@@ -311,27 +311,27 @@ int main(int argc, char *argv[]) {
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            pcboard(input_file_buffer, input_file_size, outputFile, retinaout, font, bits, createRetinaRep);
+            pcboard(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, createRetinaRep);
             fileIsPCBoard = true;
         } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            binary(input_file_buffer, input_file_size, outputFile, retinaout, columns, font, bits, icecolors, createRetinaRep);
+            binary(inputFileBuffer, inputFileSize, outputFile, retinaout, columns, font, bits, icecolors, createRetinaRep);
             fileIsBinary = true;
         } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            artworx(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
+            artworx(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            icedraw(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
+            icedraw(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
         } else if (!strcmp(fext, ".tnd")) {
-            tundra(input_file_buffer, input_file_size, outputFile, retinaout, font, bits, createRetinaRep);
+            tundra(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, createRetinaRep);
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            xbin(input_file_buffer, input_file_size, outputFile, retinaout, createRetinaRep);
+            xbin(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
         } else {
             // params: input, output, font, bits, icecolors, fext
-            ansi(input_file_buffer, input_file_size, outputFile, retinaout, font, bits, mode, icecolors, fext, createRetinaRep);
+            ansi(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, mode, icecolors, fext, createRetinaRep);
             fileIsANSi = true;
         }
 

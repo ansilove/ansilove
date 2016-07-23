@@ -11,7 +11,7 @@
 
 #include "binary.h"
 
-void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
+void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -23,8 +23,8 @@ void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *out
     gdImagePtr im_Binary;
 
     // allocate buffer image memory
-    im_Binary = gdImageCreate(int_columns * int_bits, 
-                              ((input_file_size / 2) / int_columns * fontData.font_size_y));
+    im_Binary = gdImageCreate(columns * bits, 
+                              ((inputFileSize / 2) / columns * fontData.font_size_y));
 
     if (!im_Binary) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -57,16 +57,16 @@ void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *out
     int32_t character, attribute, color_background, color_foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
 
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
-        if (position_x == int_columns) 
+        if (position_x == columns) 
         {
             position_x = 0;
             position_y++;
         }
 
-        character = input_file_buffer[loop];
-        attribute = input_file_buffer[loop+1];
+        character = inputFileBuffer[loop];
+        attribute = inputFileBuffer[loop+1];
 
         color_background = (attribute & 240) >> 4;
         color_foreground = (attribute & 15);
@@ -76,7 +76,7 @@ void binary(unsigned char *input_file_buffer, int32_t input_file_size, char *out
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, fontData.font_data, int_bits, fontData.font_size_y, 
+        alDrawChar(im_Binary, fontData.font_data, bits, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
 
         position_x++;
