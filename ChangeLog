@@ -1,3 +1,13 @@
+AnsiLove/C 3.0.4 (2016-07-28)
+
+- Relicensed under the BSD 2-Clause license
+- Input file is now loaded in main, prior to calling format loaders
+- Use stat to get input file size instead of custom file size function
+- Remove now unused file size function
+- Refactoring bits and columns argument value handling
+
+
+
 AnsiLove/C 3.0.3 (2016-07-14)
 
 - Adding some missing includes
