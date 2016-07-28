@@ -11,48 +11,13 @@
 
 #include "icedraw.h"
 
-void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool createRetinaRep)
+void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;
 
-    // load input file
-    FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) { 
-        fputs("\nFile error.\n\n", stderr); exit (1);
-    }
-
-    // get the file size (bytes)
-    size_t get_file_size = filesize(input);
-    int32_t input_file_size = (int32_t)get_file_size;
-
-    // next up is loading our file into a dynamically allocated memory buffer
-    unsigned char *input_file_buffer;
-    int32_t result;
-
-    // allocate memory to contain the whole file
-    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-    if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (2);
-    }
-
-    // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size, input_file);
-    if (result != input_file_size) {
-        fputs ("\nReading error.\n\n", stderr); exit (3);
-    } // whole file is now loaded into input_file_buffer
-
-    // IDF related: file contains a SAUCE record? adjust the file size
-    if(fileHasSAUCE) {
-        sauce *saucerec = sauceReadFile(input_file);
-        input_file_size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
-    }
-
-    // close input file, we don't need it anymore
-    fclose(input_file);
-
     // extract relevant part of the IDF header, 16-bit endian unsigned short    
-    int32_t x2 = (input_file_buffer[9] << 8) + input_file_buffer[8];
+    int32_t x2 = (inputFileBuffer[9] << 8) + inputFileBuffer[8];
 
     // libgd image pointers
     gdImagePtr im_IDF;
@@ -66,7 +31,7 @@ void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool
     if (font_data_idf == NULL) {
         fputs ("\nMemory error.\n\n", stderr); exit (7);
     }
-    memcpy(font_data_idf,input_file_buffer+(input_file_size - 48 - 4096),4096);
+    memcpy(font_data_idf,inputFileBuffer+(inputFileSize - 48 - 4096),4096);
 
     font_data=font_data_idf;
 
@@ -80,14 +45,14 @@ void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool
 
     int16_t idf_data, idf_data_length;
 
-    while (loop < input_file_size - 4096 - 48) 
+    while (loop < inputFileSize - 4096 - 48) 
     {
-        memcpy(&idf_data,input_file_buffer+loop,2);
+        memcpy(&idf_data,inputFileBuffer+loop,2);
 
         // RLE compressed data
         if (idf_data==1)
         {
-            memcpy(&idf_data_length,input_file_buffer+loop+2,2);
+            memcpy(&idf_data_length,inputFileBuffer+loop+2,2);
 
             idf_sequence_length = idf_data_length & 255;
 
@@ -102,8 +67,8 @@ void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool
                     fputs ("\nError allocating IDF buffer memory.\n\n", stderr); exit (7);
                 }
 
-                idf_buffer[i] = input_file_buffer[loop + 4];
-                idf_buffer[i+1] = input_file_buffer[loop + 5];
+                idf_buffer[i] = inputFileBuffer[loop + 4];
+                idf_buffer[i+1] = inputFileBuffer[loop + 5];
                 i+=2;
             }
             loop += 4;
@@ -119,8 +84,8 @@ void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool
             }
 
             // normal character
-            idf_buffer[i] = input_file_buffer[loop];
-            idf_buffer[i+1] = input_file_buffer[loop + 1];
+            idf_buffer[i] = inputFileBuffer[loop];
+            idf_buffer[i+1] = inputFileBuffer[loop + 1];
             i+=2;
         }
         loop += 2;
@@ -138,10 +103,10 @@ void icedraw(char *input, char *output, char *retinaout, bool fileHasSAUCE, bool
     // process IDF palette
     for (loop = 0; loop < 16; loop++)
     {
-        index = (loop * 3) + input_file_size - 48;
-        colors[loop] = gdImageColorAllocate(im_IDF, (input_file_buffer[index] << 2 | input_file_buffer[index] >> 4),
-                                            (input_file_buffer[index + 1] << 2 | input_file_buffer[index + 1] >> 4),
-                                            (input_file_buffer[index + 2] << 2 | input_file_buffer[index + 2] >> 4));
+        index = (loop * 3) + inputFileSize - 48;
+        colors[loop] = gdImageColorAllocate(im_IDF, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
+                                            (inputFileBuffer[index + 1] << 2 | inputFileBuffer[index + 1] >> 4),
+                                            (inputFileBuffer[index + 2] << 2 | inputFileBuffer[index + 2] >> 4));
     }
 
     // render IDF

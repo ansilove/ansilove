@@ -11,7 +11,7 @@
 
 #include "binary.h"
 
-void binary(char *input, char *output, char *retinaout, int32_t int_columns, char *font, int32_t int_bits, bool icecolors, bool createRetinaRep)
+void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -19,41 +19,12 @@ void binary(char *input, char *output, char *retinaout, int32_t int_columns, cha
     // font selection
     alSelectFont(&fontData, font);
 
-    // load input file
-    FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) { 
-        fputs("\nFile error.\n\n", stderr); exit (1);
-    }
-
-    // get the file size (bytes)
-    size_t get_file_size = filesize(input);
-    int32_t input_file_size = (int32_t)get_file_size;
-
-    // next up is loading our file into a dynamically allocated memory buffer
-    unsigned char *input_file_buffer;
-    int32_t result;
-
-    // allocate memory to contain the whole file
-    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-    if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (2);
-    }
-
-    // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size, input_file);
-    if (result != input_file_size) {
-        fputs ("\nReading error.\n\n", stderr); exit (3);
-    } // whole file is now loaded into input_file_buffer
-
-    // close input file, we don't need it anymore
-    fclose(input_file);
-
     // libgd image pointers
     gdImagePtr im_Binary;
 
     // allocate buffer image memory
-    im_Binary = gdImageCreate(int_columns * int_bits, 
-                              ((input_file_size / 2) / int_columns * fontData.font_size_y));
+    im_Binary = gdImageCreate(columns * bits, 
+                              ((inputFileSize / 2) / columns * fontData.font_size_y));
 
     if (!im_Binary) {
         fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
@@ -86,16 +57,16 @@ void binary(char *input, char *output, char *retinaout, int32_t int_columns, cha
     int32_t character, attribute, color_background, color_foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
 
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
-        if (position_x == int_columns) 
+        if (position_x == columns) 
         {
             position_x = 0;
             position_y++;
         }
 
-        character = input_file_buffer[loop];
-        attribute = input_file_buffer[loop+1];
+        character = inputFileBuffer[loop];
+        attribute = inputFileBuffer[loop+1];
 
         color_background = (attribute & 240) >> 4;
         color_foreground = (attribute & 15);
@@ -105,7 +76,7 @@ void binary(char *input, char *output, char *retinaout, int32_t int_columns, cha
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, fontData.font_data, int_bits, fontData.font_size_y, 
+        alDrawChar(im_Binary, fontData.font_data, bits, fontData.font_size_y, 
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
 
         position_x++;

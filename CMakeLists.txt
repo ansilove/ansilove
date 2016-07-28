@@ -18,7 +18,7 @@ find_path(GD_INCLUDE_DIRS gd.h)
 find_library(GD_LIBRARIES NAMES gd REQUIRED)
 include_directories(${GD_INCLUDE_DIRS})
 
-set(SRC src/main.c src/fonts.c src/ansilove.c src/explode.c src/filesize.c src/strtolower.c src/substr.c src/sauce.c)
+set(SRC src/main.c src/fonts.c src/ansilove.c src/explode.c src/strtolower.c src/substr.c src/sauce.c)
 
 set(LOADERS src/loaders/ansi.c src/loaders/artworx.c src/loaders/binary.c src/loaders/icedraw.c src/loaders/pcboard.c src/loaders/tundra.c src/loaders/xbin.c)
 

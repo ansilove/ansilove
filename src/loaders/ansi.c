@@ -11,7 +11,7 @@
 
 #include "ansi.h"
 
-void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
+void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
 {
     // ladies and gentlemen, it's type declaration time
     struct fontStruct fontData;
@@ -38,35 +38,6 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     else if (!strcmp(mode, "workbench")) {
         workbench = true;
     }
-
-    // load input file
-    FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) {
-        fputs("\nFile error.\n\n", stderr); exit (1);
-    }
-
-    // get the file size (bytes)
-    size_t get_file_size = filesize(input);
-    int32_t input_file_size = (int32_t)get_file_size;
-
-    // next up is loading our file into a dynamically allocated memory buffer
-    unsigned char *input_file_buffer;
-    int32_t result;
-
-    // allocate memory to contain the whole file
-    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-    if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (2);
-    }
-
-    // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size, input_file);
-    if (result != input_file_size) {
-        fputs ("\nReading error.\n\n", stderr); exit (3);
-    } // whole file is now loaded into input_file_buffer
-
-    // close input file, we don't need it anymore
-    fclose(input_file);
 
     // check if current file has a .diz extension
     if (!strcmp(fext, ".diz")) {
@@ -106,10 +77,10 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     ansi_buffer = malloc(sizeof(struct ansiChar));
 
     // ANSi interpreter
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
-        current_character = input_file_buffer[loop];
-        next_character = input_file_buffer[loop + 1];
+        current_character = inputFileBuffer[loop];
+        next_character = inputFileBuffer[loop + 1];
 
         if (position_x==80 && WRAP_COLUMN_80)
         {
@@ -148,13 +119,13 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         {
             for (ansi_sequence_loop = 0; ansi_sequence_loop < 12; ansi_sequence_loop++)
             {
-                ansi_sequence_character = input_file_buffer[loop + 2 + ansi_sequence_loop];
+                ansi_sequence_character = inputFileBuffer[loop + 2 + ansi_sequence_loop];
 
                 // cursor position
                 if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // create sequence content array
                     seqArrayCount = explode(&seqArray, ';', seqGrab);
@@ -181,7 +152,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='A')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -200,7 +171,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='B')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -219,7 +190,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='C')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -243,7 +214,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='D')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // now get escape sequence's content length
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -287,7 +258,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='J')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                     // convert grab to an integer
                     int32_t eraseDisplayInt = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -313,7 +284,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
                 if (ansi_sequence_character=='m')
                 {
                         // create substring from the sequence's content
-                        seqGrab = substr((char *)input_file_buffer, loop+2, ansi_sequence_loop);
+                        seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
 
                         // create sequence content array
                         seqArrayCount = explode(&seqArray, ';', seqGrab);
@@ -452,7 +423,7 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
     }
 
     // create that damn thingy
-    im_ANSi = gdImageCreate(columns * int_bits,(position_y_max)*fontData.font_size_y);
+    im_ANSi = gdImageCreate(columns * bits,(position_y_max)*fontData.font_size_y);
 
     if (!im_ANSi) {
         fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
@@ -529,10 +500,10 @@ void ansi(char *input, char *output, char *retinaout, char *font, int32_t int_bi
         position_y = ansi_buffer[loop].position_y;
 
         if (ced) {
-            alDrawChar(im_ANSi, fontData.font_data, int_bits, fontData.font_size_y,
+            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.font_size_y,
                    position_x, position_y, ced_background, ced_foreground, character);
         } else {
-            alDrawChar(im_ANSi, fontData.font_data, int_bits, fontData.font_size_y,
+            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.font_size_y,
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
         }
 

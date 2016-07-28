@@ -11,7 +11,7 @@
 
 #include "pcboard.h"
 
-void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool createRetinaRep)
+void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -20,35 +20,6 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
 
     // font selection
     alSelectFont(&fontData, font);
-
-    // load input file
-    FILE *input_file = fopen(input, "r");
-    if (input_file == NULL) {
-        fputs("\nFile error.\n\n", stderr); exit (1);
-    }
-
-    // get the file size (bytes)
-    size_t get_file_size = filesize(input);
-    int32_t input_file_size = (int32_t)get_file_size;
-
-    // next up is loading our file into a dynamically allocated memory buffer
-    unsigned char *input_file_buffer;
-    int32_t result;
-
-    // allocate memory to contain the whole file
-    input_file_buffer = (unsigned char *) malloc(sizeof(unsigned char)*input_file_size);
-    if (input_file_buffer == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (2);
-    }
-
-    // copy the file into the buffer
-    result = fread(input_file_buffer, 1, input_file_size, input_file);
-    if (result != input_file_size) {
-        fputs ("\nReading error.\n\n", stderr); exit (3);
-    } // whole file is now loaded into input_file_buffer
-
-    // close input file, we don't need it anymore
-    fclose(input_file);
 
     // libgd image pointers
     gdImagePtr im_PCB;
@@ -68,10 +39,10 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
     loop = 0;
     structIndex = 0;
 
-    while (loop < input_file_size)
+    while (loop < inputFileSize)
     {
-        current_character = input_file_buffer[loop];
-        next_character = input_file_buffer[loop+1];
+        current_character = inputFileBuffer[loop];
+        next_character = inputFileBuffer[loop+1];
 
         if (position_x == 80)
         {
@@ -109,12 +80,12 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
         if (current_character == 64 && next_character == 88)
         {
             // set graphics rendition
-            color_background = input_file_buffer[loop+2];
-            color_foreground = input_file_buffer[loop+3];
+            color_background = inputFileBuffer[loop+2];
+            color_foreground = inputFileBuffer[loop+3];
             loop+=3;
         }
         else if (current_character == 64 && next_character == 67 &&
-                 input_file_buffer[loop+2] == 'L' && input_file_buffer[loop+3] == 'S')
+                 inputFileBuffer[loop+2] == 'L' && inputFileBuffer[loop+3] == 'S')
         {
             // erase display
             position_x = 0;
@@ -125,18 +96,18 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
 
             loop+=4;
         }
-        else if (current_character == 64 && next_character == 80 && input_file_buffer[loop+2] == 'O'
-                 && input_file_buffer[loop+3] == 'S' && input_file_buffer[loop+4]== ':')
+        else if (current_character == 64 && next_character == 80 && inputFileBuffer[loop+2] == 'O'
+                 && inputFileBuffer[loop+3] == 'S' && inputFileBuffer[loop+4]== ':')
         {
             // cursor position
-            if (input_file_buffer[loop+6]=='@')
+            if (inputFileBuffer[loop+6]=='@')
             {
-                position_x=((input_file_buffer[loop+5])-48)-1;
+                position_x=((inputFileBuffer[loop+5])-48)-1;
                 loop+=5;
             }
             else
             {
-                position_x = (10 * ((input_file_buffer[loop+5])-48) + (input_file_buffer[loop+6])-48)-1;
+                position_x = (10 * ((inputFileBuffer[loop+5])-48) + (inputFileBuffer[loop+6])-48)-1;
                 loop+=6;
             }
         }
@@ -173,7 +144,7 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
     position_y_max++;
 
     // allocate buffer image memory
-    im_PCB = gdImageCreate(columns * int_bits, (position_y_max)*fontData.font_size_y);
+    im_PCB = gdImageCreate(columns * bits, (position_y_max)*fontData.font_size_y);
 
     // allocate black color and create background canvas
     gdImageColorAllocate(im_PCB, 0, 0, 0);
@@ -212,7 +183,7 @@ void pcboard(char *input, char *output, char *retinaout, char *font, int32_t int
         color_foreground = pcboard_buffer[loop].color_foreground;
         character = pcboard_buffer[loop].current_character;
 
-        alDrawChar(im_PCB, fontData.font_data, int_bits, fontData.font_size_y,
+        alDrawChar(im_PCB, fontData.font_data, bits, fontData.font_size_y,
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
     }
 

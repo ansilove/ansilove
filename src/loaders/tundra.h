@@ -14,6 +14,6 @@
 #ifndef tundra_h
 #define tundra_h
 
-void tundra(char *input, char *output, char *retinaout, char *font, int32_t int_bits, bool fileHasSAUCE, bool createRetinaRep);
+void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, bool createRetinaRep);
 
 #endif

@@ -21,7 +21,6 @@
 #include "strtolower.h"
 #include "substr.h"
 #include "explode.h"
-#include "filesize.h"
 #include "sauce.h"
 
 #ifndef HAVE_STRTONUM
@@ -32,7 +31,7 @@
 #define ansilove_h
 
 // prototypes
-void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t int_bits,
+void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t bits,
                 int32_t font_size_y, int32_t position_x, int32_t position_y,
                 int32_t color_background, int32_t color_foreground, unsigned char character);
 

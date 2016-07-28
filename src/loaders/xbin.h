@@ -14,6 +14,6 @@
 #ifndef xbin_h
 #define xbin_h
 
-void xbin(char *input, char *output, char *retinaout, bool createRetinaRep);
+void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep);
 
 #endif
