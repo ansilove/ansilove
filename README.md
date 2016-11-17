@@ -34,6 +34,7 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 
 - OpenBSD : pkg_add -r cmake gd
 - NetBSD : pkgin install cmake gd
+- FreeBSD : pkg add cmake gd
 - Mac OS X : brew install cmake gd
 - Alpine Linux : apk add cmake gcc make musl-dev gd-dev
 - Debian / Ubuntu : apt-get install cmake libgd-dev
@@ -47,9 +48,8 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 
 AnsiLove/C packages are available for :
 
-## OpenBSD
-
-    pkg_add ansilove
+- OpenBSD : pkg_add ansilove
+- FreeBSD : pkg add ansilove
 
 # Cocoa
 
