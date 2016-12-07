@@ -20,7 +20,8 @@ addons:
     project:
       name: "ansilove/ansilove"
       version: 3.0.4
-      description: "ANSi / ASCII art to PNG converter in C<Your project description here>"
+      description: "ANSi / ASCII art to PNG converter in C"
+    notification_email: fred@statdns.com
     build_command_prepend: cmake .
     build_command: make -j 4
     branch_pattern: master
