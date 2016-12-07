@@ -213,5 +213,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // free memory
+    free(pcboard_buffer);
+
     gdImageDestroy(im_PCB);
 }
