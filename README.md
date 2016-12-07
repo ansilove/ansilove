@@ -32,12 +32,12 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 
 # Installing dependencies
 
-- OpenBSD : pkg_add -r cmake gd
-- NetBSD : pkgin install cmake gd
-- FreeBSD : pkg add cmake gd
-- Mac OS X : brew install cmake gd
-- Alpine Linux : apk add cmake gcc make musl-dev gd-dev
-- Debian / Ubuntu : apt-get install cmake libgd-dev
+- OpenBSD: `pkg_add -r cmake gd`
+- NetBSD: `pkgin install cmake gd`
+- FreeBSD: `pkg add cmake gd`
+- Mac OS X: `brew install cmake gd`
+- Alpine Linux: `apk add cmake gcc make musl-dev gd-dev`
+- Debian / Ubuntu: `apt-get install cmake libgd-dev`
 
 # Compiling
 
@@ -46,11 +46,19 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 
 # Installation
 
-AnsiLove/C packages are available for :
+AnsiLove/C packages are available for:
 
-- OpenBSD : pkg_add ansilove
-- NetBSD : pkgin install ansilove
-- FreeBSD : pkg add ansilove
+### OpenBSD
+
+	pkg_add ansilove
+
+### Pkgsrc (NetBSD, SmartOS, Mac OS X, etc.)
+
+	pkgin install ansilove
+
+### FreeBSD
+
+	pkg add ansilove
 
 # Cocoa
 
@@ -149,7 +157,7 @@ AMIGA fonts can be (all case-sensitive):
 
 ## Bits
 
-`bits` can be (all case-sensitive): 
+`bits` can be (all case-sensitive):
 
 - `8` (8-bit)
 - `9` (9-bit)
@@ -194,7 +202,7 @@ AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` fo
 
 # Resources
 
-GitHub : https://github.com/ansilove/ansilove
+GitHub: https://github.com/ansilove/ansilove
 
 [1]: https://travis-ci.org/ansilove/ansilove.png?branch=master
 [2]: https://travis-ci.org/ansilove/ansilove
