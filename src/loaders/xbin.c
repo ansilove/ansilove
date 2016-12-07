@@ -209,5 +209,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     }
 
     // nuke garbage
+    free(font_data_xbin);
+
     gdImageDestroy(im_XBIN);
 }

@@ -104,5 +104,7 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // nuke garbage
+    free(font_data_adf);
+
     gdImageDestroy(im_ADF);
 }
