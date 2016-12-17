@@ -14,7 +14,7 @@
 void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
-    unsigned char *font_data_xbin;
+    unsigned char *font_data_xbin = NULL;
 
     if (strncmp((char *)inputFileBuffer, "XBIN\x1a", 5) != 0) {
         fputs("\nNot an XBin.\n\n", stderr); exit (4);
