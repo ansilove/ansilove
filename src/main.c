@@ -289,7 +289,7 @@ int main(int argc, char *argv[]) {
         unsigned char *inputFileBuffer;
 
         // allocate memory to contain the whole file
-        inputFileBuffer = (unsigned char *) malloc(sizeof(unsigned char)*inputFileSize);
+        inputFileBuffer = (unsigned char *) malloc(sizeof(unsigned char)*inputFileSize + 1);
         if (inputFileBuffer == NULL) {
             fputs ("\nMemory error.\n\n", stderr); exit (2);
         }
