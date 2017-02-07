@@ -71,7 +71,7 @@ void showHelp(void) {
 }
 
 void listExamples(void) {
-    printf("\nEXAMPLES:\n"); 
+    printf("\nEXAMPLES:\n");
     printf("  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"

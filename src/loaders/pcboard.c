@@ -25,8 +25,8 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     gdImagePtr im_PCB;
 
     // process PCBoard
-    int32_t character, current_character, next_character; 
-    int32_t color_background = 0, color_foreground = 7; 
+    int32_t character, current_character, next_character;
+    int32_t color_background = 0, color_foreground = 7;
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
 
     // PCB buffer structure array definition

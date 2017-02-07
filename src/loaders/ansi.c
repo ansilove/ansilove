@@ -386,7 +386,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 position_y_max=position_y;
             }
 
-            // write current character in ansiChar structure 
+            // write current character in ansiChar structure
             if (!fontData.isAmigaFont || (current_character != 12 && current_character != 13))
             {
                 // reallocate structure array memory

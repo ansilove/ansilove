@@ -88,4 +88,3 @@ AnsiLove/C 2.2.1 (2015-06-28)
 - Adding 'AUTHORS', 'FILE_ID.DIZ', and 'THANKS' files
 - Fixing file extension detection (Close #2)
 - Fixing the PCB loader to use logical AND as it should
-	

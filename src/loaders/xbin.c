@@ -94,7 +94,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
         font_data = font_pc_80x25;
     }
 
-    int32_t position_x = 0, position_y = 0; 
+    int32_t position_x = 0, position_y = 0;
     int32_t character, attribute, color_foreground, color_background;
 
     // read compressed xbin

@@ -16,7 +16,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     const unsigned char *font_data;
     unsigned char *font_data_idf;
 
-    // extract relevant part of the IDF header, 16-bit endian unsigned short    
+    // extract relevant part of the IDF header, 16-bit endian unsigned short
     int32_t x2 = (inputFileBuffer[9] << 8) + inputFileBuffer[8];
 
     // libgd image pointers
@@ -45,7 +45,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
     int16_t idf_data, idf_data_length;
 
-    while (loop < inputFileSize - 4096 - 48) 
+    while (loop < inputFileSize - 4096 - 48)
     {
         memcpy(&idf_data,inputFileBuffer+loop,2);
 
@@ -56,7 +56,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
             idf_sequence_length = idf_data_length & 255;
 
-            for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++) 
+            for (idf_sequence_loop = 0; idf_sequence_loop < idf_sequence_length; idf_sequence_loop++)
             {
                 // reallocate IDF buffer memory
                 temp = realloc(idf_buffer, (i + 2) * sizeof(unsigned char));

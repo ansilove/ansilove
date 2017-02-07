@@ -18,7 +18,7 @@
 
 This is a complete rewrite of [AnsiLove/PHP](https://www.ansilove.org) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `3.0.4`.
 
-# Specs 
+# Specs
 
 AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux, OpenBSD and Mac OS X for AnsiLove/C development.
 
@@ -81,10 +81,10 @@ Rendering of all known ANSi / ASCII art file types:
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
-AnsiLove/C is capabable of processing: 
+AnsiLove/C is capabable of processing:
 
 - SAUCE records
-- DOS and Amiga fonts (embedded binary dump) 
+- DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
 Even more:
@@ -122,7 +122,7 @@ There are certain cases where you need to set options for proper rendering. Howe
 
 ## Fonts
 
-We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available at your fingertips. 
+We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available at your fingertips.
 
 PC fonts can be (all case-sensitive):
 
@@ -190,7 +190,7 @@ When an ANSi source was created using iCE colors, it was done with a special mod
 
 ## SAUCE records
 
-It's fine to use AnsiLove/C as SAUCE reader without generating any output, just set option `-s` for this purpose. 
+It's fine to use AnsiLove/C as SAUCE reader without generating any output, just set option `-s` for this purpose.
 
 # Who pulls the strings
 

@@ -23,7 +23,7 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     gdImagePtr im_Binary;
 
     // allocate buffer image memory
-    im_Binary = gdImageCreate(columns * bits, 
+    im_Binary = gdImageCreate(columns * bits,
                               ((inputFileSize / 2) / columns * fontData.font_size_y));
 
     if (!im_Binary) {
@@ -59,7 +59,7 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
 
     while (loop < inputFileSize)
     {
-        if (position_x == columns) 
+        if (position_x == columns)
         {
             position_x = 0;
             position_y++;
@@ -76,7 +76,7 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
             color_background -= 8;
         }
 
-        alDrawChar(im_Binary, fontData.font_data, bits, fontData.font_size_y, 
+        alDrawChar(im_Binary, fontData.font_data, bits, fontData.font_size_y,
                    position_x, position_y, colors[color_background], colors[color_foreground], character);
 
         position_x++;
