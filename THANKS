@@ -9,7 +9,7 @@
 
 Thanks to the following people for helping the Ansilove project <3
 
-Fonts :
+Fonts:
 
 - dMG of Ascii Arena for his Amiga Fonts (http://www.trueschool.se)
 - Kosta Kostis (http://www.kostis.net) for his fantastic CPI tools
@@ -17,13 +17,13 @@ Fonts :
 
 
 
-Code :
+Code:
 
 - Ted Unangst and Todd Miller for strtonum.c
 
 
 
-ASCiis logos used in the releases : 
+ASCiis logos used in the releases:
 
 - H7 for the ansilove documentation logo
 - Ansichrist for the file_id.diz
@@ -31,7 +31,7 @@ ASCiis logos used in the releases :
 
 
 
-Examples ANSis and ASCiis :
+Examples ANSis and ASCiis:
 
 - Avenger for the ave-love.ans example ANSi
 - Avenging Angel for the avg-alove.ans example ANSi
