@@ -7,7 +7,7 @@ compiler:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libgd2-noxpm-dev
-  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca- 
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 script: cmake . && make
 
