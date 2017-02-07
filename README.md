@@ -16,7 +16,7 @@
 	
 # AnsiLove/C [![Build Status][1]][2]
 
-This is a complete rewrite of [AnsiLove/PHP](http://www.ansilove.org) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `3.0.4`.
+This is a complete rewrite of [AnsiLove/PHP](https://www.ansilove.org) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `3.0.4`.
 
 # Specs 
 
@@ -62,7 +62,7 @@ AnsiLove/C packages are available for:
 
 # Cocoa
 
-If you're looking for something to implement into your Cocoa applications, we highly recommend taking a look at [AnsiLove.framework](https://github.com/ByteProject/AnsiLove.framework).
+If you're looking for something to implement into your Cocoa applications, we highly recommend taking a look at [AnsiLove.framework](https://github.com/ansilove/AnsiLove.framework).
 
 # Features
 
@@ -74,7 +74,7 @@ Rendering of all known ANSi / ASCII art file types:
 - iCE Draw (.IDF)
 - Xbin (.XB) [details](http://www.acid.org/info/xbin/xbin.htm)
 - PCBoard (.PCB)
-- Tundra (.TND) [details](http://sourceforge.net/projects/tundradraw)
+- Tundra (.TND) [details](https://sourceforge.net/projects/tundradraw/)
 - ASCII (.ASC)
 - Release info (.NFO)
 - Description in zipfile (.DIZ)
@@ -204,5 +204,5 @@ AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` fo
 
 GitHub: https://github.com/ansilove/ansilove
 
-[1]: https://travis-ci.org/ansilove/ansilove.png?branch=master
+[1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
 [2]: https://travis-ci.org/ansilove/ansilove
