@@ -18,7 +18,6 @@
 #include <gd.h>
 #include "config.h"
 #include "fonts.h"
-#include "substr.h"
 #include "explode.h"
 #include "sauce.h"
 

@@ -9,6 +9,10 @@
 //  See the file LICENSE for details.
 //
 
+#define _XOPEN_SOURCE 700
+#define _NETBSD_SOURCE
+#include <string.h>
+
 #include "ansi.h"
 
 void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
@@ -125,7 +129,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character == 'H' || ansi_sequence_character == 'f')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // create sequence content array
                     seqArrayCount = explode(&seqArray, ';', seqGrab);
@@ -152,7 +156,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='A')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -171,7 +175,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='B')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -190,7 +194,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='C')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // now get escape sequence's position value
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -214,7 +218,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='D')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // now get escape sequence's content length
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -258,7 +262,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='J')
                 {
                     // create substring from the sequence's content
-                    seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                    seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                     // convert grab to an integer
                     int32_t eraseDisplayInt = strtonum(seqGrab, 0, INT32_MAX, &errstr);
@@ -284,7 +288,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 if (ansi_sequence_character=='m')
                 {
                         // create substring from the sequence's content
-                        seqGrab = substr((char *)inputFileBuffer, loop+2, ansi_sequence_loop);
+                        seqGrab = strndup((char *)inputFileBuffer + loop + 2, ansi_sequence_loop);
 
                         // create sequence content array
                         seqArrayCount = explode(&seqArray, ';', seqGrab);
