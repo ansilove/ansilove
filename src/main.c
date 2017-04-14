@@ -299,6 +299,8 @@ int main(int argc, char *argv[]) {
             fputs ("\nReading error.\n\n", stderr); exit (3);
         } // whole file is now loaded into inputFileBuffer
 
+        inputFileBuffer[inputFileSize] = '\0';
+
         // adjust the file size if file contains a SAUCE record
         if(fileHasSAUCE) {
             sauce *saucerec = sauceReadFile(input_file);
