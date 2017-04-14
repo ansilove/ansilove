@@ -49,7 +49,7 @@ void synopsis(void);
 void showHelp(void) {
     printf("\nSUPPORTED FILE TYPES:\n"
            "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
-           "  Files with custom suffix default to the ANSi renderer.\n\n"
+           "  Files with custom suffix default to the ANSI renderer.\n\n"
            "PC FONTS:\n"
            "  80x25              icelandic\n"
            "  80x50              latin1\n"
@@ -115,7 +115,7 @@ void synopsis(void) {
 }
 
 int main(int argc, char *argv[]) {
-    printf("AnsiLove/C %s - ANSi / ASCII art to PNG converter\n"\
+    printf("AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"\
            "Copyright (C) 2011-2017 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
 
     // SAUCE record related bool types
