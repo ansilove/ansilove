@@ -163,11 +163,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    if (seq_line == 0) {
-                        seq_line = 1;
-                    }
-
-                    position_y = position_y - seq_line;
+                    position_y -= seq_line ? seq_line : 1;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -183,11 +179,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    if (seq_line == 0) {
-                        seq_line = 1;
-                    }
-
-                    position_y = position_y + seq_line;
+                    position_y += seq_line ? seq_line : 1;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -203,11 +195,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    if (seq_column == 0) {
-                        seq_column = 1;
-                    }
-
-                    position_x = position_x + seq_column;
+                    position_x += seq_column ? seq_column : 1;
 
                     if (position_x>80)
                     {
@@ -228,11 +216,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    if (seq_column == 0) {
-                        seq_column = 1;
-                    }
-
-                    position_x = position_x - seq_column;
+                    position_x -= seq_column ? seq_column : 1;
 
                     if (position_x < 0)
                     {
