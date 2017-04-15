@@ -98,7 +98,8 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     im_Tundra = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.font_size_y);
 
     if (!im_Tundra) {
-        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
+        perror("Error, can't allocate buffer image memory");
+        exit (6);
     }
 
     // process tundra

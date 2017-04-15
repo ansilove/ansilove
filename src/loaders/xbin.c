@@ -30,7 +30,8 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     im_XBIN = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
 
     if (!im_XBIN) {
-        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
+        perror("Error, can't allocate buffer image memory");
+        exit (6);
     }
 
     // allocate black color
@@ -81,7 +82,8 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
         // allocate memory to contain the XBin font
         font_data_xbin = (unsigned char *) malloc(sizeof(unsigned char)*(xbin_fontsize * numchars));
         if (font_data_xbin == NULL) {
-            fputs ("\nMemory error.\n\n", stderr); exit (5);
+            perror("Memory error");
+            exit (5);
         }
         memcpy(font_data_xbin,inputFileBuffer+offset,(xbin_fontsize * numchars));
 

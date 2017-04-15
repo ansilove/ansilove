@@ -29,7 +29,8 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     // process IDF font
     font_data_idf = (unsigned char *) malloc(sizeof(unsigned char)*4096);
     if (font_data_idf == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (7);
+        perror("Memory error");
+        exit (7);
     }
     memcpy(font_data_idf,inputFileBuffer+(inputFileSize - 48 - 4096),4096);
 
@@ -64,7 +65,8 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
                     idf_buffer = temp;
                 }
                 else {
-                    fputs ("\nError allocating IDF buffer memory.\n\n", stderr); exit (7);
+                    perror("Error allocating IDF buffer memory");
+                    exit (7);
                 }
 
                 idf_buffer[i] = inputFileBuffer[loop + 4];
@@ -80,7 +82,8 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
                 idf_buffer = temp;
             }
             else {
-                fputs ("\nError allocating IDF buffer memory.\n\n", stderr); exit (8);
+                perror("Error allocating IDF buffer memory");
+                exit (8);
             }
 
             // normal character
@@ -96,7 +99,8 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
     // error output
     if (!im_IDF) {
-        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (9);
+        perror("Can't allocate buffer image memory");
+        exit (9);
     }
     gdImageColorAllocate(im_IDF, 0, 0, 0);
 

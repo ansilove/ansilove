@@ -421,7 +421,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     im_ANSi = gdImageCreate(columns * bits,(position_y_max)*fontData.font_size_y);
 
     if (!im_ANSi) {
-        fputs ("\nCan't allocate ANSi buffer image memory.\n\n", stderr); exit (6);
+        perror("Can't allocate ANSi buffer image memory");
+        exit(6);
     }
 
     int32_t colors[16];

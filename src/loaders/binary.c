@@ -27,7 +27,8 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
                               ((inputFileSize / 2) / columns * fontData.font_size_y));
 
     if (!im_Binary) {
-        fputs ("\nError, can't allocate buffer image memory.\n\n", stderr); exit (6);
+        perror("Error, can't allocate buffer image memory");
+        exit (6);
     }
 
     // allocate black color

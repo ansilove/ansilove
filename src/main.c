@@ -277,7 +277,8 @@ int main(int argc, char *argv[]) {
         // load input file
         FILE *input_file = fopen(input, "r");
         if (input_file == NULL) {
-            fputs("\nFile error.\n\n", stderr); exit (1);
+            perror("File error");
+            exit (1);
         }
 
         // get the file size (bytes)
@@ -291,12 +292,14 @@ int main(int argc, char *argv[]) {
         // allocate memory to contain the whole file
         inputFileBuffer = (unsigned char *) malloc(sizeof(unsigned char)*inputFileSize + 1);
         if (inputFileBuffer == NULL) {
-            fputs ("\nMemory error.\n\n", stderr); exit (2);
+            perror("Memory error");
+            exit (2);
         }
 
         // copy the file into the buffer
         if (fread(inputFileBuffer, 1, inputFileSize, input_file) != inputFileSize) {
-            fputs ("\nReading error.\n\n", stderr); exit (3);
+            perror("Reading error");
+            exit (3);
         } // whole file is now loaded into inputFileBuffer
 
         inputFileBuffer[inputFileSize] = '\0';

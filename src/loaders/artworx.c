@@ -24,7 +24,8 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
     // error output
     if (!im_ADF) {
-        fputs ("\nCan't allocate buffer image memory.\n\n", stderr); exit (7);
+        perror("Can't allocate buffer image memory");
+        exit (7);
     }
 
     // ADF color palette array
@@ -36,7 +37,8 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     // process ADF font
     font_data_adf = (unsigned char *) malloc(sizeof(unsigned char)*4096);
     if (font_data_adf == NULL) {
-        fputs ("\nMemory error.\n\n", stderr); exit (7);
+        perror("Memory error");
+        exit (7);
     }
     memcpy(font_data_adf,inputFileBuffer+193,4096);
 
