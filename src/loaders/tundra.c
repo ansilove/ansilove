@@ -36,7 +36,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     }
 
     // read tundra file a first time to find the image size
-    int32_t character, color_background = 0, color_foreground = 0;
+    int32_t character, background = 0, foreground = 0;
     int32_t loop = 0, position_x = 0, position_y = 0;
 
     loop=9;
@@ -132,7 +132,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
 
         if (character == 2)
         {
-            color_foreground =
+            foreground =
                     (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
                             inputFileBuffer[loop + 5];
 
@@ -143,7 +143,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
 
         if (character == 4)
         {
-            color_background = (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
+            background = (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
                     inputFileBuffer[loop+5];
 
             character = inputFileBuffer[loop+1];
@@ -153,11 +153,11 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
 
         if (character==6)
         {
-            color_foreground =
+            foreground =
                     (inputFileBuffer[loop + 3] << 16) + (inputFileBuffer[loop + 4] << 8) +
                             inputFileBuffer[loop+5];
 
-            color_background =
+            background =
                     (inputFileBuffer[loop + 7] << 16) + (inputFileBuffer[loop + 8] << 8) +
                             inputFileBuffer[loop+9];
 
@@ -169,7 +169,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
             alDrawChar(im_Tundra, fontData.font_data, bits, fontData.font_size_y,
-                    position_x, position_y, color_background, color_foreground, character);
+                    position_x, position_y, background, foreground, character);
 
             position_x++;
         }

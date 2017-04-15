@@ -95,7 +95,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     }
 
     int32_t position_x = 0, position_y = 0;
-    int32_t character, attribute, color_foreground, color_background;
+    int32_t character, attribute, foreground, background;
 
     // read compressed xbin
     if( (xbin_flags & 4) == 4) {
@@ -145,10 +145,10 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                     }
                 }
 
-                color_background = (attribute & 240) >> 4;
-                color_foreground = attribute & 15;
+                background = (attribute & 240) >> 4;
+                foreground = attribute & 15;
 
-                alDrawChar(im_XBIN, font_data, 8, 16, position_x, position_y, colors[color_background], colors[color_foreground], character);
+                alDrawChar(im_XBIN, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
 
                 position_x++;
 
@@ -173,10 +173,10 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
             character = inputFileBuffer[offset];
             attribute = inputFileBuffer[offset+1];
 
-            color_background = (attribute & 240) >> 4;
-            color_foreground = attribute & 15;
+            background = (attribute & 240) >> 4;
+            foreground = attribute & 15;
 
-            alDrawChar(im_XBIN, font_data, 8, xbin_fontsize, position_x, position_y, colors[color_background], colors[color_foreground], character);
+            alDrawChar(im_XBIN, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
 
             position_x++;
             offset+=2;

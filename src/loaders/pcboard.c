@@ -26,7 +26,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
     // process PCBoard
     int32_t character, current_character, next_character;
-    int32_t color_background = 0, color_foreground = 7;
+    int32_t background = 0, foreground = 7;
     int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
 
     // PCB buffer structure array definition
@@ -80,8 +80,8 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         if (current_character == 64 && next_character == 88)
         {
             // set graphics rendition
-            color_background = inputFileBuffer[loop+2];
-            color_foreground = inputFileBuffer[loop+3];
+            background = inputFileBuffer[loop+2];
+            foreground = inputFileBuffer[loop+3];
             loop+=3;
         }
         else if (current_character == 64 && next_character == 67 &&
@@ -131,8 +131,8 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
             // write current character in pcbChar structure
             pcboard_buffer[structIndex].position_x = position_x;
             pcboard_buffer[structIndex].position_y = position_y;
-            pcboard_buffer[structIndex].color_background = color_background;
-            pcboard_buffer[structIndex].color_foreground = color_foreground;
+            pcboard_buffer[structIndex].background = background;
+            pcboard_buffer[structIndex].foreground = foreground;
             pcboard_buffer[structIndex].current_character = current_character;
 
             position_x++;
@@ -179,12 +179,12 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         // grab our chars out of the structure
         position_x = pcboard_buffer[loop].position_x;
         position_y = pcboard_buffer[loop].position_y;
-        color_background = pcboard_buffer[loop].color_background;
-        color_foreground = pcboard_buffer[loop].color_foreground;
+        background = pcboard_buffer[loop].background;
+        foreground = pcboard_buffer[loop].foreground;
         character = pcboard_buffer[loop].current_character;
 
         alDrawChar(im_PCB, fontData.font_data, bits, fontData.font_size_y,
-                   position_x, position_y, colors[color_background], colors[color_foreground], character);
+                   position_x, position_y, colors[background], colors[foreground], character);
     }
 
     // create output image

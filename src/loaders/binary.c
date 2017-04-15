@@ -54,7 +54,7 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     colors[15] = gdImageColorAllocate(im_Binary, 255, 255, 255);
 
     // process binary
-    int32_t character, attribute, color_background, color_foreground;
+    int32_t character, attribute, background, foreground;
     int32_t loop = 0, position_x = 0, position_y = 0;
 
     while (loop < inputFileSize)
@@ -68,16 +68,16 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
         character = inputFileBuffer[loop];
         attribute = inputFileBuffer[loop+1];
 
-        color_background = (attribute & 240) >> 4;
-        color_foreground = (attribute & 15);
+        background = (attribute & 240) >> 4;
+        foreground = (attribute & 15);
 
-        if (color_background > 8 && !icecolors)
+        if (background > 8 && !icecolors)
         {
-            color_background -= 8;
+            background -= 8;
         }
 
         alDrawChar(im_Binary, fontData.font_data, bits, fontData.font_size_y,
-                   position_x, position_y, colors[color_background], colors[color_foreground], character);
+                   position_x, position_y, colors[background], colors[foreground], character);
 
         position_x++;
         loop+=2;

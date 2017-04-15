@@ -59,7 +59,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     unsigned char ansi_sequence_character;
 
     // default color values
-    int32_t color_background = 0, color_foreground = 7;
+    int32_t background = 0, foreground = 7;
 
     // text attributes
     bool bold = false, underline = false, italics = false, blink = false;
@@ -292,8 +292,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                             if (seqValue == 0)
                             {
-                                color_background = 0;
-                                color_foreground = 7;
+                                background = 0;
+                                foreground = 7;
                                 bold = false;
                                 underline = false;
                                 italics = false;
@@ -304,7 +304,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                             {
                                 if (!workbench)
                                 {
-                                    color_foreground+=8;
+                                    foreground+=8;
                                 }
                                 bold = true;
                             }
@@ -323,28 +323,28 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                             {
                                 if (!workbench)
                                 {
-                                    color_background+=8;
+                                    background+=8;
                                 }
                                 blink = true;
                             }
 
                             if (seqValue > 29 && seqValue < 38)
                             {
-                                color_foreground = seqValue - 30;
+                                foreground = seqValue - 30;
 
                                 if (bold)
                                 {
-                                    color_foreground+=8;
+                                    foreground+=8;
                                 }
                             }
 
                             if (seqValue > 39 && seqValue < 48)
                             {
-                                color_background = seqValue - 40;
+                                background = seqValue - 40;
 
                                 if (blink && icecolors)
                                 {
-                                    color_background+=8;
+                                    background+=8;
                                 }
                             }
                         }
@@ -388,8 +388,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                 temp = realloc(ansi_buffer, (structIndex + 1) * sizeof(struct ansiChar));
                 ansi_buffer = temp;
 
-                ansi_buffer[structIndex].color_background = color_background;
-                ansi_buffer[structIndex].color_foreground = color_foreground;
+                ansi_buffer[structIndex].background = background;
+                ansi_buffer[structIndex].foreground = foreground;
                 ansi_buffer[structIndex].current_character = current_character;
                 ansi_buffer[structIndex].bold = bold;
                 ansi_buffer[structIndex].italics = italics;
@@ -485,8 +485,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     for (loop = 0; loop < ansiBufferItems; loop++)
     {
         // grab ANSi char from our structure array
-        color_background = ansi_buffer[loop].color_background;
-        color_foreground = ansi_buffer[loop].color_foreground;
+        background = ansi_buffer[loop].background;
+        foreground = ansi_buffer[loop].foreground;
         character = ansi_buffer[loop].current_character;
         bold = ansi_buffer[loop].bold;
         italics = ansi_buffer[loop].italics;
@@ -499,7 +499,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
                    position_x, position_y, ced_background, ced_foreground, character);
         } else {
             alDrawChar(im_ANSi, fontData.font_data, bits, fontData.font_size_y,
-                   position_x, position_y, colors[color_background], colors[color_foreground], character);
+                   position_x, position_y, colors[background], colors[foreground], character);
         }
 
     }

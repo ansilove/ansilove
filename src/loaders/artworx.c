@@ -55,7 +55,7 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
 
     // process ADF
     int32_t position_x = 0, position_y = 0;
-    int32_t character, attribute, color_foreground, color_background;
+    int32_t character, attribute, foreground, background;
     loop = 192 + 4096 + 1;
 
     while(loop < inputFileSize)
@@ -69,10 +69,10 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         character = inputFileBuffer[loop];
         attribute = inputFileBuffer[loop+1];
 
-        color_background = (attribute & 240) >> 4;
-        color_foreground = attribute & 15;
+        background = (attribute & 240) >> 4;
+        foreground = attribute & 15;
 
-        alDrawChar(im_ADF, font_data, 8, 16, position_x, position_y, color_background, color_foreground, character);
+        alDrawChar(im_ADF, font_data, 8, 16, position_x, position_y, background, foreground, character);
 
         position_x++;
         loop+=2;

@@ -31,6 +31,6 @@
 // prototypes
 void alDrawChar(gdImagePtr im, const unsigned char *font_data, int32_t bits,
                 int32_t font_size_y, int32_t position_x, int32_t position_y,
-                int32_t color_background, int32_t color_foreground, unsigned char character);
+                int32_t background, int32_t foreground, unsigned char character);
 
 #endif
