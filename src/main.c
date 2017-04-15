@@ -283,7 +283,11 @@ int main(int argc, char *argv[]) {
 
         // get the file size (bytes)
         struct stat input_file_stat;
-        stat (input, &input_file_stat);
+
+        if (fstat(fileno(input_file), &input_file_stat)) {
+            perror("Can't stat file");
+            return 1;
+        }
         size_t inputFileSize=input_file_stat.st_size;
 
         // next up is loading our file into a dynamically allocated memory buffer
