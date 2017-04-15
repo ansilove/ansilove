@@ -16,7 +16,6 @@
 #define VERSION "3.0.4"
 
 enum {
-    SUBSTITUTE_BREAK = 1,
     WRAP_COLUMN_80 = 1
 };
 

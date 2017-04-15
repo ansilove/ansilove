@@ -113,7 +113,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
         }
 
         // sub
-        if (current_character == 26 && SUBSTITUTE_BREAK)
+        if (current_character == 26)
         {
             break;
         }
