@@ -133,6 +133,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // create sequence content array
                     seqArrayCount = explode(&seqArray, ';', seqGrab);
+                    free(seqGrab);
 
                     if (seqArrayCount > 1) {
                         // convert grabbed sequence content to integers
@@ -160,6 +161,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
+                    free(seqGrab);
 
                     if (seq_line == 0) {
                         seq_line = 1;
@@ -179,6 +181,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // now get escape sequence's position value
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
+                    free(seqGrab);
 
                     if (seq_line == 0) {
                         seq_line = 1;
@@ -198,6 +201,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // now get escape sequence's position value
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
+                    free(seqGrab);
 
                     if (seq_column == 0) {
                         seq_column = 1;
@@ -222,6 +226,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // now get escape sequence's content length
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
+                    free(seqGrab);
 
                     if (seq_column == 0) {
                         seq_column = 1;
@@ -266,6 +271,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                     // convert grab to an integer
                     int32_t eraseDisplayInt = strtonum(seqGrab, 0, INT32_MAX, &errstr);
+                    free(seqGrab);
 
                     if (eraseDisplayInt == 2)
                     {
@@ -292,6 +298,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
 
                         // create sequence content array
                         seqArrayCount = explode(&seqArray, ';', seqGrab);
+                        free(seqGrab);
 
                         // a loophole in limbo
                         for (seq_graphics_loop = 0; seq_graphics_loop < seqArrayCount; seq_graphics_loop++)
