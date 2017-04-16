@@ -1,2 +1,1 @@
-long long strtonum(const char *nptr, long long minval, long long maxval,
-                   const char **errstr);
+long long strtonum(const char *, long long, long long, const char **);
