@@ -13,6 +13,6 @@
 #define config_h
 
 // configuration defines
-#define VERSION "3.0.4"
+#define VERSION "3.0.5"
 
 #endif
