@@ -86,23 +86,8 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     fclose(file_Out);
 
     // in case Retina image output is wanted
-    if (createRetinaRep)
-    {
-        gdImagePtr im_RetinaANSi;
-
-        // make the Retina image @2x as large as im_ADF
-        im_RetinaANSi = gdImageCreate(im_ADF->sx * 2, im_ADF->sy * 2);
-
-        gdImageCopyResized(im_RetinaANSi, im_ADF, 0, 0, 0, 0,
-                           im_RetinaANSi->sx, im_RetinaANSi->sy,
-                           im_ADF->sx, im_ADF->sy);
-
-        // create retina output image
-        FILE *file_RetinaOut = fopen(retinaout, "wb");
-        gdImagePng(im_RetinaANSi, file_RetinaOut);
-        fclose(file_RetinaOut);
-
-        gdImageDestroy(im_RetinaANSi);
+    if (createRetinaRep) {
+        retina(im_ADF, retinaout);
     }
 
     // nuke garbage

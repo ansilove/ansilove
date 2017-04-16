@@ -19,6 +19,7 @@
 #include "config.h"
 #include "fonts.h"
 #include "explode.h"
+#include "retina.h"
 #include "sauce.h"
 
 #ifndef HAVE_STRTONUM

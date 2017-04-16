@@ -90,23 +90,8 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     fclose(file_Out);
 
     // in case Retina image output is wanted
-    if (createRetinaRep)
-    {
-        gdImagePtr im_RetinaANSi;
-
-        // make the Retina image @2x as large as im_Binary
-        im_RetinaANSi = gdImageCreate(im_Binary->sx * 2, im_Binary->sy * 2);
-
-        gdImageCopyResized(im_RetinaANSi, im_Binary, 0, 0, 0, 0,
-                           im_RetinaANSi->sx, im_RetinaANSi->sy,
-                           im_Binary->sx, im_Binary->sy);
-
-        // create retina output image
-        FILE *file_RetinaOut = fopen(retinaout, "wb");
-        gdImagePng(im_RetinaANSi, file_RetinaOut);
-        fclose(file_RetinaOut);
-
-        gdImageDestroy(im_RetinaANSi);
+    if (createRetinaRep) {
+        retina(im_Binary, retinaout);
     }
 
     // free memory

@@ -517,23 +517,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     fclose(file_Out);
 
     // in case Retina image output is wanted
-    if (createRetinaRep)
-    {
-        gdImagePtr im_RetinaANSi;
-
-        // make the Retina image @2x as large as im_ANSi
-        im_RetinaANSi = gdImageCreate(im_ANSi->sx * 2, im_ANSi->sy * 2);
-
-        gdImageCopyResized(im_RetinaANSi, im_ANSi, 0, 0, 0, 0,
-                           im_RetinaANSi->sx, im_RetinaANSi->sy,
-                           im_ANSi->sx, im_ANSi->sy);
-
-        // create retina output image
-        FILE *file_RetinaOut = fopen(retinaout, "wb");
-        gdImagePng(im_RetinaANSi, file_RetinaOut);
-        fclose(file_RetinaOut);
-
-        gdImageDestroy(im_RetinaANSi);
+    if (createRetinaRep) {
+        retina(im_ANSi, retinaout);
     }
 
     // free memory
