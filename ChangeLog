@@ -1,3 +1,19 @@
+AnsiLove/C 3.0.5 (2017-04-16)
+
+- Free memory allocated in the PCBoard loader
+- Free font data where appropriate
+- Add a trailing NUL character to inputFileBuffer
+- Remove the custom substr function, call strndup directly
+- Free seqGrab where necessary
+- Use the ternary operator when shitfing cursor position
+- Use perror when printing errors
+- Remove SUBSTITUTE_BREAK and WRAP_COLUMN_80 options
+- Use fstat to get the input file size
+- Create a retina function instead of duplicating code in all loaders
+- Fix OpenBSD's style(9) offenders in compat functions
+
+
+
 AnsiLove/C 3.0.4 (2016-07-28)
 
 - Relicensed under the BSD 2-Clause license
