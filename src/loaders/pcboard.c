@@ -144,7 +144,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     position_y_max++;
 
     // allocate buffer image memory
-    im_PCB = gdImageCreate(columns * bits, (position_y_max)*fontData.font_size_y);
+    im_PCB = gdImageCreate(columns * bits, (position_y_max)*fontData.height);
 
     // allocate black color and create background canvas
     gdImageColorAllocate(im_PCB, 0, 0, 0);
@@ -183,7 +183,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         foreground = pcboard_buffer[loop].foreground;
         character = pcboard_buffer[loop].current_character;
 
-        alDrawChar(im_PCB, fontData.font_data, bits, fontData.font_size_y,
+        alDrawChar(im_PCB, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
     }
 

@@ -20,8 +20,8 @@
 
 struct fontStruct {
     unsigned char *font_data;
-    int32_t font_size_x;
-    int32_t font_size_y;
+    int32_t width;
+    int32_t height;
     bool isAmigaFont;
 };
 

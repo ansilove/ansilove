@@ -95,7 +95,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     position_y++;
 
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.font_size_y);
+    im_Tundra = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.height);
 
     if (!im_Tundra) {
         perror("Error, can't allocate buffer image memory");
@@ -169,7 +169,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(im_Tundra, fontData.font_data, bits, fontData.font_size_y,
+            alDrawChar(im_Tundra, fontData.font_data, bits, fontData.height,
                     position_x, position_y, background, foreground, character);
 
             position_x++;

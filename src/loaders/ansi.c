@@ -418,7 +418,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     }
 
     // create that damn thingy
-    im_ANSi = gdImageCreate(columns * bits,(position_y_max)*fontData.font_size_y);
+    im_ANSi = gdImageCreate(columns * bits,(position_y_max)*fontData.height);
 
     if (!im_ANSi) {
         perror("Can't allocate ANSi buffer image memory");
@@ -496,10 +496,10 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
         position_y = ansi_buffer[loop].position_y;
 
         if (ced) {
-            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.font_size_y,
+            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.height,
                    position_x, position_y, ced_background, ced_foreground, character);
         } else {
-            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.font_size_y,
+            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
         }
 
