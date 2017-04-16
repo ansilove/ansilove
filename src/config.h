@@ -15,8 +15,4 @@
 // configuration defines
 #define VERSION "3.0.4"
 
-enum {
-    WRAP_COLUMN_80 = 1
-};
-
 #endif

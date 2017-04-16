@@ -86,7 +86,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
         current_character = inputFileBuffer[loop];
         next_character = inputFileBuffer[loop + 1];
 
-        if (position_x==80 && WRAP_COLUMN_80)
+        if (position_x==80)
         {
             position_y++;
             position_x=0;
