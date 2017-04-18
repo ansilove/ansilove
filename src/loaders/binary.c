@@ -11,7 +11,7 @@
 
 #include "binary.h"
 
-void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
+void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -85,15 +85,5 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     }
 
     // create output image
-    FILE *file_Out = fopen(output, "wb");
-    gdImagePng(im_Binary, file_Out);
-    fclose(file_Out);
-
-    // in case Retina image output is wanted
-    if (createRetinaRep) {
-        retina(im_Binary, retinaout);
-    }
-
-    // free memory
-    gdImageDestroy(im_Binary);
+    output(im_Binary, outputFile, retinaout, createRetinaRep);
 }

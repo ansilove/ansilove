@@ -15,7 +15,7 @@
 
 #include "ansi.h"
 
-void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
+void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, char *mode, bool icecolors, char *fext, bool createRetinaRep)
 {
     // ladies and gentlemen, it's type declaration time
     struct fontStruct fontData;
@@ -512,17 +512,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, c
     }
 
     // create output image
-    FILE *file_Out = fopen(output, "wb");
-    gdImagePng(im_ANSi, file_Out);
-    fclose(file_Out);
-
-    // in case Retina image output is wanted
-    if (createRetinaRep) {
-        retina(im_ANSi, retinaout);
-    }
+    output(im_ANSi, outputFile, retinaout, createRetinaRep);
 
     // free memory
     free(ansi_buffer);
-
-    gdImageDestroy(im_ANSi);
 }

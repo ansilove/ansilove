@@ -11,7 +11,7 @@
 
 #include "artworx.h"
 
-void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, bool createRetinaRep)
+void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, bool createRetinaRep)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;
@@ -81,17 +81,8 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create output file
-    FILE *file_Out = fopen(output, "wb");
-    gdImagePng(im_ADF, file_Out);
-    fclose(file_Out);
-
-    // in case Retina image output is wanted
-    if (createRetinaRep) {
-        retina(im_ADF, retinaout);
-    }
+    output(im_ADF, outputFile, retinaout, createRetinaRep);
 
     // nuke garbage
     free(font_data_adf);
-
-    gdImageDestroy(im_ADF);
 }

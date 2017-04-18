@@ -11,7 +11,7 @@
 
 #include "tundra.h"
 
-void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
+void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -179,16 +179,6 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output,
     }
 
     // create output image
-    FILE *file_Out = fopen(output, "wb");
-    gdImagePng(im_Tundra, file_Out);
-    fclose(file_Out);
-
-    // in case Retina image output is wanted
-    if (createRetinaRep) {
-        retina(im_Tundra, retinaout);
-    }
-
-    // free memory
-    gdImageDestroy(im_Tundra);
+    output(im_Tundra, outputFile, retinaout, createRetinaRep);
 }
 

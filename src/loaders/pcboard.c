@@ -11,7 +11,7 @@
 
 #include "pcboard.h"
 
-void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
+void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -188,18 +188,8 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create output image
-    FILE *file_Out = fopen(output, "wb");
-    gdImagePng(im_PCB, file_Out);
-    fclose(file_Out);
-
-    // in case Retina image output is wanted
-    if (createRetinaRep)
-    {
-        retina(im_PCB, retinaout);
-    }
+    output(im_PCB, outputFile, retinaout, createRetinaRep);
 
     // free memory
     free(pcboard_buffer);
-
-    gdImageDestroy(im_PCB);
 }

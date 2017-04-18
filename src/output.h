@@ -1,5 +1,5 @@
 //
-//  retina.h
+//  output.h
 //  AnsiLove/C
 //
 //  Copyright (C) 2011-2017 Stefan Vogt, Brian Cassidy, and Frederic Cambus.
@@ -9,13 +9,15 @@
 //  See the file LICENSE for details.
 //
 
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <gd.h>
 
-#ifndef retina_h
-#define retina_h
+#ifndef output_h
+#define output_h
 
 // prototypes
-void retina(gdImagePtr im_Source, char *retinaout);
+void output(gdImagePtr im_Source, char *output, char *retinaout, bool createRetinaRep);
 
 #endif
