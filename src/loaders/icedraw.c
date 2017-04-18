@@ -136,12 +136,10 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         position_x++;
     }
 
-    // free dynamically allocated memory
-    free(idf_buffer);
-
     // create output file
     output(im_IDF, outputFile, retinaout, createRetinaRep);
 
-    // nuke garbage
-    free (font_data_idf);
+    // free memory
+    free(font_data_idf);
+    free(idf_buffer);
 }
