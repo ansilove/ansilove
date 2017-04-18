@@ -25,17 +25,17 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     int32_t xbin_fontsize = inputFileBuffer[ 9 ];
     int32_t xbin_flags = inputFileBuffer[ 10 ];
 
-    gdImagePtr im_XBIN;
+    gdImagePtr canvas;
 
-    im_XBIN = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
+    canvas = gdImageCreate(8 * xbin_width, xbin_fontsize * xbin_height);
 
-    if (!im_XBIN) {
+    if (!canvas) {
         perror("Error, can't allocate buffer image memory");
         exit (6);
     }
 
     // allocate black color
-    gdImageColorAllocate(im_XBIN, 0, 0, 0);
+    gdImageColorAllocate(canvas, 0, 0, 0);
 
     int32_t colors[16];
     int32_t offset = 11;
@@ -49,7 +49,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         {
             index = (loop * 3) + offset;
 
-            colors[loop] = gdImageColorAllocate(im_XBIN, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
+            colors[loop] = gdImageColorAllocate(canvas, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
                                                 (inputFileBuffer[index + 1] << 2 | inputFileBuffer[index + 1] >> 4),
                                                 (inputFileBuffer[index + 2] << 2 | inputFileBuffer[index + 2] >> 4));
         }
@@ -57,22 +57,22 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         offset += 48;
     }
     else {
-        colors[0] = gdImageColorAllocate(im_XBIN, 0, 0, 0);
-        colors[1] = gdImageColorAllocate(im_XBIN, 0, 0, 170);
-        colors[2] = gdImageColorAllocate(im_XBIN, 0, 170, 0);
-        colors[3] = gdImageColorAllocate(im_XBIN, 0, 170, 170);
-        colors[4] = gdImageColorAllocate(im_XBIN, 170, 0, 0);
-        colors[5] = gdImageColorAllocate(im_XBIN, 170, 0, 170);
-        colors[6] = gdImageColorAllocate(im_XBIN, 170, 85, 0);
-        colors[7] = gdImageColorAllocate(im_XBIN, 170, 170, 170);
-        colors[8] = gdImageColorAllocate(im_XBIN, 85, 85, 85);
-        colors[9] = gdImageColorAllocate(im_XBIN, 85, 85, 255);
-        colors[10] = gdImageColorAllocate(im_XBIN, 85, 255, 85);
-        colors[11] = gdImageColorAllocate(im_XBIN, 85, 255, 255);
-        colors[12] = gdImageColorAllocate(im_XBIN, 255, 85, 85);
-        colors[13] = gdImageColorAllocate(im_XBIN, 255, 85, 255);
-        colors[14] = gdImageColorAllocate(im_XBIN, 255, 255, 85);
-        colors[15] = gdImageColorAllocate(im_XBIN, 255, 255, 255);
+        colors[0] = gdImageColorAllocate(canvas, 0, 0, 0);
+        colors[1] = gdImageColorAllocate(canvas, 0, 0, 170);
+        colors[2] = gdImageColorAllocate(canvas, 0, 170, 0);
+        colors[3] = gdImageColorAllocate(canvas, 0, 170, 170);
+        colors[4] = gdImageColorAllocate(canvas, 170, 0, 0);
+        colors[5] = gdImageColorAllocate(canvas, 170, 0, 170);
+        colors[6] = gdImageColorAllocate(canvas, 170, 85, 0);
+        colors[7] = gdImageColorAllocate(canvas, 170, 170, 170);
+        colors[8] = gdImageColorAllocate(canvas, 85, 85, 85);
+        colors[9] = gdImageColorAllocate(canvas, 85, 85, 255);
+        colors[10] = gdImageColorAllocate(canvas, 85, 255, 85);
+        colors[11] = gdImageColorAllocate(canvas, 85, 255, 255);
+        colors[12] = gdImageColorAllocate(canvas, 255, 85, 85);
+        colors[13] = gdImageColorAllocate(canvas, 255, 85, 255);
+        colors[14] = gdImageColorAllocate(canvas, 255, 255, 85);
+        colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
     }
 
     // font
@@ -150,7 +150,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 background = (attribute & 240) >> 4;
                 foreground = attribute & 15;
 
-                alDrawChar(im_XBIN, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+                alDrawChar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
 
                 position_x++;
 
@@ -178,7 +178,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
             background = (attribute & 240) >> 4;
             foreground = attribute & 15;
 
-            alDrawChar(im_XBIN, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
+            alDrawChar(canvas, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
 
             position_x++;
             offset+=2;
@@ -186,7 +186,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     }
 
     // create output file
-    output(im_XBIN, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 
     // nuke garbage
     free(font_data_xbin);

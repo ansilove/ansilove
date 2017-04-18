@@ -23,7 +23,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     alSelectFont(&fontData, font);
 
     // libgd image pointers
-    gdImagePtr im_Tundra;
+    gdImagePtr canvas;
 
     // extract tundra header
     tundra_version = inputFileBuffer[0];
@@ -95,9 +95,9 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     position_y++;
 
     // allocate buffer image memory
-    im_Tundra = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.height);
+    canvas = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.height);
 
-    if (!im_Tundra) {
+    if (!canvas) {
         perror("Error, can't allocate buffer image memory");
         exit (6);
     }
@@ -169,7 +169,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(im_Tundra, fontData.font_data, bits, fontData.height,
+            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
                     position_x, position_y, background, foreground, character);
 
             position_x++;
@@ -179,6 +179,6 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     }
 
     // create output image
-    output(im_Tundra, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 }
 

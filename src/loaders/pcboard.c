@@ -22,7 +22,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     alSelectFont(&fontData, font);
 
     // libgd image pointers
-    gdImagePtr im_PCB;
+    gdImagePtr canvas;
 
     // process PCBoard
     int32_t character, current_character, next_character;
@@ -144,31 +144,31 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     position_y_max++;
 
     // allocate buffer image memory
-    im_PCB = gdImageCreate(columns * bits, (position_y_max)*fontData.height);
+    canvas = gdImageCreate(columns * bits, (position_y_max)*fontData.height);
 
     // allocate black color and create background canvas
-    gdImageColorAllocate(im_PCB, 0, 0, 0);
-    gdImageFill(im_PCB, 0, 0, 0);
+    gdImageColorAllocate(canvas, 0, 0, 0);
+    gdImageFill(canvas, 0, 0, 0);
 
     // allocate color palette
     int32_t colors[71];
 
-    colors[48] = gdImageColorAllocate(im_PCB, 0, 0, 0);
-    colors[49] = gdImageColorAllocate(im_PCB, 0, 0, 170);
-    colors[50] = gdImageColorAllocate(im_PCB, 0, 170, 0);
-    colors[51] = gdImageColorAllocate(im_PCB, 0, 170, 170);
-    colors[52] = gdImageColorAllocate(im_PCB, 170, 0, 0);
-    colors[53] = gdImageColorAllocate(im_PCB, 170, 0, 170);
-    colors[54] = gdImageColorAllocate(im_PCB, 170, 85, 0);
-    colors[55] = gdImageColorAllocate(im_PCB, 170, 170, 170);
-    colors[56] = gdImageColorAllocate(im_PCB, 85, 85, 85);
-    colors[57] = gdImageColorAllocate(im_PCB, 85, 85, 255);
-    colors[65] = gdImageColorAllocate(im_PCB, 85, 255, 85);
-    colors[66] = gdImageColorAllocate(im_PCB, 85, 255, 255);
-    colors[67] = gdImageColorAllocate(im_PCB, 255, 85, 85);
-    colors[68] = gdImageColorAllocate(im_PCB, 255, 85, 255);
-    colors[69] = gdImageColorAllocate(im_PCB, 255, 255, 85);
-    colors[70] = gdImageColorAllocate(im_PCB, 255, 255, 255);
+    colors[48] = gdImageColorAllocate(canvas, 0, 0, 0);
+    colors[49] = gdImageColorAllocate(canvas, 0, 0, 170);
+    colors[50] = gdImageColorAllocate(canvas, 0, 170, 0);
+    colors[51] = gdImageColorAllocate(canvas, 0, 170, 170);
+    colors[52] = gdImageColorAllocate(canvas, 170, 0, 0);
+    colors[53] = gdImageColorAllocate(canvas, 170, 0, 170);
+    colors[54] = gdImageColorAllocate(canvas, 170, 85, 0);
+    colors[55] = gdImageColorAllocate(canvas, 170, 170, 170);
+    colors[56] = gdImageColorAllocate(canvas, 85, 85, 85);
+    colors[57] = gdImageColorAllocate(canvas, 85, 85, 255);
+    colors[65] = gdImageColorAllocate(canvas, 85, 255, 85);
+    colors[66] = gdImageColorAllocate(canvas, 85, 255, 255);
+    colors[67] = gdImageColorAllocate(canvas, 255, 85, 85);
+    colors[68] = gdImageColorAllocate(canvas, 255, 85, 255);
+    colors[69] = gdImageColorAllocate(canvas, 255, 255, 85);
+    colors[70] = gdImageColorAllocate(canvas, 255, 255, 255);
 
     // the last value of loop tells us how many items are stored in there
     int32_t pcbBufferItems = structIndex;
@@ -183,12 +183,12 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         foreground = pcboard_buffer[loop].foreground;
         character = pcboard_buffer[loop].current_character;
 
-        alDrawChar(im_PCB, fontData.font_data, bits, fontData.height,
+        alDrawChar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
     }
 
     // create output image
-    output(im_PCB, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 
     // free memory
     free(pcboard_buffer);

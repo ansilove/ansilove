@@ -49,7 +49,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     }
 
     // libgd image pointers
-    gdImagePtr im_ANSi;
+    gdImagePtr canvas;
 
     // ANSi processing loops
     int32_t loop = 0, ansi_sequence_loop, seq_graphics_loop;
@@ -418,9 +418,9 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     }
 
     // create that damn thingy
-    im_ANSi = gdImageCreate(columns * bits,(position_y_max)*fontData.height);
+    canvas = gdImageCreate(columns * bits,(position_y_max)*fontData.height);
 
-    if (!im_ANSi) {
+    if (!canvas) {
         perror("Can't allocate ANSi buffer image memory");
         exit(6);
     }
@@ -431,52 +431,52 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
 
     if (ced)
     {
-        ced_background = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        ced_foreground = gdImageColorAllocate(im_ANSi, 0, 0, 0);
-        gdImageFill(im_ANSi, 0, 0, ced_background);
+        ced_background = gdImageColorAllocate(canvas, 170, 170, 170);
+        ced_foreground = gdImageColorAllocate(canvas, 0, 0, 0);
+        gdImageFill(canvas, 0, 0, ced_background);
     }
     else if (workbench)
     {
-        gdImageFill(im_ANSi, 0, 0, 0);
+        gdImageFill(canvas, 0, 0, 0);
 
-        colors[0] = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        colors[1] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
-        colors[2] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[3] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
-        colors[4] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
-        colors[5] = gdImageColorAllocate(im_ANSi, 255, 0, 255);
-        colors[6] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
-        colors[7] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[8] = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        colors[9] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
-        colors[10] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
-        colors[11] = gdImageColorAllocate(im_ANSi, 102, 136, 187);
-        colors[12] = gdImageColorAllocate(im_ANSi, 0, 0, 255);
-        colors[13] = gdImageColorAllocate(im_ANSi, 255, 0, 255);
-        colors[14] = gdImageColorAllocate(im_ANSi, 0, 255, 255);
-        colors[15] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
+        colors[0] = gdImageColorAllocate(canvas, 170, 170, 170);
+        colors[1] = gdImageColorAllocate(canvas, 0, 0, 0);
+        colors[2] = gdImageColorAllocate(canvas, 255, 255, 255);
+        colors[3] = gdImageColorAllocate(canvas, 102, 136, 187);
+        colors[4] = gdImageColorAllocate(canvas, 0, 0, 255);
+        colors[5] = gdImageColorAllocate(canvas, 255, 0, 255);
+        colors[6] = gdImageColorAllocate(canvas, 0, 255, 255);
+        colors[7] = gdImageColorAllocate(canvas, 255, 255, 255);
+        colors[8] = gdImageColorAllocate(canvas, 170, 170, 170);
+        colors[9] = gdImageColorAllocate(canvas, 0, 0, 0);
+        colors[10] = gdImageColorAllocate(canvas, 255, 255, 255);
+        colors[11] = gdImageColorAllocate(canvas, 102, 136, 187);
+        colors[12] = gdImageColorAllocate(canvas, 0, 0, 255);
+        colors[13] = gdImageColorAllocate(canvas, 255, 0, 255);
+        colors[14] = gdImageColorAllocate(canvas, 0, 255, 255);
+        colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
     }
 
     else
     {
         // Allocate standard ANSi color palette
 
-        colors[0] = gdImageColorAllocate(im_ANSi, 0, 0, 0);
-        colors[1] = gdImageColorAllocate(im_ANSi, 170, 0, 0);
-        colors[2] = gdImageColorAllocate(im_ANSi, 0, 170, 0);
-        colors[3] = gdImageColorAllocate(im_ANSi, 170, 85, 0);
-        colors[4] = gdImageColorAllocate(im_ANSi, 0, 0, 170);
-        colors[5] = gdImageColorAllocate(im_ANSi, 170, 0, 170);
-        colors[6] = gdImageColorAllocate(im_ANSi, 0, 170, 170);
-        colors[7] = gdImageColorAllocate(im_ANSi, 170, 170, 170);
-        colors[8] = gdImageColorAllocate(im_ANSi, 85, 85, 85);
-        colors[9] = gdImageColorAllocate(im_ANSi, 255, 85, 85);
-        colors[10] = gdImageColorAllocate(im_ANSi, 85, 255, 85);
-        colors[11] = gdImageColorAllocate(im_ANSi, 255, 255, 85);
-        colors[12] = gdImageColorAllocate(im_ANSi, 85, 85, 255);
-        colors[13] = gdImageColorAllocate(im_ANSi, 255, 85, 255);
-        colors[14] = gdImageColorAllocate(im_ANSi, 85, 255, 255);
-        colors[15] = gdImageColorAllocate(im_ANSi, 255, 255, 255);
+        colors[0] = gdImageColorAllocate(canvas, 0, 0, 0);
+        colors[1] = gdImageColorAllocate(canvas, 170, 0, 0);
+        colors[2] = gdImageColorAllocate(canvas, 0, 170, 0);
+        colors[3] = gdImageColorAllocate(canvas, 170, 85, 0);
+        colors[4] = gdImageColorAllocate(canvas, 0, 0, 170);
+        colors[5] = gdImageColorAllocate(canvas, 170, 0, 170);
+        colors[6] = gdImageColorAllocate(canvas, 0, 170, 170);
+        colors[7] = gdImageColorAllocate(canvas, 170, 170, 170);
+        colors[8] = gdImageColorAllocate(canvas, 85, 85, 85);
+        colors[9] = gdImageColorAllocate(canvas, 255, 85, 85);
+        colors[10] = gdImageColorAllocate(canvas, 85, 255, 85);
+        colors[11] = gdImageColorAllocate(canvas, 255, 255, 85);
+        colors[12] = gdImageColorAllocate(canvas, 85, 85, 255);
+        colors[13] = gdImageColorAllocate(canvas, 255, 85, 255);
+        colors[14] = gdImageColorAllocate(canvas, 85, 255, 255);
+        colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
     }
 
     // even more definitions, sigh
@@ -496,10 +496,10 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         position_y = ansi_buffer[loop].position_y;
 
         if (ced) {
-            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.height,
+            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, ced_background, ced_foreground, character);
         } else {
-            alDrawChar(im_ANSi, fontData.font_data, bits, fontData.height,
+            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
         }
 
@@ -508,11 +508,11 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     // transparent flag used?
     if (transparent)
     {
-        gdImageColorTransparent(im_ANSi, 0);
+        gdImageColorTransparent(canvas, 0);
     }
 
     // create output image
-    output(im_ANSi, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 
     // free memory
     free(ansi_buffer);

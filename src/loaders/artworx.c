@@ -17,13 +17,13 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     unsigned char *font_data_adf;
 
     // libgd image pointers
-    gdImagePtr im_ADF;
+    gdImagePtr canvas;
 
     // create ADF instance
-    im_ADF = gdImageCreate(640,(((inputFileSize - 192 - 4096 -1) / 2) / 80) * 16);
+    canvas = gdImageCreate(640,(((inputFileSize - 192 - 4096 -1) / 2) / 80) * 16);
 
     // error output
-    if (!im_ADF) {
+    if (!canvas) {
         perror("Can't allocate buffer image memory");
         exit (7);
     }
@@ -48,12 +48,12 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     for (loop = 0; loop < 16; loop++)
     {
         index = (adf_colors[loop] * 3) + 1;
-        gdImageColorAllocate(im_ADF, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
+        gdImageColorAllocate(canvas, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
                                             (inputFileBuffer[index + 1] << 2 | inputFileBuffer[index + 1] >> 4),
                                             (inputFileBuffer[index + 2] << 2 | inputFileBuffer[index + 2] >> 4));
     }
 
-    gdImageColorAllocate(im_ADF, 0, 0, 0);
+    gdImageColorAllocate(canvas, 0, 0, 0);
 
     // process ADF
     int32_t position_x = 0, position_y = 0;
@@ -74,14 +74,14 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         background = (attribute & 240) >> 4;
         foreground = attribute & 15;
 
-        alDrawChar(im_ADF, font_data, 8, 16, position_x, position_y, background, foreground, character);
+        alDrawChar(canvas, font_data, 8, 16, position_x, position_y, background, foreground, character);
 
         position_x++;
         loop+=2;
     }
 
     // create output file
-    output(im_ADF, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 
     // nuke garbage
     free(font_data_adf);

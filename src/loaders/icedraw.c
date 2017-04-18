@@ -20,7 +20,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     int32_t x2 = (inputFileBuffer[9] << 8) + inputFileBuffer[8];
 
     // libgd image pointers
-    gdImagePtr im_IDF;
+    gdImagePtr canvas;
 
     int32_t loop;
     int32_t index;
@@ -95,20 +95,20 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create IDF instance
-    im_IDF = gdImageCreate((x2 + 1) * 8, i / 2 / 80 * 16);
+    canvas = gdImageCreate((x2 + 1) * 8, i / 2 / 80 * 16);
 
     // error output
-    if (!im_IDF) {
+    if (!canvas) {
         perror("Can't allocate buffer image memory");
         exit (9);
     }
-    gdImageColorAllocate(im_IDF, 0, 0, 0);
+    gdImageColorAllocate(canvas, 0, 0, 0);
 
     // process IDF palette
     for (loop = 0; loop < 16; loop++)
     {
         index = (loop * 3) + inputFileSize - 48;
-        colors[loop] = gdImageColorAllocate(im_IDF, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
+        colors[loop] = gdImageColorAllocate(canvas, (inputFileBuffer[index] << 2 | inputFileBuffer[index] >> 4),
                                             (inputFileBuffer[index + 1] << 2 | inputFileBuffer[index + 1] >> 4),
                                             (inputFileBuffer[index + 2] << 2 | inputFileBuffer[index + 2] >> 4));
     }
@@ -131,13 +131,13 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         background = (attribute & 240) >> 4;
         foreground = attribute & 15;
 
-        alDrawChar(im_IDF, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+        alDrawChar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
 
         position_x++;
     }
 
     // create output file
-    output(im_IDF, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, createRetinaRep);
 
     // free memory
     free(font_data_idf);
