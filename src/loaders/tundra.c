@@ -169,7 +169,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
-            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
+            drawchar(canvas, fontData.font_data, bits, fontData.height,
                     position_x, position_y, background, foreground, character);
 
             position_x++;

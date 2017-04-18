@@ -74,7 +74,7 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         background = (attribute & 240) >> 4;
         foreground = attribute & 15;
 
-        alDrawChar(canvas, font_data, 8, 16, position_x, position_y, background, foreground, character);
+        drawchar(canvas, font_data, 8, 16, position_x, position_y, background, foreground, character);
 
         position_x++;
         loop+=2;

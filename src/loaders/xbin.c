@@ -150,7 +150,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 background = (attribute & 240) >> 4;
                 foreground = attribute & 15;
 
-                alDrawChar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+                drawchar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
 
                 position_x++;
 
@@ -178,7 +178,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
             background = (attribute & 240) >> 4;
             foreground = attribute & 15;
 
-            alDrawChar(canvas, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
+            drawchar(canvas, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
 
             position_x++;
             offset+=2;

@@ -496,10 +496,10 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         position_y = ansi_buffer[loop].position_y;
 
         if (ced) {
-            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
+            drawchar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, ced_background, ced_foreground, character);
         } else {
-            alDrawChar(canvas, fontData.font_data, bits, fontData.height,
+            drawchar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
         }
 

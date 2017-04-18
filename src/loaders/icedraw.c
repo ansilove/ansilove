@@ -131,7 +131,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         background = (attribute & 240) >> 4;
         foreground = attribute & 15;
 
-        alDrawChar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+        drawchar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
 
         position_x++;
     }

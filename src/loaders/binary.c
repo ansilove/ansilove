@@ -77,7 +77,7 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
             background -= 8;
         }
 
-        alDrawChar(canvas, fontData.font_data, bits, fontData.height,
+        drawchar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
 
         position_x++;

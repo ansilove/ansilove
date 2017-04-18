@@ -183,7 +183,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         foreground = pcboard_buffer[loop].foreground;
         character = pcboard_buffer[loop].current_character;
 
-        alDrawChar(canvas, fontData.font_data, bits, fontData.height,
+        drawchar(canvas, fontData.font_data, bits, fontData.height,
                    position_x, position_y, colors[background], colors[foreground], character);
     }
 
