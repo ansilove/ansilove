@@ -75,7 +75,7 @@ void listExamples(void) {
     printf("  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"
-           "  ansilove -o dir/file file.ans (custom path/name for output)\n"
+           "  ansilove -o dir/file.ans file.png (custom path/name for output)\n"
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
            "  ansilove -m transparent file.ans (render with transparent background)\n"
            "  ansilove -f amiga file.txt (custom font)\n"
@@ -237,14 +237,15 @@ int main(int argc, char *argv[]) {
 
         if (!output) {
             outputName = input;
-        } else {
-            outputName = output;
+            // appending ".png" extension to output file name
+            int outputLen = strlen(outputName) + 5;
+            outputFile = malloc(outputLen);
+            snprintf(outputFile, outputLen, "%s%s", outputName, ".png");
         }
-
-        // appending ".png" extension to output file name
-        int outputLen = strlen(outputName) + 5;
-        outputFile = malloc(outputLen);
-        snprintf(outputFile, outputLen, "%s%s", outputName, ".png");
+        else {
+            outputName = output;
+            outputFile = outputName;
+        }
 
         if (createRetinaRep) {
             int retinaLen = strlen(outputName) + 8;
