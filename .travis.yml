@@ -19,7 +19,7 @@ addons:
   coverity_scan:
     project:
       name: "ansilove/ansilove"
-      version: 3.0.4
+      version: 3.0.6
       description: "ANSi / ASCII art to PNG converter in C"
     notification_email: fred@statdns.com
     build_command_prepend: cmake .
