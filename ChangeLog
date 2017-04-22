@@ -1,3 +1,9 @@
+AnsiLove/C 3.0.6 (2017-04-22)
+
+- Prevent .png suffix when using -o flag (*NIX tool convention compatibility)
+
+
+
 AnsiLove/C 3.0.5 (2017-04-16)
 
 - Free memory allocated in the PCBoard loader
