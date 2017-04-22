@@ -20,11 +20,11 @@ This is a complete rewrite of [AnsiLove/PHP](https://www.ansilove.org) in the C 
 
 # Specs
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux, OpenBSD and Mac OS X for AnsiLove/C development.
+AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux and OpenBSD for AnsiLove/C development.
 
 # Why C?
 
-There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and frameworks and it can easily be embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
+There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and it can easily be embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
 
 # Dependencies
 
@@ -37,13 +37,15 @@ AnsiLove/C uses the `CMake` build system and requires the `GD` library and heade
 - FreeBSD: `pkg add cmake gd`
 - Mac OS X: `brew install cmake gd`
 - Alpine Linux: `apk add cmake gcc make musl-dev gd-dev`
-- Debian / Ubuntu: `apt-get install cmake libgd-dev`
+- Debian / Ubuntu / Mint: `apt-get install cmake libgd-dev`
 - Solus: `eopkg install -c system.devel` and `eopkg install gd-devel`
 
 # Compiling
 
     cmake .
     make
+
+You can also build the project directly from [Atom](https://atom.io). Note that the [Atom Build](https://atom.io/packages/build) package is necessary for this purpose.
 
 # Installation
 
@@ -64,10 +66,6 @@ AnsiLove/C packages are available for:
 ### Solus
 
 	eopkg install ansilove
-
-# Cocoa
-
-If you're looking for something to implement into your Cocoa applications, we highly recommend taking a look at [AnsiLove.framework](https://github.com/ansilove/AnsiLove.framework).
 
 # Features
 
@@ -208,6 +206,10 @@ AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` fo
 # Resources
 
 GitHub: https://github.com/ansilove/ansilove
+
+# MacOS framework
+
+If you're looking for something to implement into your MacOS applications, you might want to have a look at [AnsiLove.framework](https://github.com/ansilove/AnsiLove.framework). The codebase is still Cocoa, which is bad in a world that obviously moved on to Swift. The framework is not actively maintained anymore and thus considered deprecated. Drop us an email in case you're interested in taking over.
 
 [1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
 [2]: https://travis-ci.org/ansilove/ansilove
