@@ -1,0 +1,26 @@
+#
+# atom-build.yml for AnsiLove/C
+#
+# build AnsiLove from Atom editor (Atom Build package required)
+# offers options to cleanup compiled binaries and project dir
+# use on *NIX systems only, tested on Linux Mint
+#
+cmd: "make"
+name: "build >> ansilove"
+sh: true
+targets:
+  invoke >> CMake:
+    cmd: "cmake"
+    args:
+      - "."
+    sh: true
+  delete >> binary:
+    cmd: "rm"
+    args:
+      - "ansilove"
+    sh: true
+  cleanup >> project dir:
+    cmd: "sh"
+    args:
+      - "cleanup.sh"
+    sh: true
