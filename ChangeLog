@@ -1,6 +1,8 @@
 AnsiLove/C 3.0.6 (2017-04-22)
 
-- Prevent .png suffix when using -o flag (*NIX tool convention compatibility)
+- Create an output function to unify the way output files are created
+- Prevent .png suffix to be appended when using -o flag (*NIX tool
+  convention compatibility)
 
 
 
