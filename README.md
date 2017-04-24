@@ -61,7 +61,7 @@ AnsiLove/C packages are available for:
 
 ### FreeBSD
 
-	pkg add ansilove
+	pkg install ansilove
 
 ### Solus
 
