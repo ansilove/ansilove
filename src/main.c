@@ -47,7 +47,7 @@ void versionInfo(void);
 void synopsis(void);
 
 void showHelp(void) {
-    printf("\nSUPPORTED FILE TYPES:\n"
+    fprintf(stderr, "\nSUPPORTED FILE TYPES:\n"
            "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
            "  Files with custom suffix default to the ANSI renderer.\n\n"
            "PC FONTS:\n"
@@ -71,8 +71,8 @@ void showHelp(void) {
 }
 
 void listExamples(void) {
-    printf("\nEXAMPLES:\n");
-    printf("  ansilove file.ans (output path/name identical to input, no options)\n"
+    fprintf(stderr, "\nEXAMPLES:\n");
+    fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"
            "  ansilove -o dir/file.png file.ans (custom path/name for output)\n"
@@ -84,7 +84,7 @@ void listExamples(void) {
 }
 
 void versionInfo(void) {
-    printf("All rights reserved.\n"
+    fprintf(stderr, "All rights reserved.\n"
            "\nFork me on GitHub: <https://github.com/ansilove/ansilove>\n"
            "Bug reports: <https://github.com/ansilove/ansilove/issues>\n\n"
            "This is free software, released under the 2-Clause BSD license.\n"
@@ -93,7 +93,7 @@ void versionInfo(void) {
 
 // following the IEEE Std 1003.1 for utility conventions
 void synopsis(void) {
-    printf("\nSYNOPSIS:\n"
+    fprintf(stderr, "\nSYNOPSIS:\n"
            "  ansilove [options] file\n"
            "  ansilove -e | -h | -v\n\n"
            "OPTIONS:\n"
@@ -115,7 +115,7 @@ void synopsis(void) {
 }
 
 int main(int argc, char *argv[]) {
-    printf("AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"\
+    fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"\
            "Copyright (C) 2011-2017 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
 
     // SAUCE record related bool types
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
             bits = strtonum(optarg, 8, 9, &errstr);
 
             if (errstr) {
-                printf("\nInvalid value for bits.\n\n");
+                fprintf(stderr, "\nInvalid value for bits.\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
             columns = strtonum(optarg, 1, 8192, &errstr);
 
             if (errstr) {
-                printf("\nInvalid value for columns.\n\n");
+                fprintf(stderr, "\nInvalid value for columns.\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
 
     // record == NULL also means there is no file, we can stop here
     if (record == NULL) {
-        printf("\nFile %s not found.\n\n", input);
+        fprintf(stderr, "\nFile %s not found.\n\n", input);
         return EXIT_FAILURE;
     } else {
         // if we find a SAUCE record, update bool flag
@@ -264,11 +264,11 @@ int main(int argc, char *argv[]) {
         }
 
         // display name of input and output files
-        printf("\nInput File: %s\n", input);
-        printf("Output File: %s\n", outputFile);
+        fprintf(stderr, "\nInput File: %s\n", input);
+        fprintf(stderr, "Output File: %s\n", outputFile);
 
         if (createRetinaRep) {
-            printf("Retina Output File: %s\n", retinaout);
+            fprintf(stderr, "Retina Output File: %s\n", retinaout);
         }
 
         // get file extension
@@ -348,47 +348,47 @@ int main(int argc, char *argv[]) {
         // gather information and report to the command line
         if (fileIsANSi || fileIsBinary ||
             fileIsPCBoard || fileIsTundra) {
-            printf("Font: %s\n", font);
-            printf("Bits: %d\n", bits);
+            fprintf(stderr, "Font: %s\n", font);
+            fprintf(stderr, "Bits: %d\n", bits);
         }
         if (icecolors && (fileIsANSi || fileIsBinary)) {
-            printf("iCE Colors: enabled\n");
+            fprintf(stderr, "iCE Colors: enabled\n");
         }
         if (fileIsBinary) {
-            printf("Columns: %d\n", columns);
+            fprintf(stderr, "Columns: %d\n", columns);
         }
     }
 
     // either display SAUCE or tell us if there is no record
     if (!fileHasSAUCE) {
-        printf("\nFile %s does not have a SAUCE record.\n", input);
+        fprintf(stderr, "\nFile %s does not have a SAUCE record.\n", input);
     } else {
-        printf( "\nId: %s v%s\n", record->ID, record->version);
-        printf( "Title: %s\n", record->title );
-        printf( "Author: %s\n", record->author);
-        printf( "Group: %s\n", record->group);
-        printf( "Date: %s\n", record->date);
-        printf( "Datatype: %d\n", record->dataType);
-        printf( "Filetype: %d\n", record->fileType);
+        fprintf(stderr, "\nId: %s v%s\n", record->ID, record->version);
+        fprintf(stderr, "Title: %s\n", record->title );
+        fprintf(stderr, "Author: %s\n", record->author);
+        fprintf(stderr, "Group: %s\n", record->group);
+        fprintf(stderr, "Date: %s\n", record->date);
+        fprintf(stderr, "Datatype: %d\n", record->dataType);
+        fprintf(stderr, "Filetype: %d\n", record->fileType);
         if (record->flags != 0) {
-            printf( "Flags: %d\n", record->flags);
+            fprintf(stderr, "Flags: %d\n", record->flags);
         }
         if (record->tinfo1 != 0) {
-            printf( "Tinfo1: %d\n", record->tinfo1);
+            fprintf(stderr, "Tinfo1: %d\n", record->tinfo1);
         }
         if (record->tinfo2 != 0) {
-            printf( "Tinfo2: %d\n", record->tinfo2);
+            fprintf(stderr, "Tinfo2: %d\n", record->tinfo2);
         }
         if (record->tinfo3 != 0) {
-            printf( "Tinfo3: %d\n", record->tinfo3);
+            fprintf(stderr, "Tinfo3: %d\n", record->tinfo3);
         }
         if (record->tinfo4 != 0) {
-            printf( "Tinfo4: %d\n", record->tinfo4);
+            fprintf(stderr, "Tinfo4: %d\n", record->tinfo4);
         }
         if (record->comments > 0) {
-            printf( "Comments: ");
+            fprintf(stderr, "Comments: ");
             for (int32_t i = 0; i < record->comments; i++) {
-                printf( "%s\n", record->comment_lines[i] );
+                fprintf(stderr, "%s\n", record->comment_lines[i] );
             }
         }
     }
