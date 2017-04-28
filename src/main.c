@@ -79,7 +79,7 @@ void listExamples(void) {
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
            "  ansilove -m transparent file.ans (render with transparent background)\n"
            "  ansilove -f amiga file.txt (custom font)\n"
-           "  ansilove -f 80x50 -b 9 -c 320 -i file.bin (custom font, bits, columns, icecolors)\n"
+           "  ansilove -f 80x50 -b 9 -c 320 -i file.bin (font, bits, columns, icecolors)\n"
            "\n");
 }
 
