@@ -96,12 +96,12 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         font_data = font_pc_80x25;
     }
 
-    int32_t position_x = 0, position_y = 0;
+    int32_t column = 0, row = 0;
     int32_t character, attribute, foreground, background;
 
     // read compressed xbin
     if( (xbin_flags & 4) == 4) {
-        while(offset < inputFileSize && position_y != xbin_height )
+        while(offset < inputFileSize && row != xbin_height )
         {
             int32_t ctype = inputFileBuffer[ offset ] & 0xC0;
             int32_t counter = ( inputFileBuffer[ offset ] & 0x3F ) + 1;
@@ -150,26 +150,26 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 background = (attribute & 240) >> 4;
                 foreground = attribute & 15;
 
-                drawchar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+                drawchar(canvas, font_data, 8, 16, column, row, colors[background], colors[foreground], character);
 
-                position_x++;
+                column++;
 
-                if (position_x == xbin_width)
+                if (column == xbin_width)
                 {
-                    position_x = 0;
-                    position_y++;
+                    column = 0;
+                    row++;
                 }
             }
         }
     }
     // read uncompressed xbin
     else {
-        while(offset < inputFileSize && position_y != xbin_height )
+        while(offset < inputFileSize && row != xbin_height )
         {
-            if (position_x == xbin_width)
+            if (column == xbin_width)
             {
-                position_x = 0;
-                position_y++;
+                column = 0;
+                row++;
             }
 
             character = inputFileBuffer[offset];
@@ -178,9 +178,9 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
             background = (attribute & 240) >> 4;
             foreground = attribute & 15;
 
-            drawchar(canvas, font_data, 8, xbin_fontsize, position_x, position_y, colors[background], colors[foreground], character);
+            drawchar(canvas, font_data, 8, xbin_fontsize, column, row, colors[background], colors[foreground], character);
 
-            position_x++;
+            column++;
             offset+=2;
         }
     }

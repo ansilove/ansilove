@@ -114,15 +114,15 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // render IDF
-    int32_t position_x = 0, position_y = 0;
+    int32_t column = 0, row = 0;
     int32_t character, attribute, foreground, background;
 
     for (loop = 0; loop < i ; loop +=2)
     {
-        if (position_x == x2 + 1)
+        if (column == x2 + 1)
         {
-            position_x = 0;
-            position_y++;
+            column = 0;
+            row++;
         }
 
         character = idf_buffer[loop];
@@ -131,9 +131,9 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         background = (attribute & 240) >> 4;
         foreground = attribute & 15;
 
-        drawchar(canvas, font_data, 8, 16, position_x, position_y, colors[background], colors[foreground], character);
+        drawchar(canvas, font_data, 8, 16, column, row, colors[background], colors[foreground], character);
 
-        position_x++;
+        column++;
     }
 
     // create output file

@@ -65,8 +65,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     bool bold = false, underline = false, italics = false, blink = false;
 
     // positions
-    int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
-    int32_t saved_position_y = 0, saved_position_x = 0;
+    int32_t column = 0, row = 0, columnMax = 0, rowMax = 0;
+    int32_t saved_row = 0, saved_column = 0;
 
     // sequence parsing variables
     int32_t seqValue, seqArrayCount, seq_line, seq_column;
@@ -86,30 +86,30 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         current_character = inputFileBuffer[loop];
         next_character = inputFileBuffer[loop + 1];
 
-        if (position_x==80)
+        if (column==80)
         {
-            position_y++;
-            position_x=0;
+            row++;
+            column=0;
         }
 
         // CR + LF
         if (current_character == 13 && next_character == 10) {
-            position_y++;
-            position_x = 0;
+            row++;
+            column = 0;
             loop++;
         }
 
         // LF
         if (current_character == 10)
         {
-            position_y++;
-            position_x = 0;
+            row++;
+            column = 0;
         }
 
         // tab
         if (current_character == 9)
         {
-            position_x += 8;
+            column += 8;
         }
 
         // sub
@@ -141,13 +141,13 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                         seq_column = strtonum(seqArray[1], 0, INT32_MAX, &errstr);
 
                         // finally set the positions
-                        position_y = seq_line-1;
-                        position_x = seq_column-1;
+                        row = seq_line-1;
+                        column = seq_column-1;
                     }
                     else {
                         // no coordinates specified? we move to the home position
-                        position_y = 0;
-                        position_x = 0;
+                        row = 0;
+                        column = 0;
                     }
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -163,7 +163,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    position_y -= seq_line ? seq_line : 1;
+                    row -= seq_line ? seq_line : 1;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -179,7 +179,7 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                     int32_t seq_line = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    position_y += seq_line ? seq_line : 1;
+                    row += seq_line ? seq_line : 1;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -195,11 +195,11 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    position_x += seq_column ? seq_column : 1;
+                    column += seq_column ? seq_column : 1;
 
-                    if (position_x>80)
+                    if (column>80)
                     {
-                        position_x=80;
+                        column=80;
                     }
 
                     loop+=ansi_sequence_loop+2;
@@ -216,11 +216,11 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                     int32_t seq_column = strtonum(seqGrab, 0, INT32_MAX, &errstr);
                     free(seqGrab);
 
-                    position_x -= seq_column ? seq_column : 1;
+                    column -= seq_column ? seq_column : 1;
 
-                    if (position_x < 0)
+                    if (column < 0)
                     {
-                        position_x = 0;
+                        column = 0;
                     }
 
                     loop+=ansi_sequence_loop+2;
@@ -230,8 +230,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 // save cursor position
                 if (ansi_sequence_character=='s')
                 {
-                    saved_position_y = position_y;
-                    saved_position_x = position_x;
+                    saved_row = row;
+                    saved_column = column;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -240,8 +240,8 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 // restore cursor position
                 if (ansi_sequence_character=='u')
                 {
-                    position_y = saved_position_y;
-                    position_x = saved_position_x;
+                    row = saved_row;
+                    column = saved_column;
 
                     loop+=ansi_sequence_loop+2;
                     break;
@@ -259,11 +259,11 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
 
                     if (eraseDisplayInt == 2)
                     {
-                        position_x=0;
-                        position_y=0;
+                        column=0;
+                        row=0;
 
-                        position_x_max=0;
-                        position_y_max=0;
+                        columnMax=0;
+                        rowMax=0;
 
                         // reset ansi buffer
                         free(ansi_buffer);
@@ -371,14 +371,14 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         else if (current_character!=10 && current_character!=13 && current_character!=9)
         {
             // record number of columns and lines used
-            if (position_x>position_x_max)
+            if (column>columnMax)
             {
-                position_x_max=position_x;
+                columnMax=column;
             }
 
-            if (position_y>position_y_max)
+            if (row>rowMax)
             {
-                position_y_max=position_y;
+                rowMax=row;
             }
 
             // write current character in ansiChar structure
@@ -394,19 +394,19 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
                 ansi_buffer[structIndex].bold = bold;
                 ansi_buffer[structIndex].italics = italics;
                 ansi_buffer[structIndex].underline = underline;
-                ansi_buffer[structIndex].position_x = position_x;
-                ansi_buffer[structIndex].position_y = position_y;
+                ansi_buffer[structIndex].column = column;
+                ansi_buffer[structIndex].row = row;
 
                 structIndex++;
-                position_x++;
+                column++;
             }
         }
         loop++;
     }
 
     // allocate image buffer memory
-    position_x_max++;
-    position_y_max++;
+    columnMax++;
+    rowMax++;
 
     if (ced)
     {
@@ -414,11 +414,11 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     }
 
     if (isDizFile) {
-        columns = fmin(position_x_max,80);
+        columns = fmin(columnMax,80);
     }
 
     // create that damn thingy
-    canvas = gdImageCreate(columns * bits,(position_y_max)*fontData.height);
+    canvas = gdImageCreate(columns * bits,(rowMax)*fontData.height);
 
     if (!canvas) {
         perror("Can't allocate ANSi buffer image memory");
@@ -492,15 +492,15 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
         bold = ansi_buffer[loop].bold;
         italics = ansi_buffer[loop].italics;
         underline = ansi_buffer[loop].underline;
-        position_x = ansi_buffer[loop].position_x;
-        position_y = ansi_buffer[loop].position_y;
+        column = ansi_buffer[loop].column;
+        row = ansi_buffer[loop].row;
 
         if (ced) {
             drawchar(canvas, fontData.font_data, bits, fontData.height,
-                   position_x, position_y, ced_background, ced_foreground, character);
+                   column, row, ced_background, ced_foreground, character);
         } else {
             drawchar(canvas, fontData.font_data, bits, fontData.height,
-                   position_x, position_y, colors[background], colors[foreground], character);
+                   column, row, colors[background], colors[foreground], character);
         }
 
     }

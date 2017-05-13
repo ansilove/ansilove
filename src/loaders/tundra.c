@@ -37,27 +37,27 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
     // read tundra file a first time to find the image size
     int32_t character, background = 0, foreground = 0;
-    int32_t loop = 0, position_x = 0, position_y = 0;
+    int32_t loop = 0, column = 0, row = 0;
 
     loop=9;
 
     while (loop < inputFileSize)
     {
-        if (position_x == 80)
+        if (column == 80)
         {
-            position_x = 0;
-            position_y++;
+            column = 0;
+            row++;
         }
 
         character = inputFileBuffer[loop];
 
         if (character == 1)
         {
-            position_y =
+            row =
                     (inputFileBuffer[loop + 1] << 24) + (inputFileBuffer[loop + 2] << 16) +
                             (inputFileBuffer[loop + 3] << 8) + inputFileBuffer[loop+4];
 
-            position_x =
+            column =
                     (inputFileBuffer[loop + 5] << 24) + (inputFileBuffer[loop + 6] << 16) +
                             (inputFileBuffer[loop + 7] << 8) + inputFileBuffer[loop+8];
 
@@ -87,15 +87,15 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
         if (character !=1 && character !=2 && character !=4 && character != 6)
         {
-            position_x++;
+            column++;
         }
 
         loop++;
     }
-    position_y++;
+    row++;
 
     // allocate buffer image memory
-    canvas = gdImageCreateTrueColor(columns * bits , (position_y) * fontData.height);
+    canvas = gdImageCreateTrueColor(columns * bits , (row) * fontData.height);
 
     if (!canvas) {
         perror("Error, can't allocate buffer image memory");
@@ -103,28 +103,28 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     }
 
     // process tundra
-    position_x = 0;
-    position_y = 0;
+    column = 0;
+    row = 0;
 
     loop = 9;
 
     while (loop < inputFileSize)
     {
-        if (position_x == 80)
+        if (column == 80)
         {
-            position_x = 0;
-            position_y++;
+            column = 0;
+            row++;
         }
 
         character = inputFileBuffer[loop];
 
         if (character == 1)
         {
-            position_y =
+            row =
                     (inputFileBuffer[loop + 1] << 24) + (inputFileBuffer[loop + 2] << 16) +
                             (inputFileBuffer[loop + 3] << 8) + inputFileBuffer[loop + 4];
 
-            position_x =
+            column =
                     (inputFileBuffer[loop + 5] << 24) + (inputFileBuffer[loop + 6] << 16) +
                             (inputFileBuffer[loop + 7] << 8) + inputFileBuffer[loop + 8];
 
@@ -170,9 +170,9 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
         if (character !=1 && character !=2 && character !=4 && character !=6)
         {
             drawchar(canvas, fontData.font_data, bits, fontData.height,
-                    position_x, position_y, background, foreground, character);
+                    column, row, background, foreground, character);
 
-            position_x++;
+            column++;
         }
 
         loop++;

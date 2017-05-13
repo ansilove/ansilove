@@ -16,8 +16,8 @@
 
 // Character structure
 struct ansiChar {
-    int32_t position_x;
-    int32_t position_y;
+    int32_t column;
+    int32_t row;
     int32_t background;
     int32_t foreground;
     int32_t current_character;

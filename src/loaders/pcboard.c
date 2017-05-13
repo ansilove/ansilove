@@ -27,7 +27,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     // process PCBoard
     int32_t character, current_character, next_character;
     int32_t background = 0, foreground = 7;
-    int32_t position_x = 0, position_y = 0, position_x_max = 0, position_y_max = 0;
+    int32_t column = 0, row = 0, columnMax = 0, rowMax = 0;
 
     // PCB buffer structure array definition
     struct pcbChar *pcboard_buffer, *temp;
@@ -44,30 +44,30 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
         current_character = inputFileBuffer[loop];
         next_character = inputFileBuffer[loop+1];
 
-        if (position_x == 80)
+        if (column == 80)
         {
-            position_y++;
-            position_x = 0;
+            row++;
+            column = 0;
         }
 
         // CR + LF
         if (current_character == 13 && next_character == 10) {
-            position_y++;
-            position_x = 0;
+            row++;
+            column = 0;
             loop++;
         }
 
         // LF
         if (current_character == 10)
         {
-            position_y++;
-            position_x = 0;
+            row++;
+            column = 0;
         }
 
         // Tab
         if (current_character==9)
         {
-            position_x+=8;
+            column+=8;
         }
 
         // Sub
@@ -88,11 +88,11 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
                  inputFileBuffer[loop+2] == 'L' && inputFileBuffer[loop+3] == 'S')
         {
             // erase display
-            position_x = 0;
-            position_y = 0;
+            column = 0;
+            row = 0;
 
-            position_x_max = 0;
-            position_y_max = 0;
+            columnMax = 0;
+            rowMax = 0;
 
             loop+=4;
         }
@@ -102,26 +102,26 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
             // cursor position
             if (inputFileBuffer[loop+6]=='@')
             {
-                position_x=((inputFileBuffer[loop+5])-48)-1;
+                column=((inputFileBuffer[loop+5])-48)-1;
                 loop+=5;
             }
             else
             {
-                position_x = (10 * ((inputFileBuffer[loop+5])-48) + (inputFileBuffer[loop+6])-48)-1;
+                column = (10 * ((inputFileBuffer[loop+5])-48) + (inputFileBuffer[loop+6])-48)-1;
                 loop+=6;
             }
         }
         else if (current_character != 10 && current_character != 13 && current_character != 9)
         {
             // record number of columns and lines used
-            if (position_x > position_x_max)
+            if (column > columnMax)
             {
-                position_x_max = position_x;
+                columnMax = column;
             }
 
-            if (position_y > position_y_max)
+            if (row > rowMax)
             {
-                position_y_max = position_y;
+                rowMax = row;
             }
 
             // reallocate structure array memory
@@ -129,22 +129,22 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
             pcboard_buffer = temp;
 
             // write current character in pcbChar structure
-            pcboard_buffer[structIndex].position_x = position_x;
-            pcboard_buffer[structIndex].position_y = position_y;
+            pcboard_buffer[structIndex].column = column;
+            pcboard_buffer[structIndex].row = row;
             pcboard_buffer[structIndex].background = background;
             pcboard_buffer[structIndex].foreground = foreground;
             pcboard_buffer[structIndex].current_character = current_character;
 
-            position_x++;
+            column++;
             structIndex++;
         }
         loop++;
     }
-    position_x_max++;
-    position_y_max++;
+    columnMax++;
+    rowMax++;
 
     // allocate buffer image memory
-    canvas = gdImageCreate(columns * bits, (position_y_max)*fontData.height);
+    canvas = gdImageCreate(columns * bits, (rowMax)*fontData.height);
 
     // allocate black color and create background canvas
     gdImageColorAllocate(canvas, 0, 0, 0);
@@ -177,14 +177,14 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     for (loop = 0; loop < pcbBufferItems; loop++)
     {
         // grab our chars out of the structure
-        position_x = pcboard_buffer[loop].position_x;
-        position_y = pcboard_buffer[loop].position_y;
+        column = pcboard_buffer[loop].column;
+        row = pcboard_buffer[loop].row;
         background = pcboard_buffer[loop].background;
         foreground = pcboard_buffer[loop].foreground;
         character = pcboard_buffer[loop].current_character;
 
         drawchar(canvas, fontData.font_data, bits, fontData.height,
-                   position_x, position_y, colors[background], colors[foreground], character);
+                   column, row, colors[background], colors[foreground], character);
     }
 
     // create output image

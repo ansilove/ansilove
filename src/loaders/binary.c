@@ -62,14 +62,14 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
     // process binary
     int32_t character, attribute, background, foreground;
-    int32_t loop = 0, position_x = 0, position_y = 0;
+    int32_t loop = 0, column = 0, row = 0;
 
     while (loop < inputFileSize)
     {
-        if (position_x == columns)
+        if (column == columns)
         {
-            position_x = 0;
-            position_y++;
+            column = 0;
+            row++;
         }
 
         character = inputFileBuffer[loop];
@@ -84,9 +84,9 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
         }
 
         drawchar(canvas, fontData.font_data, bits, fontData.height,
-                   position_x, position_y, colors[background], colors[foreground], character);
+                   column, row, colors[background], colors[foreground], character);
 
-        position_x++;
+        column++;
         loop+=2;
     }
 
