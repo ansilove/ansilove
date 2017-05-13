@@ -13,6 +13,12 @@
 
 void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
 {
+    // binary files must have an even size
+    if (inputFileSize % 2) {
+        fprintf(stderr, "\nBinary file is not valid.\n");
+        exit(1);
+    }
+
     // some type declarations
     struct fontStruct fontData;
 
