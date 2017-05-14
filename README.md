@@ -69,18 +69,15 @@ AnsiLove/C packages are available for:
 
 # Features
 
-Rendering of all known ANSi / ASCII art file types:
+The following formats are supported:
 
-- ANSi (.ANS)
-- Binary (.BIN)
-- Artworx (.ADF)
-- iCE Draw (.IDF)
-- Xbin (.XB) [details](http://www.acid.org/info/xbin/xbin.htm)
-- PCBoard (.PCB)
-- Tundra (.TND) [details](https://sourceforge.net/projects/tundradraw/)
-- ASCII (.ASC)
-- Release info (.NFO)
-- Description in zipfile (.DIZ)
+.ANS - ANSi (ANSI escape sequences: ANSI X3.64 standard)
+.PCB - PCBoard Bulletin Board System (BBS) own file format
+.BIN - Binary format (raw memory copy of text mode video memory)
+.ADF - Artworx format, supporting custom character sets and palettes
+.IDF - iCE Draw format, supporting custom character sets and palettes
+.TND - TundraDraw format, supporting 24-bit color mode
+.XB - The eXtended Binary XBin format, supporting custom character sets and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
