@@ -48,7 +48,7 @@ void synopsis(void);
 
 void showHelp(void) {
     fprintf(stderr, "\nSUPPORTED FILE TYPES:\n"
-           "  ANS  BIN  ADF  IDF  XB  PCB  TND  ASC  NFO  DIZ\n"
+           "  ANS   PCB   BIN   ADF   IDF   TND   XB\n"
            "  Files with custom suffix default to the ANSI renderer.\n\n"
            "PC FONTS:\n"
            "  80x25              icelandic\n"
