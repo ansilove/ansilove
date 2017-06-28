@@ -37,9 +37,7 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
     // read tundra file a first time to find the image size
     int32_t character, background = 0, foreground = 0;
-    int32_t loop = 0, column = 0, row = 0;
-
-    loop=9;
+    int32_t loop = 9, column = 0, row = 1;
 
     while (loop < inputFileSize)
     {
@@ -92,7 +90,6 @@ void tundra(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
 
         loop++;
     }
-    row++;
 
     // allocate buffer image memory
     canvas = gdImageCreateTrueColor(columns * bits , (row) * fontData.height);
