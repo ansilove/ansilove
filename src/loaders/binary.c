@@ -43,22 +43,11 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     // allocate color palette
     int32_t colors[16];
 
-    colors[0] = gdImageColorAllocate(canvas, 0, 0, 0);
-    colors[1] = gdImageColorAllocate(canvas, 0, 0, 170);
-    colors[2] = gdImageColorAllocate(canvas, 0, 170, 0);
-    colors[3] = gdImageColorAllocate(canvas, 0, 170, 170);
-    colors[4] = gdImageColorAllocate(canvas, 170, 0, 0);
-    colors[5] = gdImageColorAllocate(canvas, 170, 0, 170);
-    colors[6] = gdImageColorAllocate(canvas, 170, 85, 0);
-    colors[7] = gdImageColorAllocate(canvas, 170, 170, 170);
-    colors[8] = gdImageColorAllocate(canvas, 85, 85, 85);
-    colors[9] = gdImageColorAllocate(canvas, 85, 85, 255);
-    colors[10] = gdImageColorAllocate(canvas, 85, 255, 85);
-    colors[11] = gdImageColorAllocate(canvas, 85, 255, 255);
-    colors[12] = gdImageColorAllocate(canvas, 255, 85, 85);
-    colors[13] = gdImageColorAllocate(canvas, 255, 85, 255);
-    colors[14] = gdImageColorAllocate(canvas, 255, 255, 85);
-    colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
+    for (int i=0; i<16; i++) {
+        colors[i] = gdImageColorAllocate(canvas, binary_palette[i*3],
+                                         binary_palette[i*3+1],
+                                         binary_palette[i*3+2]);
+    }
 
     // process binary
     int32_t character, attribute, background, foreground;

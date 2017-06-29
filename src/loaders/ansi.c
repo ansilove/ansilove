@@ -446,44 +446,21 @@ void ansi(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     {
         gdImageFill(canvas, 0, 0, 0);
 
-        colors[0] = gdImageColorAllocate(canvas, 170, 170, 170);
-        colors[1] = gdImageColorAllocate(canvas, 0, 0, 0);
-        colors[2] = gdImageColorAllocate(canvas, 255, 255, 255);
-        colors[3] = gdImageColorAllocate(canvas, 102, 136, 187);
-        colors[4] = gdImageColorAllocate(canvas, 0, 0, 255);
-        colors[5] = gdImageColorAllocate(canvas, 255, 0, 255);
-        colors[6] = gdImageColorAllocate(canvas, 0, 255, 255);
-        colors[7] = gdImageColorAllocate(canvas, 255, 255, 255);
-        colors[8] = gdImageColorAllocate(canvas, 170, 170, 170);
-        colors[9] = gdImageColorAllocate(canvas, 0, 0, 0);
-        colors[10] = gdImageColorAllocate(canvas, 255, 255, 255);
-        colors[11] = gdImageColorAllocate(canvas, 102, 136, 187);
-        colors[12] = gdImageColorAllocate(canvas, 0, 0, 255);
-        colors[13] = gdImageColorAllocate(canvas, 255, 0, 255);
-        colors[14] = gdImageColorAllocate(canvas, 0, 255, 255);
-        colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
+        for (int i=0; i<16; i++) {
+            colors[i] = gdImageColorAllocate(canvas, workbench_palette[i*3],
+                                             workbench_palette[i*3+1],
+                                             workbench_palette[i*3+2]);
+        }
     }
-
     else
     {
         // Allocate standard ANSi color palette
 
-        colors[0] = gdImageColorAllocate(canvas, 0, 0, 0);
-        colors[1] = gdImageColorAllocate(canvas, 170, 0, 0);
-        colors[2] = gdImageColorAllocate(canvas, 0, 170, 0);
-        colors[3] = gdImageColorAllocate(canvas, 170, 85, 0);
-        colors[4] = gdImageColorAllocate(canvas, 0, 0, 170);
-        colors[5] = gdImageColorAllocate(canvas, 170, 0, 170);
-        colors[6] = gdImageColorAllocate(canvas, 0, 170, 170);
-        colors[7] = gdImageColorAllocate(canvas, 170, 170, 170);
-        colors[8] = gdImageColorAllocate(canvas, 85, 85, 85);
-        colors[9] = gdImageColorAllocate(canvas, 255, 85, 85);
-        colors[10] = gdImageColorAllocate(canvas, 85, 255, 85);
-        colors[11] = gdImageColorAllocate(canvas, 255, 255, 85);
-        colors[12] = gdImageColorAllocate(canvas, 85, 85, 255);
-        colors[13] = gdImageColorAllocate(canvas, 255, 85, 255);
-        colors[14] = gdImageColorAllocate(canvas, 85, 255, 255);
-        colors[15] = gdImageColorAllocate(canvas, 255, 255, 255);
+        for (int i=0; i<16; i++) {
+            colors[i] = gdImageColorAllocate(canvas, ansi_palette[i*3],
+                                             ansi_palette[i*3+1],
+                                             ansi_palette[i*3+2]);
+        }
     }
 
     // even more definitions, sigh
