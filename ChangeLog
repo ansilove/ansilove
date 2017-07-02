@@ -1,3 +1,14 @@
+AnsiLove/C 3.0.7 (2017-07-02)
+
+- Print messages to to stderr instead of stdout
+- Ensure binary files have an even size
+- Better description of supported file formats
+- Skip erase in line (EL) sequences (issue reported by Bart Dumon, thanks!)
+- Define palettes in config.h
+- Use defined palettes instead of hardcoding each color value in the loaders
+
+
+
 AnsiLove/C 3.0.6 (2017-04-22)
 
 - Create an output function to unify the way output files are created
