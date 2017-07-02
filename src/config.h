@@ -12,6 +12,8 @@
 #ifndef config_h
 #define config_h
 
+#include <stdint.h>
+
 // configuration defines
 #define VERSION "3.0.6"
 
