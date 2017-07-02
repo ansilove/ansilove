@@ -131,8 +131,8 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
             // write current character in pcbChar structure
             pcboard_buffer[structIndex].column = column;
             pcboard_buffer[structIndex].row = row;
-            pcboard_buffer[structIndex].background = background;
-            pcboard_buffer[structIndex].foreground = foreground;
+            pcboard_buffer[structIndex].background = pcb_colors[background];
+            pcboard_buffer[structIndex].foreground = pcb_colors[foreground];
             pcboard_buffer[structIndex].current_character = current_character;
 
             column++;
@@ -151,24 +151,13 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     gdImageFill(canvas, 0, 0, 0);
 
     // allocate color palette
-    int32_t colors[71];
+    int32_t colors[16];
 
-    colors[48] = gdImageColorAllocate(canvas, 0, 0, 0);
-    colors[49] = gdImageColorAllocate(canvas, 0, 0, 170);
-    colors[50] = gdImageColorAllocate(canvas, 0, 170, 0);
-    colors[51] = gdImageColorAllocate(canvas, 0, 170, 170);
-    colors[52] = gdImageColorAllocate(canvas, 170, 0, 0);
-    colors[53] = gdImageColorAllocate(canvas, 170, 0, 170);
-    colors[54] = gdImageColorAllocate(canvas, 170, 85, 0);
-    colors[55] = gdImageColorAllocate(canvas, 170, 170, 170);
-    colors[56] = gdImageColorAllocate(canvas, 85, 85, 85);
-    colors[57] = gdImageColorAllocate(canvas, 85, 85, 255);
-    colors[65] = gdImageColorAllocate(canvas, 85, 255, 85);
-    colors[66] = gdImageColorAllocate(canvas, 85, 255, 255);
-    colors[67] = gdImageColorAllocate(canvas, 255, 85, 85);
-    colors[68] = gdImageColorAllocate(canvas, 255, 85, 255);
-    colors[69] = gdImageColorAllocate(canvas, 255, 255, 85);
-    colors[70] = gdImageColorAllocate(canvas, 255, 255, 255);
+    for (int i=0; i<16; i++) {
+        colors[i] = gdImageColorAllocate(canvas, ansi_palette[i*3],
+                                         ansi_palette[i*3+1],
+                                         ansi_palette[i*3+2]);
+    }
 
     // the last value of loop tells us how many items are stored in there
     int32_t pcbBufferItems = structIndex;
