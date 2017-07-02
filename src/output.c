@@ -6,7 +6,7 @@
 //  All rights reserved.
 //
 //  This source code is licensed under the BSD 2-Clause License.
-//  See the file LICENSE for details.
+//  See the LICENSE file for details.
 //
 
 #include "output.h"
