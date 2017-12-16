@@ -9,7 +9,7 @@
 //  See the LICENSE file for details.
 //
 
-#define _XOPEN_SOURCE 700
+#define _GNU_SOURCE
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -238,9 +238,7 @@ int main(int argc, char *argv[]) {
         if (!output) {
             outputName = input;
             // appending ".png" extension to output file name
-            int outputLen = strlen(outputName) + 5;
-            outputFile = malloc(outputLen);
-            snprintf(outputFile, outputLen, "%s%s", outputName, ".png");
+            asprintf(&outputFile, "%s%s", outputName, ".png");
         }
         else {
             outputName = output;
@@ -248,9 +246,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (createRetinaRep) {
-            int retinaLen = strlen(outputName) + 8;
-            retinaout = malloc(retinaLen);
-            snprintf(retinaout, retinaLen, "%s%s", outputName, "@2x.png");
+            asprintf(&retinaout, "%s%s", outputName, "@2x.png");
         }
 
         // default to empty string if mode option is not specified
