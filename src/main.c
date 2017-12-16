@@ -393,5 +393,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(outputFile);
+    free(retinaout);
+
     return EXIT_SUCCESS;
 }
