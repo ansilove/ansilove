@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
     char *input = NULL, *output = NULL;
     char *retinaout = NULL;
 
-    char *outputFile;
+    char *outputFile = NULL;
 
     const char *errstr;
 
