@@ -18,6 +18,6 @@
 #define output_h
 
 // prototypes
-void output(gdImagePtr im_Source, char *output, char *retinaout, bool createRetinaRep);
+void output(gdImagePtr im_Source, char *output, char *retinaout, int retinaScaleFactor);
 
 #endif

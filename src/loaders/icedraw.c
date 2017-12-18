@@ -11,7 +11,7 @@
 
 #include "icedraw.h"
 
-void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, bool createRetinaRep)
+void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int retinaScaleFactor)
 {
     const unsigned char *font_data;
     unsigned char *font_data_idf;
@@ -137,7 +137,7 @@ void icedraw(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create output file
-    output(canvas, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, retinaScaleFactor);
 
     // free memory
     free(font_data_idf);

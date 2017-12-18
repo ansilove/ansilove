@@ -23,6 +23,6 @@ struct pcbChar {
     int32_t current_character;
 };
 
-void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, bool createRetinaRep);
+void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, int retinaScaleFactor);
 
 #endif
