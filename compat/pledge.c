@@ -1,6 +1,6 @@
 int
-pledge(const char *promises, const char *paths[]) {
+pledge(const char *promises, const char *execpromises) {
 	(void)promises;
-	(void)paths;
+	(void)execpromises;
 	return 0;
 }

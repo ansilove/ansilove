@@ -1,1 +1,1 @@
-int pledge(const char *, const char **);
+int pledge(const char *, const char *);
