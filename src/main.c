@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {
             break;
         case 'R':
             // convert numeric command line flags to integer values
-            retinaScaleFactor = strtonum(optarg, 2, 4, &errstr);
+            retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
 
             if (errstr) {
                 fprintf(stderr, "\nInvalid value for retina scale factor.\n\n");
