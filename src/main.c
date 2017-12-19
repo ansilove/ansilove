@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
         err(EXIT_FAILURE, "pledge");
     }
 
-    while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:r:sv")) != -1) {
+    while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rR:sv")) != -1) {
         switch(getoptFlag) {
         case 'b':
             // convert numeric command line flags to integer values
@@ -196,6 +196,9 @@ int main(int argc, char *argv[]) {
             output = optarg;
             break;
         case 'r':
+            retinaScaleFactor = 2;
+            break;
+        case 'R':
             // convert numeric command line flags to integer values
             retinaScaleFactor = strtonum(optarg, 2, 4, &errstr);
 
