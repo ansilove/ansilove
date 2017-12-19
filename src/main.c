@@ -164,7 +164,7 @@ int main(int argc, char *argv[]) {
             bits = strtonum(optarg, 8, 9, &errstr);
 
             if (errstr) {
-                fprintf(stderr, "\nInvalid value for bits.\n\n");
+                fprintf(stderr, "\nInvalid value for bits (must be 8 or 9).\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
             columns = strtonum(optarg, 1, 8192, &errstr);
 
             if (errstr) {
-                fprintf(stderr, "\nInvalid value for columns.\n\n");
+                fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -205,7 +205,7 @@ int main(int argc, char *argv[]) {
             retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
 
             if (errstr) {
-                fprintf(stderr, "\nInvalid value for retina scale factor.\n\n");
+                fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
                 return EXIT_FAILURE;
             }
 
