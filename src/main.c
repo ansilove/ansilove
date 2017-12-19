@@ -75,6 +75,7 @@ void listExamples(void) {
     fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"
+           "  ansilove -R 3 file.ans (adds Retina @3x output file)\n"
            "  ansilove -o dir/file.png file.ans (custom path/name for output)\n"
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
            "  ansilove -m transparent file.ans (render with transparent background)\n"
@@ -109,6 +110,7 @@ void synopsis(void) {
            "                workbench      use Amiga Workbench palette\n"
            "  -o file     specify output filename/path\n"
            "  -r          creates additional Retina @2x output file\n"
+           "  -R factor   creates additional Retina output file with custom scale factor\n"
            "  -s          show SAUCE record without generating output\n"
            "  -v          show version information\n"
            "\n");
