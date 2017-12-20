@@ -1,3 +1,12 @@
+AnsiLove/C 3.0.8 (2017-12-20)
+
+- Adding new example ANSis (Thanks Burps)
+- Use asprintf() to create output filenames
+- Reflect OpenBSD's pledge() changes
+- Add a -R flag allowing to specify a custom retina scale factor
+
+
+
 AnsiLove/C 3.0.7 (2017-07-02)
 
 - Print messages to to stderr instead of stdout
