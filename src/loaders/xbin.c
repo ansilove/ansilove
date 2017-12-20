@@ -11,7 +11,7 @@
 
 #include "xbin.h"
 
-void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, bool createRetinaRep)
+void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int retinaScaleFactor)
 {
     const unsigned char *font_data;
     unsigned char *font_data_xbin = NULL;
@@ -175,7 +175,7 @@ void xbin(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFil
     }
 
     // create output file
-    output(canvas, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, retinaScaleFactor);
 
     // nuke garbage
     free(font_data_xbin);

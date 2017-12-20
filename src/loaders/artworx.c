@@ -11,7 +11,7 @@
 
 #include "artworx.h"
 
-void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, bool createRetinaRep)
+void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int retinaScaleFactor)
 {
     const unsigned char *font_data;
     unsigned char *font_data_adf;
@@ -81,7 +81,7 @@ void artworx(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create output file
-    output(canvas, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, retinaScaleFactor);
 
     // nuke garbage
     free(font_data_adf);

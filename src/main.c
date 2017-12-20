@@ -75,6 +75,7 @@ void listExamples(void) {
     fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
            "  ansilove -i file.ans (enable iCE colors)\n"
            "  ansilove -r file.ans (adds Retina @2x output file)\n"
+           "  ansilove -R 3 file.ans (adds Retina @3x output file)\n"
            "  ansilove -o dir/file.png file.ans (custom path/name for output)\n"
            "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
            "  ansilove -m transparent file.ans (render with transparent background)\n"
@@ -109,6 +110,7 @@ void synopsis(void) {
            "                workbench      use Amiga Workbench palette\n"
            "  -o file     specify output filename/path\n"
            "  -r          creates additional Retina @2x output file\n"
+           "  -R factor   creates additional Retina output file with custom scale factor\n"
            "  -s          show SAUCE record without generating output\n"
            "  -v          show version information\n"
            "\n");
@@ -122,8 +124,8 @@ int main(int argc, char *argv[]) {
     bool justDisplaySAUCE = false;
     bool fileHasSAUCE = false;
 
-    // retina output bool type
-    bool createRetinaRep = false;
+    // retina output scale factor
+    int retinaScaleFactor = 0;
 
     // iCE colors bool type
     bool icecolors = false;
@@ -155,14 +157,14 @@ int main(int argc, char *argv[]) {
         err(EXIT_FAILURE, "pledge");
     }
 
-    while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rsv")) != -1) {
+    while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rR:sv")) != -1) {
         switch(getoptFlag) {
         case 'b':
             // convert numeric command line flags to integer values
             bits = strtonum(optarg, 8, 9, &errstr);
 
             if (errstr) {
-                fprintf(stderr, "\nInvalid value for bits.\n\n");
+                fprintf(stderr, "\nInvalid value for bits (must be 8 or 9).\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -172,7 +174,7 @@ int main(int argc, char *argv[]) {
             columns = strtonum(optarg, 1, 8192, &errstr);
 
             if (errstr) {
-                fprintf(stderr, "\nInvalid value for columns.\n\n");
+                fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
                 return EXIT_FAILURE;
             }
 
@@ -196,7 +198,17 @@ int main(int argc, char *argv[]) {
             output = optarg;
             break;
         case 'r':
-            createRetinaRep = true;
+            retinaScaleFactor = 2;
+            break;
+        case 'R':
+            // convert numeric command line flags to integer values
+            retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
+
+            if (errstr) {
+                fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
+                return EXIT_FAILURE;
+            }
+
             break;
         case 's':
             justDisplaySAUCE = true;
@@ -245,8 +257,8 @@ int main(int argc, char *argv[]) {
             outputFile = outputName;
         }
 
-        if (createRetinaRep) {
-            asprintf(&retinaout, "%s%s", outputName, "@2x.png");
+        if (retinaScaleFactor) {
+            asprintf(&retinaout, "%s@%ix.png", outputName, retinaScaleFactor);
         }
 
         // default to empty string if mode option is not specified
@@ -263,7 +275,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "\nInput File: %s\n", input);
         fprintf(stderr, "Output File: %s\n", outputFile);
 
-        if (createRetinaRep) {
+        if (retinaScaleFactor) {
             fprintf(stderr, "Retina Output File: %s\n", retinaout);
         }
 
@@ -317,27 +329,27 @@ int main(int argc, char *argv[]) {
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            pcboard(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, createRetinaRep);
+            pcboard(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, retinaScaleFactor);
             fileIsPCBoard = true;
         } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            binary(inputFileBuffer, inputFileSize, outputFile, retinaout, columns, font, bits, icecolors, createRetinaRep);
+            binary(inputFileBuffer, inputFileSize, outputFile, retinaout, columns, font, bits, icecolors, retinaScaleFactor);
             fileIsBinary = true;
         } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            artworx(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
+            artworx(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            icedraw(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
+            icedraw(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
         } else if (!strcmp(fext, ".tnd")) {
-            tundra(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, createRetinaRep);
+            tundra(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, retinaScaleFactor);
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            xbin(inputFileBuffer, inputFileSize, outputFile, retinaout, createRetinaRep);
+            xbin(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
         } else {
             // params: input, output, font, bits, icecolors, fext
-            ansi(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, mode, icecolors, fext, createRetinaRep);
+            ansi(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, mode, icecolors, fext, retinaScaleFactor);
             fileIsANSi = true;
         }
 

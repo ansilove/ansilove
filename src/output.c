@@ -11,7 +11,7 @@
 
 #include "output.h"
 
-void output(gdImagePtr im_Source, char *output, char *retinaout, bool createRetinaRep) {
+void output(gdImagePtr im_Source, char *output, char *retinaout, int retinaScaleFactor) {
     FILE *file_Out = fopen(output, "wb");
 
     if (file_Out) {
@@ -23,11 +23,12 @@ void output(gdImagePtr im_Source, char *output, char *retinaout, bool createReti
     }
 
     // in case Retina image output is wanted
-    if (createRetinaRep) {
+    if (retinaScaleFactor) {
         gdImagePtr im_Retina;
 
-        // make the Retina image @2x as large as im_Source
-        im_Retina = gdImageCreate(im_Source->sx * 2, im_Source->sy * 2);
+        // make the Retina image retinaScaleFactor as large as im_Source
+        im_Retina = gdImageCreate(im_Source->sx * retinaScaleFactor,
+                                  im_Source->sy * retinaScaleFactor);
 
         gdImageCopyResized(im_Retina, im_Source, 0, 0, 0, 0,
                            im_Retina->sx, im_Retina->sy,

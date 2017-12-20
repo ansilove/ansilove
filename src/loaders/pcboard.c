@@ -11,7 +11,7 @@
 
 #include "pcboard.h"
 
-void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, bool createRetinaRep)
+void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, char *font, int32_t bits, int retinaScaleFactor)
 {
     // some type declarations
     struct fontStruct fontData;
@@ -177,7 +177,7 @@ void pcboard(unsigned char *inputFileBuffer, int32_t inputFileSize, char *output
     }
 
     // create output image
-    output(canvas, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, retinaScaleFactor);
 
     // free memory
     free(pcboard_buffer);

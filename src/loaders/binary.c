@@ -11,7 +11,7 @@
 
 #include "binary.h"
 
-void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, bool createRetinaRep)
+void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputFile, char *retinaout, int32_t columns, char *font, int32_t bits, bool icecolors, int retinaScaleFactor)
 {
     // binary files must have an even size
     if (inputFileSize % 2) {
@@ -80,5 +80,5 @@ void binary(unsigned char *inputFileBuffer, int32_t inputFileSize, char *outputF
     }
 
     // create output image
-    output(canvas, outputFile, retinaout, createRetinaRep);
+    output(canvas, outputFile, retinaout, retinaScaleFactor);
 }

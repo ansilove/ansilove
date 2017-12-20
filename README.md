@@ -98,8 +98,8 @@ Even more:
 
 ## Synopsis
 
-       ansilove [options] file
-       ansilove -e | -h | -v
+       ansilove [-ehirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
+                [-R factor] file
 
 ## Options
 
@@ -115,6 +115,7 @@ Even more:
                      workbench      use Amiga Workbench palette
        -o file     specify output filename/path
        -r          creates additional Retina @2x output file
+       -R factor   creates additional Retina output file with custom scale
        -s          show SAUCE record without generating output
        -v          show version information
 
