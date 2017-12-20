@@ -158,7 +158,7 @@ AMIGA fonts can be (all case-sensitive):
 
 ## Bits
 
-`bits` can be (all case-sensitive):
+`bits` can be:
 
 - `8` (8-bit)
 - `9` (9-bit)
