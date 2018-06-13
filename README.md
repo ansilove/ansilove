@@ -207,7 +207,7 @@ GitHub: https://github.com/ansilove/ansilove
 
 # MacOS framework
 
-If you're looking for something to implement into your MacOS applications, you might want to have a look at [AnsiLove.framework](https://github.com/ansilove/AnsiLove.framework). The codebase is still Cocoa, which is bad in a world that obviously moved on to Swift. The framework is not actively maintained anymore and thus considered deprecated. Drop us an email in case you're interested in taking over.
+If you're looking for something to implement into your MacOS applications, you might want to have a look at [AnsiLove.framework](https://github.com/ansilove/AnsiLove.framework). The codebase is still Objective-C, which is bad in a world that obviously moved on to Swift. The framework is not actively maintained anymore and thus considered deprecated. Drop us an email in case you're interested in taking over.
 
 [1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
 [2]: https://travis-ci.org/ansilove/ansilove
