@@ -2,7 +2,7 @@
 //  main.c
 //  AnsiLove/C
 //
-//  Copyright (C) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.
+//  Copyright (c) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.
 //  All rights reserved.
 //
 //  This source code is licensed under the BSD 2-Clause License.
@@ -118,7 +118,7 @@ void synopsis(void) {
 
 int main(int argc, char *argv[]) {
     fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"\
-           "Copyright (C) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
+           "Copyright (c) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
 
     // SAUCE record related bool types
     bool justDisplaySAUCE = false;
