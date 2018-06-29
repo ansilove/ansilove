@@ -10,15 +10,15 @@
 //
 
 #define _GNU_SOURCE
-#include <sys/stat.h>
+#include <ansilove.h>
+#include <err.h>
+#include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-#include <getopt.h>
+#include <sys/stat.h>
 #include <unistd.h>
-#include <err.h>
-#include <ansilove.h>
 
 #ifndef HAVE_PLEDGE
 #include "pledge.h"
@@ -28,10 +28,10 @@
 #include "strtonum.h"
 #endif
 
-#include "config.h"
-#include "strtolower.h"
 #include "ansilove.h"
+#include "config.h"
 #include "sauce.h"
+#include "strtolower.h"
 
 // prototypes
 void showHelp(void);
