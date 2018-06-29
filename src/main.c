@@ -132,8 +132,8 @@ int main(int argc, char *argv[]) {
 	int fd;
 	struct stat st;
 
-	struct input inputFile;
-	struct output outputFile;
+	static struct input inputFile;
+	static struct output outputFile;
 
 	const char *errstr;
 
