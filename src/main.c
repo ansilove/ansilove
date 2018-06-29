@@ -117,12 +117,6 @@ int main(int argc, char *argv[]) {
     bool justDisplaySAUCE = false;
     bool fileHasSAUCE = false;
 
-    // retina output scale factor
-    int retinaScaleFactor = 0;
-
-    // iCE colors bool type
-    bool icecolors = false;
-
     // analyze options and do what has to be done
     bool fileIsBinary = false;
     bool fileIsANSi = false;
@@ -130,21 +124,22 @@ int main(int argc, char *argv[]) {
     bool fileIsTundra = false;
 
     int getoptFlag;
-    char *mode = NULL;
-    char *font = NULL;
 
     char *input = NULL, *output = NULL;
-    char *retinaout = NULL;
 
-    char *outputFile = NULL;
+    struct input inputFile;
+    struct output outputFile;
 
     const char *errstr;
 
     // default to 8 if bits option is not specified
-    int32_t bits = 8;
+    outputFile.bits = 8;
 
     // default to 160 if columns option is not specified
-    int32_t columns = 160;
+    inputFile.columns = 160;
+
+    // default to 0 if retinaScaleFactor option is not specified
+    outputFile.retinaScaleFactor = 0;
 
     if (pledge("stdio cpath rpath wpath", NULL) == -1) {
         err(EXIT_FAILURE, "pledge");
@@ -154,7 +149,7 @@ int main(int argc, char *argv[]) {
         switch(getoptFlag) {
         case 'b':
             // convert numeric command line flags to integer values
-            bits = strtonum(optarg, 8, 9, &errstr);
+            outputFile.bits = strtonum(optarg, 8, 9, &errstr);
 
             if (errstr) {
                 fprintf(stderr, "\nInvalid value for bits (must be 8 or 9).\n\n");
@@ -164,7 +159,7 @@ int main(int argc, char *argv[]) {
             break;
         case 'c':
             // convert numeric command line flags to integer values
-            columns = strtonum(optarg, 1, 8192, &errstr);
+            inputFile.columns = strtonum(optarg, 1, 8192, &errstr);
 
             if (errstr) {
                 fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
@@ -176,26 +171,26 @@ int main(int argc, char *argv[]) {
             listExamples();
             return EXIT_SUCCESS;
         case 'f':
-            font = optarg;
+            outputFile.font = optarg;
             break;
         case 'h':
             showHelp();
             return EXIT_SUCCESS;
         case 'i':
-            icecolors = true;
+            outputFile.icecolors = true;
             break;
         case 'm':
-            mode = optarg;
+            outputFile.mode = optarg;
             break;
         case 'o':
             output = optarg;
             break;
         case 'r':
-            retinaScaleFactor = 2;
+            outputFile.retinaScaleFactor = 2;
             break;
         case 'R':
             // convert numeric command line flags to integer values
-            retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
+            outputFile.retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
 
             if (errstr) {
                 fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
@@ -243,38 +238,39 @@ int main(int argc, char *argv[]) {
         if (!output) {
             outputName = input;
             // appending ".png" extension to output file name
-            asprintf(&outputFile, "%s%s", outputName, ".png");
+            asprintf(&outputFile.fileName, "%s%s", outputName, ".png");
         }
         else {
             outputName = output;
-            outputFile = outputName;
+            outputFile.fileName = outputName;
         }
 
-        if (retinaScaleFactor) {
-            asprintf(&retinaout, "%s@%ix.png", outputName, retinaScaleFactor);
+        if (outputFile.retinaScaleFactor) {
+            asprintf(&outputFile.retina, "%s@%ix.png", outputFile.fileName, outputFile.retinaScaleFactor);
         }
 
         // default to empty string if mode option is not specified
-        if (!mode) {
-            mode = "";
+        if (!outputFile.mode) {
+            outputFile.mode = "";
         }
 
         // default to 80x25 font if font option is not specified
-        if (!font) {
-            font = "80x25";
+        if (!outputFile.font) {
+            outputFile.font = "80x25";
         }
 
         // display name of input and output files
         fprintf(stderr, "\nInput File: %s\n", input);
-        fprintf(stderr, "Output File: %s\n", outputFile);
+        fprintf(stderr, "Output File: %s\n", outputFile.fileName);
 
-        if (retinaScaleFactor) {
-            fprintf(stderr, "Retina Output File: %s\n", retinaout);
+        if (outputFile.retinaScaleFactor) {
+            fprintf(stderr, "Retina Output File: %s\n", outputFile.retina);
         }
 
         // get file extension
         char *fext = strrchr(input, '.');
         fext = fext ? strtolower(strdup(fext)) : "";
+        inputFile.fext = fext;
 
         // load input file
         FILE *input_file = fopen(input, "r");
@@ -290,30 +286,30 @@ int main(int argc, char *argv[]) {
             perror("Can't stat file");
             return 1;
         }
-        size_t inputFileSize=input_file_stat.st_size;
+
+        inputFile.size=input_file_stat.st_size;
 
         // next up is loading our file into a dynamically allocated memory buffer
-        unsigned char *inputFileBuffer;
 
         // allocate memory to contain the whole file
-        inputFileBuffer = (unsigned char *) malloc(sizeof(unsigned char)*inputFileSize + 1);
-        if (inputFileBuffer == NULL) {
+        inputFile.data = (unsigned char *) malloc(sizeof(unsigned char)*inputFile.size + 1);
+        if (inputFile.data == NULL) {
             perror("Memory error");
             return 2;
         }
 
         // copy the file into the buffer
-        if (fread(inputFileBuffer, 1, inputFileSize, input_file) != inputFileSize) {
-            perror("Reading error");
+        if (fread(inputFile.data, 1, inputFile.size, input_file) != inputFile.size) {
+            perror("Reading error haha");
             return 3;
         } // whole file is now loaded into inputFileBuffer
 
-        inputFileBuffer[inputFileSize] = '\0';
+        inputFile.data[inputFile.size] = '\0';
 
         // adjust the file size if file contains a SAUCE record
         if(fileHasSAUCE) {
             sauce *saucerec = sauceReadFile(input_file);
-            inputFileSize -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+            inputFile.size -= 129 - ( saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
         }
 
         // close input file, we don't need it anymore
@@ -322,41 +318,41 @@ int main(int argc, char *argv[]) {
         // create the output file by invoking the appropiate function
         if (!strcmp(fext, ".pcb")) {
             // params: input, output, font, bits, icecolors
-            pcboard(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, retinaScaleFactor);
+            pcboard(&inputFile, &outputFile);
             fileIsPCBoard = true;
         } else if (!strcmp(fext, ".bin")) {
             // params: input, output, columns, font, bits, icecolors
-            binary(inputFileBuffer, inputFileSize, outputFile, retinaout, columns, font, bits, icecolors, retinaScaleFactor);
+            binary(&inputFile, &outputFile);
             fileIsBinary = true;
         } else if (!strcmp(fext, ".adf")) {
             // params: input, output, bits
-            artworx(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
+            artworx(&inputFile, &outputFile);
         } else if (!strcmp(fext, ".idf")) {
             // params: input, output, bits
-            icedraw(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
+            icedraw(&inputFile, &outputFile);
         } else if (!strcmp(fext, ".tnd")) {
-            tundra(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, retinaScaleFactor);
+            tundra(&inputFile, &outputFile);
             fileIsTundra = true;
         } else if (!strcmp(fext, ".xb")) {
             // params: input, output, bits
-            xbin(inputFileBuffer, inputFileSize, outputFile, retinaout, retinaScaleFactor);
+            xbin(&inputFile, &outputFile);
         } else {
             // params: input, output, font, bits, icecolors, fext
-            ansi(inputFileBuffer, inputFileSize, outputFile, retinaout, font, bits, mode, icecolors, fext, retinaScaleFactor);
+            ansi(&inputFile, &outputFile);
             fileIsANSi = true;
         }
 
         // gather information and report to the command line
         if (fileIsANSi || fileIsBinary ||
             fileIsPCBoard || fileIsTundra) {
-            fprintf(stderr, "Font: %s\n", font);
-            fprintf(stderr, "Bits: %d\n", bits);
+            fprintf(stderr, "Font: %s\n", outputFile.font);
+            fprintf(stderr, "Bits: %d\n", outputFile.bits);
         }
-        if (icecolors && (fileIsANSi || fileIsBinary)) {
+        if (outputFile.icecolors && (fileIsANSi || fileIsBinary)) {
             fprintf(stderr, "iCE Colors: enabled\n");
         }
         if (fileIsBinary) {
-            fprintf(stderr, "Columns: %d\n", columns);
+            fprintf(stderr, "Columns: %d\n", inputFile.columns);
         }
     }
 
