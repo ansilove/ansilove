@@ -13,12 +13,12 @@
 
 char *strtolower(char *str)
 {
-    char *p = str;
+	char *p = str;
 
-    while (*p) {
-        *p = tolower((unsigned char) *p);
-        p++;
-    }
+	while (*p) {
+		*p = tolower((unsigned char)*p);
+		p++;
+	}
 
-    return str;
+	return str;
 }

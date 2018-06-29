@@ -25,23 +25,23 @@
 #define COMMENT_ID   "COMNT"
 
 typedef struct {
-    char             ID[6];
-    char             version[3];
-    char             title[36];
-    char             author[21];
-    char             group[21];
-    char             date[9];
-    int32_t          fileSize;
-    unsigned char    dataType;
-    unsigned char    fileType;
-    unsigned short   tinfo1;
-    unsigned short   tinfo2;
-    unsigned short   tinfo3;
-    unsigned short   tinfo4;
-    unsigned char    comments;
-    unsigned char    flags;
-    char             filler[23];
-    char             **comment_lines;
+	char ID[6];
+	char version[3];
+	char title[36];
+	char author[21];
+	char group[21];
+	char date[9];
+	int32_t fileSize;
+	unsigned char dataType;
+	unsigned char fileType;
+	unsigned short tinfo1;
+	unsigned short tinfo2;
+	unsigned short tinfo3;
+	unsigned short tinfo4;
+	unsigned char comments;
+	unsigned char flags;
+	char filler[23];
+	char **comment_lines;
 } sauce;
 
 sauce *sauceReadFileName(char *fileName);
