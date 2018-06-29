@@ -12,11 +12,13 @@
 #define _GNU_SOURCE
 #include <ansilove.h>
 #include <err.h>
+#include <fcntl.h>
 #include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -126,6 +128,9 @@ int main(int argc, char *argv[]) {
 	int getoptFlag;
 
 	char *input = NULL, *output = NULL;
+
+	int fd;
+	struct stat st;
 
 	struct input inputFile;
 	struct output outputFile;
@@ -272,47 +277,31 @@ int main(int argc, char *argv[]) {
 		inputFile.fext = fext;
 
 		// load input file
-		FILE *input_file = fopen(input, "r");
-		if (input_file == NULL) {
+		if ((fd = open(input, O_RDONLY)) == -1) {
 			perror("File error");
 			return 1;
 		}
 
 		// get the file size (bytes)
-		struct stat input_file_stat;
-
-		if (fstat(fileno(input_file), &input_file_stat)) {
+		if (fstat(fd, &st) == -1) {
 			perror("Can't stat file");
 			return 1;
 		}
 
-		inputFile.size = input_file_stat.st_size;
+		inputFile.size = st.st_size;
 
-		// next up is loading our file into a dynamically allocated memory buffer
-
-		// allocate memory to contain the whole file
-		inputFile.data = (unsigned char *)malloc(sizeof (unsigned char)*inputFile.size + 1);
-		if (inputFile.data == NULL) {
+		// mmap input file into memory
+		inputFile.data = mmap(NULL, inputFile.size, PROT_READ, MAP_PRIVATE, fd, 0);
+		if (inputFile.data== MAP_FAILED) {
 			perror("Memory error");
 			return 2;
 		}
 
-		// copy the file into the buffer
-		if (fread(inputFile.data, 1, inputFile.size, input_file) != inputFile.size) {
-			perror("Reading error haha");
-			return 3;
-		}   // whole file is now loaded into inputFileBuffer
-
-		inputFile.data[inputFile.size] = '\0';
-
 		// adjust the file size if file contains a SAUCE record
 		if (fileHasSAUCE) {
-			sauce *saucerec = sauceReadFile(input_file);
+			sauce *saucerec = sauceReadFileName(input);
 			inputFile.size -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
-
-		// close input file, we don't need it anymore
-		fclose(input_file);
 
 		// create the output file by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
@@ -353,6 +342,10 @@ int main(int argc, char *argv[]) {
 		if (fileIsBinary) {
 			fprintf(stderr, "Columns: %d\n", inputFile.columns);
 		}
+
+		// close input file, we don't need it anymore
+		// TODO: munmap, with original inputFileSize
+		close(fd);
 	}
 
 	// either display SAUCE or tell us if there is no record
