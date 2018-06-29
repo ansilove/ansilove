@@ -13,14 +13,12 @@ check_function_exists(strtonum HAVE_STRTONUM)
 # Additional include directories for compat functions
 include_directories("compat")
 
-# GD
-find_path(GD_INCLUDE_DIRS gd.h)
-find_library(GD_LIBRARIES NAMES gd REQUIRED)
-include_directories(${GD_INCLUDE_DIRS})
+# Ansilove library
+find_path(ANSILOVE_INCLUDE_DIRS ansilove.h)
+find_library(ANSILOVE_LIBRARIES NAMES ansilove REQUIRED)
+include_directories(${ANSILOVE_INCLUDE_DIRS})
 
-set(SRC src/main.c src/fonts.c src/ansilove.c src/explode.c src/strtolower.c src/output.c src/sauce.c)
-
-set(LOADERS src/loaders/ansi.c src/loaders/artworx.c src/loaders/binary.c src/loaders/icedraw.c src/loaders/pcboard.c src/loaders/tundra.c src/loaders/xbin.c)
+set(SRC src/main.c src/strtolower.c src/sauce.c)
 
 if(NOT HAVE_PLEDGE)
   set (SRC ${SRC} compat/pledge.c)
@@ -31,9 +29,9 @@ if(NOT HAVE_STRTONUM)
 endif()
 
 add_definitions(-Wall -Wextra -std=c99 -pedantic)
-add_executable(ansilove ${SRC} ${LOADERS})
+add_executable(ansilove ${SRC})
 
-target_link_libraries(ansilove ${GD_LIBRARIES} m)
+target_link_libraries(ansilove ${ANSILOVE_LIBRARIES} m)
 
 install(TARGETS ansilove DESTINATION bin)
 install(FILES ansilove.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/)
