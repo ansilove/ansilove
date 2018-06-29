@@ -1,20 +1,8 @@
 - Import documentation from Ansilove/PHP
-- Refactor stuff inherited from the PHP version
 - Display mode information in summary
-- Use standard C functions to parse ANSI sequences and get rid of explode
-- Increment ansi_buffer by more than one element at a time when using realloc
-  in order to avoid wasting memory. Switch to OpenBSD reallocarray?
-- Create a function to set palettes, store default palettes in config?
-- Split the project to a shared library and a CLI tool? (see CMake add_library
-  directive for building/installing the library)
 - Use include-what-you-use to remove unnecessary headers
-- Parse ANSI in two pass, like we do for Tundra, to avoid storing temporary
-  data and save memory?
-- Add an error function?
-- Verify exit values consistency and document them if we keep using more
-  values than just 0 and 1?
 - Use OpenBSD style(9) for function prototypes and declarations?
-- Be more resilient with corrupt files, especially ADF / IDF / XBIN files
-  with malformed headers
 - Avoid reading the whole file in memory before parsing?
 - Allow reading from stdin?
+- Fix Travis CI build, need to install libansilove before building
+- Update documention to mention libansilove and drop GD from requirements
