@@ -18,6 +18,7 @@
 #include <getopt.h>
 #include <unistd.h>
 #include <err.h>
+#include <ansilove.h>
 
 #ifndef HAVE_PLEDGE
 #include "pledge.h"
@@ -31,14 +32,6 @@
 #include "strtolower.h"
 #include "ansilove.h"
 #include "sauce.h"
-
-#include "loaders/ansi.h"
-#include "loaders/artworx.h"
-#include "loaders/binary.h"
-#include "loaders/icedraw.h"
-#include "loaders/pcboard.h"
-#include "loaders/tundra.h"
-#include "loaders/xbin.h"
 
 // prototypes
 void showHelp(void);
