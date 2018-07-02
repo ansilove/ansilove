@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
 	outputFile.bits = 8;
 
 	// default to 160 if columns option is not specified
-	inputFile.columns = 160;
+	outputFile.columns = 160;
 
 	// default to 0 if retinaScaleFactor option is not specified
 	outputFile.retinaScaleFactor = 0;
@@ -164,7 +164,7 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'c':
 			// convert numeric command line flags to integer values
-			inputFile.columns = strtonum(optarg, 1, 8192, &errstr);
+			outputFile.columns = strtonum(optarg, 1, 8192, &errstr);
 
 			if (errstr) {
 				fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
@@ -288,11 +288,11 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 
-		inputFile.size = st.st_size;
+		inputFile.length = st.st_size;
 
 		// mmap input file into memory
-		inputFile.data = mmap(NULL, inputFile.size, PROT_READ, MAP_PRIVATE, fd, 0);
-		if (inputFile.data== MAP_FAILED) {
+		inputFile.buffer = mmap(NULL, inputFile.length, PROT_READ, MAP_PRIVATE, fd, 0);
+		if (inputFile.buffer == MAP_FAILED) {
 			perror("Memory error");
 			return 2;
 		}
@@ -300,7 +300,7 @@ int main(int argc, char *argv[]) {
 		// adjust the file size if file contains a SAUCE record
 		if (fileHasSAUCE) {
 			sauce *saucerec = sauceReadFileName(input);
-			inputFile.size -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+			inputFile.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
 
 		// create the output file by invoking the appropiate function
@@ -340,7 +340,7 @@ int main(int argc, char *argv[]) {
 			fprintf(stderr, "iCE Colors: enabled\n");
 		}
 		if (fileIsBinary) {
-			fprintf(stderr, "Columns: %d\n", inputFile.columns);
+			fprintf(stderr, "Columns: %d\n", outputFile.columns);
 		}
 
 		// close input file, we don't need it anymore
