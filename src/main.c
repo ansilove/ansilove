@@ -306,27 +306,27 @@ int main(int argc, char *argv[]) {
 		// create the output file by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
 			// params: input, output, font, bits, icecolors
-			pcboard(&inputFile, &outputFile);
+			ansilove_pcboard(&inputFile, &outputFile);
 			fileIsPCBoard = true;
 		} else if (!strcmp(fext, ".bin")) {
 			// params: input, output, columns, font, bits, icecolors
-			binary(&inputFile, &outputFile);
+			ansilove_binary(&inputFile, &outputFile);
 			fileIsBinary = true;
 		} else if (!strcmp(fext, ".adf")) {
 			// params: input, output, bits
-			artworx(&inputFile, &outputFile);
+			ansilove_artworx(&inputFile, &outputFile);
 		} else if (!strcmp(fext, ".idf")) {
 			// params: input, output, bits
-			icedraw(&inputFile, &outputFile);
+			ansilove_icedraw(&inputFile, &outputFile);
 		} else if (!strcmp(fext, ".tnd")) {
-			tundra(&inputFile, &outputFile);
+			ansilove_tundra(&inputFile, &outputFile);
 			fileIsTundra = true;
 		} else if (!strcmp(fext, ".xb")) {
 			// params: input, output, bits
-			xbin(&inputFile, &outputFile);
+			ansilove_xbin(&inputFile, &outputFile);
 		} else {
 			// params: input, output, font, bits, icecolors, fext
-			ansi(&inputFile, &outputFile);
+			ansilove_ansi(&inputFile, &outputFile);
 			fileIsANSi = true;
 		}
 
