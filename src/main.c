@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 	int fd;
 	struct stat st;
 
-	static struct input inputFile;
+	static struct ansilove_ctx ctx;
 	static struct output outputFile;
 
 	const char *errstr;
@@ -291,11 +291,11 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 
-		inputFile.length = st.st_size;
+		ctx.length = st.st_size;
 
 		// mmap input file into memory
-		inputFile.buffer = mmap(NULL, inputFile.length, PROT_READ, MAP_PRIVATE, fd, 0);
-		if (inputFile.buffer == MAP_FAILED) {
+		ctx.buffer = mmap(NULL, ctx.length, PROT_READ, MAP_PRIVATE, fd, 0);
+		if (ctx.buffer == MAP_FAILED) {
 			perror("Memory error");
 			return 2;
 		}
@@ -303,33 +303,33 @@ int main(int argc, char *argv[]) {
 		// adjust the file size if file contains a SAUCE record
 		if (fileHasSAUCE) {
 			sauce *saucerec = sauceReadFileName(input);
-			inputFile.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
+			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
 
 		// create the output file by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
 			// params: input, output, font, bits, icecolors
-			ansilove_pcboard(&inputFile, &outputFile);
+			ansilove_pcboard(&ctx, &outputFile);
 			fileIsPCBoard = true;
 		} else if (!strcmp(fext, ".bin")) {
 			// params: input, output, columns, font, bits, icecolors
-			ansilove_binary(&inputFile, &outputFile);
+			ansilove_binary(&ctx, &outputFile);
 			fileIsBinary = true;
 		} else if (!strcmp(fext, ".adf")) {
 			// params: input, output, bits
-			ansilove_artworx(&inputFile, &outputFile);
+			ansilove_artworx(&ctx, &outputFile);
 		} else if (!strcmp(fext, ".idf")) {
 			// params: input, output, bits
-			ansilove_icedraw(&inputFile, &outputFile);
+			ansilove_icedraw(&ctx, &outputFile);
 		} else if (!strcmp(fext, ".tnd")) {
-			ansilove_tundra(&inputFile, &outputFile);
+			ansilove_tundra(&ctx, &outputFile);
 			fileIsTundra = true;
 		} else if (!strcmp(fext, ".xb")) {
 			// params: input, output, bits
-			ansilove_xbin(&inputFile, &outputFile);
+			ansilove_xbin(&ctx, &outputFile);
 		} else {
 			// params: input, output, font, bits, icecolors, fext
-			ansilove_ansi(&inputFile, &outputFile);
+			ansilove_ansi(&ctx, &outputFile);
 			fileIsANSi = true;
 		}
 
@@ -347,7 +347,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		// close input file, we don't need it anymore
-		// TODO: munmap, with original inputFileSize
+		// TODO: munmap, with original ctxSize
 		close(fd);
 	}
 
