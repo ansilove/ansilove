@@ -274,7 +274,10 @@ int main(int argc, char *argv[]) {
 		// get file extension
 		char *fext = strrchr(input, '.');
 		fext = fext ? strtolower(strdup(fext)) : "";
-		inputFile.fext = fext;
+
+		// check if current file has a .diz extension
+		if (!strcmp(fext, ".diz"))
+			outputFile.diz = true;
 
 		// load input file
 		if ((fd = open(input, O_RDONLY)) == -1) {
