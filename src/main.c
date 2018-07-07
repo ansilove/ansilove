@@ -133,18 +133,18 @@ int main(int argc, char *argv[]) {
 	struct stat st;
 
 	static struct ansilove_ctx ctx;
-	static struct output outputFile;
+	static struct ansilove_options options;
 
 	const char *errstr;
 
 	// default to 8 if bits option is not specified
-	outputFile.bits = 8;
+	options.bits = 8;
 
 	// default to 160 if columns option is not specified
-	outputFile.columns = 160;
+	options.columns = 160;
 
 	// default to 0 if retinaScaleFactor option is not specified
-	outputFile.retinaScaleFactor = 0;
+	options.retinaScaleFactor = 0;
 
 	if (pledge("stdio cpath rpath wpath", NULL) == -1) {
 		err(EXIT_FAILURE, "pledge");
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
 		switch (getoptFlag) {
 		case 'b':
 			// convert numeric command line flags to integer values
-			outputFile.bits = strtonum(optarg, 8, 9, &errstr);
+			options.bits = strtonum(optarg, 8, 9, &errstr);
 
 			if (errstr) {
 				fprintf(stderr, "\nInvalid value for bits (must be 8 or 9).\n\n");
@@ -164,7 +164,7 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'c':
 			// convert numeric command line flags to integer values
-			outputFile.columns = strtonum(optarg, 1, 8192, &errstr);
+			options.columns = strtonum(optarg, 1, 8192, &errstr);
 
 			if (errstr) {
 				fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
@@ -176,26 +176,26 @@ int main(int argc, char *argv[]) {
 			listExamples();
 			return EXIT_SUCCESS;
 		case 'f':
-			outputFile.font = optarg;
+			options.font = optarg;
 			break;
 		case 'h':
 			showHelp();
 			return EXIT_SUCCESS;
 		case 'i':
-			outputFile.icecolors = true;
+			options.icecolors = true;
 			break;
 		case 'm':
-			outputFile.mode = optarg;
+			options.mode = optarg;
 			break;
 		case 'o':
 			output = optarg;
 			break;
 		case 'r':
-			outputFile.retinaScaleFactor = 2;
+			options.retinaScaleFactor = 2;
 			break;
 		case 'R':
 			// convert numeric command line flags to integer values
-			outputFile.retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
+			options.retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
 
 			if (errstr) {
 				fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
@@ -243,32 +243,32 @@ int main(int argc, char *argv[]) {
 		if (!output) {
 			outputName = input;
 			// appending ".png" extension to output file name
-			asprintf(&outputFile.fileName, "%s%s", outputName, ".png");
+			asprintf(&options.fileName, "%s%s", outputName, ".png");
 		} else {
 			outputName = output;
-			outputFile.fileName = outputName;
+			options.fileName = outputName;
 		}
 
-		if (outputFile.retinaScaleFactor) {
-			asprintf(&outputFile.retina, "%s@%ix.png", outputFile.fileName, outputFile.retinaScaleFactor);
+		if (options.retinaScaleFactor) {
+			asprintf(&options.retina, "%s@%ix.png", options.fileName, options.retinaScaleFactor);
 		}
 
 		// default to empty string if mode option is not specified
-		if (!outputFile.mode) {
-			outputFile.mode = "";
+		if (!options.mode) {
+			options.mode = "";
 		}
 
 		// default to 80x25 font if font option is not specified
-		if (!outputFile.font) {
-			outputFile.font = "80x25";
+		if (!options.font) {
+			options.font = "80x25";
 		}
 
 		// display name of input and output files
 		fprintf(stderr, "\nInput File: %s\n", input);
-		fprintf(stderr, "Output File: %s\n", outputFile.fileName);
+		fprintf(stderr, "Output File: %s\n", options.fileName);
 
-		if (outputFile.retinaScaleFactor) {
-			fprintf(stderr, "Retina Output File: %s\n", outputFile.retina);
+		if (options.retinaScaleFactor) {
+			fprintf(stderr, "Retina Output File: %s\n", options.retina);
 		}
 
 		// get file extension
@@ -277,7 +277,7 @@ int main(int argc, char *argv[]) {
 
 		// check if current file has a .diz extension
 		if (!strcmp(fext, ".diz"))
-			outputFile.diz = true;
+			options.diz = true;
 
 		// load input file
 		if ((fd = open(input, O_RDONLY)) == -1) {
@@ -309,41 +309,41 @@ int main(int argc, char *argv[]) {
 		// create the output file by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
 			// params: input, output, font, bits, icecolors
-			ansilove_pcboard(&ctx, &outputFile);
+			ansilove_pcboard(&ctx, &options);
 			fileIsPCBoard = true;
 		} else if (!strcmp(fext, ".bin")) {
 			// params: input, output, columns, font, bits, icecolors
-			ansilove_binary(&ctx, &outputFile);
+			ansilove_binary(&ctx, &options);
 			fileIsBinary = true;
 		} else if (!strcmp(fext, ".adf")) {
 			// params: input, output, bits
-			ansilove_artworx(&ctx, &outputFile);
+			ansilove_artworx(&ctx, &options);
 		} else if (!strcmp(fext, ".idf")) {
 			// params: input, output, bits
-			ansilove_icedraw(&ctx, &outputFile);
+			ansilove_icedraw(&ctx, &options);
 		} else if (!strcmp(fext, ".tnd")) {
-			ansilove_tundra(&ctx, &outputFile);
+			ansilove_tundra(&ctx, &options);
 			fileIsTundra = true;
 		} else if (!strcmp(fext, ".xb")) {
 			// params: input, output, bits
-			ansilove_xbin(&ctx, &outputFile);
+			ansilove_xbin(&ctx, &options);
 		} else {
 			// params: input, output, font, bits, icecolors, fext
-			ansilove_ansi(&ctx, &outputFile);
+			ansilove_ansi(&ctx, &options);
 			fileIsANSi = true;
 		}
 
 		// gather information and report to the command line
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
-			fprintf(stderr, "Font: %s\n", outputFile.font);
-			fprintf(stderr, "Bits: %d\n", outputFile.bits);
+			fprintf(stderr, "Font: %s\n", options.font);
+			fprintf(stderr, "Bits: %d\n", options.bits);
 		}
-		if (outputFile.icecolors && (fileIsANSi || fileIsBinary)) {
+		if (options.icecolors && (fileIsANSi || fileIsBinary)) {
 			fprintf(stderr, "iCE Colors: enabled\n");
 		}
 		if (fileIsBinary) {
-			fprintf(stderr, "Columns: %d\n", outputFile.columns);
+			fprintf(stderr, "Columns: %d\n", options.columns);
 		}
 
 		// close input file, we don't need it anymore
