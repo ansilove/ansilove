@@ -28,17 +28,19 @@ There were many reasons, most notably PHP interpreter independence and performan
 
 # Dependencies
 
-AnsiLove/C uses the `CMake` build system and requires the `GD` library and header files.
+AnsiLove/C uses the `CMake` build system and requires the [libansilove](https://github.com/ansilove/libansilove) library and header files.
 
 # Installing dependencies
 
-- OpenBSD: `pkg_add -r cmake gd`
-- NetBSD: `pkgin install cmake gd`
-- FreeBSD: `pkg install cmake gd`
-- Mac OS X: `brew install cmake gd`
-- Alpine Linux: `apk add cmake gcc make musl-dev gd-dev`
-- Debian / Ubuntu / Mint: `apt-get install cmake libgd-dev`
-- Solus: `eopkg install -c system.devel` and `eopkg install gd-devel`
+- OpenBSD: `pkg_add -r cmake`
+- NetBSD: `pkgin install cmake`
+- FreeBSD: `pkg install cmake`
+- Mac OS X: `brew install cmake`
+- Alpine Linux: `apk add cmake gcc make musl-dev`
+- Debian / Ubuntu / Mint: `apt-get install cmake`
+- Solus: `eopkg install -c system.devel`
+
+For now, `libansilove` has to be installed manually.
 
 # Compiling
 
