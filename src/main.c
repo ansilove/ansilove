@@ -129,9 +129,6 @@ int main(int argc, char *argv[]) {
 
 	char *input = NULL, *output = NULL;
 
-	int fd;
-	struct stat st;
-
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
 
@@ -272,26 +269,7 @@ int main(int argc, char *argv[]) {
 		if (!strcmp(fext, ".diz"))
 			options.diz = true;
 
-		// load input file
-		if ((fd = open(input, O_RDONLY)) == -1) {
-			perror("File error");
-			return 1;
-		}
-
-		// get the file size (bytes)
-		if (fstat(fd, &st) == -1) {
-			perror("Can't stat file");
-			return 1;
-		}
-
-		ctx.length = st.st_size;
-
-		// mmap input file into memory
-		ctx.buffer = mmap(NULL, ctx.length, PROT_READ, MAP_PRIVATE, fd, 0);
-		if (ctx.buffer == MAP_FAILED) {
-			perror("Memory error");
-			return 2;
-		}
+		ansilove_loadfile(&ctx, input);
 
 		// adjust the file size if file contains a SAUCE record
 		if (fileHasSAUCE) {
@@ -339,9 +317,7 @@ int main(int argc, char *argv[]) {
 			fprintf(stderr, "Columns: %d\n", options.columns);
 		}
 
-		// close input file, we don't need it anymore
 		// TODO: munmap, with original ctxSize
-		close(fd);
 	}
 
 	// either display SAUCE or tell us if there is no record
