@@ -137,14 +137,7 @@ int main(int argc, char *argv[]) {
 
 	const char *errstr;
 
-	// default to 8 if bits option is not specified
-	options.bits = 8;
-
-	// default to 160 if columns option is not specified
-	options.columns = 160;
-
-	// default to 0 if retinaScaleFactor option is not specified
-	options.retinaScaleFactor = 0;
+	ansilove_init(&ctx, &options);
 
 	if (pledge("stdio cpath rpath wpath", NULL) == -1) {
 		err(EXIT_FAILURE, "pledge");
