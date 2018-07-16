@@ -36,12 +36,12 @@
 #include "strtolower.h"
 
 // prototypes
-void showHelp(void);
-void listExamples(void);
-void versionInfo(void);
-void synopsis(void);
+static void showHelp(void);
+static void listExamples(void);
+static void versionInfo(void);
+static void synopsis(void);
 
-void showHelp(void) {
+static void showHelp(void) {
 	fprintf(stderr, "\nSUPPORTED FILE TYPES:\n"
 	    "  ANS	PCB	BIN	ADF	IDF	TND	XB\n"
 	    "  Files with custom suffix default to the ANSI renderer.\n\n"
@@ -65,7 +65,7 @@ void showHelp(void) {
 	    "  <https://github.com/ansilove/ansilove>\n\n");
 }
 
-void listExamples(void) {
+static void listExamples(void) {
 	fprintf(stderr, "\nEXAMPLES:\n");
 	fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
 	    "  ansilove -i file.ans (enable iCE colors)\n"
@@ -79,7 +79,7 @@ void listExamples(void) {
 	    "\n");
 }
 
-void versionInfo(void) {
+static void versionInfo(void) {
 	fprintf(stderr, "All rights reserved.\n"
 	    "\nFork me on GitHub: <https://github.com/ansilove/ansilove>\n"
 	    "Bug reports: <https://github.com/ansilove/ansilove/issues>\n\n"
@@ -88,7 +88,7 @@ void versionInfo(void) {
 }
 
 // following the IEEE Std 1003.1 for utility conventions
-void synopsis(void) {
+static void synopsis(void) {
 	fprintf(stderr, "\nSYNOPSIS:\n"
 	    "  ansilove [options] file\n"
 	    "  ansilove -e | -h | -v\n\n"
