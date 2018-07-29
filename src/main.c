@@ -224,15 +224,11 @@ int main(int argc, char *argv[]) {
 
 	if (!justDisplaySAUCE) {
 		// create output file name if output is not specified
-		char *outputName;
-
 		if (!output) {
-			outputName = input;
 			// appending ".png" extension to output file name
-			asprintf(&options.fileName, "%s%s", outputName, ".png");
+			asprintf(&options.fileName, "%s%s", input, ".png");
 		} else {
-			outputName = output;
-			options.fileName = outputName;
+			options.fileName = output;
 		}
 
 		if (options.retinaScaleFactor) {
