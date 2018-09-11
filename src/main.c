@@ -269,32 +269,29 @@ int main(int argc, char *argv[]) {
 			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
 
-		// create the output file by invoking the appropiate function
+		// create the output PNG data by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
-			// params: input, output, font, bits, icecolors
 			ansilove_pcboard(&ctx, &options);
 			fileIsPCBoard = true;
 		} else if (!strcmp(fext, ".bin")) {
-			// params: input, output, columns, font, bits, icecolors
 			ansilove_binary(&ctx, &options);
 			fileIsBinary = true;
 		} else if (!strcmp(fext, ".adf")) {
-			// params: input, output, bits
 			ansilove_artworx(&ctx, &options);
 		} else if (!strcmp(fext, ".idf")) {
-			// params: input, output, bits
 			ansilove_icedraw(&ctx, &options);
 		} else if (!strcmp(fext, ".tnd")) {
 			ansilove_tundra(&ctx, &options);
 			fileIsTundra = true;
 		} else if (!strcmp(fext, ".xb")) {
-			// params: input, output, bits
 			ansilove_xbin(&ctx, &options);
 		} else {
-			// params: input, output, font, bits, icecolors, fext
 			ansilove_ansi(&ctx, &options);
 			fileIsANSi = true;
 		}
+
+		// create the output file
+		ansilove_savefile(&ctx, options.fileName);
 
 		// gather information and report to the command line
 		if (fileIsANSi || fileIsBinary ||
