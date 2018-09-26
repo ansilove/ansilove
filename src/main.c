@@ -91,6 +91,7 @@ static void synopsis(void) {
 	    "OPTIONS:\n"
 	    "  -b bits	  set to 9 to render 9th column of block characters (default: 8)\n"
 	    "  -c columns  adjust number of columns for BIN files (default: 160)\n"
+	    "  -d			 use DOS aspect ratio\n"
 	    "  -e			 print a list of examples\n"
 	    "  -f font	  select font (default: 80x25)\n"
 	    "  -h			 show help\n"
@@ -136,7 +137,7 @@ int main(int argc, char *argv[]) {
 		err(EXIT_FAILURE, "pledge");
 	}
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:ef:him:o:rR:sv")) != -1) {
+	while ((getoptFlag = getopt(argc, argv, "b:c:def:him:o:rR:sv")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
 			// convert numeric command line flags to integer values
@@ -157,6 +158,9 @@ int main(int argc, char *argv[]) {
 				return EXIT_FAILURE;
 			}
 
+			break;
+		case 'd':
+			options.dos = true;
 			break;
 		case 'e':
 			listExamples();
