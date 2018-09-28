@@ -306,7 +306,7 @@ int main(int argc, char *argv[]) {
 		if (options.icecolors && (fileIsANSi || fileIsBinary)) {
 			fprintf(stderr, "iCE Colors: enabled\n");
 		}
-		if (fileIsANSi || fileIsBinary) {
+		if (fileIsANSi || fileIsBinary || fileIsTundra) {
 			fprintf(stderr, "Columns: %d\n", options.columns);
 		}
 
