@@ -47,8 +47,6 @@ For now, `libansilove` has to be installed manually.
     cmake .
     make
 
-You can also build the project directly from [Atom](https://atom.io). Note that the [Atom Build](https://atom.io/packages/build) package is necessary for this purpose.
-
 # Installation
 
 AnsiLove/C packages are available for:
