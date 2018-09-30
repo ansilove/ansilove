@@ -40,7 +40,7 @@ typedef struct {
 	unsigned short tinfo4;
 	unsigned char comments;
 	unsigned char flags;
-	char filler[23];
+	char tinfos[23];
 	char **comment_lines;
 } sauce;
 

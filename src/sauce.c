@@ -69,8 +69,8 @@ void readRecord(FILE *file, sauce *record)
 	fread(&(record->tinfo4), sizeof (record->tinfo4), 1, file);
 	fread(&(record->comments), sizeof (record->comments), 1, file);
 	fread(&(record->flags), sizeof (record->flags), 1, file);
-	fread(record->filler, sizeof (record->filler) - 1, 1, file);
-	record->filler[sizeof (record->filler) - 1] = '\0';
+	fread(record->tinfos, sizeof (record->tinfos) - 1, 1, file);
+	record->tinfos[sizeof (record->tinfos) - 1] = '\0';
 
 	if (ferror(file) != EXIT_SUCCESS) {
 		free(record);
