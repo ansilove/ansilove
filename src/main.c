@@ -26,7 +26,6 @@
 #include "strtonum.h"
 #endif
 
-#include "ansilove.h"
 #include "config.h"
 #include "sauce.h"
 #include "strtolower.h"
