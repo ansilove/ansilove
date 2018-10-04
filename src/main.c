@@ -124,6 +124,7 @@ int main(int argc, char *argv[]) {
 	int getoptFlag;
 
 	char *input = NULL, *output = NULL;
+	char *fileName = NULL, *retina = NULL;
 
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
@@ -229,13 +230,13 @@ int main(int argc, char *argv[]) {
 		// create output file name if output is not specified
 		if (!output) {
 			// appending ".png" extension to output file name
-			asprintf(&options.fileName, "%s%s", input, ".png");
+			asprintf(&fileName, "%s%s", input, ".png");
 		} else {
-			options.fileName = output;
+			fileName = output;
 		}
 
 		if (options.retinaScaleFactor) {
-			asprintf(&options.retina, "%s@%ix.png", options.fileName, options.retinaScaleFactor);
+			asprintf(&retina, "%s@%ix.png", fileName, options.retinaScaleFactor);
 		}
 
 		// default to empty string if mode option is not specified
@@ -250,10 +251,10 @@ int main(int argc, char *argv[]) {
 
 		// display name of input and output files
 		fprintf(stderr, "\nInput File: %s\n", input);
-		fprintf(stderr, "Output File: %s\n", options.fileName);
+		fprintf(stderr, "Output File: %s\n", fileName);
 
 		if (options.retinaScaleFactor) {
-			fprintf(stderr, "Retina Output File: %s\n", options.retina);
+			fprintf(stderr, "Retina Output File: %s\n", retina);
 		}
 
 		// get file extension
@@ -299,7 +300,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		// create the output file
-		ansilove_savefile(&ctx, options.fileName);
+		ansilove_savefile(&ctx, fileName);
 
 		// gather information and report to the command line
 		if (fileIsANSi || fileIsBinary ||
