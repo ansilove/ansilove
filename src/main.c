@@ -344,9 +344,7 @@ int main(int argc, char *argv[]) {
 		if (record->tinfo4 != 0) {
 			fprintf(stderr, "Tinfo4: %d\n", record->tinfo4);
 		}
-		if (record->tinfos != 0) {
-			fprintf(stderr, "Tinfos: %s\n", record->tinfos);
-		}
+		fprintf(stderr, "Tinfos: %s\n", record->tinfos);
 		if (record->comments > 0) {
 			fprintf(stderr, "Comments: ");
 			for (int32_t i = 0; i < record->comments; i++) {
