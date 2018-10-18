@@ -27,6 +27,7 @@
 #endif
 
 #include "config.h"
+#include "fonts.h"
 #include "sauce.h"
 #include "strtolower.h"
 
@@ -125,6 +126,7 @@ int main(int argc, char *argv[]) {
 
 	char *input = NULL, *output = NULL;
 	char *fileName = NULL, *retina = NULL;
+	char *font = NULL;
 
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
@@ -166,7 +168,13 @@ int main(int argc, char *argv[]) {
 			listExamples();
 			return EXIT_SUCCESS;
 		case 'f':
-			options.font = optarg;
+			font = optarg;
+			for (size_t loop = 0; loop < FONTS; loop++) {
+				if (!strcmp(fonts[loop], font)) {
+					options.font=fontsId[loop];
+					break;
+				}
+			}
 			break;
 		case 'h':
 			showHelp();
@@ -252,8 +260,8 @@ int main(int argc, char *argv[]) {
 		}
 
 		// default to 80x25 font if font option is not specified
-		if (!options.font) {
-			options.font = "80x25";
+		if (!font) {
+			font = "80x25";
 		}
 
 		// display name of input and output files
@@ -312,7 +320,8 @@ int main(int argc, char *argv[]) {
 		// gather information and report to the command line
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
-			fprintf(stderr, "Font: %s\n", options.font);
+			fprintf(stderr, "Font: %s\n", font);
+
 			fprintf(stderr, "Bits: %d\n", options.bits);
 		}
 		if (options.icecolors && (fileIsANSi || fileIsBinary)) {
