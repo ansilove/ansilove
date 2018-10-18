@@ -289,9 +289,11 @@ int main(int argc, char *argv[]) {
 		}
 
 		// use width from the SAUCE record if present and if -c wasn't specified
+		/*
 		if (!options.columns && fileHasSAUCE && record->tinfo1) {
 			options.columns = record->tinfo1;
 		}
+		*/
 
 		// create the output PNG data by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
