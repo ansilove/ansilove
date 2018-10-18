@@ -175,7 +175,13 @@ int main(int argc, char *argv[]) {
 			options.icecolors = true;
 			break;
 		case 'm':
-			options.mode = optarg;
+			if (!strcmp(optarg, "ced")) {
+				options.mode = ANSILOVE_MODE_CED;
+			} else if (!strcmp(optarg, "transparent")) {
+				options.mode = ANSILOVE_MODE_TRANSPARENT;
+			} else if (!strcmp(optarg, "workbench")) {
+				options.mode = ANSILOVE_MODE_WORKBENCH;
+			}
 			break;
 		case 'o':
 			output = optarg;
@@ -243,11 +249,6 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "Memory allocation error.\n\n");
 				return EXIT_FAILURE;
 			}
-		}
-
-		// default to empty string if mode option is not specified
-		if (!options.mode) {
-			options.mode = "";
 		}
 
 		// default to 80x25 font if font option is not specified
