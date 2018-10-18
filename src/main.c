@@ -151,10 +151,10 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'c':
 			// convert numeric command line flags to integer values
-			options.columns = strtonum(optarg, 1, 8192, &errstr);
+			options.columns = strtonum(optarg, 1, 4096, &errstr);
 
 			if (errstr) {
-				fprintf(stderr, "\nInvalid value for columns (must range from 1 to 8192).\n\n");
+				fprintf(stderr, "\nInvalid value for columns (must range from 1 to 4096).\n\n");
 				return EXIT_FAILURE;
 			}
 
