@@ -230,13 +230,19 @@ int main(int argc, char *argv[]) {
 		// create output file name if output is not specified
 		if (!output) {
 			// appending ".png" extension to output file name
-			asprintf(&fileName, "%s%s", input, ".png");
+			if (asprintf(&fileName, "%s%s", input, ".png") == -1) {
+				fprintf(stderr, "Memory allocation error.\n\n");
+				return EXIT_FAILURE;
+			}
 		} else {
 			fileName = output;
 		}
 
 		if (options.retinaScaleFactor) {
-			asprintf(&retina, "%s@%ix.png", fileName, options.retinaScaleFactor);
+			if (asprintf(&retina, "%s@%ix.png", fileName, options.retinaScaleFactor) == -1) {
+				fprintf(stderr, "Memory allocation error.\n\n");
+				return EXIT_FAILURE;
+			}
 		}
 
 		// default to empty string if mode option is not specified
