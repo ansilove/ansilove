@@ -114,8 +114,8 @@ Even more:
                      transparent    render with transparent background
                      workbench      use Amiga Workbench palette
        -o file     specify output filename/path
-       -r          creates additional Retina @2x output file
-       -R factor   creates additional Retina output file with custom scale
+       -r          creates Retina @2x output file
+       -R factor   creates Retina output file with custom scale
        -s          show SAUCE record without generating output
        -v          show version information
 
@@ -187,7 +187,7 @@ When an ANSi source was created using iCE colors, it was done with a special mod
 
 ## Columns
 
-`columns` is only relevant for .BIN files, and even for those files is optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` then. So please pass `columns` only to `BIN` files and only if you exactly know what you're doing.
+`columns` is only relevant for .ANS, .BIN, and .TND files, and is optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` for .BIN files and `80` otherwise.
 
 ## SAUCE records
 
