@@ -322,6 +322,10 @@ int main(int argc, char *argv[]) {
 			fprintf(stderr, "Columns: %d\n", options.columns);
 		}
 
+		if (options.retinaScaleFactor) {
+			fprintf(stderr, "Scale factor: %d\n", options.retinaScaleFactor);
+		}
+
 		// TODO: munmap, with original ctxSize
 	}
 
