@@ -81,7 +81,9 @@ void readRecord(FILE *file, sauce *record)
 		record->comment_lines = malloc(record->comments *sizeof (*record->comment_lines));
 
 		if (record->comment_lines != NULL) {
-			readComments(file, record->comment_lines, record->comments);
+			if (readComments(file, record->comment_lines, record->comments != 0)) {
+				record->comments = 0;
+			}
 		} else {
 			free(record);
 			return;
