@@ -47,6 +47,6 @@ typedef struct {
 sauce *sauceReadFileName(char *fileName);
 sauce *sauceReadFile(FILE *file);
 void  readRecord(FILE *file, sauce *record);
-void  readComments(FILE *file, char **comment_lines, int32_t comments);
+int   readComments(FILE *file, char **comment_lines, int32_t comments);
 
 #endif

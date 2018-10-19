@@ -89,7 +89,7 @@ void readRecord(FILE *file, sauce *record)
 	}
 }
 
-void readComments(FILE *file, char **comment_lines, int32_t comments)
+int readComments(FILE *file, char **comment_lines, int32_t comments)
 {
 	int32_t i;
 
@@ -100,7 +100,7 @@ void readComments(FILE *file, char **comment_lines, int32_t comments)
 
 		if (strcmp(ID, COMMENT_ID) != 0) {
 			free(comment_lines);
-			return;
+			return -1;
 		}
 
 		for (i = 0; i < comments; i++) {
@@ -113,15 +113,15 @@ void readComments(FILE *file, char **comment_lines, int32_t comments)
 				comment_lines[i] = strdup(buf);
 				if (comment_lines[i] == NULL) {
 					free(comment_lines);
-					return;
+					return -1;
 				}
 			} else {
 				free(comment_lines);
-				return;
+				return -1;
 			}
 		}
-		return;
+		return 0;
 	}
 	free(comment_lines);
-	return;
+	return -1;
 }
