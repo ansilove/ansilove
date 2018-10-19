@@ -101,8 +101,8 @@ static void synopsis(void) {
 	    "					 transparent	 render with transparent background\n"
 	    "					 workbench		use Amiga Workbench palette\n"
 	    "  -o file	  specify output filename/path\n"
-	    "  -r			 creates additional Retina @2x output file\n"
-	    "  -R factor	creates additional Retina output file with custom scale factor\n"
+	    "  -r			 creates Retina @2x output file\n"
+	    "  -R factor	creates Retina output file with custom scale factor\n"
 	    "  -s			 show SAUCE record without generating output\n"
 	    "  -v			 show version information\n"
 	    "\n");
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 	int getoptFlag;
 
 	char *input = NULL, *output = NULL;
-	char *fileName = NULL, *retina = NULL;
+	char *fileName = NULL;
 	char *font = NULL;
 
 	static struct ansilove_ctx ctx;
@@ -252,13 +252,6 @@ int main(int argc, char *argv[]) {
 			fileName = output;
 		}
 
-		if (options.retinaScaleFactor) {
-			if (asprintf(&retina, "%s@%ix.png", fileName, options.retinaScaleFactor) == -1) {
-				fprintf(stderr, "Memory allocation error.\n\n");
-				return EXIT_FAILURE;
-			}
-		}
-
 		// default to 80x25 font if font option is not specified
 		if (!font) {
 			font = "80x25";
@@ -267,10 +260,6 @@ int main(int argc, char *argv[]) {
 		// display name of input and output files
 		fprintf(stderr, "\nInput File: %s\n", input);
 		fprintf(stderr, "Output File: %s\n", fileName);
-
-		if (options.retinaScaleFactor) {
-			fprintf(stderr, "Retina Output File: %s\n", retina);
-		}
 
 		// get file extension
 		char *fext = strrchr(input, '.');
