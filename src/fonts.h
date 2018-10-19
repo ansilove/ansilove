@@ -1,5 +1,5 @@
 //
-//  config.h
+//  fonts.h
 //  AnsiLove/C
 //
 //  Copyright (c) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.
