@@ -195,11 +195,11 @@ int main(int argc, char *argv[]) {
 			output = optarg;
 			break;
 		case 'r':
-			options.retinaScaleFactor = 2;
+			options.scale_factor = 2;
 			break;
 		case 'R':
 			// convert numeric command line flags to integer values
-			options.retinaScaleFactor = strtonum(optarg, 2, 8, &errstr);
+			options.scale_factor = strtonum(optarg, 2, 8, &errstr);
 
 			if (errstr) {
 				fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
@@ -322,8 +322,8 @@ int main(int argc, char *argv[]) {
 			fprintf(stderr, "Columns: %d\n", options.columns);
 		}
 
-		if (options.retinaScaleFactor) {
-			fprintf(stderr, "Scale factor: %d\n", options.retinaScaleFactor);
+		if (options.scale_factor) {
+			fprintf(stderr, "Scale factor: %d\n", options.scale_factor);
 		}
 
 		// TODO: munmap, with original ctxSize
