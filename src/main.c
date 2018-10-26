@@ -364,5 +364,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	ansilove_clean(&ctx);
+
 	return EXIT_SUCCESS;
 }
