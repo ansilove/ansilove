@@ -2,5 +2,3 @@
 - Display mode information in summary, and DOS aspect if enabled
 - Use include-what-you-use to remove unnecessary headers
 - Use OpenBSD style(9) for function prototypes and declarations?
-- Allow reading from stdin?
-- Fix Travis CI build, need to install libansilove before building

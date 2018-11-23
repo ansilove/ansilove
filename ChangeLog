@@ -1,3 +1,20 @@
+AnsiLove/C 4.0.0 (2018-11-??)
+
+- Switch to using libansilove
+- Add a new switch (-d) to toggle DOS aspect ratio
+- Add initial support for PabloDraw 24-bit ANSI sequences
+- Ansilove now generates only one output file when -r or -R options
+  are used
+- Display scale factor when -r or -R options are used
+- Allow to specify the number of columns for ANSI and Tundra files
+- Restrict maximum allowed number of columns to 4096
+- Check asprintf() return value and error if allocation fails
+- Bugfixes and improvements in the SAUCE parser
+- Refactor font selection processing
+- Refactor rendering mode processing
+
+
+
 AnsiLove/C 3.0.9 (2018-06-19)
 
 - Add a new example ANSi (Thanks Sylvao)
