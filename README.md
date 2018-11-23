@@ -16,6 +16,8 @@
 
 # AnsiLove/C
 
+[![Build Status][1]][2] [![Coverity Scan Build Status][3]][4]
+
 This is a complete rewrite of [AnsiLove/PHP](https://www.ansilove.org) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `3.0.9`.
 
 # Specs
@@ -204,3 +206,8 @@ AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` fo
 # Resources
 
 GitHub: https://github.com/ansilove/ansilove
+
+[1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
+[2]: https://travis-ci.org/ansilove/ansilove
+[3]: https://scan.coverity.com/projects/11093/badge.svg
+[4]: https://scan.coverity.com/projects/11093
