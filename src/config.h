@@ -15,7 +15,7 @@
 
 #include <stdint.h>
 
-// configuration defines
+/* configuration defines */
 #define VERSION "3.0.9"
 
 #endif

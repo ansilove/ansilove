@@ -33,7 +33,7 @@
 #include "sauce.h"
 #include "strtolower.h"
 
-// prototypes
+/* prototypes */
 static void showHelp(void);
 static void listExamples(void);
 static void versionInfo(void);
@@ -62,7 +62,7 @@ showHelp(void)
 	    "  pot-noodle\n\n"
 	    "DOCUMENTATION:\n"
 	    "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
-	    "  <https://github.com/ansilove/ansilove>\n\n");
+	    "  <https:/*github.com/ansilove/ansilove>\n\n");
 }
 
 static void
@@ -85,13 +85,13 @@ static void
 versionInfo(void)
 {
 	fprintf(stderr, "All rights reserved.\n"
-	    "\nFork me on GitHub: <https://github.com/ansilove/ansilove>\n"
-	    "Bug reports: <https://github.com/ansilove/ansilove/issues>\n\n"
+	    "\nFork me on GitHub: <https:/*github.com/ansilove/ansilove>\n"
+	    "Bug reports: <https:/*github.com/ansilove/ansilove/issues>\n\n"
 	    "This is free software, released under the 2-Clause BSD license.\n"
-	    "<https://github.com/ansilove/ansilove/blob/master/LICENSE>\n\n");
+	    "<https:/*github.com/ansilove/ansilove/blob/master/LICENSE>\n\n");
 }
 
-// following the IEEE Std 1003.1 for utility conventions
+/* following the IEEE Std 1003.1 for utility conventions */
 static void
 synopsis(void)
 {
@@ -124,11 +124,11 @@ main(int argc, char *argv[])
 	fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n" \
 	    "Copyright (c) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
 
-	// SAUCE record related bool types
+	/* SAUCE record related bool types */
 	bool justDisplaySAUCE = false;
 	bool fileHasSAUCE = false;
 
-	// analyze options and do what has to be done
+	/* analyze options and do what has to be done */
 	bool fileIsBinary = false;
 	bool fileIsANSi = false;
 	bool fileIsPCBoard = false;
@@ -154,7 +154,7 @@ main(int argc, char *argv[])
 	while ((getoptFlag = getopt(argc, argv, "b:c:def:him:o:rR:sv")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
-			// convert numeric command line flags to integer values
+			/* convert numeric command line flags to integer values */
 			options.bits = strtonum(optarg, 8, 9, &errstr);
 
 			if (errstr) {
@@ -164,7 +164,7 @@ main(int argc, char *argv[])
 
 			break;
 		case 'c':
-			// convert numeric command line flags to integer values
+			/* convert numeric command line flags to integer values */
 			options.columns = strtonum(optarg, 1, 4096, &errstr);
 
 			if (errstr) {
@@ -210,7 +210,7 @@ main(int argc, char *argv[])
 			options.scale_factor = 2;
 			break;
 		case 'R':
-			// convert numeric command line flags to integer values
+			/* convert numeric command line flags to integer values */
 			options.scale_factor = strtonum(optarg, 2, 8, &errstr);
 
 			if (errstr) {
@@ -238,24 +238,24 @@ main(int argc, char *argv[])
 	argc -= optind;
 	argv += optind;
 
-	// let's check the file for a valid SAUCE record
+	/* let's check the file for a valid SAUCE record */
 	sauce *record = sauceReadFileName(input);
 
-	// record == NULL also means there is no file, we can stop here
+	/* record == NULL also means there is no file, we can stop here */
 	if (record == NULL) {
 		fprintf(stderr, "\nFile %s not found.\n\n", input);
 		return EXIT_FAILURE;
 	} else {
-		// if we find a SAUCE record, update bool flag
+		/* if we find a SAUCE record, update bool flag */
 		if (!strcmp(record->ID, SAUCE_ID)) {
 			fileHasSAUCE = true;
 		}
 	}
 
 	if (!justDisplaySAUCE) {
-		// create output file name if output is not specified
+		/* create output file name if output is not specified */
 		if (!output) {
-			// appending ".png" extension to output file name
+			/* appending ".png" extension to output file name */
 			if (asprintf(&fileName, "%s%s", input, ".png") == -1) {
 				fprintf(stderr, "Memory allocation error.\n\n");
 				return EXIT_FAILURE;
@@ -264,32 +264,32 @@ main(int argc, char *argv[])
 			fileName = output;
 		}
 
-		// default to 80x25 font if font option is not specified
+		/* default to 80x25 font if font option is not specified */
 		if (!font) {
 			font = "80x25";
 		}
 
-		// display name of input and output files
+		/* display name of input and output files */
 		fprintf(stderr, "\nInput File: %s\n", input);
 		fprintf(stderr, "Output File: %s\n", fileName);
 
-		// get file extension
+		/* get file extension */
 		char *fext = strrchr(input, '.');
 		fext = fext ? strtolower(strdup(fext)) : "";
 
-		// check if current file has a .diz extension
+		/* check if current file has a .diz extension */
 		if (!strcmp(fext, ".diz"))
 			options.diz = true;
 
 		ansilove_loadfile(&ctx, input);
 
-		// adjust the file size if file contains a SAUCE record
+		/* adjust the file size if file contains a SAUCE record */
 		if (fileHasSAUCE) {
 			sauce *saucerec = sauceReadFileName(input);
 			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
 
-		// create the output PNG data by invoking the appropiate function
+		/* create the output PNG data by invoking the appropiate function */
 		if (!strcmp(fext, ".pcb")) {
 			ansilove_pcboard(&ctx, &options);
 			fileIsPCBoard = true;
@@ -310,10 +310,10 @@ main(int argc, char *argv[])
 			fileIsANSi = true;
 		}
 
-		// create the output file
+		/* create the output file */
 		ansilove_savefile(&ctx, fileName);
 
-		// gather information and report to the command line
+		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
 			fprintf(stderr, "Font: %s\n", font);
@@ -331,10 +331,10 @@ main(int argc, char *argv[])
 			fprintf(stderr, "Scale factor: %d\n", options.scale_factor);
 		}
 
-		// TODO: munmap, with original ctxSize
+		/* TODO: munmap, with original ctxSize */
 	}
 
-	// either display SAUCE or tell us if there is no record
+	/* either display SAUCE or tell us if there is no record */
 	if (!fileHasSAUCE) {
 		fprintf(stderr, "\nFile %s does not have a SAUCE record.\n", input);
 	} else {

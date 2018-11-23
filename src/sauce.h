@@ -17,7 +17,7 @@
 #ifndef sauce_h
 #define sauce_h
 
-// sauce records
+/* sauce records */
 #define RECORD_SIZE  128
 #define COMMENT_SIZE 64
 #define SAUCE_ID     "SAUCE"

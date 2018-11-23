@@ -15,7 +15,7 @@
 
 #include "sauce.h"
 
-// Reads SAUCE via a filename.
+/* Reads SAUCE via a filename. */
 sauce *
 sauceReadFileName(char *fileName)
 {
@@ -29,7 +29,7 @@ sauceReadFileName(char *fileName)
 	return record;
 }
 
-// Read SAUCE via a FILE pointer.
+/* Read SAUCE via a FILE pointer. */
 sauce *
 sauceReadFile(FILE *file)
 {
