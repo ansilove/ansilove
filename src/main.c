@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
 			font = optarg;
 			for (size_t loop = 0; loop < FONTS; loop++) {
 				if (!strcmp(fonts[loop], font)) {
-					options.font=fontsId[loop];
+					options.font = fontsId[loop];
 					break;
 				}
 			}
@@ -276,13 +276,6 @@ int main(int argc, char *argv[]) {
 			sauce *saucerec = sauceReadFileName(input);
 			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
-
-		// use width from the SAUCE record if present and if -c wasn't specified
-		/*
-		if (!options.columns && fileHasSAUCE && record->tinfo1) {
-			options.columns = record->tinfo1;
-		}
-		*/
 
 		// create the output PNG data by invoking the appropiate function
 		if (!strcmp(fext, ".pcb")) {
