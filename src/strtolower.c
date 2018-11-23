@@ -9,6 +9,7 @@
 //  See the LICENSE file for details.
 //
 
+#include <ctype.h>
 #include "strtolower.h"
 
 char *

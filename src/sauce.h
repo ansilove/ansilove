@@ -10,10 +10,8 @@
 //
 
 #define _XOPEN_SOURCE 700
-#include <stdint.h>
+#include <sys/types.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #ifndef sauce_h
 #define sauce_h

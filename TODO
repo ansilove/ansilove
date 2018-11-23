@@ -1,3 +1,2 @@
 - Import documentation from Ansilove/PHP
 - Display mode information in summary, and DOS aspect if enabled
-- Use include-what-you-use to remove unnecessary headers

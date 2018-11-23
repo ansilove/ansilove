@@ -9,6 +9,9 @@
 //  See the LICENSE file for details.
 //
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "sauce.h"
 
 // Reads SAUCE via a filename.
