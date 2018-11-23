@@ -12,7 +12,8 @@
 #include "sauce.h"
 
 // Reads SAUCE via a filename.
-sauce *sauceReadFileName(char *fileName)
+sauce *
+sauceReadFileName(char *fileName)
 {
 	FILE *file = fopen(fileName, "r");
 	if (file == NULL) {
@@ -25,7 +26,8 @@ sauce *sauceReadFileName(char *fileName)
 }
 
 // Read SAUCE via a FILE pointer.
-sauce *sauceReadFile(FILE *file)
+sauce *
+sauceReadFile(FILE *file)
 {
 	sauce *record;
 	record = malloc(sizeof *record);
@@ -36,7 +38,8 @@ sauce *sauceReadFile(FILE *file)
 	return record;
 }
 
-void readRecord(FILE *file, sauce *record)
+void
+readRecord(FILE *file, sauce *record)
 {
 	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != EXIT_SUCCESS) {
 		free(record);
@@ -91,7 +94,8 @@ void readRecord(FILE *file, sauce *record)
 	}
 }
 
-int readComments(FILE *file, char **comment_lines, int32_t comments)
+int
+readComments(FILE *file, char **comment_lines, int32_t comments)
 {
 	int32_t i;
 

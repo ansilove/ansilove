@@ -11,7 +11,8 @@
 
 #include "strtolower.h"
 
-char *strtolower(char *str)
+char *
+strtolower(char *str)
 {
 	char *p = str;
 

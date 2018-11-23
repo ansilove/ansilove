@@ -37,7 +37,9 @@ static void listExamples(void);
 static void versionInfo(void);
 static void synopsis(void);
 
-static void showHelp(void) {
+static void
+showHelp(void)
+{
 	fprintf(stderr, "\nSUPPORTED FILE TYPES:\n"
 	    "  ANS	PCB	BIN	ADF	IDF	TND	XB\n"
 	    "  Files with custom suffix default to the ANSI renderer.\n\n"
@@ -61,7 +63,9 @@ static void showHelp(void) {
 	    "  <https://github.com/ansilove/ansilove>\n\n");
 }
 
-static void listExamples(void) {
+static void
+listExamples(void)
+{
 	fprintf(stderr, "\nEXAMPLES:\n");
 	fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
 	    "  ansilove -i file.ans (enable iCE colors)\n"
@@ -75,7 +79,9 @@ static void listExamples(void) {
 	    "\n");
 }
 
-static void versionInfo(void) {
+static void
+versionInfo(void)
+{
 	fprintf(stderr, "All rights reserved.\n"
 	    "\nFork me on GitHub: <https://github.com/ansilove/ansilove>\n"
 	    "Bug reports: <https://github.com/ansilove/ansilove/issues>\n\n"
@@ -84,7 +90,9 @@ static void versionInfo(void) {
 }
 
 // following the IEEE Std 1003.1 for utility conventions
-static void synopsis(void) {
+static void
+synopsis(void)
+{
 	fprintf(stderr, "\nSYNOPSIS:\n"
 	    "  ansilove [options] file\n"
 	    "  ansilove -e | -h | -v\n\n"
@@ -108,7 +116,9 @@ static void synopsis(void) {
 	    "\n");
 }
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[])
+{
 	fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n" \
 	    "Copyright (c) 2011-2018 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
 

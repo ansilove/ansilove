@@ -44,9 +44,9 @@ typedef struct {
 	char **comment_lines;
 } sauce;
 
-sauce *sauceReadFileName(char *fileName);
-sauce *sauceReadFile(FILE *file);
-void  readRecord(FILE *file, sauce *record);
-int   readComments(FILE *file, char **comment_lines, int32_t comments);
+sauce	*sauceReadFileName(char *fileName);
+sauce	*sauceReadFile(FILE *file);
+void	 readRecord(FILE *file, sauce *record);
+int	 readComments(FILE *file, char **comment_lines, int32_t comments);
 
 #endif
