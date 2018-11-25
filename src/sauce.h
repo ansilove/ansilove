@@ -10,12 +10,12 @@
  * See LICENSE file for details.
  */
 
+#ifndef SAUCE_H
+#define SAUCE_H
+
 #define _XOPEN_SOURCE 700
 #include <sys/types.h>
 #include <stdio.h>
-
-#ifndef SAUCE_H
-#define SAUCE_H
 
 /* sauce records */
 #define RECORD_SIZE  128
