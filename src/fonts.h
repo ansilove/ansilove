@@ -10,6 +10,9 @@
  * See LICENSE file for details.
  */
 
+#ifndef FONTS_H
+#define FONTS_H
+
 #define FONTS 38
 
 char *fonts[] = {
@@ -93,3 +96,5 @@ int fontsId[] = {
 	ANSILOVE_FONT_TOPAZ500,
 	ANSILOVE_FONT_TOPAZ500_PLUS
 };
+
+#endif /* FONTS_H */
