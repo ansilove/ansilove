@@ -36,7 +36,6 @@
 /* prototypes */
 static void showHelp(void);
 static void listExamples(void);
-static void versionInfo(void);
 static void synopsis(void);
 
 static void
@@ -79,16 +78,6 @@ listExamples(void)
 	    "  ansilove -f amiga file.txt (custom font)\n"
 	    "  ansilove -f 80x50 -b 9 -c 320 -i file.bin (font, bits, columns, icecolors)\n"
 	    "\n");
-}
-
-static void
-versionInfo(void)
-{
-	fprintf(stderr, "All rights reserved.\n"
-	    "\nFork me on GitHub: <https:/*github.com/ansilove/ansilove>\n"
-	    "Bug reports: <https:/*github.com/ansilove/ansilove/issues>\n\n"
-	    "This is free software, released under the 2-Clause BSD license.\n"
-	    "<https:/*github.com/ansilove/ansilove/blob/master/LICENSE>\n\n");
 }
 
 /* following the IEEE Std 1003.1 for utility conventions */
@@ -223,7 +212,6 @@ main(int argc, char *argv[])
 			justDisplaySAUCE = true;
 			break;
 		case 'v':
-			versionInfo();
 			return EXIT_SUCCESS;
 		}
 	}
