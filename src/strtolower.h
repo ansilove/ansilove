@@ -10,11 +10,11 @@
  * See LICENSE file for details.
  */
 
-#ifndef strtolower_h
-#define strtolower_h
+#ifndef STRTOLOWER_H
+#define STRTOLOWER_H
 
 /* In-place modification of a string to be all lower case. */
 
 char	*strtolower(char *str);
 
-#endif
+#endif /* STRTOLOWER_H */

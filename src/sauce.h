@@ -14,8 +14,8 @@
 #include <sys/types.h>
 #include <stdio.h>
 
-#ifndef sauce_h
-#define sauce_h
+#ifndef SAUCE_H
+#define SAUCE_H
 
 /* sauce records */
 #define RECORD_SIZE  128
@@ -48,4 +48,4 @@ sauce	*sauceReadFile(FILE *file);
 void	 readRecord(FILE *file, sauce *record);
 int	 readComments(FILE *file, char **comment_lines, int32_t comments);
 
-#endif
+#endif /* SAUCE_H */

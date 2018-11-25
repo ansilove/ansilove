@@ -10,12 +10,12 @@
  * See LICENSE file for details.
  */
 
-#ifndef config_h
-#define config_h
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <stdint.h>
 
 /* configuration defines */
 #define VERSION "3.0.9"
 
-#endif
+#endif /* CONFIG_H */
