@@ -34,35 +34,8 @@
 #include "strtolower.h"
 
 /* prototypes */
-static void showHelp(void);
 static void listExamples(void);
 static void synopsis(void);
-
-static void
-showHelp(void)
-{
-	fprintf(stderr, "\nSUPPORTED FILE TYPES:\n"
-	    "  ANS	PCB	BIN	ADF	IDF	TND	XB\n"
-	    "  Files with custom suffix default to the ANSI renderer.\n\n"
-	    "PC FONTS:\n"
-	    "  80x25				  icelandic\n"
-	    "  80x50				  latin1\n"
-	    "  baltic				 latin2\n"
-	    "  cyrillic			  nordic\n"
-	    "  french-canadian	 portuguese\n"
-	    "  greek				  russian\n"
-	    "  greek-869			 terminus\n"
-	    "  hebrew				 turkish\n\n"
-	    "AMIGA FONTS:\n"
-	    "  amiga				  topaz\n"
-	    "  microknight		  topaz+\n"
-	    "  microknight+		 topaz500\n"
-	    "  mosoul				 topaz500+\n"
-	    "  pot-noodle\n\n"
-	    "DOCUMENTATION:\n"
-	    "  Detailed help is available at the AnsiLove/C repository on GitHub.\n"
-	    "  <https:/*github.com/ansilove/ansilove>\n\n");
-}
 
 static void
 listExamples(void)
@@ -178,7 +151,7 @@ main(int argc, char *argv[])
 			}
 			break;
 		case 'h':
-			showHelp();
+			synopsis();
 			return EXIT_SUCCESS;
 		case 'i':
 			options.icecolors = true;
