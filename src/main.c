@@ -89,7 +89,10 @@ main(int argc, char *argv[])
 
 	const char *errstr;
 
-	ansilove_init(&ctx, &options);
+	if (ansilove_init(&ctx, &options) == -1) {
+		fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
+		return EXIT_FAILURE;
+	}
 
 	if (pledge("stdio cpath rpath wpath", NULL) == -1) {
 		err(EXIT_FAILURE, "pledge");
@@ -221,7 +224,10 @@ main(int argc, char *argv[])
 		if (!strcmp(fext, ".diz"))
 			options.diz = true;
 
-		ansilove_loadfile(&ctx, input);
+		if (ansilove_loadfile(&ctx, input) == -1) {
+			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
+			return EXIT_FAILURE;
+		}
 
 		/* adjust the file size if file contains a SAUCE record */
 		if (fileHasSAUCE) {
@@ -251,7 +257,10 @@ main(int argc, char *argv[])
 		}
 
 		/* create the output file */
-		ansilove_savefile(&ctx, fileName);
+		if (ansilove_savefile(&ctx, fileName) == -1) {
+			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
+			return EXIT_FAILURE;
+		}
 
 		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
