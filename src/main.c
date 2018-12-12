@@ -34,24 +34,7 @@
 #include "strtolower.h"
 
 /* prototypes */
-static void listExamples(void);
 static void synopsis(void);
-
-static void
-listExamples(void)
-{
-	fprintf(stderr, "\nEXAMPLES:\n");
-	fprintf(stderr, "  ansilove file.ans (output path/name identical to input, no options)\n"
-	    "  ansilove -i file.ans (enable iCE colors)\n"
-	    "  ansilove -r file.ans (adds Retina @2x output file)\n"
-	    "  ansilove -R 3 file.ans (adds Retina @3x output file)\n"
-	    "  ansilove -o dir/file.png file.ans (custom path/name for output)\n"
-	    "  ansilove -s file.bin (just display SAUCE record, don't generate output)\n"
-	    "  ansilove -m transparent file.ans (render with transparent background)\n"
-	    "  ansilove -f amiga file.txt (custom font)\n"
-	    "  ansilove -f 80x50 -b 9 -c 320 -i file.bin (font, bits, columns, icecolors)\n"
-	    "\n");
-}
 
 /* following the IEEE Std 1003.1 for utility conventions */
 static void
@@ -64,7 +47,6 @@ synopsis(void)
 	    "  -b bits	  set to 9 to render 9th column of block characters (default: 8)\n"
 	    "  -c columns  adjust number of columns for BIN files (default: 160)\n"
 	    "  -d			 use DOS aspect ratio\n"
-	    "  -e			 print a list of examples\n"
 	    "  -f font	  select font (default: 80x25)\n"
 	    "  -h			 show help\n"
 	    "  -i			 enable iCE colors\n"
@@ -138,9 +120,6 @@ main(int argc, char *argv[])
 		case 'd':
 			options.dos = true;
 			break;
-		case 'e':
-			listExamples();
-			return EXIT_SUCCESS;
 		case 'f':
 			font = optarg;
 			for (size_t loop = 0; loop < FONTS; loop++) {
