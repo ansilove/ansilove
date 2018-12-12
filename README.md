@@ -107,7 +107,6 @@ Even more:
 
        -b bits     set to 9 to render 9th column of block characters (default: 8)
        -c columns  adjust number of columns for BIN files (default: 160)
-       -e          print a list of examples
        -d          enable DOS aspect ratio
        -f font     select font (default: 80x25)
        -h          show help
