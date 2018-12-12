@@ -46,7 +46,7 @@ synopsis(void)
 	    "OPTIONS:\n"
 	    "  -b bits	  set to 9 to render 9th column of block characters (default: 8)\n"
 	    "  -c columns  adjust number of columns for BIN files (default: 160)\n"
-	    "  -d			 use DOS aspect ratio\n"
+	    "  -d			 enable DOS aspect ratio\n"
 	    "  -f font	  select font (default: 80x25)\n"
 	    "  -h			 show help\n"
 	    "  -i			 enable iCE colors\n"
