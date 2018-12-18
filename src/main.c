@@ -235,26 +235,30 @@ main(int argc, char *argv[])
 			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
 		}
 
+		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
+
 		/* create the output PNG data by invoking the appropiate function */
 		if (!strcmp(fext, ".pcb")) {
-			ansilove_pcboard(&ctx, &options);
+			loader = ansilove_pcboard;
 			fileIsPCBoard = true;
 		} else if (!strcmp(fext, ".bin")) {
-			ansilove_binary(&ctx, &options);
+			loader = ansilove_binary;
 			fileIsBinary = true;
 		} else if (!strcmp(fext, ".adf")) {
-			ansilove_artworx(&ctx, &options);
+			loader = ansilove_artworx;
 		} else if (!strcmp(fext, ".idf")) {
-			ansilove_icedraw(&ctx, &options);
+			loader = ansilove_icedraw;
 		} else if (!strcmp(fext, ".tnd")) {
-			ansilove_tundra(&ctx, &options);
+			loader = ansilove_tundra;
 			fileIsTundra = true;
 		} else if (!strcmp(fext, ".xb")) {
-			ansilove_xbin(&ctx, &options);
+			loader = ansilove_xbin;
 		} else {
-			ansilove_ansi(&ctx, &options);
+			loader = ansilove_ansi;
 			fileIsANSi = true;
 		}
+
+		loader(&ctx, &options);
 
 		/* create the output file */
 		if (ansilove_savefile(&ctx, fileName) == -1) {
