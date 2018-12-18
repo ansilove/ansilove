@@ -258,7 +258,10 @@ main(int argc, char *argv[])
 			fileIsANSi = true;
 		}
 
-		loader(&ctx, &options);
+		if (loader(&ctx, &options) == -1) {
+			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
+			return EXIT_FAILURE;
+		}
 
 		/* create the output file */
 		if (ansilove_savefile(&ctx, fileName) == -1) {
