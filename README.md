@@ -46,8 +46,10 @@ For now, `libansilove` has to be installed manually.
 
 # Compiling
 
-    cmake .
-    make
+	mkdir build
+	cd build
+	cmake ..
+	make
 
 # Installation
 
