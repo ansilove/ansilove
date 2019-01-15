@@ -40,26 +40,9 @@ static void synopsis(void);
 static void
 synopsis(void)
 {
-	fprintf(stderr, "\nSYNOPSIS:\n"
-	    "  ansilove [options] file\n"
-	    "  ansilove -e | -h | -v\n\n"
-	    "OPTIONS:\n"
-	    "  -b bits	  set to 9 to render 9th column of block characters (default: 8)\n"
-	    "  -c columns  adjust number of columns for BIN files (default: 160)\n"
-	    "  -d			 enable DOS aspect ratio\n"
-	    "  -f font	  select font (default: 80x25)\n"
-	    "  -h			 show help\n"
-	    "  -i			 enable iCE colors\n"
-	    "  -m mode	  set rendering mode for ANS files:\n"
-	    "					 ced				black on gray, with 78 columns\n"
-	    "					 transparent	 render with transparent background\n"
-	    "					 workbench		use Amiga Workbench palette\n"
-	    "  -o file	  specify output filename/path\n"
-	    "  -r			 creates Retina @2x output file\n"
-	    "  -R factor	creates Retina output file with custom scale factor\n"
-	    "  -s			 show SAUCE record without generating output\n"
-	    "  -v			 show version information\n"
-	    "\n");
+	fprintf(stderr, "\nSYNOPSIS\n"
+	    "     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]\n"
+	    "              [-R factor] file\n\n");
 }
 
 int
