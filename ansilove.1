@@ -144,6 +144,35 @@ Show SAUCE record without generating output
 .It Fl v
 Show version information
 .El
+.Sh EXAMPLES
+To render a file with iCE colors enabled:
+.Pp
+.Dl $ ansilove -i file.ans
+.Pp
+To create a Retina @2x output file:
+.Pp
+.Dl $ ansilove -r file.ans
+.Pp
+To creates a Retina output file with a custom scale factor:
+.Pp
+.Dl $ ansilove -R 3 file.ans
+.Pp
+To only display SAUCE record without generating output:
+.Pp
+.Dl $ ansilove -s file.ans
+To render a file with transparent background:
+.Pp
+.Dl $ ansilove -m transparent file.ans
+.Pp
+To render a file using a custom font:
+.Pp
+.Dl $ ansilove -f amiga file.txt
+.Pp
+To render a file using a custom font, rendering the 9th column, enabling
+iCE colors, and using DOS aspect ratio:
+.Pp
+.Dl $ ansilove -f 80x50 -b 9 -d -i file.ans
+.Pp
 .Sh AUTHORS
 .An -nosplit
 .Nm
