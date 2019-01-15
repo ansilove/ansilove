@@ -18,7 +18,7 @@ find_path(ANSILOVE_INCLUDE_DIRS ansilove.h)
 find_library(ANSILOVE_LIBRARIES NAMES ansilove REQUIRED)
 include_directories(${ANSILOVE_INCLUDE_DIRS})
 
-set(SRC src/main.c src/strtolower.c src/sauce.c)
+set(SRC src/ansilove.c src/strtolower.c src/sauce.c)
 
 if(NOT HAVE_PLEDGE)
   set (SRC ${SRC} compat/pledge.c)

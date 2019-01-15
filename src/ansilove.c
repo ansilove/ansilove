@@ -1,5 +1,5 @@
 /*
- * main.c
+ * ansilove.c
  * Ansilove 4.0.0
  * https://www.ansilove.org
  *
