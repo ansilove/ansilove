@@ -1,4 +1,4 @@
-AnsiLove/C 4.0.0 (2018-11-??)
+AnsiLove/C 4.0.0 (2019-01-??)
 
 - Switch to using libansilove
 - Add a new switch (-d) to toggle DOS aspect ratio
@@ -12,6 +12,14 @@ AnsiLove/C 4.0.0 (2018-11-??)
 - Bugfixes and improvements in the SAUCE parser
 - Refactor font selection processing
 - Refactor rendering mode processing
+- Use OpenBSD style(9) for function prototypes and declaration
+- Add missing headers and remove unnecessary ones
+- Remove versionInfo(), simply print the header with version information
+  when invoked with -v
+- Remove showHelp(), show synopsis instead when invoked with -h
+- Add a new example ANSi (Thanks Nail)
+- Remove -e switch, examples are now listed in the man page instead
+- Make synopsis() only display SYNOPSIS, as it should be.
 
 
 
