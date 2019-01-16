@@ -102,28 +102,49 @@ Even more:
 
 ## Synopsis
 
-       ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
-                [-R factor] file
+```
+     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
+              [-R factor] file
+```
 
 ## Options
 
-       -b bits     set to 9 to render 9th column of block characters (default: 8)
-       -c columns  adjust number of columns for BIN files (default: 160)
-       -d          enable DOS aspect ratio
-       -f font     select font (default: 80x25)
-       -h          show help
-       -i          enable iCE colors
-       -m mode     set rendering mode for ANS files:
-                     ced            black on gray, with 78 columns
-                     transparent    render with transparent background
-                     workbench      use Amiga Workbench palette
-       -o file     specify output filename/path
-       -r          creates Retina @2x output file
-       -R factor   creates Retina output file with custom scale
-       -s          show SAUCE record without generating output
-       -v          show version information
+```
+     -b bits     Set to 9 to render 9th column of block characters (default:
+                 8).
 
-There are certain cases where you need to set options for proper rendering. However, this is occasionally. Results turn out well with the built-in defaults. You may launch AnsiLove with the option `-e` to get a list of basic examples. Note that columns is restricted to `BIN` files, it won't affect other file types.
+     -c columns  Adjust number of columns for ANSI, BIN, and TND files.
+
+     -d          Enable DOS aspect ratio.
+
+     -f font     Select font for supported formats.
+
+     -h          Show help.
+
+     -i          Enable iCE colors.
+
+     -m mode     Set rendering mode for ANS files. Valid options are:
+
+                 ced     Black on gray, with 78 columns.
+
+                 transparent
+                         Render with transparent background.
+
+                 workbench
+                         Use Amiga Workbench palette.
+
+     -o file     Specify output filename/path.
+
+     -r          Creates Retina @2x output file.
+
+     -R factor   Creates Retina output file with custom scale factor.
+
+     -s          Show SAUCE record without generating output.
+
+     -v          Show version information.
+```
+
+There are certain cases where you need to set options for proper rendering. However, this is occasionally. Results turn out well with the built-in defaults.
 
 ## Fonts
 
