@@ -15,6 +15,6 @@
 
 /* In-place modification of a string to be all lower case. */
 
-char	*strtolower(char *str);
+char	*strtolower(char *);
 
 #endif /* STRTOLOWER_H */
