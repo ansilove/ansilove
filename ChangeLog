@@ -1,4 +1,4 @@
-AnsiLove/C 4.0.0 (2019-01-??)
+AnsiLove/C 4.0.0 (2019-01-16)
 
 - Switch to using libansilove
 - Add a new switch (-d) to toggle DOS aspect ratio
@@ -20,6 +20,10 @@ AnsiLove/C 4.0.0 (2019-01-??)
 - Add a new example ANSi (Thanks Nail)
 - Remove -e switch, examples are now listed in the man page instead
 - Make synopsis() only display SYNOPSIS, as it should be.
+- Add an EXAMPLES section in ansilove.1
+- PC fonts for code pages other than cp437 are now named using the cpNNN
+  scheme. Albeit not documented anymore, the previously used names will
+  keep working
 
 
 
