@@ -152,22 +152,22 @@ We dumped many fonts as binary data right into AnsiLove/C, so the most popular t
 
 PC fonts can be (all case-sensitive):
 
-- `80x25` (code page 437)
-- `80x50` (code page 437, 80x50 mode)
-- `baltic` (code page 775)
-- `cyrillic` (code page 855)
-- `french-canadian` (code page 863)
-- `greek` (code page 737)
-- `greek-869` (code page 869)
-- `hebrew` (code page 862)
-- `icelandic` (Code page 861)
-- `latin1` (code page 850)
-- `latin2` (code page 852)
-- `nordic` (code page 865)
-- `portuguese` (Code page 860)
-- `russian` (code page 866)
-- `terminus` (modern font, code page 437)
-- `turkish` (code page 857)
+- `80x25` Default (Code page 437)
+- `80x50` 80x50 mode (Code page 437)
+- `cp737` Greek (Code page 737)
+- `cp775` Baltic (Code page 775)
+- `cp850` Latin1 (Code page 850)
+- `cp852` Latin2 (Code page 852)
+- `cp855` Cyrillic (Code page 855)
+- `cp857` Turkish (Code page 857)
+- `cp860` Portuguese (Code page 860)
+- `cp861` Icelandic (Code page 861)
+- `cp862` Hebrew (Code page 862)
+- `cp863` French Canadian (Code page 863)
+- `cp865` Nordic (Code page 865)
+- `cp866` Russian (Code page 866)
+- `cp869` Greek (Code page 869)
+- `terminus` Terminus (Modern font, code page 437)
 
 AMIGA fonts can be (all case-sensitive):
 
