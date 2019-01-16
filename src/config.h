@@ -16,6 +16,6 @@
 #include <stdint.h>
 
 /* configuration defines */
-#define VERSION "3.0.9"
+#define VERSION "4.0.0"
 
 #endif /* CONFIG_H */
