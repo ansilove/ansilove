@@ -10,6 +10,8 @@
  * See LICENSE file for details.
  */
 
+#define _XOPEN_SOURCE 700
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
