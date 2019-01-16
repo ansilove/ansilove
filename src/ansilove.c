@@ -81,7 +81,7 @@ main(int argc, char *argv[])
 		err(EXIT_FAILURE, "pledge");
 	}
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:def:him:o:rR:sv")) != -1) {
+	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:rR:sv")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
 			/* convert numeric command line flags to integer values */
