@@ -135,9 +135,9 @@ Even more:
 
      -o file     Specify output filename/path.
 
-     -r          Creates Retina @2x output file.
+     -r          Create Retina @2x output file.
 
-     -R factor   Creates Retina output file with custom scale factor.
+     -R factor   Create Retina output file with custom scale factor.
 
      -s          Show SAUCE record without generating output.
 
