@@ -190,11 +190,6 @@ main(int argc, char *argv[])
 			fileName = output;
 		}
 
-		/* default to 80x25 font if font option is not specified */
-		if (!font) {
-			font = "80x25";
-		}
-
 		/* display name of input and output files */
 		fprintf(stderr, "\nInput File: %s\n", input);
 		fprintf(stderr, "Output File: %s\n", fileName);
@@ -255,7 +250,7 @@ main(int argc, char *argv[])
 		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
-			fprintf(stderr, "Font: %s\n", font);
+			fprintf(stderr, "Font: %s\n", font ? font : "80x25");
 
 			fprintf(stderr, "Bits: %d\n", options.bits);
 		}
