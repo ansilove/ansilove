@@ -17,13 +17,14 @@ script: cmake . && make
 
 env:
   global:
-   - secure: "Ahg+dD6BwZqYTl+xTbNqBBr6Qoh7jQswegP77gxfk09UbcLSTpTQcvCLzJtumCajWXTe5HD3lD1xBghxRPNwD/+JRg25AzUeowPvBQkosDZyxMZyeQQEGPVMoD9UbnGaWhxIxYaQ7bxVCu2CJ2PcibsJ3kselnqSicEnw99TXjU="
+    # travis encrypt -r ansilove/ansilove encrypt COVERITY_SCAN_TOKEN=token
+    - secure: "Ahg+dD6BwZqYTl+xTbNqBBr6Qoh7jQswegP77gxfk09UbcLSTpTQcvCLzJtumCajWXTe5HD3lD1xBghxRPNwD/+JRg25AzUeowPvBQkosDZyxMZyeQQEGPVMoD9UbnGaWhxIxYaQ7bxVCu2CJ2PcibsJ3kselnqSicEnw99TXjU="
 
 addons:
   coverity_scan:
     project:
       name: "ansilove/ansilove"
-      version: 3.0.6
+      version: 4.0.0
       description: "ANSi / ASCII art to PNG converter in C"
     notification_email: fred@statdns.com
     build_command_prepend: cmake .
