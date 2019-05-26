@@ -215,7 +215,7 @@ main(int argc, char *argv[])
 
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
 
-		/* create the output PNG data by invoking the appropiate function */
+		/* create the output PNG data by invoking the appropriate function */
 		if (!strcmp(fext, ".pcb")) {
 			loader = ansilove_pcboard;
 			fileIsPCBoard = true;
