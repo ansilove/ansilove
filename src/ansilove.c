@@ -264,8 +264,6 @@ main(int argc, char *argv[])
 		if (options.scale_factor) {
 			fprintf(stderr, "Scale factor: %d\n", options.scale_factor);
 		}
-
-		/* TODO: munmap, with original ctxSize */
 	}
 
 	/* either display SAUCE or tell us if there is no record */
