@@ -196,10 +196,10 @@ main(int argc, char *argv[])
 
 		/* get file extension */
 		char *fext = strrchr(input, '.');
-		fext = fext ? strtolower(strdup(fext)) : "";
+		fext = fext ? strtolower(strdup(++fext)) : "";
 
 		/* check if current file has a .diz extension */
-		if (!strcmp(fext, ".diz"))
+		if (!strcmp(fext, "diz"))
 			options.diz = true;
 
 		if (ansilove_loadfile(&ctx, input) == -1) {
@@ -216,20 +216,20 @@ main(int argc, char *argv[])
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
 
 		/* create the output PNG data by invoking the appropriate function */
-		if (!strcmp(fext, ".pcb")) {
+		if (!strcmp(fext, "pcb")) {
 			loader = ansilove_pcboard;
 			fileIsPCBoard = true;
-		} else if (!strcmp(fext, ".bin")) {
+		} else if (!strcmp(fext, "bin")) {
 			loader = ansilove_binary;
 			fileIsBinary = true;
-		} else if (!strcmp(fext, ".adf")) {
+		} else if (!strcmp(fext, "adf")) {
 			loader = ansilove_artworx;
-		} else if (!strcmp(fext, ".idf")) {
+		} else if (!strcmp(fext, "idf")) {
 			loader = ansilove_icedraw;
-		} else if (!strcmp(fext, ".tnd")) {
+		} else if (!strcmp(fext, "tnd")) {
 			loader = ansilove_tundra;
 			fileIsTundra = true;
-		} else if (!strcmp(fext, ".xb")) {
+		} else if (!strcmp(fext, "xb")) {
 			loader = ansilove_xbin;
 		} else {
 			loader = ansilove_ansi;
