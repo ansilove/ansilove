@@ -277,19 +277,19 @@ main(int argc, char *argv[])
 		fprintf(stderr, "Date: %s\n", record->date);
 		fprintf(stderr, "Datatype: %d\n", record->dataType);
 		fprintf(stderr, "Filetype: %d\n", record->fileType);
-		if (record->flags != 0) {
+		if (record->flags) {
 			fprintf(stderr, "Flags: %d\n", record->flags);
 		}
-		if (record->tinfo1 != 0) {
+		if (record->tinfo1) {
 			fprintf(stderr, "Tinfo1: %d\n", record->tinfo1);
 		}
-		if (record->tinfo2 != 0) {
+		if (record->tinfo2) {
 			fprintf(stderr, "Tinfo2: %d\n", record->tinfo2);
 		}
-		if (record->tinfo3 != 0) {
+		if (record->tinfo3) {
 			fprintf(stderr, "Tinfo3: %d\n", record->tinfo3);
 		}
-		if (record->tinfo4 != 0) {
+		if (record->tinfo4) {
 			fprintf(stderr, "Tinfo4: %d\n", record->tinfo4);
 		}
 		fprintf(stderr, "Tinfos: %s\n", record->tinfos);
