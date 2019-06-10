@@ -254,16 +254,15 @@ main(int argc, char *argv[])
 
 			fprintf(stderr, "Bits: %d\n", options.bits);
 		}
-		if (options.icecolors && (fileIsANSi || fileIsBinary)) {
-			fprintf(stderr, "iCE Colors: enabled\n");
-		}
-		if (fileIsANSi || fileIsBinary || fileIsTundra) {
-			fprintf(stderr, "Columns: %d\n", options.columns);
-		}
 
-		if (options.scale_factor) {
+		if (options.icecolors && (fileIsANSi || fileIsBinary))
+			fprintf(stderr, "iCE Colors: enabled\n");
+
+		if (fileIsANSi || fileIsBinary || fileIsTundra)
+			fprintf(stderr, "Columns: %d\n", options.columns);
+
+		if (options.scale_factor)
 			fprintf(stderr, "Scale factor: %d\n", options.scale_factor);
-		}
 	}
 
 	/* either display SAUCE or tell us if there is no record */
