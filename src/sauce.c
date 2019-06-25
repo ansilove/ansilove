@@ -91,7 +91,7 @@ readRecord(FILE *file, sauce *record)
 		record->comment_lines = malloc(record->comments *sizeof (*record->comment_lines));
 
 		if (record->comment_lines != NULL) {
-			if (readComments(file, record->comment_lines, record->comments != 0)) {
+			if (readComments(file, record->comment_lines, record->comments) == -1) {
 				record->comments = 0;
 			}
 		} else {
