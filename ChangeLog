@@ -1,3 +1,12 @@
+AnsiLove/C 4.0.1 (2019-06-25)
+
+- Fix a few typos in README and ansilove.1
+- Simplify display of default font when no font option is specified
+- Drop the leading dot when saving input file extension
+- Fix the check for readComments() return value
+
+
+
 AnsiLove/C 4.0.0 (2019-01-16)
 
 - Switch to using libansilove
