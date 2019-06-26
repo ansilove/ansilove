@@ -105,7 +105,7 @@ Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capabable of processing:
 
-- SAUCE records
+- [SAUCE][5] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -257,8 +257,8 @@ output, just set option `-s` for this purpose.
 
 # Who pulls the strings
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][5]), Brian Cassidy
-([@bricas][6]) and Frederic Cambus ([@fcambus][7]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][6]), Brian Cassidy
+([@bricas][7]) and Frederic Cambus ([@fcambus][8]).
 
 # License
 
@@ -273,6 +273,7 @@ GitHub: https://github.com/ansilove/ansilove
 [2]: https://travis-ci.org/ansilove/ansilove
 [3]: https://www.ansilove.org
 [4]: https://github.com/ansilove/libansilove
-[5]: https://github.com/ByteProject
-[6]: https://github.com/bricas
-[7]: https://github.com/fcambus
+[5]: http://www.acid.org/info/sauce/sauce.htm
+[6]: https://github.com/ByteProject
+[7]: https://github.com/bricas
+[8]: https://github.com/fcambus
