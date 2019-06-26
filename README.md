@@ -1,36 +1,53 @@
-	         _______         ___________          ___
-	       __\___   \_  ____/     /\   /______ ___\_/__            /\
-	      /    \|     \/  _ \    /--\_____    \\   /  /\          /  \
-	    _/      |     /    \     \      |/     /      \ \ _ _____/    \_______
-	    \       |_____\____/     /      /      \____  /\/                    /
-	     \______|      \  \_____/\______       /\   \/  \   /\NSILOVE / C   /____ _
-	      \     |_______\__\___ \ \    \      /  \___\__/____
-	       \____|        /____/\_\/\__ /     / __/___ \     /\    ____
-	                     \    \ \     /     /_/ __   \/    /__\__/  _/ _____ ___
-	                 /\   \____\/    /     //   \    /    /    /    _>/    //__/\
-	                /  \           _/      \   //   /    /    /     \/    / \__\/
-	_ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
-	           \  /                 \ \___/\       \_______/\\  \  \______/\/
-	            \/                   \_\  \ \_______\      \ \\/ \__\     \ \
-	                                    \__\/        \______\/ h7/dS!\_____\/
+```
+         _______         ___________          ___
+       __\___   \_  ____/     /\   /______ ___\_/__            /\
+      /    \|     \/  _ \    /--\_____    \\   /  /\          /  \
+    _/      |     /    \     \      |/     /      \ \ _ _____/    \_______
+    \       |_____\____/     /      /      \____  /\/                    /
+     \______|      \  \_____/\______       /\   \/  \   /\NSILOVE / C   /____ _
+      \     |_______\__\___ \ \    \      /  \___\__/____
+       \____|        /____/\_\/\__ /     / __/___ \     /\    ____
+                     \    \ \     /     /_/ __   \/    /__\__/  _/ _____ ___
+                 /\   \____\/    /     //   \    /    /    /    _>/    //__/\
+                /  \           _/      \   //   /    /    /     \/    / \__\/
+_ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
+           \  /                 \ \___/\       \_______/\\  \  \______/\/
+            \/                   \_\  \ \_______\      \ \\/ \__\     \ \
+                                    \__\/        \______\/ h7/dS!\_____\/
+```
 
 # AnsiLove/C
 
 [![Build Status][1]][2]
 
-This is a complete rewrite of [AnsiLove/PHP][3] in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `4.0.1`.
+This is a complete rewrite of [AnsiLove/PHP][3] in the C programming
+language. It converts ANSi and artscene related file formats into
+PNG images. The project is considered as stable, current version
+is `4.0.1`.
 
 # Specs
 
-AnsiLove/C is strictly using the `C99 standard` to achieve high portability to all major operating systems. Supported compilers are `GCC` and `Clang`, others may work but aren't tested. We use Linux and OpenBSD for AnsiLove/C development.
+AnsiLove/C is strictly using the `C99 standard` to achieve high
+portability to all major operating systems. Supported compilers are
+`GCC` and `Clang`, others may work but aren't tested. We use Linux
+and OpenBSD for AnsiLove/C development.
 
 # Why C?
 
-There were many reasons, most notably PHP interpreter independence and performance. A solid C foundation is just perfect for creating libraries and it can easily be embedded into applications. We already mentioned portability. What else? We wanted evolution. AnsiLove/C should not be understood as a port. It takes many different approaches (like processing binary font dumps or generating @2x Retina images), it is overall improved and introduces new features. While results tend to be the same, the codebase does not have much in common with it's ancestor.
+There were many reasons, most notably PHP interpreter independence
+and performance. A solid C foundation is just perfect for creating
+libraries and it can easily be embedded into applications. We already
+mentioned portability. What else? We wanted evolution. AnsiLove/C
+should not be understood as a port. It takes many different approaches
+(like processing binary font dumps or generating @2x Retina images),
+it is overall improved and introduces new features. While results
+tend to be the same, the codebase does not have much in common with
+it's ancestor.
 
 # Dependencies
 
-AnsiLove/C uses the `CMake` build system and requires the [libansilove][4] library and header files.
+AnsiLove/C uses the `CMake` build system and requires the
+[libansilove][4] library and header files.
 
 # Installing dependencies
 
@@ -81,7 +98,8 @@ The following formats are supported:
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
 - .TND - TundraDraw format, supporting 24-bit color mode
-- .XB - The eXtended Binary XBin format, supporting custom character sets and palettes
+- .XB - The eXtended Binary XBin format, supporting custom character sets
+  and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
@@ -144,11 +162,15 @@ Even more:
      -v          Show version information.
 ```
 
-There are certain cases where you need to set options for proper rendering. However, this is occasionally. Results turn out well with the built-in defaults.
+There are certain cases where you need to set options for proper
+rendering. However, this is occasionally. Results turn out well
+with the built-in defaults.
 
 ## Fonts
 
-We dumped many fonts as binary data right into AnsiLove/C, so the most popular typefaces for rendering ANSi / ASCII art are available at your fingertips.
+We dumped many fonts as binary data right into AnsiLove/C, so the
+most popular typefaces for rendering ANSi / ASCII art are available
+at your fingertips.
 
 PC fonts can be (all case-sensitive):
 
@@ -188,7 +210,8 @@ AMIGA fonts can be (all case-sensitive):
 - `8` (8-bit)
 - `9` (9-bit)
 
-Setting the bits to `9` will render the 9th column of block characters, so the output will look like it is displayed in real textmode.
+Setting the bits to `9` will render the 9th column of block characters,
+so the output will look like it is displayed in real textmode.
 
 ## Rendering Mode
 
@@ -198,33 +221,49 @@ Setting the bits to `9` will render the 9th column of block characters, so the o
 - `transparent`
 - `workbench`
 
-Setting the mode to `ced` will cause the input file to be rendered in black on gray, and limit the output to 78 columns (only available for `ANS` files). Used together with an Amiga font, the output will look like it is displayed on Amiga.
+Setting the mode to `ced` will cause the input file to be rendered
+in black on gray, and limit the output to 78 columns (only available
+for `ANS` files). Used together with an Amiga font, the output will
+look like it is displayed on Amiga.
 
-Setting the mode to `workbench` will cause the input file to be rendered using Amiga Workbench colors (only available for `ANS` files).
+Setting the mode to `workbench` will cause the input file to be
+rendered using Amiga Workbench colors (only available for `ANS`
+files).
 
-Settings the mode to `transparent` will produce output files with transparent background (only available for `ANS` files).
+Settings the mode to `transparent` will produce output files with
+transparent background (only available for `ANS` files).
 
 ## iCE Colors
 
-iCE colors are disabled by default, and can be enabled by specifying the `-i` option.
+iCE colors are disabled by default, and can be enabled by specifying
+the `-i` option.
 
-When an ANSi source was created using iCE colors, it was done with a special mode where the blinking was disabled, and you had 16 background colors available. Basically, you had the same choice for background colors as for foreground colors, that's iCE colors.
+When an ANSi source was created using iCE colors, it was done with
+a special mode where the blinking was disabled, and you had 16
+background colors available. Basically, you had the same choice for
+background colors as for foreground colors, that's iCE colors.
 
 ## Columns
 
-`columns` is only relevant for .ANS, .BIN, and .TND files, and is optional. In most cases conversion will work fine if you don't set this flag, the default value is `160` for .BIN files and `80` otherwise.
+`columns` is only relevant for .ANS, .BIN, and .TND files, and is
+optional. In most cases conversion will work fine if you don't set
+this flag, the default value is `160` for .BIN files and `80`
+otherwise.
 
 ## SAUCE records
 
-It's fine to use AnsiLove/C as SAUCE reader without generating any output, just set option `-s` for this purpose.
+It's fine to use AnsiLove/C as SAUCE reader without generating any
+output, just set option `-s` for this purpose.
 
 # Who pulls the strings
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][5]), Brian Cassidy ([@bricas][6]) and Frederic Cambus ([@fcambus][7]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][5]), Brian Cassidy
+([@bricas][6]) and Frederic Cambus ([@fcambus][7]).
 
 # License
 
-AnsiLove/C is released under the BSD 2-Clause License. See the file `LICENSE` for details.
+AnsiLove/C is released under the BSD 2-Clause License. See the
+`LICENSE` file for details.
 
 # Resources
 
