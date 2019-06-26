@@ -18,7 +18,7 @@
 
 [![Build Status][1]][2]
 
-This is a complete rewrite of [AnsiLove/PHP](https://www.ansilove.org) in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `4.0.1`.
+This is a complete rewrite of [AnsiLove/PHP][3] in the C programming language. It converts ANSi and artscene related file formats into PNG images. The project is considered as stable, current version is `4.0.1`.
 
 # Specs
 
@@ -30,7 +30,7 @@ There were many reasons, most notably PHP interpreter independence and performan
 
 # Dependencies
 
-AnsiLove/C uses the `CMake` build system and requires the [libansilove](https://github.com/ansilove/libansilove) library and header files.
+AnsiLove/C uses the `CMake` build system and requires the [libansilove][4] library and header files.
 
 # Installing dependencies
 
@@ -220,7 +220,7 @@ It's fine to use AnsiLove/C as SAUCE reader without generating any output, just 
 
 # Who pulls the strings
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject](https://github.com/ByteProject)), Brian Cassidy ([@bricas](https://github.com/bricas)) and Frederic Cambus ([@fcambus](https://github.com/fcambus)).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][5]), Brian Cassidy ([@bricas][6]) and Frederic Cambus ([@fcambus][7]).
 
 # License
 
@@ -232,3 +232,8 @@ GitHub: https://github.com/ansilove/ansilove
 
 [1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
 [2]: https://travis-ci.org/ansilove/ansilove
+[3]: https://www.ansilove.org
+[4]: https://github.com/ansilove/libansilove
+[5]: https://github.com/ByteProject
+[6]: https://github.com/bricas
+[7]: https://github.com/fcambus
