@@ -1,6 +1,6 @@
 /*
  * config.h
- * Ansilove 4.0.1
+ * Ansilove 4.0.2
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and Frederic Cambus
@@ -16,6 +16,6 @@
 #include <stdint.h>
 
 /* configuration defines */
-#define VERSION "4.0.1"
+#define VERSION "4.0.2"
 
 #endif /* CONFIG_H */
