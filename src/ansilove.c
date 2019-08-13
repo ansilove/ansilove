@@ -41,15 +41,17 @@ static void
 synopsis(void)
 {
 	fprintf(stderr, "\nSYNOPSIS\n"
-	    "     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]\n"
+	    "     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode]"
+	    " [-o file]\n"
 	    "              [-R factor] file\n\n");
 }
 
 int
 main(int argc, char *argv[])
 {
-	fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n" \
-	    "Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and Frederic Cambus.\n", VERSION);
+	fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"
+	    "Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and "
+	    "Frederic Cambus.\n", VERSION);
 
 	/* SAUCE record related bool types */
 	bool justDisplaySAUCE = false;
