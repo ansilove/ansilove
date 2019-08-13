@@ -1,3 +1,12 @@
+AnsiLove/C 4.0.2 (2019-08-13)
+
+- Remove most examples from the repository, they continue to live on the
+  website
+- Move the remaining examples in per author directories, and add LICENSE
+  files for these artworks, courtesy of their authors
+
+
+
 AnsiLove/C 4.0.1 (2019-06-25)
 
 - Fix a few typos in README and ansilove.1
