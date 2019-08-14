@@ -40,7 +40,7 @@ static void synopsis(void);
 static void
 synopsis(void)
 {
-	fprintf(stderr, "\nSYNOPSIS\n"
+	fprintf(stdout, "\nSYNOPSIS\n"
 	    "     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode]"
 	    " [-o file]\n"
 	    "              [-R factor] file\n\n");
@@ -49,7 +49,7 @@ synopsis(void)
 int
 main(int argc, char *argv[])
 {
-	fprintf(stderr, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"
+	fprintf(stdout, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"
 	    "Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and "
 	    "Frederic Cambus.\n", VERSION);
 
@@ -181,8 +181,8 @@ main(int argc, char *argv[])
 		}
 
 		/* display name of input and output files */
-		fprintf(stderr, "\nInput File: %s\n", input);
-		fprintf(stderr, "Output File: %s\n", fileName);
+		fprintf(stdout, "\nInput File: %s\n", input);
+		fprintf(stdout, "Output File: %s\n", fileName);
 
 		/* get file extension */
 		char *fext = strrchr(input, '.');
@@ -234,52 +234,52 @@ main(int argc, char *argv[])
 		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
-			fprintf(stderr, "Font: %s\n", font ? font : "80x25");
+			fprintf(stdout, "Font: %s\n", font ? font : "80x25");
 
-			fprintf(stderr, "Bits: %d\n", options.bits);
+			fprintf(stdout, "Bits: %d\n", options.bits);
 		}
 
 		if (options.icecolors && (fileIsANSi || fileIsBinary))
-			fprintf(stderr, "iCE Colors: enabled\n");
+			fprintf(stdout, "iCE Colors: enabled\n");
 
 		if (fileIsANSi || fileIsBinary || fileIsTundra)
-			fprintf(stderr, "Columns: %d\n", options.columns);
+			fprintf(stdout, "Columns: %d\n", options.columns);
 
 		if (options.scale_factor)
-			fprintf(stderr, "Scale factor: %d\n", options.scale_factor);
+			fprintf(stdout, "Scale factor: %d\n", options.scale_factor);
 	}
 
 	/* either display SAUCE or tell us if there is no record */
 	if (!fileHasSAUCE) {
-		fprintf(stderr, "\nFile %s does not have a SAUCE record.\n", input);
+		fprintf(stdout, "\nFile %s does not have a SAUCE record.\n", input);
 	} else {
-		fprintf(stderr, "\nId: %s v%s\n", record->ID, record->version);
-		fprintf(stderr, "Title: %s\n", record->title);
-		fprintf(stderr, "Author: %s\n", record->author);
-		fprintf(stderr, "Group: %s\n", record->group);
-		fprintf(stderr, "Date: %s\n", record->date);
-		fprintf(stderr, "Datatype: %d\n", record->dataType);
-		fprintf(stderr, "Filetype: %d\n", record->fileType);
+		fprintf(stdout, "\nId: %s v%s\n", record->ID, record->version);
+		fprintf(stdout, "Title: %s\n", record->title);
+		fprintf(stdout, "Author: %s\n", record->author);
+		fprintf(stdout, "Group: %s\n", record->group);
+		fprintf(stdout, "Date: %s\n", record->date);
+		fprintf(stdout, "Datatype: %d\n", record->dataType);
+		fprintf(stdout, "Filetype: %d\n", record->fileType);
 		if (record->flags) {
-			fprintf(stderr, "Flags: %d\n", record->flags);
+			fprintf(stdout, "Flags: %d\n", record->flags);
 		}
 		if (record->tinfo1) {
-			fprintf(stderr, "Tinfo1: %d\n", record->tinfo1);
+			fprintf(stdout, "Tinfo1: %d\n", record->tinfo1);
 		}
 		if (record->tinfo2) {
-			fprintf(stderr, "Tinfo2: %d\n", record->tinfo2);
+			fprintf(stdout, "Tinfo2: %d\n", record->tinfo2);
 		}
 		if (record->tinfo3) {
-			fprintf(stderr, "Tinfo3: %d\n", record->tinfo3);
+			fprintf(stdout, "Tinfo3: %d\n", record->tinfo3);
 		}
 		if (record->tinfo4) {
-			fprintf(stderr, "Tinfo4: %d\n", record->tinfo4);
+			fprintf(stdout, "Tinfo4: %d\n", record->tinfo4);
 		}
-		fprintf(stderr, "Tinfos: %s\n", record->tinfos);
+		fprintf(stdout, "Tinfos: %s\n", record->tinfos);
 		if (record->comments > 0) {
-			fprintf(stderr, "Comments: ");
+			fprintf(stdout, "Comments: ");
 			for (int32_t i = 0; i < record->comments; i++) {
-				fprintf(stderr, "%s\n", record->comment_lines[i]);
+				fprintf(stdout, "%s\n", record->comment_lines[i]);
 			}
 		}
 	}
