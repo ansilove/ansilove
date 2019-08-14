@@ -74,10 +74,8 @@ main(int argc, char *argv[])
 
 	const char *errstr;
 
-	if (ansilove_init(&ctx, &options) == -1) {
-		fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
-		return EXIT_FAILURE;
-	}
+	if (ansilove_init(&ctx, &options) == -1)
+		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 	if (pledge("stdio cpath rpath wpath", NULL) == -1) {
 		err(EXIT_FAILURE, "pledge");
@@ -89,20 +87,16 @@ main(int argc, char *argv[])
 			/* convert numeric command line flags to integer values */
 			options.bits = strtonum(optarg, 8, 9, &errstr);
 
-			if (errstr) {
-				fprintf(stderr, "\nInvalid value for bits (must be 8 or 9).\n\n");
-				return EXIT_FAILURE;
-			}
+			if (errstr)
+				errx(EXIT_FAILURE, "Invalid value for bits (must be 8 or 9).");
 
 			break;
 		case 'c':
 			/* convert numeric command line flags to integer values */
 			options.columns = strtonum(optarg, 1, 4096, &errstr);
 
-			if (errstr) {
-				fprintf(stderr, "\nInvalid value for columns (must range from 1 to 4096).\n\n");
-				return EXIT_FAILURE;
-			}
+			if (errstr)
+				errx(EXIT_FAILURE, "\nInvalid value for columns (must range from 1 to 4096).");
 
 			break;
 		case 'd':
@@ -142,10 +136,8 @@ main(int argc, char *argv[])
 			/* convert numeric command line flags to integer values */
 			options.scale_factor = strtonum(optarg, 2, 8, &errstr);
 
-			if (errstr) {
-				fprintf(stderr, "\nInvalid value for retina scale factor (must range from 2 to 8).\n\n");
-				return EXIT_FAILURE;
-			}
+			if (errstr)
+				errx(EXIT_FAILURE, "Invalid value for retina scale factor (must range from 2 to 8).");
 
 			break;
 		case 's':
@@ -171,8 +163,7 @@ main(int argc, char *argv[])
 
 	/* record == NULL also means there is no file, we can stop here */
 	if (record == NULL) {
-		fprintf(stderr, "\nFile %s not found.\n\n", input);
-		return EXIT_FAILURE;
+		errx(EXIT_FAILURE, "File %s not found.", input);
 	} else {
 		/* if we find a SAUCE record, update bool flag */
 		if (!strcmp(record->ID, SAUCE_ID)) {
@@ -184,10 +175,8 @@ main(int argc, char *argv[])
 		/* create output file name if output is not specified */
 		if (!output) {
 			/* appending ".png" extension to output file name */
-			if (asprintf(&fileName, "%s%s", input, ".png") == -1) {
-				fprintf(stderr, "Memory allocation error.\n\n");
-				return EXIT_FAILURE;
-			}
+			if (asprintf(&fileName, "%s%s", input, ".png") == -1)
+				errx(EXIT_FAILURE, "Memory allocation error.");
 		} else {
 			fileName = output;
 		}
@@ -204,10 +193,8 @@ main(int argc, char *argv[])
 		if (!strcmp(fext, "diz"))
 			options.diz = true;
 
-		if (ansilove_loadfile(&ctx, input) == -1) {
-			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
-			return EXIT_FAILURE;
-		}
+		if (ansilove_loadfile(&ctx, input) == -1)
+			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* adjust the file size if file contains a SAUCE record */
 		if (fileHasSAUCE) {
@@ -238,16 +225,12 @@ main(int argc, char *argv[])
 			fileIsANSi = true;
 		}
 
-		if (loader(&ctx, &options) == -1) {
-			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
-			return EXIT_FAILURE;
-		}
+		if (loader(&ctx, &options) == -1)
+			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* create the output file */
-		if (ansilove_savefile(&ctx, fileName) == -1) {
-			fprintf(stderr, "\n%s\n", ansilove_error(&ctx));
-			return EXIT_FAILURE;
-		}
+		if (ansilove_savefile(&ctx, fileName) == -1)
+			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
