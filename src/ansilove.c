@@ -77,9 +77,8 @@ main(int argc, char *argv[])
 	if (ansilove_init(&ctx, &options) == -1)
 		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
-	if (pledge("stdio cpath rpath wpath", NULL) == -1) {
+	if (pledge("stdio cpath rpath wpath", NULL) == -1)
 		err(EXIT_FAILURE, "pledge");
-	}
 
 	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:rR:sv")) != -1) {
 		switch (getoptFlag) {
