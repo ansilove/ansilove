@@ -40,10 +40,10 @@ static void version(void);
 static void
 synopsis(void)
 {
-	fprintf(stdout, "\nSYNOPSIS\n"
+	fprintf(stdout, "SYNOPSIS\n"
 	    "     ansilove [-dhiqrsv] [-b bits] [-c columns] [-f font]"
 	    " [-m mode] [-o file]\n"
-	    "              [-R factor] file\n\n");
+	    "              [-R factor] file\n");
 }
 
 static void
@@ -195,7 +195,7 @@ main(int argc, char *argv[])
 		}
 
 		/* display name of input and output files */
-		fprintf(messages, "\nInput File: %s\n", input);
+		fprintf(messages, "Input File: %s\n", input);
 		fprintf(messages, "Output File: %s\n", fileName);
 
 		/* get file extension */
