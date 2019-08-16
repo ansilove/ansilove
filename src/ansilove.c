@@ -35,8 +35,8 @@
 
 /* prototypes */
 static void synopsis(void);
+static void version(void);
 
-/* following the IEEE Std 1003.1 for utility conventions */
 static void
 synopsis(void)
 {
@@ -46,13 +46,17 @@ synopsis(void)
 	    "              [-R factor] file\n\n");
 }
 
-int
-main(int argc, char *argv[])
+static void
+version(void)
 {
 	fprintf(stdout, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"
 	    "Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and "
 	    "Frederic Cambus.\n", VERSION);
+}
 
+int
+main(int argc, char *argv[])
+{
 	/* SAUCE record related bool types */
 	bool justDisplaySAUCE = false;
 	bool fileHasSAUCE = false;
@@ -143,6 +147,7 @@ main(int argc, char *argv[])
 			justDisplaySAUCE = true;
 			break;
 		case 'v':
+			version();
 			return EXIT_SUCCESS;
 		}
 	}
