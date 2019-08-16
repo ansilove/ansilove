@@ -84,6 +84,10 @@ AnsiLove/C packages are available for:
 
 	pkg install ansilove
 
+### Debian / Ubuntu
+
+	apt install ansilove
+
 ### Solus
 
 	eopkg install ansilove
