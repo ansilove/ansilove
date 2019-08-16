@@ -121,7 +121,7 @@ Even more:
 ## Synopsis
 
 ```
-     ansilove [-dhirsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
+     ansilove [-dhiqrsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
               [-R factor] file
 ```
 
@@ -152,6 +152,8 @@ Even more:
                          Use Amiga Workbench palette.
 
      -o file     Specify output filename/path.
+
+     -q          Suppress output messages (quiet).
 
      -r          Create Retina @2x output file.
 

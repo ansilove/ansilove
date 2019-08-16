@@ -24,7 +24,7 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd $Mdocdate: January 16 2019 $
+.Dd $Mdocdate: August 16 2019 $
 .Dt ANSILOVE 1
 .Os
 .Sh NAME
@@ -32,7 +32,7 @@
 .Nd ANSI / ASCII art to PNG converter
 .Sh SYNOPSIS
 .Nm
-.Op Fl dhirsv
+.Op Fl dhiqrsv
 .Op Fl b Ar bits
 .Op Fl c Ar columns
 .Op Fl f Ar font
@@ -135,6 +135,8 @@ Use Amiga Workbench palette.
 .El
 .It Fl o Ar file
 Specify output filename/path.
+.It Fl q
+Suppress output messages (quiet).
 .It Fl r
 Create Retina @2x output file.
 .It Fl R Ar factor
