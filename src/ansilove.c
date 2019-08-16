@@ -57,6 +57,8 @@ version(void)
 int
 main(int argc, char *argv[])
 {
+	FILE *messages = NULL;
+
 	/* SAUCE record related bool types */
 	bool justDisplaySAUCE = false;
 	bool fileHasSAUCE = false;
@@ -84,7 +86,7 @@ main(int argc, char *argv[])
 	if (pledge("stdio cpath rpath wpath", NULL) == -1)
 		err(EXIT_FAILURE, "pledge");
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:rR:sv")) != -1) {
+	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sv")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
 			/* convert numeric command line flags to integer values */
@@ -132,6 +134,9 @@ main(int argc, char *argv[])
 		case 'o':
 			output = optarg;
 			break;
+		case 'q':
+			messages = fopen("/dev/null", "w");
+			break;
 		case 'r':
 			options.scale_factor = 2;
 			break;
@@ -162,6 +167,10 @@ main(int argc, char *argv[])
 	argc -= optind;
 	argv += optind;
 
+	/* if -q flag was not set, default to stdout */
+	if (!messages)
+		messages = stdout;
+
 	/* let's check the file for a valid SAUCE record */
 	sauce *record = sauceReadFileName(input);
 
@@ -186,8 +195,8 @@ main(int argc, char *argv[])
 		}
 
 		/* display name of input and output files */
-		fprintf(stdout, "\nInput File: %s\n", input);
-		fprintf(stdout, "Output File: %s\n", fileName);
+		fprintf(messages, "\nInput File: %s\n", input);
+		fprintf(messages, "Output File: %s\n", fileName);
 
 		/* get file extension */
 		char *fext = strrchr(input, '.');
@@ -239,52 +248,52 @@ main(int argc, char *argv[])
 		/* gather information and report to the command line */
 		if (fileIsANSi || fileIsBinary ||
 		    fileIsPCBoard || fileIsTundra) {
-			fprintf(stdout, "Font: %s\n", font ? font : "80x25");
+			fprintf(messages, "Font: %s\n", font ? font : "80x25");
 
-			fprintf(stdout, "Bits: %d\n", options.bits);
+			fprintf(messages, "Bits: %d\n", options.bits);
 		}
 
 		if (options.icecolors && (fileIsANSi || fileIsBinary))
-			fprintf(stdout, "iCE Colors: enabled\n");
+			fprintf(messages, "iCE Colors: enabled\n");
 
 		if (fileIsANSi || fileIsBinary || fileIsTundra)
-			fprintf(stdout, "Columns: %d\n", options.columns);
+			fprintf(messages, "Columns: %d\n", options.columns);
 
 		if (options.scale_factor)
-			fprintf(stdout, "Scale factor: %d\n", options.scale_factor);
+			fprintf(messages, "Scale factor: %d\n", options.scale_factor);
 	}
 
 	/* either display SAUCE or tell us if there is no record */
 	if (!fileHasSAUCE) {
-		fprintf(stdout, "\nFile %s does not have a SAUCE record.\n", input);
+		fprintf(messages, "\nFile %s does not have a SAUCE record.\n", input);
 	} else {
-		fprintf(stdout, "\nId: %s v%s\n", record->ID, record->version);
-		fprintf(stdout, "Title: %s\n", record->title);
-		fprintf(stdout, "Author: %s\n", record->author);
-		fprintf(stdout, "Group: %s\n", record->group);
-		fprintf(stdout, "Date: %s\n", record->date);
-		fprintf(stdout, "Datatype: %d\n", record->dataType);
-		fprintf(stdout, "Filetype: %d\n", record->fileType);
+		fprintf(messages, "\nId: %s v%s\n", record->ID, record->version);
+		fprintf(messages, "Title: %s\n", record->title);
+		fprintf(messages, "Author: %s\n", record->author);
+		fprintf(messages, "Group: %s\n", record->group);
+		fprintf(messages, "Date: %s\n", record->date);
+		fprintf(messages, "Datatype: %d\n", record->dataType);
+		fprintf(messages, "Filetype: %d\n", record->fileType);
 		if (record->flags) {
-			fprintf(stdout, "Flags: %d\n", record->flags);
+			fprintf(messages, "Flags: %d\n", record->flags);
 		}
 		if (record->tinfo1) {
-			fprintf(stdout, "Tinfo1: %d\n", record->tinfo1);
+			fprintf(messages, "Tinfo1: %d\n", record->tinfo1);
 		}
 		if (record->tinfo2) {
-			fprintf(stdout, "Tinfo2: %d\n", record->tinfo2);
+			fprintf(messages, "Tinfo2: %d\n", record->tinfo2);
 		}
 		if (record->tinfo3) {
-			fprintf(stdout, "Tinfo3: %d\n", record->tinfo3);
+			fprintf(messages, "Tinfo3: %d\n", record->tinfo3);
 		}
 		if (record->tinfo4) {
-			fprintf(stdout, "Tinfo4: %d\n", record->tinfo4);
+			fprintf(messages, "Tinfo4: %d\n", record->tinfo4);
 		}
-		fprintf(stdout, "Tinfos: %s\n", record->tinfos);
+		fprintf(messages, "Tinfos: %s\n", record->tinfos);
 		if (record->comments > 0) {
-			fprintf(stdout, "Comments: ");
+			fprintf(messages, "Comments: ");
 			for (int32_t i = 0; i < record->comments; i++) {
-				fprintf(stdout, "%s\n", record->comment_lines[i]);
+				fprintf(messages, "%s\n", record->comment_lines[i]);
 			}
 		}
 	}
