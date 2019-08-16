@@ -1,3 +1,12 @@
+AnsiLove/C 4.0.3 (2019-08-16)
+
+- Use errx() for displaying error messages
+- Print information messages on stdout
+- Introduce a version() function to display version information
+- Add a -q flag (quiet) to allow silencing output messages
+
+
+
 AnsiLove/C 4.0.2 (2019-08-13)
 
 - Remove most examples from the repository, they continue to live on the
