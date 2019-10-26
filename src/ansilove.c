@@ -89,9 +89,6 @@ main(int argc, char *argv[])
 
 	const char *errstr;
 
-	if (ansilove_init(&ctx, &options) == -1)
-		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
-
 	if (pledge("stdio cpath rpath wpath", NULL) == -1)
 		err(EXIT_FAILURE, "pledge");
 
@@ -99,6 +96,9 @@ main(int argc, char *argv[])
 	prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
 	prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &ansilove);
 #endif
+
+	if (ansilove_init(&ctx, &options) == -1)
+		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sv")) != -1) {
 		switch (getoptFlag) {
