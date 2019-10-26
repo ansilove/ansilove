@@ -10,6 +10,16 @@ list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_OPENBSD_SOURCE)
 check_function_exists(pledge HAVE_PLEDGE)
 check_function_exists(strtonum HAVE_STRTONUM)
 
+# Check if system has seccomp
+message(STATUS "Looking for seccomp")
+find_path(SECCOMP NAMES "linux/seccomp.h")
+if(SECCOMP)
+  message(STATUS "Looking for seccomp - found")
+  add_definitions(-DHAVE_SECCOMP=1)
+else()
+  message(STATUS "Looking for seccomp - not found")
+endif()
+
 # Additional include directories for compat functions
 include_directories("compat")
 
