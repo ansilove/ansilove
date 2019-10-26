@@ -20,14 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef HAVE_PLEDGE
-#include "pledge.h"
-#endif
-
-#ifndef HAVE_STRTONUM
-#include "strtonum.h"
-#endif
-
 #ifdef HAVE_SECCOMP
 #include <sys/prctl.h>
 #include <sys/syscall.h>
@@ -37,6 +29,7 @@
 #include "seccomp.h"
 #endif
 
+#include "compat.h"
 #include "config.h"
 #include "fonts.h"
 #include "sauce.h"
