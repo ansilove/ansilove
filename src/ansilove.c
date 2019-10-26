@@ -28,6 +28,15 @@
 #include "strtonum.h"
 #endif
 
+#ifdef HAVE_SECCOMP
+#include <sys/prctl.h>
+#include <sys/syscall.h>
+#include <linux/audit.h>
+#include <linux/filter.h>
+#include <linux/seccomp.h>
+#include "seccomp.h"
+#endif
+
 #include "config.h"
 #include "fonts.h"
 #include "sauce.h"
@@ -85,6 +94,11 @@ main(int argc, char *argv[])
 
 	if (pledge("stdio cpath rpath wpath", NULL) == -1)
 		err(EXIT_FAILURE, "pledge");
+
+#ifdef HAVE_SECCOMP
+	prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
+	prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &ansilove);
+#endif
 
 	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sv")) != -1) {
 		switch (getoptFlag) {
