@@ -29,4 +29,4 @@ addons:
     notification_email: fred@statdns.com
     build_command_prepend: cmake .
     build_command: make -j 4
-    branch_pattern: master
+    branch_pattern: coverity_scan
