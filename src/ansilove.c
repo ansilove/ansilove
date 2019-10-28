@@ -1,6 +1,6 @@
 /*
  * ansilove.c
- * Ansilove 4.0.3
+ * Ansilove 4.0.4
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and Frederic Cambus
