@@ -1,3 +1,11 @@
+AnsiLove/C 4.0.4 (2019-10-28)
+
+- Add initial seccomp support to Ansilove
+- Move pledge and seccomp initialization before ansilove_init()
+- Move conditional includes for 'pledge' and 'strtonum' in compat.h
+
+
+
 AnsiLove/C 4.0.3 (2019-08-16)
 
 - Use errx() for displaying error messages
