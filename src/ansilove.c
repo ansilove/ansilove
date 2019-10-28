@@ -86,8 +86,15 @@ main(int argc, char *argv[])
 		err(EXIT_FAILURE, "pledge");
 
 #ifdef HAVE_SECCOMP
-	prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-	prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &ansilove);
+	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
+		perror("Can't initialize seccomp");
+		return EXIT_FAILURE;
+	}
+
+	if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &ansilove)) {
+		perror("Can't load seccomp filter");
+		return EXIT_FAILURE;
+	}
 #endif
 
 	if (ansilove_init(&ctx, &options) == -1)
