@@ -6,7 +6,7 @@ include(CheckFunctionExists)
 include(GNUInstallDirs)
 
 # Conditional build options
-set(ENABLE_SECCOMP 1
+set(ENABLE_SECCOMP 0
     CACHE BOOL "Enable building with seccomp")
 
 # Check if system has pledge and strtonum
