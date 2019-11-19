@@ -1,3 +1,12 @@
+AnsiLove/C 4.0.5 (2019-11-19)
+
+- Add ENABLE_SECCOMP build option, to allow building seccomp support
+  conditionally
+- Disable seccomp by default, it needs more testing on non !amd64 platforms
+- Use ${CMAKE_INSTALL_BINDIR} instead of hardcoding 'bin'
+
+
+
 AnsiLove/C 4.0.4 (2019-10-28)
 
 - Add initial seccomp support to Ansilove
