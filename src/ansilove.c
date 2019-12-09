@@ -224,10 +224,8 @@ main(int argc, char *argv[])
 			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* adjust the file size if file contains a SAUCE record */
-		if (fileHasSAUCE) {
-			sauce *saucerec = sauceReadFileName(input);
-			ctx.length -= 129 - (saucerec->comments > 0 ? 5 + 64 * saucerec->comments : 0);
-		}
+		if (fileHasSAUCE)
+			ctx.length -= 129 - (record->comments > 0 ? 5 + 64 * record->comments : 0);
 
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
 
