@@ -49,7 +49,6 @@ void
 readRecord(FILE *file, sauce *record)
 {
 	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != EXIT_SUCCESS) {
-		free(record);
 		return;
 	}
 
@@ -57,7 +56,6 @@ readRecord(FILE *file, sauce *record)
 	record->ID[sizeof (record->ID) - 1] = '\0';
 
 	if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
-		free(record);
 		return;
 	}
 	fread(record->version, sizeof (record->version) - 1, 1, file);
@@ -83,7 +81,6 @@ readRecord(FILE *file, sauce *record)
 	record->tinfos[sizeof (record->tinfos) - 1] = '\0';
 
 	if (ferror(file) != EXIT_SUCCESS) {
-		free(record);
 		return;
 	}
 
@@ -95,7 +92,6 @@ readRecord(FILE *file, sauce *record)
 				record->comments = 0;
 			}
 		} else {
-			free(record);
 			return;
 		}
 	}

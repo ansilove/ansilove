@@ -312,5 +312,7 @@ main(int argc, char *argv[])
 
 	ansilove_clean(&ctx);
 
+	free(record);
+
 	return EXIT_SUCCESS;
 }
