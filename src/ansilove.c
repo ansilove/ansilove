@@ -205,7 +205,7 @@ main(int argc, char *argv[])
 			if (asprintf(&fileName, "%s%s", input, ".png") == -1)
 				errx(EXIT_FAILURE, "Memory allocation error.");
 		} else {
-			fileName = output;
+			fileName = strdup(output);
 		}
 
 		/* display name of input and output files */
@@ -214,7 +214,7 @@ main(int argc, char *argv[])
 
 		/* get file extension */
 		char *fext = strrchr(input, '.');
-		fext = fext ? strtolower(strdup(++fext)) : "";
+		fext = fext ? strtolower(strdup(++fext)) : strdup("");
 
 		/* check if current file has a .diz extension */
 		if (!strcmp(fext, "diz"))
@@ -273,6 +273,9 @@ main(int argc, char *argv[])
 
 		if (options.scale_factor)
 			fprintf(messages, "Scale factor: %d\n", options.scale_factor);
+
+		free(fileName);
+		free(fext);
 	}
 
 	/* either display SAUCE or tell us if there is no record */
