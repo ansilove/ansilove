@@ -315,6 +315,7 @@ main(int argc, char *argv[])
 
 	ansilove_clean(&ctx);
 
+	free(record->comment_lines);
 	free(record);
 
 	return EXIT_SUCCESS;

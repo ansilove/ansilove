@@ -107,7 +107,6 @@ readComments(FILE *file, char **comment_lines, int32_t comments)
 		ID[sizeof (ID) - 1] = '\0';
 
 		if (strcmp(ID, COMMENT_ID) != 0) {
-			free(comment_lines);
 			return -1;
 		}
 
@@ -120,16 +119,13 @@ readComments(FILE *file, char **comment_lines, int32_t comments)
 			if (ferror(file) == EXIT_SUCCESS) {
 				comment_lines[i] = strdup(buf);
 				if (comment_lines[i] == NULL) {
-					free(comment_lines);
 					return -1;
 				}
 			} else {
-				free(comment_lines);
 				return -1;
 			}
 		}
 		return 0;
 	}
-	free(comment_lines);
 	return -1;
 }
