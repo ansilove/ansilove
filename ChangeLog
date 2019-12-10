@@ -1,3 +1,12 @@
+AnsiLove/C 4.0.6 (2019-12-10)
+
+- Remove extraneous sauceReadFileName() call, read from existing SAUCE record
+- Use strdup() when assigning fileName and fext fallback values
+- Call memset() to set all record struct fields to zero
+- Free SAUCE record and comments once and for all when exiting the program
+
+
+
 AnsiLove/C 4.0.5 (2019-11-19)
 
 - Add ENABLE_SECCOMP build option, to allow building seccomp support
