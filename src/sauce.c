@@ -1,6 +1,6 @@
 /*
  * sauce.c
- * Ansilove 4.0.5
+ * Ansilove 4.0.6
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and Frederic Cambus

@@ -23,7 +23,7 @@ _ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
 This is a complete rewrite of [AnsiLove/PHP][3] in the C programming
 language. It converts ANSi and artscene related file formats into
 PNG images. The project is considered as stable, current version
-is `4.0.5`.
+is `4.0.6`.
 
 # Specs
 
