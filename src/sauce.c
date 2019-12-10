@@ -91,8 +91,6 @@ readRecord(FILE *file, sauce *record)
 			if (readComments(file, record->comment_lines, record->comments) == -1) {
 				record->comments = 0;
 			}
-		} else {
-			return;
 		}
 	}
 }
