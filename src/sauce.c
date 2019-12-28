@@ -49,7 +49,7 @@ sauceReadFile(FILE *file)
 void
 readRecord(FILE *file, sauce *record)
 {
-	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != EXIT_SUCCESS) {
+	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != 0) {
 		return;
 	}
 
@@ -81,7 +81,7 @@ readRecord(FILE *file, sauce *record)
 	fread(record->tinfos, sizeof (record->tinfos) - 1, 1, file);
 	record->tinfos[sizeof (record->tinfos) - 1] = '\0';
 
-	if (ferror(file) != EXIT_SUCCESS) {
+	if (ferror(file) != 0) {
 		return;
 	}
 
@@ -101,7 +101,7 @@ readComments(FILE *file, char **comment_lines, int32_t comments)
 {
 	int32_t i;
 
-	if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == EXIT_SUCCESS) {
+	if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == 0) {
 		char ID[6];
 		fread(ID, sizeof (ID) - 1, 1, file);
 		ID[sizeof (ID) - 1] = '\0';
@@ -116,7 +116,7 @@ readComments(FILE *file, char **comment_lines, int32_t comments)
 			fread(buf, COMMENT_SIZE, 1, file);
 			buf[COMMENT_SIZE] = '\0';
 
-			if (ferror(file) == EXIT_SUCCESS) {
+			if (ferror(file) == 0) {
 				comment_lines[i] = strdup(buf);
 				if (comment_lines[i] == NULL) {
 					return -1;
