@@ -19,7 +19,7 @@
 #include "sauce.h"
 
 /* Reads SAUCE via a filename. */
-sauce *
+struct sauce *
 sauceReadFileName(char *fileName)
 {
 	FILE *file = fopen(fileName, "r");
@@ -27,16 +27,16 @@ sauceReadFileName(char *fileName)
 		return NULL;
 	}
 
-	sauce *record = sauceReadFile(file);
+	struct sauce *record = sauceReadFile(file);
 	fclose(file);
 	return record;
 }
 
 /* Read SAUCE via a FILE pointer. */
-sauce *
+struct sauce *
 sauceReadFile(FILE *file)
 {
-	sauce *record;
+	struct sauce *record;
 	record = malloc(sizeof *record);
 	memset(record, 0, sizeof *record);
 
@@ -47,7 +47,7 @@ sauceReadFile(FILE *file)
 }
 
 void
-readRecord(FILE *file, sauce *record)
+readRecord(FILE *file, struct sauce *record)
 {
 	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != 0) {
 		return;

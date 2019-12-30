@@ -186,7 +186,7 @@ main(int argc, char *argv[])
 		messages = stdout;
 
 	/* let's check the file for a valid SAUCE record */
-	sauce *record = sauceReadFileName(input);
+	struct sauce *record = sauceReadFileName(input);
 
 	/* record == NULL also means there is no file, we can stop here */
 	if (record == NULL) {

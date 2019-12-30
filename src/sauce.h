@@ -22,7 +22,7 @@
 #define SAUCE_ID     "SAUCE"
 #define COMMENT_ID   "COMNT"
 
-typedef struct {
+struct sauce {
 	char ID[6];
 	char version[3];
 	char title[36];
@@ -40,11 +40,11 @@ typedef struct {
 	unsigned char flags;
 	char tinfos[23];
 	char **comment_lines;
-} sauce;
+};
 
-sauce	*sauceReadFileName(char *);
-sauce	*sauceReadFile(FILE *);
-void	 readRecord(FILE *, sauce *);
-int	 readComments(FILE *, char **, int32_t);
+struct sauce	*sauceReadFileName(char *);
+struct sauce	*sauceReadFile(FILE *);
+void		 readRecord(FILE *, struct sauce *);
+int		 readComments(FILE *, char **, int32_t);
 
 #endif /* SAUCE_H */
