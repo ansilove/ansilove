@@ -116,7 +116,7 @@ AnsiLove/C is capabable of processing:
 Even more:
 
 - Output files are highly optimized 4-bit PNGs.
-- Optionally generates additional (and proper) Retina @2x PNG.
+- Optionally generates proper Retina @2x (and up to @8x) PNG.
 - You can use custom options for adjusting output results.
 - Built-in support for rendering Amiga ASCII.
 
