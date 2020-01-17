@@ -227,6 +227,10 @@ main(int argc, char *argv[])
 		if (fileHasSAUCE)
 			ctx.length -= 129 - (record->comments > 0 ? 5 + 64 * record->comments : 0);
 
+		/* set icecolors to true if defined in SAUCE record ANSiFlags */
+		if (fileHasSAUCE && (record->flags & 1))
+			options.icecolors = true;
+
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
 
 		/* create the output PNG data by invoking the appropriate function */
