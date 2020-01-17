@@ -3,7 +3,7 @@
  * Ansilove 4.0.6
  * https://www.ansilove.org
  *
- * Copyright (c) 2011-2019 Stefan Vogt, Brian Cassidy, and Frederic Cambus
+ * Copyright (c) 2011-2020 Stefan Vogt, Brian Cassidy, and Frederic Cambus
  * All rights reserved.
  *
  * Ansilove is licensed under the BSD 2-Clause License.
