@@ -1,3 +1,14 @@
+AnsiLove/C 4.0.7 (2020-01-18)
+
+- Use OpenBSD style(9) for function prototypes and declarations
+- Replace EXIT_SUCCESS by zero in all SAUCE functions
+- Do not use typedef for the sauce struct
+- Set icecolors to true if defined in SAUCE record ANSiFlags
+- Add test cases for most supported formats, missing an IDF file for now
+- Sync the description of Retina output capabilities with reality
+
+
+
 AnsiLove/C 4.0.6 (2019-12-10)
 
 - Remove extraneous sauceReadFileName() call, read from existing SAUCE record
