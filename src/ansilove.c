@@ -100,7 +100,6 @@ main(int argc, char *argv[])
 	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:st:v")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
-			/* convert numeric command line flags to integer values */
 			options.bits = strtonum(optarg, 8, 9, &errstr);
 
 			if (errstr)
@@ -108,7 +107,6 @@ main(int argc, char *argv[])
 
 			break;
 		case 'c':
-			/* convert numeric command line flags to integer values */
 			options.columns = strtonum(optarg, 1, 4096, &errstr);
 
 			if (errstr)
@@ -152,7 +150,6 @@ main(int argc, char *argv[])
 			options.scale_factor = 2;
 			break;
 		case 'R':
-			/* convert numeric command line flags to integer values */
 			options.scale_factor = strtonum(optarg, 2, 8, &errstr);
 
 			if (errstr)
@@ -310,27 +307,27 @@ main(int argc, char *argv[])
 		fprintf(messages, "Date: %s\n", record->date);
 		fprintf(messages, "Datatype: %d\n", record->dataType);
 		fprintf(messages, "Filetype: %d\n", record->fileType);
-		if (record->flags) {
+
+		if (record->flags)
 			fprintf(messages, "Flags: %d\n", record->flags);
-		}
-		if (record->tinfo1) {
+
+		if (record->tinfo1)
 			fprintf(messages, "Tinfo1: %d\n", record->tinfo1);
-		}
-		if (record->tinfo2) {
+
+		if (record->tinfo2)
 			fprintf(messages, "Tinfo2: %d\n", record->tinfo2);
-		}
-		if (record->tinfo3) {
+
+		if (record->tinfo3)
 			fprintf(messages, "Tinfo3: %d\n", record->tinfo3);
-		}
-		if (record->tinfo4) {
+
+		if (record->tinfo4)
 			fprintf(messages, "Tinfo4: %d\n", record->tinfo4);
-		}
+
 		fprintf(messages, "Tinfos: %s\n", record->tinfos);
 		if (record->comments > 0) {
 			fprintf(messages, "Comments: ");
-			for (int32_t i = 0; i < record->comments; i++) {
+			for (int32_t i = 0; i < record->comments; i++)
 				fprintf(messages, "%s\n", record->comment_lines[i]);
-			}
 		}
 	}
 
