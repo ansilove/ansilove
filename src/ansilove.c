@@ -241,7 +241,7 @@ main(int argc, char *argv[])
 		/* if type was specified, attempt to find a loader */
 		if (type) {
 			for (size_t loop = 0; loop < 7; loop++) {
-				if (!strncmp(types[loop], type, strlen(type))) {
+				if (!strcmp(types[loop], type)) {
 					loader = loaders[loop];
 					break;
 				}
