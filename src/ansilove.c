@@ -248,27 +248,18 @@ main(int argc, char *argv[])
 			}
 		}
 
-		/* fall back on extension if no loader was found */
+		/* fall back on file extension if no loader was found */
 		if (!loader) {
-			if (!strcmp(fext, "pcb")) {
-				loader = ansilove_pcboard;
-				fileIsPCBoard = true;
-			} else if (!strcmp(fext, "bin")) {
-				loader = ansilove_binary;
-				fileIsBinary = true;
-			} else if (!strcmp(fext, "adf")) {
-				loader = ansilove_artworx;
-			} else if (!strcmp(fext, "idf")) {
-				loader = ansilove_icedraw;
-			} else if (!strcmp(fext, "tnd")) {
-				loader = ansilove_tundra;
-				fileIsTundra = true;
-			} else if (!strcmp(fext, "xb")) {
-				loader = ansilove_xbin;
-			} else {
-				loader = ansilove_ansi;
-				fileIsANSi = true;
+			for (size_t loop = 0; loop < 7; loop++) {
+				if (!strcmp(types[loop], fext)) {
+					loader = loaders[loop];
+					break;
+				}
 			}
+		}
+
+		if (!loader) {
+			loader = ansilove_ansi;
 		}
 
 		if (loader(&ctx, &options) == -1)
