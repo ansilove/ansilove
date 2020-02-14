@@ -66,12 +66,6 @@ main(int argc, char *argv[])
 	bool justDisplaySAUCE = false;
 	bool fileHasSAUCE = false;
 
-	/* analyze options and do what has to be done */
-	bool fileIsBinary = false;
-	bool fileIsANSi = false;
-	bool fileIsPCBoard = false;
-	bool fileIsTundra = false;
-
 	int getoptFlag;
 
 	char *input = NULL, *output = NULL;
@@ -274,18 +268,25 @@ main(int argc, char *argv[])
 			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* gather information and report to the command line */
-		if (fileIsANSi || fileIsBinary ||
-		    fileIsPCBoard || fileIsTundra) {
-			fprintf(messages, "Font: %s\n", font ? font : "80x25");
+		switch(filetype) {
+		case ANSILOVE_FILETYPE_ANS:
+		case ANSILOVE_FILETYPE_BIN:
+			if (options.icecolors)
+				fprintf(messages, "iCE Colors: enabled\n");
 
+			/* FALLTHROUGH */
+		case ANSILOVE_FILETYPE_PCB:
+		case ANSILOVE_FILETYPE_TND:
+			fprintf(messages, "Font: %s\n", font ? font : "80x25");
 			fprintf(messages, "Bits: %d\n", options.bits);
 		}
 
-		if (options.icecolors && (fileIsANSi || fileIsBinary))
-			fprintf(messages, "iCE Colors: enabled\n");
-
-		if (fileIsANSi || fileIsBinary || fileIsTundra)
+		switch(filetype) {
+		case ANSILOVE_FILETYPE_ANS:
+		case ANSILOVE_FILETYPE_BIN:
+		case ANSILOVE_FILETYPE_TND:
 			fprintf(messages, "Columns: %d\n", options.columns);
+		}
 
 		if (options.scale_factor)
 			fprintf(messages, "Scale factor: %d\n", options.scale_factor);
