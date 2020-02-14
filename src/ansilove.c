@@ -77,6 +77,7 @@ main(int argc, char *argv[])
 	char *input = NULL, *output = NULL;
 	char *fileName = NULL;
 	char *font = NULL;
+	char *type = NULL;
 
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
@@ -101,7 +102,7 @@ main(int argc, char *argv[])
 	if (ansilove_init(&ctx, &options) == -1)
 		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sv")) != -1) {
+	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:st:v")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
 			/* convert numeric command line flags to integer values */
@@ -165,6 +166,9 @@ main(int argc, char *argv[])
 			break;
 		case 's':
 			justDisplaySAUCE = true;
+			break;
+		case 't':
+			type = optarg;
 			break;
 		case 'v':
 			version();
@@ -232,27 +236,39 @@ main(int argc, char *argv[])
 		if (fileHasSAUCE && (record->flags & 1))
 			options.icecolors = true;
 
-		int (*loader)(struct ansilove_ctx *, struct ansilove_options *);
+		int (*loader)(struct ansilove_ctx *, struct ansilove_options *) = NULL;
 
-		/* create the output PNG data by invoking the appropriate function */
-		if (!strcmp(fext, "pcb")) {
-			loader = ansilove_pcboard;
-			fileIsPCBoard = true;
-		} else if (!strcmp(fext, "bin")) {
-			loader = ansilove_binary;
-			fileIsBinary = true;
-		} else if (!strcmp(fext, "adf")) {
-			loader = ansilove_artworx;
-		} else if (!strcmp(fext, "idf")) {
-			loader = ansilove_icedraw;
-		} else if (!strcmp(fext, "tnd")) {
-			loader = ansilove_tundra;
-			fileIsTundra = true;
-		} else if (!strcmp(fext, "xb")) {
-			loader = ansilove_xbin;
-		} else {
-			loader = ansilove_ansi;
-			fileIsANSi = true;
+		/* if type was specified, attempt to find a loader */
+		if (type) {
+			for (size_t loop = 0; loop < 7; loop++) {
+				if (!strncmp(types[loop], type, strlen(type))) {
+					loader = loaders[loop];
+					break;
+				}
+			}
+		}
+
+		/* fall back on extension if no loader was found */
+		if (!loader) {
+			if (!strcmp(fext, "pcb")) {
+				loader = ansilove_pcboard;
+				fileIsPCBoard = true;
+			} else if (!strcmp(fext, "bin")) {
+				loader = ansilove_binary;
+				fileIsBinary = true;
+			} else if (!strcmp(fext, "adf")) {
+				loader = ansilove_artworx;
+			} else if (!strcmp(fext, "idf")) {
+				loader = ansilove_icedraw;
+			} else if (!strcmp(fext, "tnd")) {
+				loader = ansilove_tundra;
+				fileIsTundra = true;
+			} else if (!strcmp(fext, "xb")) {
+				loader = ansilove_xbin;
+			} else {
+				loader = ansilove_ansi;
+				fileIsANSi = true;
+			}
 		}
 
 		if (loader(&ctx, &options) == -1)
