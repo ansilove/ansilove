@@ -34,6 +34,7 @@
 #include "fonts.h"
 #include "sauce.h"
 #include "strtolower.h"
+#include "types.h"
 
 /* prototypes */
 static void synopsis(void);
