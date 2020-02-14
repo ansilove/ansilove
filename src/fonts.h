@@ -13,8 +13,6 @@
 #ifndef FONTS_H
 #define FONTS_H
 
-#define FONTS 38
-
 char *fonts[] = {
 	"cp737",				/* Greek */
 	"cp775",				/* Baltic */

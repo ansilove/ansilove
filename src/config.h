@@ -19,6 +19,7 @@
 #define VERSION "4.0.7"
 
 enum {
+	FONTS = 38,
 	TYPES = 7
 };
 
