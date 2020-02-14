@@ -11,6 +11,7 @@
  */
 
 #include "ansilove.h"
+#include "types.h"
 
 char *types[] = {
 	"ans",
@@ -20,6 +21,16 @@ char *types[] = {
 	"pcb",
 	"tnd",
 	"xb",
+};
+
+int filetypes[] = {
+	ANSILOVE_FILETYPE_ANS,
+	ANSILOVE_FILETYPE_ADF,
+	ANSILOVE_FILETYPE_BIN,
+	ANSILOVE_FILETYPE_IDF,
+	ANSILOVE_FILETYPE_PCB,
+	ANSILOVE_FILETYPE_TND,
+	ANSILOVE_FILETYPE_XB
 };
 
 int (*loaders[])(struct ansilove_ctx *, struct ansilove_options *) = {

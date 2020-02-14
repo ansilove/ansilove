@@ -13,7 +13,16 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#define ANSILOVE_FILETYPE_ANS	1
+#define ANSILOVE_FILETYPE_ADF	2
+#define ANSILOVE_FILETYPE_BIN	3
+#define ANSILOVE_FILETYPE_IDF	4
+#define ANSILOVE_FILETYPE_PCB	5
+#define ANSILOVE_FILETYPE_TND	6
+#define ANSILOVE_FILETYPE_XB	7
+
 extern char *types[];
+extern int filetypes[];
 extern int (*loaders[])(struct ansilove_ctx *, struct ansilove_options *);
 
 #endif /* TYPES_H */
