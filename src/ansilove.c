@@ -78,6 +78,7 @@ main(int argc, char *argv[])
 	char *fileName = NULL;
 	char *font = NULL;
 	char *type = NULL;
+	int filetype = 0;
 
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
@@ -243,6 +244,7 @@ main(int argc, char *argv[])
 			for (size_t loop = 0; loop < 7; loop++) {
 				if (!strcmp(types[loop], type)) {
 					loader = loaders[loop];
+					filetype = filetypes[loop];
 					break;
 				}
 			}
@@ -253,6 +255,7 @@ main(int argc, char *argv[])
 			for (size_t loop = 0; loop < 7; loop++) {
 				if (!strcmp(types[loop], fext)) {
 					loader = loaders[loop];
+					filetype = filetypes[loop];
 					break;
 				}
 			}
@@ -260,6 +263,7 @@ main(int argc, char *argv[])
 
 		if (!loader) {
 			loader = ansilove_ansi;
+			filetype = ANSILOVE_FILETYPE_ANS;
 		}
 
 		if (loader(&ctx, &options) == -1)
