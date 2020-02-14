@@ -235,7 +235,7 @@ main(int argc, char *argv[])
 
 		/* if type was specified, attempt to find a loader */
 		if (type) {
-			for (size_t loop = 0; loop < 7; loop++) {
+			for (size_t loop = 0; loop < TYPES; loop++) {
 				if (!strcmp(types[loop], type)) {
 					loader = loaders[loop];
 					filetype = filetypes[loop];
@@ -246,7 +246,7 @@ main(int argc, char *argv[])
 
 		/* fall back on file extension if no loader was found */
 		if (!loader) {
-			for (size_t loop = 0; loop < 7; loop++) {
+			for (size_t loop = 0; loop < TYPES; loop++) {
 				if (!strcmp(types[loop], fext)) {
 					loader = loaders[loop];
 					filetype = filetypes[loop];

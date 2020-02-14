@@ -18,4 +18,8 @@
 /* configuration defines */
 #define VERSION "4.0.7"
 
+enum {
+	TYPES = 7
+};
+
 #endif /* CONFIG_H */
