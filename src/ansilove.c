@@ -242,9 +242,12 @@ main(int argc, char *argv[])
 					break;
 				}
 			}
+
+			if (!loader)
+				errx(EXIT_FAILURE, "Unknown file type.");
 		}
 
-		/* fall back on file extension if no loader was found */
+		/* use file extension to find a suitable loader */
 		if (!loader) {
 			for (size_t loop = 0; loop < TYPES; loop++) {
 				if (!strcmp(types[loop], fext)) {
@@ -255,6 +258,7 @@ main(int argc, char *argv[])
 			}
 		}
 
+		/* default to ANSI if file extension is unknown */
 		if (!loader) {
 			loader = ansilove_ansi;
 			filetype = ANSILOVE_FILETYPE_ANS;
