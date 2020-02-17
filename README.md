@@ -122,7 +122,7 @@ AnsiLove/C is capabable of processing:
 
 Even more:
 
-- Output files are highly optimized 4-bit PNGs.
+- Small output file size (4-bit PNG).
 - Optionally generates proper Retina @2x (and up to @8x) PNG.
 - You can use custom options for adjusting output results.
 - Built-in support for rendering Amiga ASCII.
@@ -258,8 +258,8 @@ background colors as for foreground colors, that's iCE colors.
 
 ## Columns
 
-`columns` is only relevant for .ANS, .BIN, and .TND files, and is
-optional. In most cases conversion will work fine if you don't set
+`columns` is only relevant for .ANS, .BIN, .PCB,  and .TND files, and
+is optional. In most cases conversion will work fine if you don't set
 this flag, the default value is `160` for .BIN files and `80`
 otherwise.
 
