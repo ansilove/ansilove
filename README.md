@@ -20,10 +20,17 @@ _ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
 
 [![Build Status][1]][2]
 
+AnsiLove is an ANSI and ASCII art to PNG converter, allowing to convert
+ANSI and artscene-related file formats into PNG images, supporting ANSI
+(.ANS), PCBoard (.PCB), Binary (.BIN), Artworx (.ADF), iCE Draw (.IDF),
+Tundra (.TND) and XBin (.XB) formats.
+
+It creates size optimized 4-bit PNG files and supports SAUCE (Standard
+Architecture for Universal Comment Extentions), 80x25 and 80x50 PC fonts
+(including all the 14 MS-DOS charsets), Amiga fonts, and iCE colors.
+
 This is a complete rewrite of [AnsiLove/PHP][3] in the C programming
-language. It converts ANSi and artscene related file formats into
-PNG images. The project is considered as stable, current version
-is `4.0.7`.
+language.
 
 # Specs
 
