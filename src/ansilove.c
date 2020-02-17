@@ -280,12 +280,6 @@ main(int argc, char *argv[])
 		case ANSILOVE_FILETYPE_TND:
 			fprintf(messages, "Font: %s\n", font ? font : "80x25");
 			fprintf(messages, "Bits: %d\n", options.bits);
-		}
-
-		switch(filetype) {
-		case ANSILOVE_FILETYPE_ANS:
-		case ANSILOVE_FILETYPE_BIN:
-		case ANSILOVE_FILETYPE_TND:
 			fprintf(messages, "Columns: %d\n", options.columns);
 		}
 
