@@ -125,7 +125,9 @@ Show help.
 .It Fl i
 Enable iCE colors.
 .It Fl m Ar mode
-Set rendering mode for ANS files. Valid options are:
+Set rendering mode for ANS files.
+.Pp
+Valid options are:
 .Bl -tag -width Ds
 .It Ic ced
 Black on gray, with 78 columns.
@@ -195,7 +197,6 @@ To render a file using a custom font, rendering the 9th column, enabling
 iCE colors, and using DOS aspect ratio:
 .Pp
 .Dl $ ansilove -f 80x50 -b 9 -d -i file.ans
-.Pp
 .Sh AUTHORS
 .An -nosplit
 .Nm
