@@ -133,7 +133,7 @@ Even more:
 
 ```
      ansilove [-dhiqrsv] [-b bits] [-c columns] [-f font] [-m mode] [-o file]
-              [-R factor] file
+              [-R factor] [-t type] file
 ```
 
 ## Options
@@ -169,6 +169,8 @@ Even more:
      -r          Create Retina @2x output file.
 
      -R factor   Create Retina output file with custom scale factor.
+
+     -t type     Specify input file type.
 
      -s          Show SAUCE record without generating output.
 

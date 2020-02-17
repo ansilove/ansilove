@@ -46,7 +46,7 @@ synopsis(void)
 	fprintf(stdout, "SYNOPSIS\n"
 	    "     ansilove [-dhiqrsv] [-b bits] [-c columns] [-f font]"
 	    " [-m mode] [-o file]\n"
-	    "              [-R factor] file\n");
+	    "              [-R factor] [-t type] file\n");
 }
 
 static void

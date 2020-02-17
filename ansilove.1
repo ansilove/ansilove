@@ -24,7 +24,7 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd $Mdocdate: January 17 2020 $
+.Dd $Mdocdate: February 17 2020 $
 .Dt ANSILOVE 1
 .Os
 .Sh NAME
@@ -39,6 +39,7 @@
 .Op Fl m Ar mode
 .Op Fl o Ar file
 .Op Fl R Ar factor
+.Op Fl t Ar type
 .Ar file
 .Sh DESCRIPTION
 .Nm
@@ -141,6 +142,26 @@ Suppress output messages (quiet).
 Create Retina @2x output file.
 .It Fl R Ar factor
 Create Retina output file with custom scale factor.
+.It Fl t Ar type
+Specify input file type.
+.Pp
+Valid types are:
+.Bl -tag -width Ds
+.It Ic ans
+ANSi (ANSI escape sequences: ANSI X3.64 standard)
+.It Ic adf
+Artworx format, supporting custom character sets and palettes
+.It Ic bin
+Binary format (raw memory copy of text mode video memory)
+.It Ic idf
+iCE Draw format, supporting custom character sets and palettes
+.It Ic pcb
+PCBoard Bulletin Board System (BBS) own file format
+.It Ic tnd
+TundraDraw format, supporting 24-bit color mode
+.It Ic xb
+XBin format, supporting custom character sets and palettes
+.El
 .It Fl s
 Show SAUCE record without generating output.
 .It Fl v
