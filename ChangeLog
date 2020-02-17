@@ -1,3 +1,11 @@
+AnsiLove/C 4.1.0 (2020-02-17)
+
+- Add a new '-t' flag (type), allowing to specify input file type and
+  override file type detection
+- Various documentation tweaks and improvements
+
+
+
 AnsiLove/C 4.0.7 (2020-01-18)
 
 - Use OpenBSD style(9) for function prototypes and declarations
