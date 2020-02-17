@@ -160,7 +160,7 @@ main(int argc, char *argv[])
 			justDisplaySAUCE = true;
 			break;
 		case 't':
-			type = optarg;
+			type = strtolower(optarg);
 			break;
 		case 'v':
 			version();
