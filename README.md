@@ -101,15 +101,15 @@ The following formats are supported:
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
-- .TND - TundraDraw format, supporting 24-bit color mode
-- .XB - The eXtended Binary XBin format, supporting custom character sets
+- .TND - [TundraDraw][5] format, supporting 24-bit color mode
+- .XB - The eXtended Binary [XBin][6] format, supporting custom character sets
   and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capabable of processing:
 
-- [SAUCE][5] records
+- [SAUCE][7] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -184,8 +184,8 @@ PC fonts can be (all case-sensitive):
 - `80x50` 80x50 mode (Code page 437)
 - `cp737` Greek (Code page 737)
 - `cp775` Baltic (Code page 775)
-- `cp850` Latin1 (Code page 850)
-- `cp852` Latin2 (Code page 852)
+- `cp850` Latin-1 (Code page 850)
+- `cp852` Latin-2 (Code page 852)
 - `cp855` Cyrillic (Code page 855)
 - `cp857` Turkish (Code page 857)
 - `cp860` Portuguese (Code page 860)
@@ -261,17 +261,19 @@ otherwise.
 It's fine to use AnsiLove/C as SAUCE reader without generating any
 output, just set option `-s` for this purpose.
 
-# Who pulls the strings
-
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][6]), Brian Cassidy
-([@bricas][7]) and Frederic Cambus ([@fcambus][8]).
-
 # License
 
 AnsiLove/C is released under the BSD 2-Clause License. See the
 `LICENSE` file for details.
 
+# Authors
+
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][8]), Brian Cassidy
+([@bricas][9]) and Frederic Cambus ([@fcambus][10]).
+
 # Resources
+
+Project homepage: https://www.ansilove.org
 
 GitHub: https://github.com/ansilove/ansilove
 
@@ -279,7 +281,9 @@ GitHub: https://github.com/ansilove/ansilove
 [2]: https://travis-ci.org/ansilove/ansilove
 [3]: https://www.ansilove.org
 [4]: https://github.com/ansilove/libansilove
-[5]: http://www.acid.org/info/sauce/sauce.htm
-[6]: https://github.com/ByteProject
-[7]: https://github.com/bricas
-[8]: https://github.com/fcambus
+[5]: https://sourceforge.net/projects/tundradraw/
+[6]: https://github.com/radman1/xbin
+[7]: https://github.com/radman1/sauce
+[8]: https://github.com/ByteProject
+[9]: https://github.com/bricas
+[10]: https://github.com/fcambus
