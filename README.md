@@ -64,6 +64,7 @@ AnsiLove/C uses the `CMake` build system and requires the
 - Mac OS X: `brew install cmake`
 - Alpine Linux: `apk add cmake gcc make musl-dev`
 - Debian / Ubuntu / Mint: `apt-get install build-essential cmake`
+- Fedora: `yum install cmake gcc make`
 - Solus: `eopkg install -c system.devel`
 
 For now, `libansilove` has to be installed manually.
