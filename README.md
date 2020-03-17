@@ -67,7 +67,10 @@ AnsiLove/C uses the `CMake` build system and requires the
 - Fedora: `yum install cmake gcc make`
 - Solus: `eopkg install -c system.devel`
 
-For now, `libansilove` has to be installed manually.
+Binary packages for `libansilove` are available on OpenBSD, NetBSD,
+FreeBSD, Debian, Ubuntu, and Solus.
+
+On other systems, `libansilove` has to be installed manually.
 
 # Compiling
 
