@@ -76,29 +76,17 @@ For now, `libansilove` has to be installed manually.
 	cmake ..
 	make
 
-# Installation
+# Packages
 
-AnsiLove/C packages are available for:
+Packages are available for the following operating systems:
 
-### OpenBSD
-
-	pkg_add ansilove
-
-### Pkgsrc (NetBSD, SmartOS, Mac OS X, etc.)
-
-	pkgin install ansilove
-
-### FreeBSD
-
-	pkg install ansilove
-
-### Debian / Ubuntu
-
-	apt install ansilove
-
-### Solus
-
-	eopkg install ansilove
+- [OpenBSD][5]
+- [NetBSD][6]
+- [FreeBSD][7]
+- [Debian][8]
+- [Ubuntu][9]
+- [openSUSE][10]
+- [Solus][11]
 
 # Features
 
@@ -109,15 +97,15 @@ The following formats are supported:
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
-- .TND - [TundraDraw][5] format, supporting 24-bit color mode
-- .XB - The eXtended Binary [XBin][6] format, supporting custom character sets
+- .TND - [TundraDraw][12] format, supporting 24-bit color mode
+- .XB - The eXtended Binary [XBin][13] format, supporting custom character sets
   and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capabable of processing:
 
-- [SAUCE][7] records
+- [SAUCE][14] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -278,8 +266,8 @@ AnsiLove/C is released under the BSD 2-Clause License. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][8]), Brian Cassidy
-([@bricas][9]) and Frederic Cambus ([@fcambus][10]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][15]), Brian Cassidy
+([@bricas][16]) and Frederic Cambus ([@fcambus][17]).
 
 # Resources
 
@@ -291,9 +279,16 @@ GitHub: https://github.com/ansilove/ansilove
 [2]: https://travis-ci.org/ansilove/ansilove
 [3]: https://www.ansilove.org
 [4]: https://github.com/ansilove/libansilove
-[5]: https://sourceforge.net/projects/tundradraw/
-[6]: https://github.com/radman1/xbin
-[7]: https://github.com/radman1/sauce
-[8]: https://github.com/ByteProject
-[9]: https://github.com/bricas
-[10]: https://github.com/fcambus
+[5]: https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/graphics/ansilove
+[6]: http://pkgsrc.se/graphics/ansilove
+[7]: https://www.freshports.org/graphics/ansilove/
+[8]: https://packages.debian.org/search?keywords=ansilove
+[9]: https://packages.ubuntu.com/search?keywords=ansilove
+[10]: https://software.opensuse.org/package/ansilove
+[11]: https://dev.getsol.us/source/ansilove/
+[12]: https://sourceforge.net/projects/tundradraw/
+[13]: https://github.com/radman1/xbin
+[14]: https://github.com/radman1/sauce
+[15]: https://github.com/ByteProject
+[16]: https://github.com/bricas
+[17]: https://github.com/fcambus
