@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #ifdef HAVE_SECCOMP
 #include <sys/prctl.h>
@@ -73,6 +74,8 @@ main(int argc, char *argv[])
 	char *font = NULL;
 	char *type = NULL;
 	int filetype = 0;
+
+	struct timespec begin, end, elapsed;
 
 	static struct ansilove_ctx ctx;
 	static struct ansilove_options options;
@@ -181,6 +184,9 @@ main(int argc, char *argv[])
 	/* if -q flag was not set, default to stdout */
 	if (!messages)
 		messages = stdout;
+
+        /* Starting timer */
+        clock_gettime(CLOCK_MONOTONIC, &begin);
 
 	/* let's check the file for a valid SAUCE record */
 	struct sauce *record = sauceReadFileName(input);
@@ -324,6 +330,14 @@ main(int argc, char *argv[])
 				fprintf(messages, "%s\n", record->comment_lines[i]);
 		}
 	}
+
+	/* Stopping timer */
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	timespecsub(&end, &begin, &elapsed);
+
+	fprintf(messages, "\nProcessed in %f seconds.\n",
+	    elapsed.tv_sec + elapsed.tv_nsec / 1E9);
 
 	ansilove_clean(&ctx);
 
