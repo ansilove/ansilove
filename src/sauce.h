@@ -13,7 +13,7 @@
 #ifndef SAUCE_H
 #define SAUCE_H
 
-#include <sys/types.h>
+#include <stdint.h>
 #include <stdio.h>
 
 /* sauce records */
