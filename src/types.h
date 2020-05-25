@@ -21,6 +21,9 @@
 #define ANSILOVE_FILETYPE_TND	6
 #define ANSILOVE_FILETYPE_XB	7
 
+struct ansilove_ctx;
+struct ansilove_options;
+
 extern char *types[];
 extern int filetypes[];
 extern int (*loaders[])(struct ansilove_ctx *, struct ansilove_options *);
