@@ -10,7 +10,6 @@
  * See LICENSE file for details.
  */
 
-#define _GNU_SOURCE
 #include <sys/time.h>
 #include <ansilove.h>
 #include <err.h>
