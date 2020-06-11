@@ -283,7 +283,7 @@ GitHub: https://github.com/ansilove/ansilove
 [3]: https://www.ansilove.org
 [4]: https://github.com/ansilove/libansilove
 [5]: https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/graphics/ansilove
-[6]: http://pkgsrc.se/graphics/ansilove
+[6]: https://pkgsrc.se/graphics/ansilove
 [7]: https://www.freshports.org/graphics/ansilove/
 [8]: https://packages.debian.org/search?keywords=ansilove
 [9]: https://packages.ubuntu.com/search?keywords=ansilove
