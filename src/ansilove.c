@@ -23,9 +23,6 @@
 
 #ifdef HAVE_SECCOMP
 #include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <linux/audit.h>
-#include <linux/filter.h>
 #include <linux/seccomp.h>
 #include "seccomp.h"
 #endif
