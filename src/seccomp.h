@@ -49,7 +49,7 @@ static struct sock_filter filter[] = {
 	ANSILOVE_SYSCALL_ALLOW(close),
 	ANSILOVE_SYSCALL_ALLOW(exit_group),
 	ANSILOVE_SYSCALL_ALLOW(fstat),
-#if defined(SYS__fstat64)
+#if defined(SYS_fstat64)
 	ANSILOVE_SYSCALL_ALLOW(fstat64),	/* i386 glibc */
 #endif
 	ANSILOVE_SYSCALL_ALLOW(ioctl),
