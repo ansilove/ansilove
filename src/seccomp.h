@@ -21,12 +21,14 @@
 #include <linux/filter.h>
 #include <linux/seccomp.h>
 
-#if defined(__x86_64__)
+#if defined(__i386__)
+#define SECCOMP_AUDIT_ARCH AUDIT_ARCH_I386
+#elif defined(__x86_64__)
 #define SECCOMP_AUDIT_ARCH AUDIT_ARCH_X86_64
 #elif defined(__aarch64__)
 #define SECCOMP_AUDIT_ARCH AUDIT_ARCH_AARCH64
 #else
-#error "Seccomp is only supported on amd64 and aarch64 architectures."
+#error "Seccomp is only supported on i386, amd64, and arm64 architectures."
 #endif
 
 #define ANSILOVE_SYSCALL_ALLOW(syscall) \
@@ -43,17 +45,27 @@ static struct sock_filter filter[] = {
 	BPF_STMT(BPF_LD+BPF_W+BPF_ABS, offsetof(struct seccomp_data, nr)),
 
 	ANSILOVE_SYSCALL_ALLOW(brk),
+	ANSILOVE_SYSCALL_ALLOW(clock_gettime),	/* i386 glibc */
 	ANSILOVE_SYSCALL_ALLOW(close),
 	ANSILOVE_SYSCALL_ALLOW(exit_group),
 	ANSILOVE_SYSCALL_ALLOW(fstat),
+#if defined(SYS__fstat64)
+	ANSILOVE_SYSCALL_ALLOW(fstat64),	/* i386 glibc */
+#endif
 	ANSILOVE_SYSCALL_ALLOW(ioctl),
 	ANSILOVE_SYSCALL_ALLOW(lseek),
+#if defined(SYS__llseek)
+	ANSILOVE_SYSCALL_ALLOW(_llseek),	/* i386 glibc */
+#endif
 #if defined(SYS_open)
 	ANSILOVE_SYSCALL_ALLOW(open),
 #endif
 	ANSILOVE_SYSCALL_ALLOW(openat),
 	ANSILOVE_SYSCALL_ALLOW(madvise),
 	ANSILOVE_SYSCALL_ALLOW(mmap),
+#if defined(SYS_mmap2)
+	ANSILOVE_SYSCALL_ALLOW(mmap2),		/* i386 glibc */
+#endif
 	ANSILOVE_SYSCALL_ALLOW(mremap),
 	ANSILOVE_SYSCALL_ALLOW(munmap),
 	ANSILOVE_SYSCALL_ALLOW(read),
