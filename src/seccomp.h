@@ -49,21 +49,21 @@ static struct sock_filter filter[] = {
 	ANSILOVE_SYSCALL_ALLOW(close),
 	ANSILOVE_SYSCALL_ALLOW(exit_group),
 	ANSILOVE_SYSCALL_ALLOW(fstat),
-#if defined(SYS_fstat64)
+#if defined(__NR_fstat64)
 	ANSILOVE_SYSCALL_ALLOW(fstat64),	/* i386 glibc */
 #endif
 	ANSILOVE_SYSCALL_ALLOW(ioctl),
 	ANSILOVE_SYSCALL_ALLOW(lseek),
-#if defined(SYS__llseek)
+#if defined(__NR__llseek)
 	ANSILOVE_SYSCALL_ALLOW(_llseek),	/* i386 glibc */
 #endif
-#if defined(SYS_open)
+#if defined(__NR_open)
 	ANSILOVE_SYSCALL_ALLOW(open),
 #endif
 	ANSILOVE_SYSCALL_ALLOW(openat),
 	ANSILOVE_SYSCALL_ALLOW(madvise),
 	ANSILOVE_SYSCALL_ALLOW(mmap),
-#if defined(SYS_mmap2)
+#if defined(__NR_mmap2)
 	ANSILOVE_SYSCALL_ALLOW(mmap2),		/* i386 glibc */
 #endif
 	ANSILOVE_SYSCALL_ALLOW(mremap),
