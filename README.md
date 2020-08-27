@@ -166,6 +166,8 @@ Even more:
 
      -s          Show SAUCE record without generating output.
 
+     -S          If available, use SAUCE info for render options (ex: width).
+
      -v          Show version information.
 ```
 

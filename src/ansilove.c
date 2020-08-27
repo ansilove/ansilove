@@ -42,7 +42,7 @@ static void
 synopsis(void)
 {
 	fprintf(stdout, "SYNOPSIS\n"
-	    "     ansilove [-dhiqrsv] [-b bits] [-c columns] [-f font]"
+	    "     ansilove [-dhiqrsSv] [-b bits] [-c columns] [-f font]"
 	    " [-m mode] [-o file]\n"
 	    "              [-R factor] [-t type] file\n");
 }
@@ -63,6 +63,7 @@ main(int argc, char *argv[])
 	/* SAUCE record related bool types */
 	bool justDisplaySAUCE = false;
 	bool fileHasSAUCE = false;
+	bool useSAUCEInfo = false;
 
 	int getoptFlag;
 
@@ -97,7 +98,7 @@ main(int argc, char *argv[])
 	if (ansilove_init(&ctx, &options) == -1)
 		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:st:v")) != -1) {
+	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sSt:v")) != -1) {
 		switch (getoptFlag) {
 		case 'b':
 			options.bits = strtonum(optarg, 8, 9, &errstr);
@@ -159,6 +160,9 @@ main(int argc, char *argv[])
 		case 's':
 			justDisplaySAUCE = true;
 			break;
+		case 'S':
+			useSAUCEInfo = true;
+			break;
 		case 't':
 			type = strtolower(optarg);
 			break;
@@ -199,6 +203,119 @@ main(int argc, char *argv[])
 	}
 
 	if (!justDisplaySAUCE) {
+		/* gather rendering hints from SAUCE */
+		if (useSAUCEInfo && fileHasSAUCE) {
+			bool usedSAUCE = false;
+			if (record->dataType == 1) {
+				if (record->fileType == 0 || record->fileType == 1 || record->fileType == 2) {
+					options.columns = record->tinfo1;
+					if (record->flags & 1)
+						options.icecolors = true;
+					if ((record->flags & 6) == 4)
+						options.bits = 9;
+					if ((record->flags & 24) == 8)
+						options.dos = true;
+					usedSAUCE = true;
+				}
+				if (record->fileType == 8) {
+					options.columns = record->tinfo1;
+					usedSAUCE = true;
+				}
+			}
+			if (record->dataType == 5) {
+				options.columns = record->tinfo1;
+				usedSAUCE = true;
+			}
+			/* XBIN (dataType == 6) could also use tinfo1 for width, but we trust the XBIN header more */
+			/* font info */
+			if ((record->dataType == 1 && (record->fileType == 0 || record->fileType == 1 || record->fileType == 2)) || record->dataType == 5 ) {
+				if (strcmp(record->tinfos, "IBM VGA") == 0) {
+					font = "80x25";
+				}
+				if (strcmp(record->tinfos, "IBM VGA50") == 0) {
+					font = "80x50";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 437") == 0) {
+					font = "80x25";
+				}
+				if (strcmp(record->tinfos, "IBM VGA50 437") == 0) {
+					font = "80x50";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 775") == 0) {
+					font = "baltic";
+				}
+				if (strcmp(record->tinfos, "IBM VGA50 855") == 0) {
+					font = "cyrillic";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 863") == 0) {
+					font = "french-canadian";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 737") == 0) {
+					font = "greek";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 869") == 0) {
+					font = "greek-869";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 862") == 0) {
+					font = "hebrew";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 861") == 0) {
+					font = "icelandic";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 850") == 0) {
+					font = "latin1";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 852") == 0) {
+					font = "latin2";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 865") == 0) {
+					font = "nordic";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 860") == 0) {
+					font = "portuguese";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 866") == 0) {
+					font = "russian";
+				}
+				if (strcmp(record->tinfos, "IBM VGA 857") == 0) {
+					font = "turkish";
+				}
+				if (strcmp(record->tinfos, "Amiga MicroKnight") == 0) {
+					font = "microknight";
+				}
+				if (strcmp(record->tinfos, "Amiga MicroKnight+") == 0) {
+					font = "microknight+";
+				}
+				if (strcmp(record->tinfos, "Amiga mOsOul") == 0) {
+					font = "mosoul";
+				}
+				if (strcmp(record->tinfos, "Amiga P0T-NOoDLE") == 0) {
+					font = "pot-noodle";
+				}
+				if (strcmp(record->tinfos, "Amiga Topaz 1") == 0) {
+					font = " topaz500";
+				}
+				if (strcmp(record->tinfos, "Amiga Topaz 1+") == 0) {
+					font = "topaz500+";
+				}
+				if (strcmp(record->tinfos, "Amiga Topaz 2") == 0) {
+					font = "topaz";
+				}
+				if (strcmp(record->tinfos, "Amiga Topaz 2+") == 0) {
+					font = "topaz+";
+				}
+				for (size_t loop = 0; loop < FONTS; loop++) {
+					if (!strcmp(fonts[loop], font)) {
+						options.font = fontsId[loop];
+						break;
+					}
+				}
+			}
+			if (usedSAUCE) {
+				fprintf(messages, "SAUCE info used for rendering hints\n\n");
+			}
+		}
+
 		/* create output file name if output is not specified */
 		if (!output) {
 			/* appending ".png" extension to output file name */
@@ -226,10 +343,6 @@ main(int argc, char *argv[])
 		/* adjust the file size if file contains a SAUCE record */
 		if (fileHasSAUCE)
 			ctx.length -= 129 - (record->comments > 0 ? 5 + 64 * record->comments : 0);
-
-		/* set icecolors to true if defined in SAUCE record ANSiFlags */
-		if (fileHasSAUCE && (record->flags & 1))
-			options.icecolors = true;
 
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *) = NULL;
 
