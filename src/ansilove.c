@@ -306,7 +306,7 @@ main(int argc, char *argv[])
 		fprintf(messages, "Filetype: %d\n", record->fileType);
 
 		if (record->flags)
-			fprintf(messages, "Flags: %d\n", record->flags);
+			fprintf(messages, "Flags: 0b%d%d%d%d%d%d%d%d\n", record->flags >> 7, record->flags >> 6 & 1, record->flags >> 5 & 1, record->flags >> 4 & 1, record->flags >> 3 & 1, record->flags >> 2 & 1, record->flags >> 1 & 1, record->flags & 1);
 
 		if (record->tinfo1)
 			fprintf(messages, "Tinfo1: %d\n", record->tinfo1);
