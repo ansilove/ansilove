@@ -1,3 +1,15 @@
+AnsiLove/C 4.1.3 (2020-09-18)
+
+- Adjust SAUCE flag output to be binary
+- Add -S flag to use SAUCE info for rendering hints. Users must now use -S
+  to get iCE color info. This was previously automatically pulled without
+  any extra options.
+- Document the new -S flag, allowing to use SAUCE info for render options
+- Add support for seccomp on arm
+- Add missing test for __NR_mmap, the mmap syscall doesn't exist on arm
+
+
+
 AnsiLove/C 4.1.2 (2020-07-04)
 
 - Define _GNU_SOURCE in CMakeLists.txt to avoid cluttering source files
