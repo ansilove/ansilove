@@ -64,7 +64,9 @@ static struct sock_filter filter[] = {
 #endif
 	ANSILOVE_SYSCALL_ALLOW(openat),
 	ANSILOVE_SYSCALL_ALLOW(madvise),
+#if defined(__NR_mmap)
 	ANSILOVE_SYSCALL_ALLOW(mmap),
+#endif
 #if defined(__NR_mmap2)
 	ANSILOVE_SYSCALL_ALLOW(mmap2),		/* i386 glibc */
 #endif
