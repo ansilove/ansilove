@@ -119,12 +119,6 @@ main(int argc, char *argv[])
 			break;
 		case 'f':
 			font = optarg;
-			for (size_t loop = 0; loop < FONTS; loop++) {
-				if (!strcmp(fonts[loop], font)) {
-					options.font = fontsId[loop];
-					break;
-				}
-			}
 			break;
 		case 'h':
 			synopsis();
@@ -304,15 +298,18 @@ main(int argc, char *argv[])
 				if (strcmp(record->tinfos, "Amiga Topaz 2+") == 0) {
 					font = "topaz+";
 				}
-				for (size_t loop = 0; loop < FONTS; loop++) {
-					if (!strcmp(fonts[loop], font)) {
-						options.font = fontsId[loop];
-						break;
-					}
-				}
 			}
 			if (usedSAUCE) {
 				fprintf(messages, "SAUCE info used for rendering hints\n\n");
+			}
+		}
+
+		if (font) {
+			for (size_t loop = 0; loop < FONTS; loop++) {
+				if (!strcmp(fonts[loop], font)) {
+					options.font = fontsId[loop];
+					break;
+				}
 			}
 		}
 
