@@ -30,7 +30,7 @@
 #elif defined(__aarch64__)
 #define SECCOMP_AUDIT_ARCH AUDIT_ARCH_AARCH64
 #else
-#error "Seccomp is only supported on i386, amd64, and arm64 architectures."
+#error "Seccomp is only supported on i386, x86_64, arm, and aarch64 architectures."
 #endif
 
 #define ANSILOVE_SYSCALL_ALLOW(syscall) \
