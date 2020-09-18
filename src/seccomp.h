@@ -1,6 +1,6 @@
 /*
  * seccomp.h
- * Ansilove 4.1.2
+ * Ansilove 4.1.3
  * https://www.ansilove.org
  *
  * Copyright (c) 2019-2020, Frederic Cambus
