@@ -44,6 +44,11 @@ sauceReadFile(FILE *file)
 	return record;
 }
 
+#define READ_RECORD(record, size) \
+	read_status = fread(record, size, 1, file); \
+	if (read_status != 1) \
+		return;
+
 void
 readRecord(FILE *file, struct sauce *record)
 {
