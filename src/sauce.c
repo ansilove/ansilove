@@ -64,26 +64,26 @@ readRecord(FILE *file, struct sauce *record)
 	if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
 		return;
 	}
-	fread(record->version, sizeof (record->version) - 1, 1, file);
+	READ_RECORD(record->version, sizeof(record->version) - 1);
 	record->version[sizeof (record->version) - 1] = '\0';
-	fread(record->title, sizeof (record->title) - 1, 1, file);
+	READ_RECORD(record->title, sizeof(record->title) - 1);
 	record->title[sizeof (record->title) - 1] = '\0';
-	fread(record->author, sizeof (record->author) - 1, 1, file);
+	READ_RECORD(record->author, sizeof(record->author) -1);
 	record->author[sizeof (record->author) - 1] = '\0';
-	fread(record->group, sizeof (record->group) - 1, 1, file);
+	READ_RECORD(record->group, sizeof(record->group) - 1);
 	record->group[sizeof (record->group) - 1] = '\0';
-	fread(record->date, sizeof (record->date) - 1, 1, file);
+	READ_RECORD(record->date, sizeof(record->date) - 1);
 	record->date[sizeof (record->date) - 1] = '\0';
-	fread(&(record->fileSize), sizeof (record->fileSize), 1, file);
-	fread(&(record->dataType), sizeof (record->dataType), 1, file);
-	fread(&(record->fileType), sizeof (record->fileType), 1, file);
-	fread(&(record->tinfo1), sizeof (record->tinfo1), 1, file);
-	fread(&(record->tinfo2), sizeof (record->tinfo2), 1, file);
-	fread(&(record->tinfo3), sizeof (record->tinfo3), 1, file);
-	fread(&(record->tinfo4), sizeof (record->tinfo4), 1, file);
-	fread(&(record->comments), sizeof (record->comments), 1, file);
-	fread(&(record->flags), sizeof (record->flags), 1, file);
-	fread(record->tinfos, sizeof (record->tinfos) - 1, 1, file);
+	READ_RECORD(&(record->fileSize), sizeof (record->fileSize));
+	READ_RECORD(&(record->dataType), sizeof (record->dataType));
+	READ_RECORD(&(record->fileType), sizeof (record->fileType));
+	READ_RECORD(&(record->tinfo1), sizeof (record->tinfo1));
+	READ_RECORD(&(record->tinfo2), sizeof (record->tinfo2));
+	READ_RECORD(&(record->tinfo3), sizeof (record->tinfo3));
+	READ_RECORD(&(record->tinfo4), sizeof (record->tinfo4));
+	READ_RECORD(&(record->comments), sizeof (record->comments));
+	READ_RECORD(&(record->flags), sizeof (record->flags));
+	READ_RECORD(record->tinfos, sizeof(record->tinfos) - 1);
 	record->tinfos[sizeof (record->tinfos) - 1] = '\0';
 
 	if (ferror(file) != 0) {
