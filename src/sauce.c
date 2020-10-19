@@ -47,11 +47,13 @@ sauceReadFile(FILE *file)
 void
 readRecord(FILE *file, struct sauce *record)
 {
+	size_t read_status;
+
 	if (fseek(file, 0 - RECORD_SIZE, SEEK_END) != 0) {
 		return;
 	}
 
-	size_t read_status = fread(record->ID, sizeof (record->ID) - 1, 1, file);
+	read_status = fread(record->ID, sizeof (record->ID) - 1, 1, file);
 	record->ID[sizeof (record->ID) - 1] = '\0';
 
 	if (read_status != 1 || strcmp(record->ID, SAUCE_ID) != 0) {
