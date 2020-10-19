@@ -100,10 +100,14 @@ int
 readComments(FILE *file, char **comment_lines, int32_t comments)
 {
 	int32_t i;
+	size_t read_status;
 
 	if (fseek(file, 0 - (RECORD_SIZE + 5 + COMMENT_SIZE *comments), SEEK_END) == 0) {
 		char ID[6];
-		fread(ID, sizeof (ID) - 1, 1, file);
+		read_status = fread(ID, sizeof (ID) - 1, 1, file);
+		if (read_status != 1)
+			return -1;
+
 		ID[sizeof (ID) - 1] = '\0';
 
 		if (strcmp(ID, COMMENT_ID) != 0) {
@@ -113,7 +117,10 @@ readComments(FILE *file, char **comment_lines, int32_t comments)
 		for (i = 0; i < comments; i++) {
 			char buf[COMMENT_SIZE + 1] = "";
 
-			fread(buf, COMMENT_SIZE, 1, file);
+			read_status = fread(buf, COMMENT_SIZE, 1, file);
+			if (read_status != 1)
+				return -1;
+
 			buf[COMMENT_SIZE] = '\0';
 
 			if (ferror(file) == 0) {
