@@ -36,9 +36,9 @@ sauceReadFile(FILE *file)
 {
 	struct sauce *record;
 	record = malloc(sizeof *record);
-	memset(record, 0, sizeof *record);
 
 	if (record != NULL) {
+		memset(record, 0, sizeof *record);
 		readRecord(file, record);
 	}
 	return record;
