@@ -329,6 +329,8 @@ main(int argc, char *argv[])
 		/* get file extension */
 		char *fext = strrchr(input, '.');
 		fext = fext ? strtolower(strdup(++fext)) : strdup("");
+		if (!fext)
+			errx(EXIT_FAILURE, "Memory allocation error.");
 
 		/* check if current file has a .diz extension */
 		if (!strcmp(fext, "diz"))
