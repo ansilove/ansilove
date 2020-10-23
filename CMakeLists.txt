@@ -34,7 +34,6 @@ find_path(ANSILOVE_INCLUDE_DIRS ansilove.h)
 find_library(ANSILOVE_LIBRARIES NAMES ansilove REQUIRED)
 include_directories(${ANSILOVE_INCLUDE_DIRS})
 
-set(CMAKE_BUILD_TYPE Release)
 set(SRC src/ansilove.c src/types.c src/strtolower.c src/sauce.c)
 
 if(NOT HAVE_PLEDGE)
