@@ -1,6 +1,7 @@
 arch:
   - amd64
   - arm64
+  - ppc64le
 
 matrix:
   include:
@@ -8,6 +9,8 @@ matrix:
      arch: amd64
    - os: linux
      arch: arm64
+   - os: linux
+     arch: ppc64le
 
 language: c
 
