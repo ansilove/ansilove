@@ -223,85 +223,84 @@ main(int argc, char *argv[])
 			/* XBIN (dataType == 6) could also use tinfo1 for width, but we trust the XBIN header more */
 			/* font info */
 			if ((record->dataType == 1 && (record->fileType == 0 || record->fileType == 1 || record->fileType == 2)) || record->dataType == 5 ) {
-				if (strcmp(record->tinfos, "IBM VGA") == 0) {
+				if (strcmp(record->tinfos, "IBM VGA") == 0)
 					font = "80x25";
-				}
-				if (strcmp(record->tinfos, "IBM VGA50") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA50") == 0)
 					font = "80x50";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 437") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 437") == 0)
 					font = "80x25";
-				}
-				if (strcmp(record->tinfos, "IBM VGA50 437") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA50 437") == 0)
 					font = "80x50";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 775") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 775") == 0)
 					font = "baltic";
-				}
-				if (strcmp(record->tinfos, "IBM VGA50 855") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA50 855") == 0)
 					font = "cyrillic";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 863") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 863") == 0)
 					font = "french-canadian";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 737") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 737") == 0)
 					font = "greek";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 869") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 869") == 0)
 					font = "greek-869";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 862") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 862") == 0)
 					font = "hebrew";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 861") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 861") == 0)
 					font = "icelandic";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 850") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 850") == 0)
 					font = "latin1";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 852") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 852") == 0)
 					font = "latin2";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 865") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 865") == 0)
 					font = "nordic";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 860") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 860") == 0)
 					font = "portuguese";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 866") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 866") == 0)
 					font = "russian";
-				}
-				if (strcmp(record->tinfos, "IBM VGA 857") == 0) {
+
+				if (strcmp(record->tinfos, "IBM VGA 857") == 0)
 					font = "turkish";
-				}
-				if (strcmp(record->tinfos, "Amiga MicroKnight") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga MicroKnight") == 0)
 					font = "microknight";
-				}
-				if (strcmp(record->tinfos, "Amiga MicroKnight+") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga MicroKnight+") == 0)
 					font = "microknight+";
-				}
-				if (strcmp(record->tinfos, "Amiga mOsOul") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga mOsOul") == 0)
 					font = "mosoul";
-				}
-				if (strcmp(record->tinfos, "Amiga P0T-NOoDLE") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga P0T-NOoDLE") == 0)
 					font = "pot-noodle";
-				}
-				if (strcmp(record->tinfos, "Amiga Topaz 1") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga Topaz 1") == 0)
 					font = " topaz500";
-				}
-				if (strcmp(record->tinfos, "Amiga Topaz 1+") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga Topaz 1+") == 0)
 					font = "topaz500+";
-				}
-				if (strcmp(record->tinfos, "Amiga Topaz 2") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga Topaz 2") == 0)
 					font = "topaz";
-				}
-				if (strcmp(record->tinfos, "Amiga Topaz 2+") == 0) {
+
+				if (strcmp(record->tinfos, "Amiga Topaz 2+") == 0)
 					font = "topaz+";
-				}
 			}
-			if (usedSAUCE) {
+
+			if (usedSAUCE)
 				fprintf(messages, "SAUCE info used for rendering hints\n\n");
-			}
 		}
 
 		if (font) {
