@@ -61,7 +61,7 @@ AnsiLove/C uses the `CMake` build system and requires the
 - OpenBSD: `pkg_add -r cmake`
 - NetBSD: `pkgin install cmake`
 - FreeBSD: `pkg install cmake`
-- Mac OS X: `brew install cmake`
+- macOS: `brew install cmake`
 - Alpine Linux: `apk add cmake gcc make musl-dev`
 - Debian / Ubuntu / Mint: `apt-get install build-essential cmake`
 - Fedora: `dnf install cmake gcc make`
