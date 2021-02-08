@@ -177,8 +177,8 @@ main(int argc, char *argv[])
 	if (!messages)
 		messages = stdout;
 
-        /* Starting timer */
-        clock_gettime(CLOCK_MONOTONIC, &begin);
+	/* Starting timer */
+	clock_gettime(CLOCK_MONOTONIC, &begin);
 
 	/* let's check the file for a valid SAUCE record */
 	struct sauce *record = sauceReadFileName(input);
