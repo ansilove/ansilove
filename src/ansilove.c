@@ -173,9 +173,6 @@ main(int argc, char *argv[])
 		return EXIT_SUCCESS;
 	}
 
-	argc -= optind;
-	argv += optind;
-
 	/* if -q flag was not set, default to stdout */
 	if (!messages)
 		messages = stdout;
