@@ -44,7 +44,6 @@ if(NOT HAVE_STRTONUM)
   set (SRC ${SRC} compat/strtonum.c)
 endif()
 
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -D_FORTIFY_SOURCE=2")
 add_definitions(-D_GNU_SOURCE -Wall -Wextra -std=c99 -pedantic)
 add_executable(ansilove ${SRC})
 
