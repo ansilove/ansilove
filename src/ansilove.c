@@ -316,6 +316,9 @@ main(int argc, char *argv[])
 				errx(EXIT_FAILURE, "Memory allocation error.");
 		} else {
 			fileName = strdup(output);
+
+			if (!fileName)
+				errx(EXIT_FAILURE, "Memory allocation error.");
 		}
 
 		/* display name of input and output files */
