@@ -65,7 +65,7 @@ main(int argc, char *argv[])
 	bool fileHasSAUCE = false;
 	bool useSAUCEInfo = false;
 
-	int getoptFlag;
+	int opt;
 
 	char *input = NULL, *output = NULL;
 	char *fileName = NULL;
@@ -98,8 +98,8 @@ main(int argc, char *argv[])
 	if (ansilove_init(&ctx, &options) == -1)
 		errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
-	while ((getoptFlag = getopt(argc, argv, "b:c:df:him:o:qrR:sSt:v")) != -1) {
-		switch (getoptFlag) {
+	while ((opt = getopt(argc, argv, "b:c:df:him:o:qrR:sSt:v")) != -1) {
+		switch (opt) {
 		case 'b':
 			options.bits = strtonum(optarg, 8, 9, &errstr);
 
