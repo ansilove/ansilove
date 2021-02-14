@@ -1,6 +1,6 @@
 /*
  * types.h
- * Ansilove 4.1.4
+ * Ansilove 4.1.5
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2021 Stefan Vogt, Brian Cassidy, and Frederic Cambus
