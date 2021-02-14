@@ -1,3 +1,11 @@
+AnsiLove/C 4.1.5 (2021-02-14)
+
+- Stop forcing FORTIFY_SOURCE=2, it should be package builders decision
+- Remove dead increments for argc and argv
+- Check strdup() return value when allocating output file name
+
+
+
 AnsiLove/C 4.1.4 (2020-10-22)
 
 - Set CMAKE_BUILD_TYPE to "Release" in CMakeLists.txt
