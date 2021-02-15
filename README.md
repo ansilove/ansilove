@@ -18,8 +18,6 @@ _ _________    /    \_______ _ \___    /_______/    /   _/ \____      \  /
 
 # AnsiLove/C
 
-[![Build Status][1]][2]
-
 AnsiLove is an ANSI and ASCII art to PNG converter, allowing to convert
 ANSI and artscene-related file formats into PNG images, supporting ANSI
 (.ANS), PCBoard (.PCB), Binary (.BIN), Artworx (.ADF), iCE Draw (.IDF),
@@ -29,7 +27,7 @@ It creates size optimized 4-bit PNG files and supports SAUCE (Standard
 Architecture for Universal Comment Extentions), 80x25 and 80x50 PC fonts
 (including all the 14 MS-DOS charsets), Amiga fonts, and iCE colors.
 
-This is a complete rewrite of [AnsiLove/PHP][3] in the C programming
+This is a complete rewrite of [AnsiLove/PHP][1] in the C programming
 language.
 
 # Specs
@@ -54,7 +52,7 @@ it's ancestor.
 # Dependencies
 
 AnsiLove/C uses the `CMake` build system and requires the
-[libansilove][4] library and header files.
+[libansilove][2] library and header files.
 
 # Installing dependencies
 
@@ -83,13 +81,13 @@ On other systems, `libansilove` has to be installed manually.
 
 Packages are available for the following operating systems:
 
-- [OpenBSD][5]
-- [NetBSD][6]
-- [FreeBSD][7]
-- [Debian][8]
-- [Ubuntu][9]
-- [openSUSE][10]
-- [Solus][11]
+- [OpenBSD][3]
+- [NetBSD][4]
+- [FreeBSD][5]
+- [Debian][6]
+- [Ubuntu][7]
+- [openSUSE][8]
+- [Solus][9]
 
 # Features
 
@@ -100,15 +98,15 @@ The following formats are supported:
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
-- .TND - [TundraDraw][12] format, supporting 24-bit color mode
-- .XB - The eXtended Binary [XBin][13] format, supporting custom character sets
+- .TND - [TundraDraw][10] format, supporting 24-bit color mode
+- .XB - The eXtended Binary [XBin][11] format, supporting custom character sets
   and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capabable of processing:
 
-- [SAUCE][14] records
+- [SAUCE][12] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -271,8 +269,8 @@ AnsiLove/C is released under the BSD 2-Clause License. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][15]), Brian Cassidy
-([@bricas][16]) and Frederic Cambus ([@fcambus][17]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][13]), Brian Cassidy
+([@bricas][14]) and Frederic Cambus ([@fcambus][15]).
 
 # Resources
 
@@ -280,20 +278,18 @@ Project homepage: https://www.ansilove.org
 
 GitHub: https://github.com/ansilove/ansilove
 
-[1]: https://api.travis-ci.org/ansilove/ansilove.png?branch=master
-[2]: https://travis-ci.org/ansilove/ansilove
-[3]: https://www.ansilove.org
-[4]: https://github.com/ansilove/libansilove
-[5]: https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/graphics/ansilove
-[6]: https://pkgsrc.se/graphics/ansilove
-[7]: https://www.freshports.org/graphics/ansilove/
-[8]: https://packages.debian.org/search?keywords=ansilove
-[9]: https://packages.ubuntu.com/search?keywords=ansilove
-[10]: https://software.opensuse.org/package/ansilove
-[11]: https://dev.getsol.us/source/ansilove/
-[12]: https://sourceforge.net/projects/tundradraw/
-[13]: https://github.com/radman1/xbin
-[14]: https://github.com/radman1/sauce
-[15]: https://github.com/ByteProject
-[16]: https://github.com/bricas
-[17]: https://github.com/fcambus
+[1]: https://www.ansilove.org
+[2]: https://github.com/ansilove/libansilove
+[3]: https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/graphics/ansilove
+[4]: https://pkgsrc.se/graphics/ansilove
+[5]: https://www.freshports.org/graphics/ansilove/
+[6]: https://packages.debian.org/search?keywords=ansilove
+[7]: https://packages.ubuntu.com/search?keywords=ansilove
+[8]: https://software.opensuse.org/package/ansilove
+[9]: https://dev.getsol.us/source/ansilove/
+[10]: https://sourceforge.net/projects/tundradraw/
+[11]: https://github.com/radman1/xbin
+[12]: https://github.com/radman1/sauce
+[13]: https://github.com/ByteProject
+[14]: https://github.com/bricas
+[15]: https://github.com/fcambus
