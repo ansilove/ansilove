@@ -30,6 +30,10 @@ Architecture for Universal Comment Extentions), 80x25 and 80x50 PC fonts
 This is a complete rewrite of [AnsiLove/PHP][1] in the C programming
 language.
 
+Experimental seccomp support is available for selected architectures and
+can be enabled by setting the `ENABLE_SECCOMP` variable to `1` when
+invoking CMake.
+
 # Specs
 
 AnsiLove/C is strictly using the `C99 standard` to achieve high
