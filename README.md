@@ -24,7 +24,7 @@ ANSI and artscene-related file formats into PNG images, supporting ANSI
 Tundra (.TND) and XBin (.XB) formats.
 
 It creates size optimized 4-bit PNG files and supports SAUCE (Standard
-Architecture for Universal Comment Extentions), 80x25 and 80x50 PC fonts
+Architecture for Universal Comment Extensions), 80x25 and 80x50 PC fonts
 (including all the 14 MS-DOS charsets), Amiga fonts, and iCE colors.
 
 This is a complete rewrite of [AnsiLove/PHP][1] in the C programming
@@ -108,7 +108,7 @@ The following formats are supported:
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
-AnsiLove/C is capabable of processing:
+AnsiLove/C is capable of processing:
 
 - [SAUCE][12] records
 - DOS and Amiga fonts (embedded binary dump)
