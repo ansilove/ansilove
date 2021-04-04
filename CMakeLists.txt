@@ -1,13 +1,12 @@
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required(VERSION 2.8.12)
 
-project (ansilove C)
+project(ansilove C)
 
 include(CheckFunctionExists)
 include(GNUInstallDirs)
 
 # Conditional build options
-set(ENABLE_SECCOMP 0
-    CACHE BOOL "Enable building with seccomp")
+set(ENABLE_SECCOMP 0 CACHE BOOL "Enable building with seccomp")
 
 # Check if system has pledge and strtonum
 list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_OPENBSD_SOURCE)
@@ -37,11 +36,11 @@ include_directories(${ANSILOVE_INCLUDE_DIRS})
 set(SRC src/ansilove.c src/types.c src/strtolower.c src/sauce.c)
 
 if(NOT HAVE_PLEDGE)
-  set (SRC ${SRC} compat/pledge.c)
+  set(SRC ${SRC} compat/pledge.c)
 endif()
 
 if(NOT HAVE_STRTONUM)
-  set (SRC ${SRC} compat/strtonum.c)
+  set(SRC ${SRC} compat/strtonum.c)
 endif()
 
 add_definitions(-D_GNU_SOURCE -Wall -Wextra -std=c99 -pedantic)
