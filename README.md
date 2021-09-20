@@ -268,7 +268,7 @@ output, just set option `-s` for this purpose.
 
 # License
 
-AnsiLove/C is released under the BSD 2-Clause License. See the
+AnsiLove/C is released under the BSD 2-Clause license. See the
 `LICENSE` file for details.
 
 # Authors
