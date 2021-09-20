@@ -3,11 +3,13 @@
  * Ansilove 4.1.5
  * https://www.ansilove.org
  *
- * Copyright (c) 2019-2020, Frederic Cambus
+ * Copyright (c) 2019-2021, Frederic Cambus
  * All rights reserved.
  *
  * Ansilove is licensed under the BSD 2-Clause License.
  * See LICENSE file for details.
+ *
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 #ifndef SECCOMP_H

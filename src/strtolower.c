@@ -8,6 +8,8 @@
  *
  * Ansilove is licensed under the BSD 2-Clause License.
  * See LICENSE file for details.
+ *
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 #include <ctype.h>
