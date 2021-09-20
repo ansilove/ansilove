@@ -6,7 +6,7 @@
  * Copyright (c) 2011-2021 Stefan Vogt, Brian Cassidy, and Frederic Cambus
  * All rights reserved.
  *
- * Ansilove is licensed under the BSD 2-Clause License.
+ * Ansilove is licensed under the BSD 2-Clause license.
  * See LICENSE file for details.
  *
  * SPDX-License-Identifier: BSD-2-Clause
