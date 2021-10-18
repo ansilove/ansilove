@@ -1,4 +1,8 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.1)
+
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 
 project(ansilove C)
 
@@ -43,7 +47,7 @@ if(NOT HAVE_STRTONUM)
   set(SRC ${SRC} compat/strtonum.c)
 endif()
 
-add_definitions(-D_GNU_SOURCE -Wall -Wextra -std=c99 -pedantic)
+add_definitions(-D_GNU_SOURCE -Wall -Wextra -pedantic)
 add_executable(ansilove ${SRC})
 
 target_link_libraries(ansilove ${ANSILOVE_LIBRARIES} m)
