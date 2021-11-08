@@ -224,6 +224,9 @@ AMIGA fonts can be (all case-sensitive):
 Setting the bits to `9` will render the 9th column of block characters,
 so the output will look like it is displayed in real textmode.
 
+See the "Memory Map" section of the [Monochrome Display Adapter notes][13]
+for more information.
+
 ## Rendering Mode
 
 `mode` can be (all case-sensitive):
@@ -273,8 +276,8 @@ AnsiLove/C is released under the BSD 2-Clause license. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][13]), Brian Cassidy
-([@bricas][14]) and Frederic Cambus ([@fcambus][15]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][14]), Brian Cassidy
+([@bricas][15]) and Frederic Cambus ([@fcambus][16]).
 
 # Resources
 
@@ -294,6 +297,7 @@ GitHub: https://github.com/ansilove/ansilove
 [10]: https://sourceforge.net/projects/tundradraw/
 [11]: https://github.com/radman1/xbin
 [12]: https://github.com/radman1/sauce
-[13]: https://github.com/ByteProject
-[14]: https://github.com/bricas
-[15]: https://github.com/fcambus
+[13]: https://www.seasip.info/VintagePC/mda.html#memmap
+[14]: https://github.com/ByteProject
+[15]: https://github.com/bricas
+[16]: https://github.com/fcambus
