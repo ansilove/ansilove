@@ -3,7 +3,7 @@
  * Ansilove 4.1.5
  * https://www.ansilove.org
  *
- * Copyright (c) 2011-2021 Stefan Vogt, Brian Cassidy, and Frederic Cambus
+ * Copyright (c) 2011-2022 Stefan Vogt, Brian Cassidy, and Frederic Cambus
  * All rights reserved.
  *
  * Ansilove is licensed under the BSD 2-Clause license.
@@ -53,7 +53,7 @@ static void
 version(void)
 {
 	fprintf(stdout, "AnsiLove/C %s - ANSI / ASCII art to PNG converter\n"
-	    "Copyright (c) 2011-2021 Stefan Vogt, Brian Cassidy, and "
+	    "Copyright (c) 2011-2022 Stefan Vogt, Brian Cassidy, and "
 	    "Frederic Cambus.\n", VERSION);
 }
 
