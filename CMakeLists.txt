@@ -50,7 +50,7 @@ endif()
 add_definitions(-D_GNU_SOURCE -Wall -Wextra -pedantic)
 add_executable(ansilove ${SRC})
 
-target_link_libraries(ansilove ${ANSILOVE_LIBRARIES} m)
+target_link_libraries(ansilove ${ANSILOVE_LIBRARIES})
 
 install(TARGETS ansilove DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES ansilove.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/)
