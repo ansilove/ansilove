@@ -92,6 +92,7 @@ Packages are available for the following operating systems:
 - [Ubuntu][7]
 - [openSUSE][8]
 - [Solus][9]
+- [Gentoo][10]
 
 # Features
 
@@ -102,15 +103,15 @@ The following formats are supported:
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
-- .TND - [TundraDraw][10] format, supporting 24-bit color mode
-- .XB - The eXtended Binary [XBin][11] format, supporting custom character sets
+- .TND - [TundraDraw][11] format, supporting 24-bit color mode
+- .XB - The eXtended Binary [XBin][12] format, supporting custom character sets
   and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capable of processing:
 
-- [SAUCE][12] records
+- [SAUCE][13] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -224,7 +225,7 @@ AMIGA fonts can be (all case-sensitive):
 Setting the bits to `9` will render the 9th column of block characters,
 so the output will look like it is displayed in real textmode.
 
-See the "Memory Map" section of the [Monochrome Display Adapter notes][13]
+See the "Memory Map" section of the [Monochrome Display Adapter notes][14]
 for more information.
 
 ## Rendering Mode
@@ -276,8 +277,8 @@ AnsiLove/C is released under the BSD 2-Clause license. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][14]), Brian Cassidy
-([@bricas][15]) and Frederic Cambus ([@fcambus][16]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][15]), Brian Cassidy
+([@bricas][16]) and Frederic Cambus ([@fcambus][17]).
 
 # Resources
 
@@ -294,10 +295,11 @@ GitHub: https://github.com/ansilove/ansilove
 [7]: https://packages.ubuntu.com/search?keywords=ansilove
 [8]: https://software.opensuse.org/package/ansilove
 [9]: https://dev.getsol.us/source/ansilove/
-[10]: https://sourceforge.net/projects/tundradraw/
-[11]: https://github.com/radman1/xbin
-[12]: https://github.com/radman1/sauce
-[13]: https://www.seasip.info/VintagePC/mda.html#memmap
-[14]: https://github.com/ByteProject
-[15]: https://github.com/bricas
-[16]: https://github.com/fcambus
+[10]: https://packages.gentoo.org/packages/media-gfx/ansilove
+[11]: https://sourceforge.net/projects/tundradraw/
+[12]: https://github.com/radman1/xbin
+[13]: https://github.com/radman1/sauce
+[14]: https://www.seasip.info/VintagePC/mda.html#memmap
+[15]: https://github.com/ByteProject
+[16]: https://github.com/bricas
+[17]: https://github.com/fcambus
