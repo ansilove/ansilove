@@ -270,6 +270,10 @@ otherwise.
 It's fine to use AnsiLove/C as SAUCE reader without generating any
 output, just set option `-s` for this purpose.
 
+# Projects using Ansilove
+
+- [16colo.rs][15] - ANSI/ASCII art archive
+
 # License
 
 AnsiLove/C is released under the BSD 2-Clause license. See the
@@ -277,8 +281,8 @@ AnsiLove/C is released under the BSD 2-Clause license. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][15]), Brian Cassidy
-([@bricas][16]) and Frederic Cambus ([@fcambus][17]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][16]), Brian Cassidy
+([@bricas][17]) and Frederic Cambus ([@fcambus][18]).
 
 # Resources
 
@@ -300,6 +304,7 @@ GitHub: https://github.com/ansilove/ansilove
 [12]: https://github.com/radman1/xbin
 [13]: https://github.com/radman1/sauce
 [14]: https://www.seasip.info/VintagePC/mda.html#memmap
-[15]: https://github.com/ByteProject
-[16]: https://github.com/bricas
-[17]: https://github.com/fcambus
+[15]: https://16colo.rs
+[16]: https://github.com/ByteProject
+[17]: https://github.com/bricas
+[18]: https://github.com/fcambus
