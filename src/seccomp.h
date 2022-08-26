@@ -3,7 +3,7 @@
  * Ansilove 4.1.6
  * https://www.ansilove.org
  *
- * Copyright (c) 2019-2021, Frederic Cambus
+ * Copyright (c) 2019-2022, Frederic Cambus
  * All rights reserved.
  *
  * Ansilove is licensed under the BSD 2-Clause license.
