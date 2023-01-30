@@ -454,7 +454,7 @@ main(int argc, char *argv[])
 
 	timespecsub(&end, &begin, &elapsed);
 
-	fprintf(messages, "\nProcessed in %f seconds.\n",
+	fprintf(stderr, "Processed in %f seconds.\n",
 	    elapsed.tv_sec + elapsed.tv_nsec / 1E9);
 
 	ansilove_clean(&ctx);
