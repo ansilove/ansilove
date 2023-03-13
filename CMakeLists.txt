@@ -53,7 +53,7 @@ add_executable(ansilove ${SRC})
 target_link_libraries(ansilove ${ANSILOVE_LIBRARIES})
 
 install(TARGETS ansilove DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES ansilove.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/)
+install(FILES man/ansilove.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/)
 
 enable_testing()
 add_test(ansilove ansilove)
