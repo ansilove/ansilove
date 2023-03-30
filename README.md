@@ -83,7 +83,7 @@ On other systems, `libansilove` has to be installed manually.
 
 # Packages
 
-Packages are available for the following operating systems:
+Ansilove packages are available for:
 
 - [OpenBSD][3]
 - [NetBSD][4]
