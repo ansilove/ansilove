@@ -1,4 +1,4 @@
-AnsiLove/C 4.1.6 (2021-02-10)
+AnsiLove/C 4.1.6 (2022-02-10)
 
 - Mention experimental seccomp support availability in README
 - Bump CMake minimum required version to 3.1
