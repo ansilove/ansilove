@@ -1,6 +1,6 @@
 /*
  * config.h
- * Ansilove 4.1.6
+ * Ansilove 4.1.7
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2023 Stefan Vogt, Brian Cassidy, and Frederic Cambus
@@ -18,7 +18,7 @@
 #include <stdint.h>
 
 /* configuration defines */
-#define VERSION "4.1.6"
+#define VERSION "4.1.7"
 
 enum {
 	FONTS = 38,
