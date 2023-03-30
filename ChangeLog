@@ -1,3 +1,10 @@
+AnsiLove/C 4.1.7 (2023-03-30)
+
+- Always print processing time on stderr
+- Move manual page to the man directory
+
+
+
 AnsiLove/C 4.1.6 (2022-02-10)
 
 - Mention experimental seccomp support availability in README
