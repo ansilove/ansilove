@@ -44,6 +44,7 @@ char *fonts[] = {
 	"nordic",
 	"russian",
 	"greek-869",
+	"spleen",
 	"terminus",
 	"amiga",
 	"microknight",
@@ -85,6 +86,7 @@ int fontsId[] = {
 	ANSILOVE_FONT_CP865,			/* Nordic */
 	ANSILOVE_FONT_CP866,			/* Russian */
 	ANSILOVE_FONT_CP869,			/* Greek */
+	ANSILOVE_FONT_SPLEEN,
 	ANSILOVE_FONT_TERMINUS,
 	ANSILOVE_FONT_TOPAZ,			/* Alias: amiga */
 	ANSILOVE_FONT_MICROKNIGHT,
