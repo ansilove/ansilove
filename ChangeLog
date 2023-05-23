@@ -1,3 +1,10 @@
+AnsiLove/C 4.2.0 (2023-05-23)
+
+- Add initial RPM spec file
+- Add support for the Spleen 8x16 font (requires libansilove >= 1.4.0)
+
+
+
 AnsiLove/C 4.1.7 (2023-03-30)
 
 - Always print processing time on stderr
