@@ -311,7 +311,7 @@ GitHub: https://github.com/ansilove/ansilove
 [15]: https://www.seasip.info/VintagePC/mda.html#memmap
 [16]: https://16colo.rs
 [17]: https://durdraw.org
-[19]: https://gitlab.com/xgqt/emacs-ansilove
+[18]: https://gitlab.com/xgqt/emacs-ansilove
 [19]: https://github.com/ByteProject
 [20]: https://github.com/bricas
 [21]: https://github.com/fcambus
