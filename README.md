@@ -94,6 +94,7 @@ Ansilove packages are available for:
 - [Solus][9]
 - [Gentoo][10]
 - [Homebrew][11]
+- [Guix][12]
 
 # Features
 
@@ -104,15 +105,15 @@ The following formats are supported:
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
 - .IDF - iCE Draw format, supporting custom character sets and palettes
-- .TND - [TundraDraw][12] format, supporting 24-bit color mode
-- .XB - The eXtended Binary [XBin][13] format, supporting custom character sets
+- .TND - [TundraDraw][13] format, supporting 24-bit color mode
+- .XB - The eXtended Binary [XBin][14] format, supporting custom character sets
   and palettes
 
 Files with custom suffix default to the ANSi renderer (e.g. ICE or CIA).
 
 AnsiLove/C is capable of processing:
 
-- [SAUCE][14] records
+- [SAUCE][15] records
 - DOS and Amiga fonts (embedded binary dump)
 - iCE colors
 
@@ -226,7 +227,7 @@ AMIGA fonts can be (all case-sensitive):
 Setting the bits to `9` will render the 9th column of block characters,
 so the output will look like it is displayed in real textmode.
 
-See the "Memory Map" section of the [Monochrome Display Adapter notes][15]
+See the "Memory Map" section of the [Monochrome Display Adapter notes][16]
 for more information.
 
 ## Rendering Mode
@@ -273,9 +274,9 @@ output, just set option `-s` for this purpose.
 
 # Projects using Ansilove
 
-- [16colo.rs][16] - ANSI/ASCII art archive
-- [Durdraw][17] - ASCII, Unicode and ANSI art editor for UNIX-like systems
-- [emacs-ansilove][18] - Display buffers as PNG images using ansilove
+- [16colo.rs][17] - ANSI/ASCII art archive
+- [Durdraw][18] - ASCII, Unicode and ANSI art editor for UNIX-like systems
+- [emacs-ansilove][19] - Display buffers as PNG images using ansilove
   inside GNU Emacs
 
 # License
@@ -285,8 +286,8 @@ AnsiLove/C is released under the BSD 2-Clause license. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][19]), Brian Cassidy
-([@bricas][20]) and Frederic Cambus ([@fcambus][21]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][20]), Brian Cassidy
+([@bricas][21]) and Frederic Cambus ([@fcambus][22]).
 
 # Resources
 
@@ -305,13 +306,14 @@ GitHub: https://github.com/ansilove/ansilove
 [9]: https://dev.getsol.us/source/ansilove/
 [10]: https://packages.gentoo.org/packages/media-gfx/ansilove
 [11]: https://formulae.brew.sh/formula/ansilove
-[12]: https://sourceforge.net/projects/tundradraw/
-[13]: https://github.com/radman1/xbin
-[14]: https://github.com/radman1/sauce
-[15]: https://www.seasip.info/VintagePC/mda.html#memmap
-[16]: https://16colo.rs
-[17]: https://durdraw.org
-[18]: https://gitlab.com/xgqt/emacs-ansilove
-[19]: https://github.com/ByteProject
-[20]: https://github.com/bricas
-[21]: https://github.com/fcambus
+[12]: https://packages.guix.gnu.org/packages/ansilove/
+[13]: https://sourceforge.net/projects/tundradraw/
+[14]: https://github.com/radman1/xbin
+[15]: https://github.com/radman1/sauce
+[16]: https://www.seasip.info/VintagePC/mda.html#memmap
+[17]: https://16colo.rs
+[18]: https://durdraw.org
+[19]: https://gitlab.com/xgqt/emacs-ansilove
+[20]: https://github.com/ByteProject
+[21]: https://github.com/bricas
+[22]: https://github.com/fcambus
