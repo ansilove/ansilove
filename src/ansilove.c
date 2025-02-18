@@ -135,6 +135,8 @@ main(int argc, char *argv[])
 				options.mode = ANSILOVE_MODE_TRANSPARENT;
 			} else if (!strcmp(optarg, "workbench")) {
 				options.mode = ANSILOVE_MODE_WORKBENCH;
+			} else if (!strcmp(optarg, "ansilove")) {
+				options.mode = ANSILOVE_MODE_ANSILOVE;
 			}
 			break;
 		case 'o':

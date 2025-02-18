@@ -160,6 +160,9 @@ Even more:
                  workbench
                          Use Amiga Workbench palette.
 
+                 ansiterm
+                         Use Atari ST ANSIterm palette.
+
      -o file     Specify output filename/path.
 
      -q          Suppress output messages (quiet).
