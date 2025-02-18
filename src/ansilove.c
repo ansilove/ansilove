@@ -296,6 +296,9 @@ main(int argc, char *argv[])
 
 				if (strcmp(record->tinfos, "Amiga Topaz 2+") == 0)
 					font = "topaz+";
+
+				if (strcmp(record->tinfos, "Atari ANSIterm") == 0)
+					font = "ansiterm";
 			}
 
 			if (usedSAUCE)
