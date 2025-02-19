@@ -222,6 +222,12 @@ AMIGA fonts can be (all case-sensitive):
 - `topaz500` (Original Topaz Kickstart 1.x version)
 - `topaz500+` (Modified Topaz Kickstart 1.x version)
 
+ATARI ST fonts can be (all case-sensitive):
+
+- `atari` (alias to ANSIterm)
+- `ansiterm` (Original ANSIterm font)
+
+
 ## Bits
 
 `bits` can be:
