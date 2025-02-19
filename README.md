@@ -160,8 +160,14 @@ Even more:
                  workbench
                          Use Amiga Workbench palette.
 
-                 ansiterm
-                         Use Atari ST ANSIterm palette.
+                 ansiterm1
+                         Use Atari ST ANSIterm #1 default palette.
+
+                 ansiterm3
+                         Use Atari ST ANSIterm #3 (intense) palette.
+
+                 fansi
+                         Use Atari ST FANSI palette.
 
      -o file     Specify output filename/path.
 
@@ -248,6 +254,9 @@ for more information.
 - `ced`
 - `transparent`
 - `workbench`
+- `ansiterm1`
+- `ansiterm3`
+- `fansi`
 
 Setting the mode to `ced` will cause the input file to be rendered
 in black on gray, and limit the output to 78 columns (only available
@@ -257,6 +266,14 @@ look like it is displayed on Amiga.
 Setting the mode to `workbench` will cause the input file to be
 rendered using Amiga Workbench colors (only available for `ANS`
 files).
+
+Setting the mode to `ansiterm1` or `ansiterm3` will cause the 
+input file to be rendered using one of two color palettes from the
+Atari ST's ANSIterm program (only available for `ANS` files).
+
+Setting the mode to `fansi` will cause the input file to be rendered 
+using colors from the Atari ST's FANSI program (only available for 
+`ANS` files).
 
 Settings the mode to `transparent` will produce output files with
 transparent background (only available for `ANS` files).
