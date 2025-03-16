@@ -275,8 +275,9 @@ output, just set option `-s` for this purpose.
 # Projects using Ansilove
 
 - [16colo.rs][17] - ANSI/ASCII art archive
-- [Durdraw][18] - ASCII, Unicode and ANSI art editor for UNIX-like systems
-- [emacs-ansilove][19] - Display buffers as PNG images using ansilove
+- [Textfiles.com][18] - Uses Ansilove for the ANSI Art Collection PNG previews
+- [Durdraw][19] - ASCII, Unicode and ANSI art editor for UNIX-like systems
+- [emacs-ansilove][20] - Display buffers as PNG images using ansilove
   inside GNU Emacs
 
 # License
@@ -286,8 +287,8 @@ AnsiLove/C is released under the BSD 2-Clause license. See the
 
 # Authors
 
-AnsiLove/C is developed by Stefan Vogt ([@ByteProject][20]), Brian Cassidy
-([@bricas][21]) and Frederic Cambus ([@fcambus][22]).
+AnsiLove/C is developed by Stefan Vogt ([@ByteProject][21]), Brian Cassidy
+([@bricas][22]) and Frederic Cambus ([@fcambus][23]).
 
 # Resources
 
@@ -312,8 +313,9 @@ GitHub: https://github.com/ansilove/ansilove
 [15]: https://github.com/radman1/sauce
 [16]: https://www.seasip.info/VintagePC/mda.html#memmap
 [17]: https://16colo.rs
-[18]: https://durdraw.org
-[19]: https://gitlab.com/xgqt/emacs-ansilove
-[20]: https://github.com/ByteProject
-[21]: https://github.com/bricas
-[22]: https://github.com/fcambus
+[18]: http://artscene.textfiles.com/ansi/
+[19]: https://durdraw.org
+[20]: https://gitlab.com/xgqt/emacs-ansilove
+[21]: https://github.com/ByteProject
+[22]: https://github.com/bricas
+[23]: https://github.com/fcambus
