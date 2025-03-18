@@ -203,6 +203,7 @@ PC fonts can be (all case-sensitive):
 - `cp865` Nordic (Code page 865)
 - `cp866` Russian (Code page 866)
 - `cp869` Greek (Code page 869)
+- `spleen` Spleen (Modern font, code page 437)
 - `terminus` Terminus (Modern font, code page 437)
 
 AMIGA fonts can be (all case-sensitive):
