@@ -1,3 +1,14 @@
+AnsiLove/C 4.2.1 (2025-03-24)
+
+- Add a link to Durdraw in the "Projects using Ansilove" section
+- Update README to add a link to the Guix package
+- Add Textfiles.com to the list of projects using Ansilove
+- Document support for the Spleen 8x16 font
+- Bump cmake_minimum_required to 3.5, to allow building with CMake 4.0
+- Bump cmake_minimum_required to 3.10 to be more future proof
+
+
+
 AnsiLove/C 4.2.0 (2023-05-23)
 
 - Add initial RPM spec file
