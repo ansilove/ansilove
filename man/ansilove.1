@@ -50,7 +50,8 @@ Tundra (.TND) and XBin (.XB) formats.
 .Pp
 It creates size optimized 4-bit PNG files and supports SAUCE (Standard
 Architecture for Universal Comment Extensions), 80x25 and 80x50 PC fonts
-(including all the 14 MS-DOS charsets), Amiga fonts, and iCE colors.
+(including all the 14 MS-DOS charsets), Amiga and Atari fonts, and 
+iCE colors.
 .Pp
 The options are as follows:
 .Bl -tag -width 10n
@@ -122,6 +123,14 @@ Original Topaz Kickstart 1.x version
 .It Ic topaz500+
 Modified Topaz Kickstart 1.x version
 .El
+.Pp
+Valid options for Atari ST fonts are:
+.Bl -tag -width Er
+.It Ic atari
+Alias to ANSIterm, see below
+.It Ic ansiterm
+Original ANSIterm font
+.El
 .It Fl h
 Show help.
 .It Fl i
@@ -137,6 +146,12 @@ Black on gray, with 78 columns.
 Render with transparent background.
 .It Ic workbench
 Use Amiga Workbench palette.
+.It Ic ansiterm1
+Use Atari ST ANSIterm #1 palette.
+.It Ic ansiterm3
+Use Atari ST ANSIterm #3 palette.
+.It Ic fansi
+Use Atari ST FANSI palette.
 .El
 .It Fl o Ar file
 Specify output filename/path.

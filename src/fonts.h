@@ -54,7 +54,9 @@ char *fonts[] = {
 	"topaz",
 	"topaz+",
 	"topaz500",
-	"topaz500+"
+	"topaz500+",
+	"atari",
+	"ansiterm"
 };
 
 int fontsId[] = {
@@ -96,7 +98,9 @@ int fontsId[] = {
 	ANSILOVE_FONT_TOPAZ,
 	ANSILOVE_FONT_TOPAZ_PLUS,
 	ANSILOVE_FONT_TOPAZ500,
-	ANSILOVE_FONT_TOPAZ500_PLUS
+	ANSILOVE_FONT_TOPAZ500_PLUS,
+	ANSILOVE_FONT_ANSITERM,			/* Alias: atari */
+	ANSILOVE_FONT_ANSITERM
 };
 
 #endif /* FONTS_H */
