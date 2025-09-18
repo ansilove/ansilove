@@ -15,15 +15,36 @@
         gd = pkgs.gd;
         libs = map lib.getLib [ libansilove gd pkgs.libpng pkgs.zlib ];
         devs = map lib.getDev [ libansilove gd pkgs.libpng pkgs.zlib ];
-      in {
+        cmakeTools = with pkgs; [
+          cmake
+          ninja
+          pkg-config
+          clang
+          clang-tools
+        ];
+      in rec {
+        packages = rec {
+          ansilove = pkgs.stdenv.mkDerivation {
+            pname = "ansilove";
+            version = self.shortRev or "dev";
+            src = self;
+
+            nativeBuildInputs = cmakeTools;
+            buildInputs = devs ++ libs;
+
+            cmakeFlags = [ "-DENABLE_SECCOMP=0" ];
+          };
+
+          default = ansilove;
+        };
+
+        apps.default = {
+          type = "app";
+          program = "${packages.default}/bin/ansilove";
+        };
+
         devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            cmake
-            ninja
-            pkg-config
-            clang
-            clang-tools
-          ];
+          nativeBuildInputs = cmakeTools;
           buildInputs = devs ++ libs;
           CMAKE_PREFIX_PATH = lib.makeSearchPath "" devs;
           CMAKE_LIBRARY_PATH = lib.makeSearchPath "lib" libs;
