@@ -6,6 +6,12 @@ AnsiLove/C keeps the CLI in `src/` (`ansilove.c`, `sauce.c`, helpers such as `st
 ## Build, Test, and Development Commands
 Configure once with `cmake -S . -B build [-DENABLE_SECCOMP=1]` to create a dedicated build tree. Compile via `cmake --build build`, which links against the system-provided `libansilove`. Run the binary locally with `build/ansilove foo.ans` to spot option regressions quickly. Exercise the suite using `ctest --test-dir build --output-on-failure`, covering ANSI, Artworx, BIN, PCBoard, Tundra, XBin, retina scaling, and SAUCE parsing.
 
+### Nix workflow
+- `nix develop` drops into a shell that wires `CMAKE_PREFIX_PATH`, `CMAKE_LIBRARY_PATH`, and `PKG_CONFIG_PATH` so CMake can find `libansilove`, `gd`, `libpng`, and `zlib` without Homebrew.
+- `nix run . -- -h` (or `nix run github:effect-native/ansilove -- -h`) uses the flake-provided package/app and skips manual builds.
+- `nix build .#default` produces the CLI in `./result/bin/ansilove`; git ignores `result`, `.cache`, `.direnv`, and the test PNGs.
+- `nix flake check --all-systems` succeeds after adding meta for the app; run it when touching the flake.
+
 ## Coding Style & Naming Conventions
 Stick to C99 and mirror the existing tab-based indentation with 80-column discipline. Functions use lower_snake_case, macros and constants stay in SCREAMING_SNAKE_CASE, and typedefs are declared in `types.h`. Keep include blocks grouped logically, prefer standard functions before adding compat variants, and respect the warning flags already set in `CMakeLists.txt`. Favor small, focused patches so reviewers can validate logic against the pedantic build.
 
