@@ -33,6 +33,14 @@
             buildInputs = devs ++ libs;
 
             cmakeFlags = [ "-DENABLE_SECCOMP=0" ];
+
+            meta = with lib; {
+              description = "ANSI and ASCII art to PNG converter";
+              homepage = "https://www.ansilove.org";
+              license = licenses.bsd2;
+              mainProgram = "ansilove";
+              platforms = platforms.unix;
+            };
           };
 
           default = ansilove;
@@ -41,6 +49,7 @@
         apps.default = {
           type = "app";
           program = "${packages.default}/bin/ansilove";
+          meta = packages.default.meta;
         };
 
         devShells.default = pkgs.mkShell {
