@@ -286,7 +286,7 @@ main(int argc, char *argv[])
 					font = "pot-noodle";
 
 				if (strcmp(record->tinfos, "Amiga Topaz 1") == 0)
-					font = " topaz500";
+					font = "topaz500";
 
 				if (strcmp(record->tinfos, "Amiga Topaz 1+") == 0)
 					font = "topaz500+";
