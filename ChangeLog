@@ -1,3 +1,11 @@
+AnsiLove/C 4.2.2 (2026-06-10)
+
+- Update README to add a link to the Nix package
+- Fix "Amiga Topaz 1" font selection from SAUCE metadata
+- Fix font table entry count to make topaz500+ reachable
+
+
+
 AnsiLove/C 4.2.1 (2025-03-24)
 
 - Add a link to Durdraw in the "Projects using Ansilove" section
