@@ -3,6 +3,7 @@ AnsiLove/C 4.2.2 (2026-06-10)
 - Update README to add a link to the Nix package
 - Fix "Amiga Topaz 1" font selection from SAUCE metadata
 - Fix font table entry count to make topaz500+ reachable
+  (Both issues were reported by Aaron Myles Landwehr, thanks!)
 
 
 
