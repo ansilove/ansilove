@@ -101,7 +101,8 @@ Ansilove packages are available for:
 
 The following formats are supported:
 
-- .ANS - ANSi (ANSI escape sequences: ANSI X3.64 standard)
+- .ANS - ANSi (ANSI escape sequences: ANSI X3.64 standard), including
+  PabloDraw 24-bit color sequences
 - .PCB - PCBoard Bulletin Board System (BBS) own file format
 - .BIN - Binary format (raw memory copy of text mode video memory)
 - .ADF - Artworx format, supporting custom character sets and palettes
