@@ -341,8 +341,18 @@ main(int argc, char *argv[])
 			errx(EXIT_FAILURE, "%s", ansilove_error(&ctx));
 
 		/* adjust the file size if file contains a SAUCE record */
-		if (fileHasSAUCE)
-			ctx.length -= 129 - (record->comments > 0 ? 5 + 64 * record->comments : 0);
+		if (fileHasSAUCE) {
+			size_t sauce_size = 128 + (record->comments > 0 ?
+			    5 + 64 * record->comments : 0);
+
+			if (sauce_size <= ctx.length) {
+				ctx.length -= sauce_size;
+
+				/* the EOF character is optional */
+				if (ctx.length && ctx.buffer[ctx.length - 1] == 0x1a)
+					ctx.length--;
+			}
+		}
 
 		int (*loader)(struct ansilove_ctx *, struct ansilove_options *) = NULL;
 
