@@ -459,8 +459,7 @@ main(int argc, char *argv[])
 
 	ansilove_clean(&ctx);
 
-	free(record->comment_lines);
-	free(record);
+	sauceFree(record);
 
 	return EXIT_SUCCESS;
 }

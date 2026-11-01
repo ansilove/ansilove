@@ -46,6 +46,23 @@ sauceReadFile(FILE *file)
 	return record;
 }
 
+/* Free a SAUCE record and its comment lines. */
+void
+sauceFree(struct sauce *record)
+{
+	if (record == NULL)
+		return;
+
+	if (record->comment_lines != NULL) {
+		for (int32_t i = 0; i < record->comments; i++)
+			free(record->comment_lines[i]);
+
+		free(record->comment_lines);
+	}
+
+	free(record);
+}
+
 #define READ_RECORD(record, size) \
 	read_status = fread(record, size, 1, file); \
 	if (read_status != 1) \
@@ -93,12 +110,19 @@ readRecord(FILE *file, struct sauce *record)
 	}
 
 	if (record->comments > 0) {
-		record->comment_lines = malloc(record->comments *sizeof (*record->comment_lines));
+		record->comment_lines = calloc(record->comments, sizeof (*record->comment_lines));
 
 		if (record->comment_lines != NULL) {
 			if (readComments(file, record->comment_lines, record->comments) == -1) {
+				for (int32_t i = 0; i < record->comments; i++)
+					free(record->comment_lines[i]);
+
+				free(record->comment_lines);
+				record->comment_lines = NULL;
 				record->comments = 0;
 			}
+		} else {
+			record->comments = 0;
 		}
 	}
 }

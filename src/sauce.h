@@ -46,6 +46,7 @@ struct sauce {
 
 struct sauce	*sauceReadFileName(char *);
 struct sauce	*sauceReadFile(FILE *);
+void		 sauceFree(struct sauce *);
 void		 readRecord(FILE *, struct sauce *);
 int		 readComments(FILE *, char **, int32_t);
 
