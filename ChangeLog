@@ -1,3 +1,13 @@
+AnsiLove/C 4.2.3 (2026-11-02)
+
+- Document support for PabloDraw 24-bit ANSI sequences
+- Add an IceDraw test file and register it with CTest
+- Use a distinct output filename for the Retina test
+- Fix a memory leak in SAUCE handling
+- Fix SAUCE reading with respect to file size and EOF markers
+
+
+
 AnsiLove/C 4.2.2 (2026-06-10)
 
 - Update README to add a link to the Nix package
