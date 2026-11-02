@@ -1,6 +1,6 @@
 /*
  * strtolower.c
- * Ansilove 4.2.2
+ * Ansilove 4.2.3
  * https://www.ansilove.org
  *
  * Copyright (c) 2011-2026 Stefan Vogt, Brian Cassidy, and Frederic Cambus
